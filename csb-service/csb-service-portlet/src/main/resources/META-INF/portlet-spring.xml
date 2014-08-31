@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.arman.csb.theme.service.ContentHolderLocalService" class="com.arman.csb.theme.service.impl.ContentHolderLocalServiceImpl" />
+	<bean id="com.arman.csb.theme.service.ContentHolderService" class="com.arman.csb.theme.service.impl.ContentHolderServiceImpl" />
+	<bean id="com.arman.csb.theme.service.persistence.ContentHolderPersistence" class="com.arman.csb.theme.service.persistence.ContentHolderPersistenceImpl" parent="basePersistence" />
+	<bean id="com.arman.csb.theme.service.MyPageLocalService" class="com.arman.csb.theme.service.impl.MyPageLocalServiceImpl" />
+	<bean id="com.arman.csb.theme.service.MyPageService" class="com.arman.csb.theme.service.impl.MyPageServiceImpl" />
+	<bean id="com.arman.csb.theme.service.TemplateLocalService" class="com.arman.csb.theme.service.impl.TemplateLocalServiceImpl" />
+	<bean id="com.arman.csb.theme.service.TemplateService" class="com.arman.csb.theme.service.impl.TemplateServiceImpl" />
+	<bean id="com.arman.csb.theme.service.persistence.TemplatePersistence" class="com.arman.csb.theme.service.persistence.TemplatePersistenceImpl" parent="basePersistence" />
+</beans>

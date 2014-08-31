@@ -1,0 +1,1 @@
+Liferay.Service.register("Liferay.Service.csb", "com.arman.csb.theme.service", "csb-service-portlet");
