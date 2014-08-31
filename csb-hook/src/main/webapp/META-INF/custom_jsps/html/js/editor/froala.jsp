@@ -121,7 +121,6 @@
             imageUploadParams:{id:"my_editor"},
             imageErrorCallback:function (errors) {
                 alert(errors.code);
-                alert("salam");
             }
         });
 
