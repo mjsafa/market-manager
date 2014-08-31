@@ -1,0 +1,4 @@
+<service-builder package-path="com.arman.csb.modules">
+    <namespace>CSB</namespace>
+    <service-builder-import file="service-def/my-blog-service.xml" />
+</service-builder>

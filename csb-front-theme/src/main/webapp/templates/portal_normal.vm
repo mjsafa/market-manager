@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+    #parse ($init)
+
+#set ($layoutId = $themeDisplay.getPlid())
+
+    #set($myPageService = $serviceLocator.findService("csb-service-portlet", "com.arman.csb.theme.service.MyPageLocalService"))
+
+    #set($pageContent = $myPageService.renderPageHTML($layoutId))
+
+$pageContent
