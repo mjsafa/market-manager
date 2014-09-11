@@ -1,3 +1,5 @@
+create index IX_36E94CF2 on CSBModules_MyBlog ();
+
 create index IX_2F992C29 on CSB_ContentHolder (companyId, name);
 create index IX_C41B4A76 on CSB_ContentHolder (uuid_);
 create index IX_F02EB3F2 on CSB_ContentHolder (uuid_, companyId);

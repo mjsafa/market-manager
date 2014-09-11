@@ -1,5 +1,12 @@
 package com.arman.csb.modules.service.http;
 
+import com.arman.csb.modules.service.MyBlogServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link com.arman.csb.modules.service.MyBlogServiceUtil} service utility. The
@@ -30,4 +37,21 @@ package com.arman.csb.modules.service.http;
  * @generated
  */
 public class MyBlogServiceSoap {
+    private static Log _log = LogFactoryUtil.getLog(MyBlogServiceSoap.class);
+
+    public static java.lang.String getLatestBlogEntries(
+        java.lang.String blogName, int status, int start, int end,
+        java.lang.String tags, java.lang.String categories)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONArray returnValue = MyBlogServiceUtil.getLatestBlogEntries(blogName,
+                    status, start, end, tags, categories);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

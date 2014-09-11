@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+    <sql id="com.arman.csb.modules.service.MyBlogService.getGroupBlogs">
+        <![CDATA[
+        SELECT  distinct BlogsEntry.* FROM BlogsEntry
+
+        LEFT OUTER JOIN
+        (
+            SELECT AssetEntry.classPK, AssetCategory.name FROM AssetEntry
+
+            INNER JOIN AssetEntries_AssetCategories  ON AssetEntries_AssetCategories.entryId = AssetEntry.entryId
+
+            INNER JOIN AssetCategory ON AssetCategory.categoryId = AssetEntries_AssetCategories.categoryId
+        ) AS cat ON BlogsEntry.entryId =cat.classPK
+
+        LEFT OUTER JOIN
+        (
+            SELECT AssetEntry.classPK, AssetTag.name FROM AssetEntry
+
+            INNER JOIN AssetEntries_AssetTags ON AssetEntries_AssetTags.entryId = AssetEntry.entryId
+
+            INNER JOIN AssetTag ON AssetTag.tagId = AssetEntries_AssetTags.tagId
+        ) AS tgs ON tgs.classPK = BlogsEntry.entryId
+
+        WHERE
+
+            (cat.name IN (?) OR tgs.name in (?) OR ?=true) AND
+            (BlogsEntry.groupId = ?) AND
+            (BlogsEntry.status = ?)  AND
+            (BlogsEntry.companyId = ?)
+
+
+    ]]>
+    </sql>
+
+</custom-sql>

@@ -44,6 +44,14 @@ public class MyBlogLocalServiceWrapper implements MyBlogLocalService,
         return _myBlogLocalService.invokeMethod(name, parameterTypes, arguments);
     }
 
+    @Override
+    public java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> findGroupEntries(
+        long companyId, long groupId, int status, int start, int end,
+        java.lang.String tags, java.lang.String categories) {
+        return _myBlogLocalService.findGroupEntries(companyId, groupId, status,
+            start, end, tags, categories);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

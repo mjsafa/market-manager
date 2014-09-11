@@ -22,7 +22,6 @@
                 <version>${liferay.version}</version>
                 <configuration>
                     <apiDir>${basedir}/../csb-service-api/src/main/java</apiDir>
-                    <serverConfigFileName>${basedir}/src/main/webapp/WEB-INF/Service-def</serverConfigFileName>
                 </configuration>
             </plugin>
             <plugin>
@@ -45,6 +44,17 @@
 
     </build>
     <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>portal-impl</artifactId>
+            <version>${liferay.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>com.liferay.portal</groupId>
             <artifactId>portal-service</artifactId>

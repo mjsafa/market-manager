@@ -1,8 +1,10 @@
-<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
 
 <service-builder package-path="com.arman.csb.modules.service">
 
     <entity name="MyBlog" local-service="true" remote-service="true" tx-manager="none">
-	</entity>
+        <reference  package-path="com.liferay.portlet.blogs" entity="BlogsEntry"></reference>
+    </entity>
 
 </service-builder>

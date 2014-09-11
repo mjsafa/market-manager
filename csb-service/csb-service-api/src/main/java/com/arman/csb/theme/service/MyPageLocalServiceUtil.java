@@ -51,7 +51,8 @@ public class MyPageLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
-    public static java.lang.String renderPageHTML(long pageId) {
+    public static java.util.Map<java.lang.String, java.lang.String> renderPageHTML(
+        long pageId) {
         return getService().renderPageHTML(pageId);
     }
 

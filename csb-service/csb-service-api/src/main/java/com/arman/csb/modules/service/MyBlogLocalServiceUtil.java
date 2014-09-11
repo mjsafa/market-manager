@@ -51,6 +51,14 @@ public class MyBlogLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> findGroupEntries(
+        long companyId, long groupId, int status, int start, int end,
+        java.lang.String tags, java.lang.String categories) {
+        return getService()
+                   .findGroupEntries(companyId, groupId, status, start, end,
+            tags, categories);
+    }
+
     public static void clearService() {
         _service = null;
     }

@@ -74,7 +74,7 @@ public class ClpSerializer {
             }
 
             if (Validator.isNull(_servletContextName)) {
-                _servletContextName = "csb-service-portlet";
+                _servletContextName = "csb-modules-service-portlet";
             }
 
             return _servletContextName;

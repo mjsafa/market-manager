@@ -45,7 +45,8 @@ public class MyPageLocalServiceWrapper implements MyPageLocalService,
     }
 
     @Override
-    public java.lang.String renderPageHTML(long pageId) {
+    public java.util.Map<java.lang.String, java.lang.String> renderPageHTML(
+        long pageId) {
         return _myPageLocalService.renderPageHTML(pageId);
     }
 

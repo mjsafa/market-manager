@@ -2,10 +2,38 @@
 
     #parse ($init)
 
-#set ($layoutId = $themeDisplay.getPlid())
+    #set ($layoutId = $themeDisplay.getPlid())
 
     #set($myPageService = $serviceLocator.findService("csb-service-portlet", "com.arman.csb.theme.service.MyPageLocalService"))
 
     #set($pageContent = $myPageService.renderPageHTML($layoutId))
 
-$pageContent
+<html>
+<head>
+    $theme.include($top_head_include)
+
+
+
+##Render Head Tag Content Of Template
+    $pageContent.head
+
+    #parse ("$full_templates_path/header-js.vm")
+</head>
+
+<body class="$pageContent.bodyClassName">
+    $theme.include($body_top_include)
+##Render body of page
+$pageContent.body
+
+$theme.include($body_bottom_include)
+$theme.include($bottom_include)
+##parse("$full_templates_path/footer-js.vm")
+</body>
+
+</html>
+
+
+
+
+
+

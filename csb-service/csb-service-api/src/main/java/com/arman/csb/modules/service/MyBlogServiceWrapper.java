@@ -44,6 +44,16 @@ public class MyBlogServiceWrapper implements MyBlogService,
         return _myBlogService.invokeMethod(name, parameterTypes, arguments);
     }
 
+    @Override
+    public com.liferay.portal.kernel.json.JSONArray getLatestBlogEntries(
+        java.lang.String blogName, int status, int start, int end,
+        java.lang.String tags, java.lang.String categories)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _myBlogService.getLatestBlogEntries(blogName, status, start,
+            end, tags, categories);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

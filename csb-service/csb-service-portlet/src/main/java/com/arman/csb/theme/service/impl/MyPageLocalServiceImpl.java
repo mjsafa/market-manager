@@ -30,8 +30,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 /**
  * The implementation of the my page local service.
@@ -62,13 +64,14 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
     private static final String PAGE_DIRECTORY = "pages";
     private static final String CONTENT_TAG_NAME = "content";
     private static final String FILE_SYSTEM_RELATIVE_PATH = PortletProps.get("site.files.path");
+    private static final String MODULE_NAMESPACE = "module";
 
 
     private static final Long REPOSITORY_ID = 23L;
 
 
 
-    public String renderPageHTML(long pageId){
+    public Map<String, String> renderPageHTML(long pageId){
         try {
             Layout layout =  LayoutLocalServiceUtil.getLayout(pageId);
             Long templateId = (Long)layout.getExpandoBridge().getAttribute("templateId");
@@ -102,7 +105,14 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
             JsoupUtil.prependValueToProperty(templateDoc, "link", "href", resourcesBaseUrl , true);
             JsoupUtil.prependValueToProperty(templateDoc, "script[src]", "src", resourcesBaseUrl , true);
 
-            return templateDoc.outerHtml();
+            replaceModuleTags(templateDoc);
+
+            Map<String, String> result = new HashMap<String, String>();
+            result.put("head", templateDoc.head().html());
+            result.put("body", templateDoc.body().html());
+            result.put("bodyClassName", templateDoc.body().className());
+
+            return result;
 
         } catch (PortalException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -113,8 +123,10 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
         }
 
         //return html page for error
-        return "";
+        return new HashMap<String, String>();
     }
+
+
 
 
     private String getContent(long companyId, long repositoryId , String directory, String fileName){
@@ -173,6 +185,22 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
 
                 JsoupUtil.replaceTag(contentHolder, "DIV", contentHolderHTML);
             }
+        }
+    }
+
+
+    private void replaceModuleTags(Document document){
+        String[] moduleNames = {"blogPosts"};
+
+
+        for (String moduleName : moduleNames) {
+            Elements moduleElements = document.select( MODULE_NAMESPACE + "|" + moduleName);
+            for (Element moduleElement : moduleElements) {
+                moduleElement.tagName("script");
+                moduleElement.attr("data-moduleName" , moduleName);
+                moduleElement.attr("type" , "text/template");
+            }
+
         }
     }
 

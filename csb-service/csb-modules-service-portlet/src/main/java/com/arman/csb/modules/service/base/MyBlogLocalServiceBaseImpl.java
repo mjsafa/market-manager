@@ -11,6 +11,8 @@ import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.service.BaseLocalServiceImpl;
 import com.liferay.portal.service.persistence.UserPersistence;
 
+import com.liferay.portlet.blogs.service.persistence.BlogsEntryPersistence;
+
 import javax.sql.DataSource;
 
 /**
@@ -41,6 +43,12 @@ public abstract class MyBlogLocalServiceBaseImpl extends BaseLocalServiceImpl
     protected com.liferay.portal.service.UserService userService;
     @BeanReference(type = UserPersistence.class)
     protected UserPersistence userPersistence;
+    @BeanReference(type = com.liferay.portlet.blogs.service.BlogsEntryLocalService.class)
+    protected com.liferay.portlet.blogs.service.BlogsEntryLocalService blogsEntryLocalService;
+    @BeanReference(type = com.liferay.portlet.blogs.service.BlogsEntryService.class)
+    protected com.liferay.portlet.blogs.service.BlogsEntryService blogsEntryService;
+    @BeanReference(type = BlogsEntryPersistence.class)
+    protected BlogsEntryPersistence blogsEntryPersistence;
     private String _beanIdentifier;
     private ClassLoader _classLoader;
     private MyBlogLocalServiceClpInvoker _clpInvoker = new MyBlogLocalServiceClpInvoker();
@@ -181,6 +189,63 @@ public abstract class MyBlogLocalServiceBaseImpl extends BaseLocalServiceImpl
      */
     public void setUserPersistence(UserPersistence userPersistence) {
         this.userPersistence = userPersistence;
+    }
+
+    /**
+     * Returns the blogs entry local service.
+     *
+     * @return the blogs entry local service
+     */
+    public com.liferay.portlet.blogs.service.BlogsEntryLocalService getBlogsEntryLocalService() {
+        return blogsEntryLocalService;
+    }
+
+    /**
+     * Sets the blogs entry local service.
+     *
+     * @param blogsEntryLocalService the blogs entry local service
+     */
+    public void setBlogsEntryLocalService(
+        com.liferay.portlet.blogs.service.BlogsEntryLocalService blogsEntryLocalService) {
+        this.blogsEntryLocalService = blogsEntryLocalService;
+    }
+
+    /**
+     * Returns the blogs entry remote service.
+     *
+     * @return the blogs entry remote service
+     */
+    public com.liferay.portlet.blogs.service.BlogsEntryService getBlogsEntryService() {
+        return blogsEntryService;
+    }
+
+    /**
+     * Sets the blogs entry remote service.
+     *
+     * @param blogsEntryService the blogs entry remote service
+     */
+    public void setBlogsEntryService(
+        com.liferay.portlet.blogs.service.BlogsEntryService blogsEntryService) {
+        this.blogsEntryService = blogsEntryService;
+    }
+
+    /**
+     * Returns the blogs entry persistence.
+     *
+     * @return the blogs entry persistence
+     */
+    public BlogsEntryPersistence getBlogsEntryPersistence() {
+        return blogsEntryPersistence;
+    }
+
+    /**
+     * Sets the blogs entry persistence.
+     *
+     * @param blogsEntryPersistence the blogs entry persistence
+     */
+    public void setBlogsEntryPersistence(
+        BlogsEntryPersistence blogsEntryPersistence) {
+        this.blogsEntryPersistence = blogsEntryPersistence;
     }
 
     public void afterPropertiesSet() {

@@ -48,4 +48,8 @@ public interface MyBlogLocalService extends BaseLocalService,
     public java.lang.Object invokeMethod(java.lang.String name,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
+
+    public java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> findGroupEntries(
+        long companyId, long groupId, int status, int start, int end,
+        java.lang.String tags, java.lang.String categories);
 }

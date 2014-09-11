@@ -1,0 +1,14 @@
+<script src="$javascript_folder/common/server.js?t=$theme_timestamp" type="text/javascript"></script>
+<script src="$javascript_folder/common/server/core-services.js?t=$theme_timestamp" type="text/javascript"></script>
+
+
+<script src="$javascript_folder/common/util.js?t=$theme_timestamp" type="text/javascript"></script>
+
+<script src="$javascript_folder/views/appView.js?t=$theme_timestamp" type="text/javascript"></script>
+<script src="$javascript_folder/views/blogEntryView.js?t=$theme_timestamp" type="text/javascript"></script>
+<script src="$javascript_folder/models/BlogEntry.js?t=$theme_timestamp" type="text/javascript"></script>
+<script src="$javascript_folder/collections/BlogEntries.js?t=$theme_timestamp" type="text/javascript"></script>
+
+<script src="$javascript_folder/models/BlogEntry.js?t=$theme_timestamp" type="text/javascript"></script>
+
+<script src="$javascript_folder/app.js?t=$theme_timestamp" type="text/javascript"></script>

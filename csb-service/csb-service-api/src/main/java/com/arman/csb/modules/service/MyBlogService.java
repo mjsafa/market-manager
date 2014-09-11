@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.security.ac.AccessControlled;
 import com.liferay.portal.service.BaseService;
@@ -20,7 +21,7 @@ import com.liferay.portal.service.InvokableService;
  * @see com.arman.csb.modules.service.impl.MyBlogServiceImpl
  * @generated
  */
-@AccessControlled
+@AccessControlled(guestAccessEnabled = true)
 @JSONWebService
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
     PortalException.class, SystemException.class}
@@ -50,4 +51,12 @@ public interface MyBlogService extends BaseService, InvokableService {
     public java.lang.Object invokeMethod(java.lang.String name,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
+
+    @AccessControlled(guestAccessEnabled = true)
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.liferay.portal.kernel.json.JSONArray getLatestBlogEntries(
+        java.lang.String blogName, int status, int start, int end,
+        java.lang.String tags, java.lang.String categories)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
 }
