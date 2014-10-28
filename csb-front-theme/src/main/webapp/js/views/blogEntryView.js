@@ -4,13 +4,9 @@ var app = app || {};
 (function ($) {
 	'use strict';
 
-	// Todo Item View
-	// --------------
-
-	// The DOM element for a todo item...
 	app.BlogEntryView = Backbone.View.extend({
 		//... is a list tag.
-		tagName:  'li',
+		tagName:  'div',
 
 		// Cache the template function for a single item.
 		template: _.template($('#blog-post-template').html()),
@@ -19,7 +15,6 @@ var app = app || {};
 
 		},
 
-		// Re-render the titles of the todo item.
 		render: function () {
 			this.$el.html(this.template(this.model.toJSON()));
 			return this;

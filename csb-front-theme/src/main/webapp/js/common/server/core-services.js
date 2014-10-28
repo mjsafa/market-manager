@@ -1,29 +1,30 @@
 var serverAPI = serverAPI || {};
+CONFIG = {
+		baseUrl : '/api/jsonws'
+	};
+	
+	
 serverAPI.System = {
-    Blog:{
-        findGroupEntries:function (siteId, first, count, status, callback) {
-            var _callback = {};
+	Blog:{
+        findGroupEntries:function (siteName, first, count, status, tags, categories, options) {
+            var optionArg = {};
+			options.method = "get-latest-blog-entries";
+            optionArg.recentDaysCount = options.recentDaysCount;
+            return callServiceByUrl(CONFIG.baseUrl + '/csb-modules-service-portlet.myblog/get-latest-blog-entries', {
+                "blogName":siteName,
+                "status":status,
+                "start":first,
+                "end":first + count,
+                "tags":tags,
+                "categories":categories,
+                "options":optionArg
+            }, options);
+        },
 
-            if (callback == undefined) {
-                _callback = {
-                    success:function (res) {
-                        return res;
-                    },
-                    error:function (res) {
-                        alert(res);
-                    }
-                };
-            }else{
-                _callback = callback;
-            }
-
-            callServiceByUrl('/blogsentry/get-group-entries', {
-                groupId:siteId,
-                status:status,
-                start:first,
-                end:first + count
-            }, _callback);
-
+        getBlog:function (postId, options) {
+            return callServiceByUrl(CONFIG.baseUrl + '/csb-modules-service-portlet.myblog/get-entry', {
+                entryId:postId
+            }, options);
         }
     }
 };
