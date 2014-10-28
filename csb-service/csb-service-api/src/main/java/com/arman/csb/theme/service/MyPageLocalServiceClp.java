@@ -78,7 +78,7 @@ public class MyPageLocalServiceClp implements MyPageLocalService {
     }
 
     @Override
-    public java.util.Map<java.lang.String, java.lang.String> renderPageHTML(
+    public java.util.Map<java.lang.String, java.lang.Object> renderPageHTML(
         long pageId) {
         Object returnObj = null;
 
@@ -96,6 +96,6 @@ public class MyPageLocalServiceClp implements MyPageLocalService {
             }
         }
 
-        return (java.util.Map<java.lang.String, java.lang.String>) ClpSerializer.translateOutput(returnObj);
+        return (java.util.Map<java.lang.String, java.lang.Object>) ClpSerializer.translateOutput(returnObj);
     }
 }

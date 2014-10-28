@@ -1,22 +1,19 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.modules.model.MyBlogDTO;
 import com.arman.csb.modules.service.base.MyBlogLocalServiceBaseImpl;
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
-import com.liferay.portal.kernel.dao.orm.QueryPos;
-import com.liferay.portal.kernel.dao.orm.SQLQuery;
-import com.liferay.portal.kernel.dao.orm.Session;
-import com.liferay.portal.kernel.dao.orm.SessionFactory;
-import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
-import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.dao.orm.*;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
-import com.liferay.portal.service.PortletServiceUtil;
 import com.liferay.portlet.blogs.model.BlogsEntry;
-import com.liferay.portlet.blogs.model.impl.BlogsEntryImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The implementation of the my blog local service.
@@ -39,7 +36,7 @@ public class MyBlogLocalServiceImpl extends MyBlogLocalServiceBaseImpl {
      * Never reference this interface directly. Always use {@link com.arman.csb.modules.service.MyBlogLocalServiceUtil} to access the my blog local service.
      */
 
-    public List<BlogsEntry> findGroupEntries(long  companyId, long groupId, int status, int start, int end, String tags, String categories) {
+    public List<MyBlogDTO> findGroupEntries(long companyId, long groupId, int status, int start, int end, String tags, String categories, Map<String, Object> options) {
 
         String[] categoryNames = (!StringUtils.isBlank(categories)) ? categories.split(",") : ArrayUtils.EMPTY_STRING_ARRAY;
         String[] tagNames = (!StringUtils.isBlank(tags)) ? tags.split(",") : ArrayUtils.EMPTY_STRING_ARRAY;
@@ -57,6 +54,9 @@ public class MyBlogLocalServiceImpl extends MyBlogLocalServiceBaseImpl {
             SQLQuery queryObject = session.createSQLQuery(sql);
             queryObject.setCacheable(false);
             queryObject.addEntity("BlogsEntry",PortalClassLoaderUtil.getClassLoader().loadClass("com.liferay.portlet.blogs.model.impl.BlogsEntryImpl"));
+
+            queryObject.addScalar("commentCount", Type.INTEGER);
+
             QueryPos qPos = QueryPos.getInstance(queryObject);
             qPos.add(categories.split(","));
             qPos.add(tags.split(","));
@@ -68,10 +68,26 @@ public class MyBlogLocalServiceImpl extends MyBlogLocalServiceBaseImpl {
             qPos.add(status);
             qPos.add(companyId);
 
+
+            qPos.add(options.get("dateFrom") == null ? null : "not_null");
+            qPos.add(options.get("dateFrom") == null ? new Date() : options.get("dateFrom"));
+
+            qPos.add(options.get("dateTo") == null ? null : "not_null");
+            qPos.add(options.get("dateTo") == null ? new Date() : options.get("dateTo"));
+
             queryObject.setFirstResult(start);
             queryObject.setMaxResults(end - start);
 
-            return (List<BlogsEntry>) queryObject.list();
+            List<MyBlogDTO> finalResult = new ArrayList<MyBlogDTO>();
+            List<Object[]> queryResult = queryObject.list();
+            for (Object[] objects : queryResult) {
+                MyBlogDTO myBlogDTO = new MyBlogDTO();
+                myBlogDTO.setEntry((BlogsEntry)objects[0]);
+                myBlogDTO.setCommentCount((Integer)objects[1]);
+                finalResult.add(myBlogDTO);
+            }
+
+            return finalResult;
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {

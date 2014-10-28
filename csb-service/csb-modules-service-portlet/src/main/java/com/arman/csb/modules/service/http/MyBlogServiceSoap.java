@@ -39,15 +39,12 @@ import java.rmi.RemoteException;
 public class MyBlogServiceSoap {
     private static Log _log = LogFactoryUtil.getLog(MyBlogServiceSoap.class);
 
-    public static java.lang.String getLatestBlogEntries(
-        java.lang.String blogName, int status, int start, int end,
-        java.lang.String tags, java.lang.String categories)
-        throws RemoteException {
+    public static com.liferay.portlet.blogs.model.BlogsEntry getEntry(
+        long entryId) throws RemoteException {
         try {
-            com.liferay.portal.kernel.json.JSONArray returnValue = MyBlogServiceUtil.getLatestBlogEntries(blogName,
-                    status, start, end, tags, categories);
+            com.liferay.portlet.blogs.model.BlogsEntry returnValue = MyBlogServiceUtil.getEntry(entryId);
 
-            return returnValue.toString();
+            return returnValue;
         } catch (Exception e) {
             _log.error(e, e);
 

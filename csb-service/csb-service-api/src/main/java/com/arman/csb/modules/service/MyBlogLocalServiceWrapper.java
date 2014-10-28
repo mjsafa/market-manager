@@ -45,11 +45,12 @@ public class MyBlogLocalServiceWrapper implements MyBlogLocalService,
     }
 
     @Override
-    public java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> findGroupEntries(
+    public java.util.List<com.arman.csb.modules.model.MyBlogDTO> findGroupEntries(
         long companyId, long groupId, int status, int start, int end,
-        java.lang.String tags, java.lang.String categories) {
+        java.lang.String tags, java.lang.String categories,
+        java.util.Map<java.lang.String, java.lang.Object> options) {
         return _myBlogLocalService.findGroupEntries(companyId, groupId, status,
-            start, end, tags, categories);
+            start, end, tags, categories, options);
     }
 
     /**

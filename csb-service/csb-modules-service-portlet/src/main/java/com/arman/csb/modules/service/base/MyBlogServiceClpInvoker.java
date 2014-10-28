@@ -15,6 +15,8 @@ public class MyBlogServiceClpInvoker {
     private String[] _methodParameterTypes23;
     private String _methodName26;
     private String[] _methodParameterTypes26;
+    private String _methodName27;
+    private String[] _methodParameterTypes27;
 
     public MyBlogServiceClpInvoker() {
         _methodName22 = "getBeanIdentifier";
@@ -25,11 +27,15 @@ public class MyBlogServiceClpInvoker {
 
         _methodParameterTypes23 = new String[] { "java.lang.String" };
 
-        _methodName26 = "getLatestBlogEntries";
+        _methodName26 = "getEntry";
 
-        _methodParameterTypes26 = new String[] {
+        _methodParameterTypes26 = new String[] { "long" };
+
+        _methodName27 = "getLatestBlogEntries";
+
+        _methodParameterTypes27 = new String[] {
                 "java.lang.String", "int", "int", "int", "java.lang.String",
-                "java.lang.String"
+                "java.lang.String", "java.util.Map"
             };
     }
 
@@ -49,11 +55,18 @@ public class MyBlogServiceClpInvoker {
 
         if (_methodName26.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes26, parameterTypes)) {
+            return MyBlogServiceUtil.getEntry(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName27.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
             return MyBlogServiceUtil.getLatestBlogEntries((java.lang.String) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue(),
                 ((Integer) arguments[3]).intValue(),
-                (java.lang.String) arguments[4], (java.lang.String) arguments[5]);
+                (java.lang.String) arguments[4],
+                (java.lang.String) arguments[5],
+                (java.util.Map<java.lang.String, java.lang.Object>) arguments[6]);
         }
 
         throw new UnsupportedOperationException();

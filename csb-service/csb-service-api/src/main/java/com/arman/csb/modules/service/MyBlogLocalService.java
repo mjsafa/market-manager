@@ -49,7 +49,8 @@ public interface MyBlogLocalService extends BaseLocalService,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
 
-    public java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> findGroupEntries(
+    public java.util.List<com.arman.csb.modules.model.MyBlogDTO> findGroupEntries(
         long companyId, long groupId, int status, int start, int end,
-        java.lang.String tags, java.lang.String categories);
+        java.lang.String tags, java.lang.String categories,
+        java.util.Map<java.lang.String, java.lang.Object> options);
 }

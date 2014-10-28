@@ -51,14 +51,22 @@ public class MyBlogServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static com.liferay.portlet.blogs.model.BlogsEntry getEntry(
+        long entryId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().getEntry(entryId);
+    }
+
     public static com.liferay.portal.kernel.json.JSONArray getLatestBlogEntries(
         java.lang.String blogName, int status, int start, int end,
-        java.lang.String tags, java.lang.String categories)
+        java.lang.String tags, java.lang.String categories,
+        java.util.Map<java.lang.String, java.lang.Object> options)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return getService()
                    .getLatestBlogEntries(blogName, status, start, end, tags,
-            categories);
+            categories, options);
     }
 
     public static void clearService() {

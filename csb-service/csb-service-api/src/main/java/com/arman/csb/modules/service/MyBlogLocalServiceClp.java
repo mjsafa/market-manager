@@ -30,7 +30,7 @@ public class MyBlogLocalServiceClp implements MyBlogLocalService {
 
         _methodParameterTypes3 = new String[] {
                 "long", "long", "int", "int", "int", "java.lang.String",
-                "java.lang.String"
+                "java.lang.String", "java.util.Map"
             };
     }
 
@@ -81,9 +81,10 @@ public class MyBlogLocalServiceClp implements MyBlogLocalService {
     }
 
     @Override
-    public java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> findGroupEntries(
+    public java.util.List<com.arman.csb.modules.model.MyBlogDTO> findGroupEntries(
         long companyId, long groupId, int status, int start, int end,
-        java.lang.String tags, java.lang.String categories) {
+        java.lang.String tags, java.lang.String categories,
+        java.util.Map<java.lang.String, java.lang.Object> options) {
         Object returnObj = null;
 
         try {
@@ -102,7 +103,9 @@ public class MyBlogLocalServiceClp implements MyBlogLocalService {
                         
                     ClpSerializer.translateInput(tags),
                         
-                    ClpSerializer.translateInput(categories)
+                    ClpSerializer.translateInput(categories),
+                        
+                    ClpSerializer.translateInput(options)
                     });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
@@ -115,6 +118,6 @@ public class MyBlogLocalServiceClp implements MyBlogLocalService {
             }
         }
 
-        return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>) ClpSerializer.translateOutput(returnObj);
+        return (java.util.List<com.arman.csb.modules.model.MyBlogDTO>) ClpSerializer.translateOutput(returnObj);
     }
 }

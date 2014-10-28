@@ -45,13 +45,21 @@ public class MyBlogServiceWrapper implements MyBlogService,
     }
 
     @Override
+    public com.liferay.portlet.blogs.model.BlogsEntry getEntry(long entryId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _myBlogService.getEntry(entryId);
+    }
+
+    @Override
     public com.liferay.portal.kernel.json.JSONArray getLatestBlogEntries(
         java.lang.String blogName, int status, int start, int end,
-        java.lang.String tags, java.lang.String categories)
+        java.lang.String tags, java.lang.String categories,
+        java.util.Map<java.lang.String, java.lang.Object> options)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return _myBlogService.getLatestBlogEntries(blogName, status, start,
-            end, tags, categories);
+            end, tags, categories, options);
     }
 
     /**

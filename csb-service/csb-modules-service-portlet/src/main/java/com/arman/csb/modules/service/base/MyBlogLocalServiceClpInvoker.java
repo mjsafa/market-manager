@@ -29,7 +29,7 @@ public class MyBlogLocalServiceClpInvoker {
 
         _methodParameterTypes26 = new String[] {
                 "long", "long", "int", "int", "int", "java.lang.String",
-                "java.lang.String"
+                "java.lang.String", "java.util.Map"
             };
     }
 
@@ -54,7 +54,9 @@ public class MyBlogLocalServiceClpInvoker {
                 ((Integer) arguments[2]).intValue(),
                 ((Integer) arguments[3]).intValue(),
                 ((Integer) arguments[4]).intValue(),
-                (java.lang.String) arguments[5], (java.lang.String) arguments[6]);
+                (java.lang.String) arguments[5],
+                (java.lang.String) arguments[6],
+                (java.util.Map<java.lang.String, java.lang.Object>) arguments[7]);
         }
 
         throw new UnsupportedOperationException();

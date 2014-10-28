@@ -2,7 +2,7 @@
 <custom-sql>
     <sql id="com.arman.csb.modules.service.MyBlogService.getGroupBlogs">
         <![CDATA[
-        SELECT  distinct BlogsEntry.* FROM BlogsEntry
+        SELECT  distinct BlogsEntry.* , commentCNT.cnt as commentCount FROM BlogsEntry
 
         LEFT OUTER JOIN
         (
@@ -22,12 +22,19 @@
             INNER JOIN AssetTag ON AssetTag.tagId = AssetEntries_AssetTags.tagId
         ) AS tgs ON tgs.classPK = BlogsEntry.entryId
 
+        LEFT OUTER JOIN
+        (
+            SELECT MBMessage.classPK , count(*) AS cnt FROM MBMessage GROUP BY classPK
+        ) AS commentCNT ON commentCNT.classPK = BlogsEntry.entryId
+
         WHERE
 
             (cat.name IN (?) OR tgs.name in (?) OR ?=true) AND
             (BlogsEntry.groupId = ?) AND
             (BlogsEntry.status = ?)  AND
-            (BlogsEntry.companyId = ?)
+            (BlogsEntry.companyId = ?) AND
+            (? IS NULL OR BlogsEntry.displayDate > ?) AND
+            (? IS NULL OR BlogsEntry.displayDate < ?)
 
 
     ]]>

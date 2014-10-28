@@ -48,11 +48,13 @@ public class JsoupUtil {
                 }
             }
 
-            attrValue  = prependValue + attrValue;
+            if(!attrValue.startsWith("<%")){
+                attrValue  = prependValue + attrValue;
 
-            //do not change absolute paths
-            if(!attrValue.contains("://")){
-                element.attr(attributeName, attrValue);
+                //do not change absolute paths
+                if(!attrValue.contains("://") ){
+                    element.attr(attributeName, attrValue);
+                }
             }
         }
     }

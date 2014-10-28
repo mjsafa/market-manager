@@ -54,9 +54,16 @@ public interface MyBlogService extends BaseService, InvokableService {
 
     @AccessControlled(guestAccessEnabled = true)
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.liferay.portlet.blogs.model.BlogsEntry getEntry(long entryId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    @AccessControlled(guestAccessEnabled = true)
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.liferay.portal.kernel.json.JSONArray getLatestBlogEntries(
         java.lang.String blogName, int status, int start, int end,
-        java.lang.String tags, java.lang.String categories)
+        java.lang.String tags, java.lang.String categories,
+        java.util.Map<java.lang.String, java.lang.Object> options)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 }

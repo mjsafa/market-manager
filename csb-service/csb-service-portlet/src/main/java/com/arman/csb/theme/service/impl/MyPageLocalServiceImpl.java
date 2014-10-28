@@ -15,6 +15,7 @@ import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Layout;
+import com.liferay.portal.security.auth.AuthTokenUtil;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.util.portlet.PortletProps;
@@ -71,7 +72,7 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
 
 
 
-    public Map<String, String> renderPageHTML(long pageId){
+    public Map<String, Object> renderPageHTML(long pageId){
         try {
             Layout layout =  LayoutLocalServiceUtil.getLayout(pageId);
             Long templateId = (Long)layout.getExpandoBridge().getAttribute("templateId");
@@ -104,13 +105,27 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
             JsoupUtil.prependValueToProperty(templateDoc, "img", "src", resourcesBaseUrl , true);
             JsoupUtil.prependValueToProperty(templateDoc, "link", "href", resourcesBaseUrl , true);
             JsoupUtil.prependValueToProperty(templateDoc, "script[src]", "src", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc, "video[poster]", "poster", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc, "source", "src", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc, "a[data-type=prettyPhoto[gallery]", "href", resourcesBaseUrl , true);
 
             replaceModuleTags(templateDoc);
 
-            Map<String, String> result = new HashMap<String, String>();
+            Elements footerScriptElement =  templateDoc.select("site|footerScripts");
+            String footerScripts = footerScriptElement.html();
+            templateDoc.select("site|footerScripts").remove();
+
+            String bodyAttributes = "";
+            bodyAttributes += " id=\"" + templateDoc.body().id() + "\"";
+
+            Map<String, Object> result = new HashMap<String, Object>();
             result.put("head", templateDoc.head().html());
             result.put("body", templateDoc.body().html());
             result.put("bodyClassName", templateDoc.body().className());
+            result.put("footerScripts", footerScripts);
+            result.put("bodyAttributes", bodyAttributes);
+
+            result.put("authToken", AuthTokenUtil.getAuthToken());
 
             return result;
 
@@ -123,7 +138,7 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
         }
 
         //return html page for error
-        return new HashMap<String, String>();
+        return new HashMap<String, Object>();
     }
 
 
@@ -190,7 +205,7 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
 
 
     private void replaceModuleTags(Document document){
-        String[] moduleNames = {"blogPosts"};
+        String[] moduleNames = {"blogPosts", "blogPost"};
 
 
         for (String moduleName : moduleNames) {

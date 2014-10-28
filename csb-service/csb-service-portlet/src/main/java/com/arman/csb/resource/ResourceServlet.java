@@ -60,7 +60,8 @@ public class ResourceServlet extends HttpServlet {
         } catch (FileNotFoundException fileException) {//if resource not found, send 404 error to client
             PortalUtil.sendError(HttpServletResponse.SC_NOT_FOUND, new FileNotFoundException(), request, response);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            log(e.getMessage(), e);
         } finally {
             if (null != in) {
                 in.close();
