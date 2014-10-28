@@ -63,21 +63,19 @@
 
 %>
 
-<link href="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/editor/froala/css/font-awesome.min.css", javaScriptLastModified)) %>"
-      type="text/css" rel="stylesheet"/>
-<link href="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/editor/froala/css/froala_editor.min.css", javaScriptLastModified)) %>"
-      type="text/css" rel="stylesheet"/>
+<link href="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/editor/froala/css/font-awesome.min.css", javaScriptLastModified)) %>" type="text/css" rel="stylesheet"/>
+<link href="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/editor/froala/css/froala_editor.min.css", javaScriptLastModified)) %>" type="text/css" rel="stylesheet"/>
 
 
-<div id='edit' style="margin-top: 30px;">
+<div id='edit' style="margin-top: -1px;">
 </div>
 
 
-<script src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/editor/froala/js/libs/jquery-1.10.2.min.js", javaScriptLastModified)) %>"
-        type="text/javascript"></script>
+<%--<script src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/editor/froala/js/libs/jquery-1.10.2.min.js", javaScriptLastModified)) %>" type="text/javascript"></script>--%>
 
-<script src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/editor/froala/js/froala_editor.min.js", javaScriptLastModified)) %>"
-        type="text/javascript"></script>
+<script src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/editor/froala/js/froala_editor.min.js", javaScriptLastModified)) %>" type="text/javascript"></script>
+
+<script src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNHost() + themeDisplay.getPathJavaScript() + "/editor/froala/js/plugins/file_upload.js", javaScriptLastModified)) %>" type="text/javascript"></script>
 
 
 <%--
@@ -117,16 +115,24 @@
 <script>
     $(function () {
         $('#edit').editable({inlineMode:false,
-            imageUploadURL:'http://localhost:8080/delegate/resource/images',
+            imageUploadURL:'/delegate/resource/images',
+            buttons:["bold" , "underline", "italic", "fontFamily" , "formatBlock" , "fontFamily","color" ,"createLink", "insertImage", "insertVideo" , "undo" ,"redo" , "uploadFile" ],
+            fileUploadURL: "/delegate/resource/files",
             imageUploadParams:{id:"my_editor"},
             imageErrorCallback:function (errors) {
                 alert(errors.code);
-            }
+            }, minHeight: 367
         });
 
         $("#edit").on('editable.contentChanged', function (editor) {
-            alert(editor.editable("getHTML"));
-            $("textarea[name='<portlet:namespace />content']").html(editable("getHTML"));
+
+            var htmlContent = $("#edit").editable("getHTML");
+            var content = $(htmlContent);
+            content.find("[id^=yui_patched]").removeAttr("id");
+            htmlContent = $('<div>').append(content.clone()).html();
+            htmlContent = appendImages(htmlContent);
+
+            $("textarea[name='<portlet:namespace />content']").html(htmlContent);
         });
 
     });
@@ -137,60 +143,83 @@
 <aui:script>
     (function() {
     window['<%= name %>'] = {
-    		destroy: function() {
-    			CKEDITOR.instances['<%= name %>'].destroy();
+        destroy: function() {
+        CKEDITOR.instances['<%= name %>'].destroy();
 
-    			delete window['<%= name %>'];
-    		},
+        delete window['<%= name %>'];
+        },
 
-    		focus: function() {
-    			CKEDITOR.instances['<%= name %>'].focus();
-    		},
+        focus: function() {
+            CKEDITOR.instances['<%= name %>'].focus();
+        },
 
-    		getCkData: function() {
-    			var data = CKEDITOR.instances['<%= name %>'].getData();
+        getCkData: function() {
+            var data = CKEDITOR.instances['<%= name %>'].getData();
 
-    			if (CKEDITOR.env.gecko && (CKEDITOR.tools.trim(data) == '<br />')) {
-    				data = '';
-    			}
+            if (CKEDITOR.env.gecko && (CKEDITOR.tools.trim(data) == '<br/>')) {
+                data = '';
+            }
 
-    			return data;
-    		},
+            return data;
+        },
 
-    		getHTML: function() {
-                alert($("#edit").editable("getHTML"));
-    			return $("#edit").editable("getHTML");
-    		},
+        getHTML: function() {
+            var htmlContent = $("#edit").editable("getHTML");
+            var content = $(htmlContent);
+            content.find("[id^=yui_patched]").removeAttr("id");
+            htmlContent = $('<div>').append(content.clone()).html();
+            htmlContent = appendImages(htmlContent);
+            return htmlContent;
+        },
 
-    		getText: function() {
-    			return window['<%= name %>'].getCkData();
-    		},
+        getText: function() {
+            return window['<%= name %>'].getCkData();
+        },
 
-    		<%
+            <%
     		if (Validator.isNotNull(onChangeMethod)) {
     		%>
 
-    			onChangeCallback: function () {
-    				var ckEditor = CKEDITOR.instances['<%= name %>'];
-    				var dirty = ckEditor.checkDirty();
+        onChangeCallback: function () {
+            var ckEditor = CKEDITOR.instances['<%= name %>'];
+            var dirty = ckEditor.checkDirty();
 
-    				if (dirty) {
-    					<%= HtmlUtil.escape(onChangeMethod) %>(window['<%= name %>'].getText());
+            if (dirty) {
+                <%= HtmlUtil.escape(onChangeMethod) %>(window['<%= name %>'].getText());
 
-    					ckEditor.resetDirty();
-    				}
-    			},
+            ckEditor.resetDirty();
+            }
+            },
 
-    		<%
+            <%
     		}
     		%>
 
-    		setHTML: function(value) {
-    			CKEDITOR.instances['<%= name %>'].setData(value);
-    		}
-    	};
+        setHTML: function(value) {
+            alert(value);
+            $("#edit").editable("setHTML",value)
+            //CKEDITOR.instances['<%= name %>'].setData(value);
+        }
+        };
 
-    })();
+    $("#edit").html(<%= HtmlUtil.escape(namespace + initMethod) %>());
+
+
+
+    <c:if test="<%= Validator.isNotNull(initMethod) %>">
+
+            <%--$("#edit").on('editable.initialized', function (e, editor) {
+                //editor.setHTML(<%= HtmlUtil.escape(namespace + initMethod) %>(), false);
+                alert(<%= HtmlUtil.escape(namespace + initMethod) %>());
+            });--%>
+
+
+            //window['<%= name %>'].setHTML(<%= HtmlUtil.escape(namespace + initMethod) %>());
+            //alert(initMethod);
+        </c:if>
+        })();
+
+
 
 </aui:script>
 
