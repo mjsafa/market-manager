@@ -11,6 +11,7 @@ var app = app || {};
 		initialize: function () {
             app.loader.notReady("global");
             app.modules.blog.initializeModule();
+			app.modules.formModule.initializeModule();
             Backbone.history.start();
             this.initialized = true;
             app.loader.ready("global");

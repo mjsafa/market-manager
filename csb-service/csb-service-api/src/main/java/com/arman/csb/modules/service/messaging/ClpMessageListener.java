@@ -3,6 +3,8 @@ package com.arman.csb.modules.service.messaging;
 import com.arman.csb.modules.service.ClpSerializer;
 import com.arman.csb.modules.service.MyBlogLocalServiceUtil;
 import com.arman.csb.modules.service.MyBlogServiceUtil;
+import com.arman.csb.modules.service.MyDDLRecordLocalServiceUtil;
+import com.arman.csb.modules.service.MyDDLRecordServiceUtil;
 
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
@@ -23,6 +25,9 @@ public class ClpMessageListener extends BaseMessageListener {
             MyBlogLocalServiceUtil.clearService();
 
             MyBlogServiceUtil.clearService();
+            MyDDLRecordLocalServiceUtil.clearService();
+
+            MyDDLRecordServiceUtil.clearService();
         }
     }
 }

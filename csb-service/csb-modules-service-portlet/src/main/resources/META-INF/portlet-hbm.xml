@@ -3,5 +3,6 @@
 
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="com.arman.csb.modules.model.MyBlog" />
+	<import class="com.arman.csb.modules.model.MyDDLRecord" />
 	<import class="com.liferay.portlet.blogs.model.impl.BlogsEntryImpl" />
 </hibernate-mapping>

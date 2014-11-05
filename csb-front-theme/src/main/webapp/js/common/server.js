@@ -41,15 +41,26 @@ function callServiceByUrl(url, params, options) {
     var _url = url;
 	var urlParams = '';
 	
+	
+	var _success = function(res){
+		app.loading.end(options.loadingKey);
+		app.loader.ready(url);
+		options.success(res);
+	}
+	
+	var _error = function(res){
+		app.loading.end(options.loadingKey);
+		app.loader.ready(url);
+		options.error(res);
+	}
+	
 	//params.p_auth = authToken;
 	
 	for (var key in params) {
 		if(params[key] != null){
 			urlParams += '/' + key ;
 			if(typeof params[key] === 'object'){
-				//alert(JSON.stringify(params[key]));
 				urlParams += '/' + JSON.stringify(params[key]);
-				//urlParams += '/' + "salam";
 			}else{
 				if(params[key] === ""){
 					params[key] = " ";
@@ -63,8 +74,8 @@ function callServiceByUrl(url, params, options) {
 	$.ajax({
 		type:'GET',
 		url:url + urlParams + '?p_auth=' + authToken,
-		success: options.success,
-		error: options.error,
+		success: _success,
+		error: _error,
 		dataType:"jsonp"
 	});
 

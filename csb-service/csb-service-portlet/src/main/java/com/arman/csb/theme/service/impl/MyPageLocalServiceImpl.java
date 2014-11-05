@@ -22,6 +22,7 @@ import com.liferay.util.portlet.PortletProps;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -102,12 +103,13 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
             replaceContentHolders(templateDoc , layout.getCompanyId());
 
             String resourcesBaseUrl = "/delegate/resource/";
-            JsoupUtil.prependValueToProperty(templateDoc, "img", "src", resourcesBaseUrl , true);
-            JsoupUtil.prependValueToProperty(templateDoc, "link", "href", resourcesBaseUrl , true);
-            JsoupUtil.prependValueToProperty(templateDoc, "script[src]", "src", resourcesBaseUrl , true);
-            JsoupUtil.prependValueToProperty(templateDoc, "video[poster]", "poster", resourcesBaseUrl , true);
-            JsoupUtil.prependValueToProperty(templateDoc, "source", "src", resourcesBaseUrl , true);
-            JsoupUtil.prependValueToProperty(templateDoc, "a[data-type=prettyPhoto[gallery]", "href", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc.select("*"), "img", "src", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc.select("*"), "link", "href", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc.select("*"), "script[src]", "src", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc.select("*"), "video[poster]", "poster", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc.select("*"), "source", "src", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc.select("*"), "a[data-type=prettyPhoto[gallery]", "href", resourcesBaseUrl , true);
+            JsoupUtil.prependValueToProperty(templateDoc.select("a:not([href^=#])"), "a:not([href^=http])", "href", resourcesBaseUrl , true);
 
             replaceModuleTags(templateDoc);
 
@@ -116,7 +118,12 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
             templateDoc.select("site|footerScripts").remove();
 
             String bodyAttributes = "";
-            bodyAttributes += " id=\"" + templateDoc.body().id() + "\"";
+            //bodyAttributes += " id=\"" + templateDoc.body().id() + "\"";
+            /*for (Attribute attribute : templateDoc.body().attributes()) {
+                bodyAttributes += " " + attribute.getKey() + "=\"" + attribute.getValue() + "\"";
+            }*/
+
+            bodyAttributes = templateDoc.body().attributes().html();
 
             Map<String, Object> result = new HashMap<String, Object>();
             result.put("head", templateDoc.head().html());

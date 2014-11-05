@@ -33,6 +33,10 @@ public abstract class MyBlogServiceBaseImpl extends BaseServiceImpl
     protected com.arman.csb.modules.service.MyBlogLocalService myBlogLocalService;
     @BeanReference(type = com.arman.csb.modules.service.MyBlogService.class)
     protected com.arman.csb.modules.service.MyBlogService myBlogService;
+    @BeanReference(type = com.arman.csb.modules.service.MyDDLRecordLocalService.class)
+    protected com.arman.csb.modules.service.MyDDLRecordLocalService myDDLRecordLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.MyDDLRecordService.class)
+    protected com.arman.csb.modules.service.MyDDLRecordService myDDLRecordService;
     @BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
     protected com.liferay.counter.service.CounterLocalService counterLocalService;
     @BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
@@ -95,6 +99,44 @@ public abstract class MyBlogServiceBaseImpl extends BaseServiceImpl
     public void setMyBlogService(
         com.arman.csb.modules.service.MyBlogService myBlogService) {
         this.myBlogService = myBlogService;
+    }
+
+    /**
+     * Returns the my d d l record local service.
+     *
+     * @return the my d d l record local service
+     */
+    public com.arman.csb.modules.service.MyDDLRecordLocalService getMyDDLRecordLocalService() {
+        return myDDLRecordLocalService;
+    }
+
+    /**
+     * Sets the my d d l record local service.
+     *
+     * @param myDDLRecordLocalService the my d d l record local service
+     */
+    public void setMyDDLRecordLocalService(
+        com.arman.csb.modules.service.MyDDLRecordLocalService myDDLRecordLocalService) {
+        this.myDDLRecordLocalService = myDDLRecordLocalService;
+    }
+
+    /**
+     * Returns the my d d l record remote service.
+     *
+     * @return the my d d l record remote service
+     */
+    public com.arman.csb.modules.service.MyDDLRecordService getMyDDLRecordService() {
+        return myDDLRecordService;
+    }
+
+    /**
+     * Sets the my d d l record remote service.
+     *
+     * @param myDDLRecordService the my d d l record remote service
+     */
+    public void setMyDDLRecordService(
+        com.arman.csb.modules.service.MyDDLRecordService myDDLRecordService) {
+        this.myDDLRecordService = myDDLRecordService;
     }
 
     /**

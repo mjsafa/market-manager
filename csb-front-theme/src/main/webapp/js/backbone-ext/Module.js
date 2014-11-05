@@ -17,7 +17,12 @@ var app = app || {};
             var that = this;
             this.moduleViews = [];
             //var selectedTags = $(this.namespace + "\\:" + this.tagName);
+			
             var selectedTags = $("script[data-modulename='" + this.tagName + "']");
+			if(this.dataSelector){
+				var selectedTags = $(this.dataSelector);
+			}
+			
             selectedTags.each(function (index) {
 
                 //adds an index id to the data attribute of the tag to separate this instance from other similar tags

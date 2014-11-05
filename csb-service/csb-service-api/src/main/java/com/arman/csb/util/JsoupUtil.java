@@ -36,7 +36,7 @@ public class JsoupUtil {
         return firstHead;
     }
 
-    public static void prependValueToProperty(Element parentElement, String selector, String attributeName, String prependValue, boolean removeSlash){
+    public static void prependValueToProperty(Elements parentElement, String selector, String attributeName, String prependValue, boolean removeSlash){
         Elements elements = parentElement.select(selector);
         for (Element element : elements) {
             String attrValue = element.attr(attributeName);

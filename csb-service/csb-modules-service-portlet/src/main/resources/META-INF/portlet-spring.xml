@@ -3,4 +3,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<bean id="com.arman.csb.modules.service.MyBlogLocalService" class="com.arman.csb.modules.service.impl.MyBlogLocalServiceImpl" />
 	<bean id="com.arman.csb.modules.service.MyBlogService" class="com.arman.csb.modules.service.impl.MyBlogServiceImpl" />
+	<bean id="com.arman.csb.modules.service.MyDDLRecordLocalService" class="com.arman.csb.modules.service.impl.MyDDLRecordLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.MyDDLRecordService" class="com.arman.csb.modules.service.impl.MyDDLRecordServiceImpl" />
 </beans>

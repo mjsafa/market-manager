@@ -26,5 +26,17 @@ serverAPI.System = {
                 entryId:postId
             }, options);
         }
-    }
+    },
+	
+	Form:{
+		addRecord:function (siteName, formName, fieldsMap, serviceContext, options) {
+            return callServiceByUrl(CONFIG.baseUrl + '/csb-modules-service-portlet.myddlrecord/add-record', {
+                siteName:siteName,
+				formName:formName,
+				fieldsMap:fieldsMap,
+				serviceContext:serviceContext
+            }, options);
+        }
+	}
+	
 };
