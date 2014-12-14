@@ -2,19 +2,17 @@ package com.arman.csb.resource;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.MimeTypesUtil;
-import com.liferay.portal.kernel.util.PropsUtil;
-import com.liferay.portal.model.Company;
+import com.liferay.portal.kernel.util.*;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.portlet.PortletProps;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -114,26 +112,37 @@ public class ResourceServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String virtualHostName = PortalUtil.getCompany(request).getVirtualHostname();
+                String virtualHostName = PortalUtil.getCompany(request).getVirtualHostname();
 
-            List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-            for (FileItem item : items) {
-                if (item.isFormField()) {
-                    // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
-                    String fieldname = item.getFieldName();
-                    String fieldvalue = item.getString();
-                    // ... (do your job here)
-                } else {
-                    // Process form file field (input type="file").
-                    String fieldname = item.getFieldName();
-                    String filename = FilenameUtils.getName(item.getName());
-                    filename = System.currentTimeMillis() + "_" + filename;
-                    InputStream filecontent = item.getInputStream();
-                    // ... (do your job here)
-                    IOUtils.copy(filecontent, new FileOutputStream(getUploadPath(request, virtualHostName, filename)));
-                    response.getWriter().write("{ \"link\": \"" + getFileUrl(request, true) + "/" + filename + "\" }");
-                    response.setContentType("text/html");
+            if(request.getContentType().startsWith(ContentTypes.MULTIPART_FORM_DATA) || request.getContentType().startsWith(ContentTypes.MULTIPART_MIXED)){
+
+                List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+                for (FileItem item : items) {
+                    if (item.isFormField()) {
+                        // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
+                        String fieldname = item.getFieldName();
+                        String fieldvalue = item.getString();
+                        // ... (do your job here)
+                    } else {
+                        // Process form file field (input type="file").
+                        String fieldname = item.getFieldName();
+                        String filename = FilenameUtils.getName(item.getName());
+                        filename = System.currentTimeMillis() + "_" + filename;
+                        InputStream filecontent = item.getInputStream();
+                        // ... (do your job here)
+                        IOUtils.copy(filecontent, new FileOutputStream(getUploadPath(request, virtualHostName, filename)));
+                        response.getWriter().write("{ \"link\": \"" + getFileUrl(request, true) + "/" + filename + "\" }");
+                        response.setContentType("text/html");
+                    }
                 }
+            }else if(request.getParameter("imageData") != null || true){
+                byte[] bytes = Base64.decode(IOUtils.toString(request.getInputStream()));
+
+                String fileName = "cropped" + "_" + System.currentTimeMillis() + ".jpg";
+                IOUtils.copy(new ByteArrayInputStream(bytes), new FileOutputStream(getUploadPath(request, virtualHostName, fileName)));
+
+                response.getWriter().write("{ \"link\": \"" + getFileUrl(request, true) + "/" + fileName + "\" }");
+                response.setContentType("text/html");
             }
         } catch (FileUploadException e) {
             throw new ServletException("Cannot parse multipart request.", e);

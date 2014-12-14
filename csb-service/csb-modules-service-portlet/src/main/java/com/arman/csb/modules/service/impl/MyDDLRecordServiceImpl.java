@@ -11,6 +11,7 @@ import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecord;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecordSet;
+import com.liferay.portlet.dynamicdatalists.service.DDLRecordSetLocalServiceUtil;
 import com.liferay.portlet.dynamicdatalists.service.DDLRecordSetServiceUtil;
 
 import java.io.Serializable;
@@ -43,10 +44,10 @@ public class MyDDLRecordServiceImpl extends MyDDLRecordServiceBaseImpl {
         try {
             Group group = GroupLocalServiceUtil.getGroup(serviceContext.getCompanyId(), siteName);
 
-            List<DDLRecordSet> ddlRecordSets =  DDLRecordSetServiceUtil.search(serviceContext.getCompanyId(), group.getGroupId(), formName, null, 0, true, 0, 100, null);
+            List<DDLRecordSet> ddlRecordSets =  (List<DDLRecordSet>)DDLRecordSetLocalServiceUtil.search(serviceContext.getCompanyId(), group.getGroupId(), formName, null, 0, true, 0, 100, null);
             if(!ddlRecordSets.isEmpty()){
                 DDLRecordSet recordSet = ddlRecordSets.get(0);
-                return ddlRecordService.addRecord(group.getGroupId(), recordSet.getRecordSetId(), 0 , fieldsMap, serviceContext);
+                return ddlRecordLocalService.addRecord(serviceContext.getUserId(), group.getGroupId(), recordSet.getRecordSetId(), 0 , fieldsMap, serviceContext);
             }else {
                 return null;
             }

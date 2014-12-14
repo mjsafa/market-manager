@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+    #parse ($init)
+
+    #set ($layoutId = $themeDisplay.getPlid())
+
+    #set($myPageService = $serviceLocator.findService("csb-service-portlet", "com.arman.csb.theme.service.MyPageLocalService"))
+
+##    #set($authUtil = $utilLocator.findUtil("com.liferay.portal.security.auth.AuthTokenUtil") )
+
+
+##    #set($authTokens = $authUtil.getToken($request))
+
+
+    #set($pageContent = $myPageService.renderAdminHTML($layoutId))
+
+<html $pageContent.htmlAttributes>
+<head>
+##    $theme.include($top_head_include)
+
+##    #parse ("$full_templates_path/header-js.vm")
+
+    ##Render Head Tag Content Of Template
+    $pageContent.head
+
+</head>
+
+<body $pageContent.bodyAttributes class="$pageContent.bodyClassName">
+
+    <script>
+        var authToken = '$pageContent.authToken.getToken($request)';
+        var isSignedIn = $themeDisplay.isSignedIn();
+        var pageId = '$themeDisplay.getPlid()';
+    </script>
+
+##    $theme.include($body_top_include)
+
+    ##Render body of page
+    $pageContent.body
+
+##    $theme.include($body_bottom_include)
+##    $theme.include($bottom_include)
+
+
+##    #parse("$full_templates_path/footer-js.vm")
+
+    $pageContent.footerScripts
+</body>
+
+</html>
+
+
+
+
+
+

@@ -15,6 +15,10 @@ public class MyPageLocalServiceClpInvoker {
     private String[] _methodParameterTypes29;
     private String _methodName32;
     private String[] _methodParameterTypes32;
+    private String _methodName33;
+    private String[] _methodParameterTypes33;
+    private String _methodName34;
+    private String[] _methodParameterTypes34;
 
     public MyPageLocalServiceClpInvoker() {
         _methodName28 = "getBeanIdentifier";
@@ -25,9 +29,19 @@ public class MyPageLocalServiceClpInvoker {
 
         _methodParameterTypes29 = new String[] { "java.lang.String" };
 
-        _methodName32 = "renderPageHTML";
+        _methodName32 = "editPageContent";
 
-        _methodParameterTypes32 = new String[] { "long" };
+        _methodParameterTypes32 = new String[] {
+                "long", "java.lang.String", "java.lang.String"
+            };
+
+        _methodName33 = "renderPageHTML";
+
+        _methodParameterTypes33 = new String[] { "long" };
+
+        _methodName34 = "renderAdminHTML";
+
+        _methodParameterTypes34 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -46,7 +60,20 @@ public class MyPageLocalServiceClpInvoker {
 
         if (_methodName32.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
+            MyPageLocalServiceUtil.editPageContent(((Long) arguments[0]).longValue(),
+                (java.lang.String) arguments[1], (java.lang.String) arguments[2]);
+
+            return null;
+        }
+
+        if (_methodName33.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
             return MyPageLocalServiceUtil.renderPageHTML(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName34.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+            return MyPageLocalServiceUtil.renderAdminHTML(((Long) arguments[0]).longValue());
         }
 
         throw new UnsupportedOperationException();

@@ -1,5 +1,12 @@
 package com.arman.csb.theme.service.http;
 
+import com.arman.csb.theme.service.MyPageServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link com.arman.csb.theme.service.MyPageServiceUtil} service utility. The
@@ -30,4 +37,20 @@ package com.arman.csb.theme.service.http;
  * @generated
  */
 public class MyPageServiceSoap {
+    private static Log _log = LogFactoryUtil.getLog(MyPageServiceSoap.class);
+
+    public static java.lang.String editPageContent(java.lang.String pageId,
+        java.lang.String itemId, java.lang.String newContent)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = MyPageServiceUtil.editPageContent(pageId,
+                    itemId, newContent);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

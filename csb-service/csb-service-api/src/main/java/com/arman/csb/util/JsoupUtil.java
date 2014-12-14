@@ -24,7 +24,6 @@ public class JsoupUtil {
      *
      * @param firstHead
      * @param secondHead
-     *
      * @return merged head element
      */
     public static Element mergeHeads(Element firstHead, Element secondHead) {
@@ -36,23 +35,27 @@ public class JsoupUtil {
         return firstHead;
     }
 
-    public static void prependValueToProperty(Elements parentElement, String selector, String attributeName, String prependValue, boolean removeSlash){
+    public static void prependValueToProperty(Elements parentElement, String selector, String attributeName, String prependValue, boolean removeSlash) {
         Elements elements = parentElement.select(selector);
         for (Element element : elements) {
             String attrValue = element.attr(attributeName);
 
+            if (attrValue.startsWith("/delegate/resource") || attrValue.trim().equals("")) {
+                continue;
+            }
+
             //remove slash from beggining
-            if(removeSlash){
-                if(attrValue.startsWith("/")){
+            if (removeSlash) {
+                if (attrValue.startsWith("/")) {
                     attrValue = attrValue.substring(1);
                 }
             }
 
-            if(!attrValue.startsWith("<%")){
-                attrValue  = prependValue + attrValue;
+            if (!attrValue.startsWith("<%")) {
 
                 //do not change absolute paths
-                if(!attrValue.contains("://") ){
+                if (!attrValue.contains("://")) {
+                    attrValue = prependValue + attrValue;
                     element.attr(attributeName, attrValue);
                 }
             }

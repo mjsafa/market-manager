@@ -51,9 +51,19 @@ public class MyPageLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static void editPageContent(long pageId, java.lang.String itemId,
+        java.lang.String newContent) {
+        getService().editPageContent(pageId, itemId, newContent);
+    }
+
     public static java.util.Map<java.lang.String, java.lang.Object> renderPageHTML(
         long pageId) {
         return getService().renderPageHTML(pageId);
+    }
+
+    public static java.util.Map<java.lang.String, java.lang.Object> renderAdminHTML(
+        long pageId) {
+        return getService().renderAdminHTML(pageId);
     }
 
     public static void clearService() {

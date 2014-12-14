@@ -45,9 +45,21 @@ public class MyPageLocalServiceWrapper implements MyPageLocalService,
     }
 
     @Override
+    public void editPageContent(long pageId, java.lang.String itemId,
+        java.lang.String newContent) {
+        _myPageLocalService.editPageContent(pageId, itemId, newContent);
+    }
+
+    @Override
     public java.util.Map<java.lang.String, java.lang.Object> renderPageHTML(
         long pageId) {
         return _myPageLocalService.renderPageHTML(pageId);
+    }
+
+    @Override
+    public java.util.Map<java.lang.String, java.lang.Object> renderAdminHTML(
+        long pageId) {
+        return _myPageLocalService.renderAdminHTML(pageId);
     }
 
     /**

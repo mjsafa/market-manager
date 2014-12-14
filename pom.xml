@@ -15,6 +15,7 @@
         <module>csb-front-theme</module>
         <module>csb-service</module>
         <module>csb-admin-portlet</module>
+        <module>csb-metronic-theme</module>
     </modules>
 
     <build>

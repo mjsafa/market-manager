@@ -12,6 +12,8 @@ public class MyPageServiceClp implements MyPageService {
     private String[] _methodParameterTypes0;
     private String _methodName1;
     private String[] _methodParameterTypes1;
+    private String _methodName3;
+    private String[] _methodParameterTypes3;
 
     public MyPageServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -23,6 +25,12 @@ public class MyPageServiceClp implements MyPageService {
         _methodName1 = "setBeanIdentifier";
 
         _methodParameterTypes1 = new String[] { "java.lang.String" };
+
+        _methodName3 = "editPageContent";
+
+        _methodParameterTypes3 = new String[] {
+                "java.lang.String", "java.lang.String", "java.lang.String"
+            };
     }
 
     @Override
@@ -69,5 +77,35 @@ public class MyPageServiceClp implements MyPageService {
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject editPageContent(
+        java.lang.String pageId, java.lang.String itemId,
+        java.lang.String newContent) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName3,
+                    _methodParameterTypes3,
+                    new Object[] {
+                        ClpSerializer.translateInput(pageId),
+                        
+                    ClpSerializer.translateInput(itemId),
+                        
+                    ClpSerializer.translateInput(newContent)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
     }
 }

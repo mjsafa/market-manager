@@ -29,6 +29,8 @@
 
     <script>
         var authToken = '$pageContent.authToken.getToken($request)';
+        var isSignedIn = $themeDisplay.isSignedIn();
+        var pageId = '$themeDisplay.getPlid()';
     </script>
 
 ##    $theme.include($body_top_include)
@@ -40,7 +42,7 @@
 ##    $theme.include($bottom_include)
 
 
-    #parse("$full_templates_path/footer-js.vm")
+##    #parse("$full_templates_path/footer-js.vm")
 
     $pageContent.footerScripts
 </body>

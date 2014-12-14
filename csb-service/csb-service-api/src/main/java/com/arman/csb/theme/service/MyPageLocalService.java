@@ -49,6 +49,12 @@ public interface MyPageLocalService extends BaseLocalService,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
 
+    public void editPageContent(long pageId, java.lang.String itemId,
+        java.lang.String newContent);
+
     public java.util.Map<java.lang.String, java.lang.Object> renderPageHTML(
+        long pageId);
+
+    public java.util.Map<java.lang.String, java.lang.Object> renderAdminHTML(
         long pageId);
 }

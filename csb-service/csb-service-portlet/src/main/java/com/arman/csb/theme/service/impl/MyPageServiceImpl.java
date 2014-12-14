@@ -1,6 +1,9 @@
 package com.arman.csb.theme.service.impl;
 
 import com.arman.csb.theme.service.base.MyPageServiceBaseImpl;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.theme.ThemeDisplay;
 
 /**
  * The implementation of the my page remote service.
@@ -22,4 +25,13 @@ public class MyPageServiceImpl extends MyPageServiceBaseImpl {
      *
      * Never reference this interface directly. Always use {@link com.arman.csb.theme.service.MyPageServiceUtil} to access the my page remote service.
      */
+
+    public JSONObject editPageContent(String pageId, String itemId, String newContent) {
+        myPageLocalService.editPageContent(Long.valueOf(pageId), itemId, newContent);
+        JSONObject result  = JSONFactoryUtil.createJSONObject();
+        result.put("editableId", itemId);
+
+        return result;
+    }
+
 }

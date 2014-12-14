@@ -51,6 +51,12 @@ public class MyPageServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static com.liferay.portal.kernel.json.JSONObject editPageContent(
+        java.lang.String pageId, java.lang.String itemId,
+        java.lang.String newContent) {
+        return getService().editPageContent(pageId, itemId, newContent);
+    }
+
     public static void clearService() {
         _service = null;
     }

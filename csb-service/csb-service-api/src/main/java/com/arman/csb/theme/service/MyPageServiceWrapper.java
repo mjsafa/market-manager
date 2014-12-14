@@ -44,6 +44,13 @@ public class MyPageServiceWrapper implements MyPageService,
         return _myPageService.invokeMethod(name, parameterTypes, arguments);
     }
 
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject editPageContent(
+        java.lang.String pageId, java.lang.String itemId,
+        java.lang.String newContent) {
+        return _myPageService.editPageContent(pageId, itemId, newContent);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

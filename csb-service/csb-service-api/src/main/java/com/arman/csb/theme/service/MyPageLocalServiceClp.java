@@ -14,6 +14,10 @@ public class MyPageLocalServiceClp implements MyPageLocalService {
     private String[] _methodParameterTypes1;
     private String _methodName3;
     private String[] _methodParameterTypes3;
+    private String _methodName4;
+    private String[] _methodParameterTypes4;
+    private String _methodName5;
+    private String[] _methodParameterTypes5;
 
     public MyPageLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -26,9 +30,19 @@ public class MyPageLocalServiceClp implements MyPageLocalService {
 
         _methodParameterTypes1 = new String[] { "java.lang.String" };
 
-        _methodName3 = "renderPageHTML";
+        _methodName3 = "editPageContent";
 
-        _methodParameterTypes3 = new String[] { "long" };
+        _methodParameterTypes3 = new String[] {
+                "long", "java.lang.String", "java.lang.String"
+            };
+
+        _methodName4 = "renderPageHTML";
+
+        _methodParameterTypes4 = new String[] { "long" };
+
+        _methodName5 = "renderAdminHTML";
+
+        _methodParameterTypes5 = new String[] { "long" };
     }
 
     @Override
@@ -78,13 +92,60 @@ public class MyPageLocalServiceClp implements MyPageLocalService {
     }
 
     @Override
+    public void editPageContent(long pageId, java.lang.String itemId,
+        java.lang.String newContent) {
+        try {
+            _invokableLocalService.invokeMethod(_methodName3,
+                _methodParameterTypes3,
+                new Object[] {
+                    pageId,
+                    
+                ClpSerializer.translateInput(itemId),
+                    
+                ClpSerializer.translateInput(newContent)
+                });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+    }
+
+    @Override
     public java.util.Map<java.lang.String, java.lang.Object> renderPageHTML(
         long pageId) {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName3,
-                    _methodParameterTypes3, new Object[] { pageId });
+            returnObj = _invokableLocalService.invokeMethod(_methodName4,
+                    _methodParameterTypes4, new Object[] { pageId });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.Map<java.lang.String, java.lang.Object>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.util.Map<java.lang.String, java.lang.Object> renderAdminHTML(
+        long pageId) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName5,
+                    _methodParameterTypes5, new Object[] { pageId });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 

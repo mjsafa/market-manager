@@ -50,4 +50,8 @@ public interface MyPageService extends BaseService, InvokableService {
     public java.lang.Object invokeMethod(java.lang.String name,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
+
+    public com.liferay.portal.kernel.json.JSONObject editPageContent(
+        java.lang.String pageId, java.lang.String itemId,
+        java.lang.String newContent);
 }
