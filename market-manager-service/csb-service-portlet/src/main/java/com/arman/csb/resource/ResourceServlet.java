@@ -31,9 +31,11 @@ import java.util.List;
 public class ResourceServlet extends HttpServlet {
 
     private static final String _fileSeparator = System.getProperty("file.separator");
+
     private int FILEBUFFERSIZE = 1024;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String SITE_ABSOLUTE_PAT = PortletProps.get("site.files.absolutePath");
         InputStream in = null;
         ServletOutputStream out = response.getOutputStream();
 
@@ -69,6 +71,7 @@ public class ResourceServlet extends HttpServlet {
     }
 
     private String getFilePath(HttpServletRequest request, String virtualHost) {
+        String SITE_ABSOLUTE_PAT = PortletProps.get("site.files.absolutePath");
         String[] paths = request.getPathInfo().split("/");
         String filePath = "";
         for (int i = 2; i < paths.length; i++) {
@@ -76,7 +79,7 @@ public class ResourceServlet extends HttpServlet {
         }
         filePath = virtualHost + filePath;
 
-        String basePath = PropsUtil.get("liferay.home") + _fileSeparator + PortletProps.get("site.files.path");
+        String basePath = SITE_ABSOLUTE_PAT + _fileSeparator + PortletProps.get("site.files.path");
 
         filePath = basePath + _fileSeparator + filePath;
 
@@ -93,6 +96,7 @@ public class ResourceServlet extends HttpServlet {
      * @return
      */
     private String getUploadPath(HttpServletRequest request, String virtualHost, String fileName) {
+        String SITE_ABSOLUTE_PAT = PortletProps.get("site.files.absolutePath");
 
         //extracts relative path to the file
         String[] paths = request.getPathInfo().split("/");
@@ -103,7 +107,7 @@ public class ResourceServlet extends HttpServlet {
 
         //creates absolute path
         filePath = virtualHost + _fileSeparator + PortletProps.get("site.upload.path") + filePath + _fileSeparator + fileName;
-        String basePath = PropsUtil.get("liferay.home") + _fileSeparator + PortletProps.get("site.files.path");
+        String basePath = SITE_ABSOLUTE_PAT + _fileSeparator + PortletProps.get("site.files.path");
         filePath = basePath + _fileSeparator + filePath;
 
         return filePath;
