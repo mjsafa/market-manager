@@ -181,7 +181,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
 
-          // customers
+        // USERS
         .state('users', {
             url:"/users.html",
             templateUrl:"/delegate/resource/views/users/users.html",
@@ -197,13 +197,16 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
                             '/delegate/resource/assets/admin/pages/scripts/customers.js',
 
+                            '/delegate/resource/assets/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js',
+
                             '/delegate/resource/assets/global/plugins/morris/morris.min.js',
                             '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
                             '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
                             '/delegate/resource/js/server/server.js',
                             '/delegate/resource/js/controllers/user/UsersController.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
-                            '/delegate/resource/js/controllers/customer/CustomerScoreController.js'
+                            '/delegate/resource/js/controllers/customer/CustomerScoreController.js',
+                            '/delegate/resource/js/controllers/GeneralPageController.js'
                         ]
                     });
                 }]
@@ -211,8 +214,38 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
 
+        //User Detail
+        .state('userDetail', {
+            url:"/userDetail/:userId",
+            templateUrl:"/delegate/resource/views/users/userDetail.html",
+            data:{pageTitle:'جزئیات کاربر'},
+            controller:"UserDetailController",
+            resolve:{
+                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'MetronicApp',
+                        files:[
+                            '/delegate/resource/assets/global/plugins/morris/morris.css',
+                            '/delegate/resource/assets/admin/pages/css/tasks.css',
+                            '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
+                            '/delegate/resource/assets/admin/pages/scripts/customers.js',
 
-          // customer details
+                            '/delegate/resource/assets/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js',
+
+                            '/delegate/resource/assets/global/plugins/morris/morris.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
+                            '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/controllers/user/UserDetailController.js',
+                            '/delegate/resource/js/controllers/GeneralPageController.js'
+                        ]
+                    });
+                }]
+            }
+        })
+
+
+        // customer details
         .state('customerEntry', {
             url:"/customerEntry",
             templateUrl:"/delegate/resource/views/customerEntry.html",
@@ -237,7 +270,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                 }]
             }
         })
-
 
 
         // AngularJS plugins

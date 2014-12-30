@@ -5,4 +5,6 @@
 	<bean id="com.arman.csb.modules.service.MyBlogService" class="com.arman.csb.modules.service.impl.MyBlogServiceImpl" />
 	<bean id="com.arman.csb.modules.service.MyDDLRecordLocalService" class="com.arman.csb.modules.service.impl.MyDDLRecordLocalServiceImpl" />
 	<bean id="com.arman.csb.modules.service.MyDDLRecordService" class="com.arman.csb.modules.service.impl.MyDDLRecordServiceImpl" />
+	<bean id="com.arman.csb.modules.service.MyUserLocalService" class="com.arman.csb.modules.service.impl.MyUserLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.MyUserService" class="com.arman.csb.modules.service.impl.MyUserServiceImpl" />
 </beans>

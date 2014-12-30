@@ -81,3 +81,37 @@ Change Quick Sidebar Width
 .modal .modal-header h3{
     font-family: tahoma;
 }
+
+.form.green-turquoise .form-actions{
+    background-color: #36D7B7;
+}
+
+.form.green-turquoise .control-label{
+    color:#eeeeee;
+}
+
+.btn{
+    font-family: tahoma;
+    font-size: 12px;
+}
+
+.portlet.green-turquoise > .portlet-title > .nav-tabs > li.active > a, .portlet > .portlet-title > .nav-tabs > li:hover > a {
+    color: #333;
+    background: none;
+    border: 0;
+}
+
+
+.portlet.green-turquoise > .tabbable-line > .nav-tabs > li.active {
+    border-bottom: 4px solid #fff;
+}
+
+
+
+.btn-success, .btn-success:hover, .btn-success:focus, .btn-success:checked{
+    background-color: #d0d0d0 !important;
+}
+.btn-success.active, .btn-success.active:hover ,.btn-success.active:focus{
+    background-color: #00C84F !important;
+}
+

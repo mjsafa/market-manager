@@ -1,55 +1,3 @@
-<script type="text/ng-template" id="myModalContent.html">
-    <div class="modal-header">
-        <h3 class="modal-title">انتخاب مشتری معرفی کننده</h3>
-    </div>
-    <div class="modal-body">
-        <div class="table-scrollable table-scrollable-borderless slimScrollDiv"
-             style="height: 350px; overflow: auto; width: auto;">
-            <table class="table table-hover table-light">
-                <thead>
-                <tr class="uppercase">
-                    <th colspan="2">
-                        نام
-                    </th>
-                    <th>
-                        ایمیل
-                    </th>
-                    <th>
-                        موبایل
-                    </th>
-                    <th>
-                        امتیاز
-                    </th>
-                </tr>
-                </thead>
-                <tr ng-click="ok(customer)" ng-repeat="customer in customers">
-                    <td class="fit">
-                        <img class="user-pic" src="/delegate/resource/assets/admin/layout/img/avatar4.jpg">
-                    </td>
-                    <td>
-                        <a href="javascript:;" class="primary-link">{{customer.name}}</a>
-                    </td>
-                    <td>
-                        {{customer.email}}
-                    </td>
-
-                    <td>
-                        {{customer.mobile}}
-                    </td>
-
-                    <td>
-                        <span class="bold font-green-haze">{{customer.score}}</span>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-warning" ng-click="cancel()">انصراف</button>
-    </div>
-</script>
-
-
 <!-- BEGIN PAGE HEADER-->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -103,7 +51,7 @@
 </h3>
 <!-- END PAGE HEADER-->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="CustomerDetailController">
+<div ng-controller="UserDetailController">
 
 <!-- BEGIN DASHBOARD STATS -->
 <div class="row">
@@ -188,53 +136,16 @@
             <div class="portlet-title">
                 <div class="caption caption-md">
                     <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">صفحه اختصاصی مشتری</span>
+                    <span class="caption-subject font-green-haze bold uppercase">صفحه اختصاصی کاربر</span>
                 </div>
             </div>
             <div class="portlet-body form">
 
                 <div class="form-horizontal" role="form">
                     <div class="form-body">
-                        <h2 class="margin-bottom-20"> مشاهده اطلاعات مشتری - {{customer.name}}</h2>
+                        <h2 class="margin-bottom-20">مشاهده اطلاعات کاربر - {{user.firstName}} {{user.lastName}}</h2>
 
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">نام:</label>
-
-                                    <div class="col-md-9">
-                                        <p class="form-control-static">
-                                            <a href="#" editable-text="customer.name">{{customer.name}}</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">کد ملی</label>
-
-                                    <div class="col-md-9">
-                                        <p class="form-control-static">
-                                            {{customer.nationalCode}}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">تلفن همراه</label>
-
-                                    <div class="col-md-9">
-                                        <p class="form-control-static">
-                                            <a href="#" editable-text="customer.mobile">{{customer.mobile}}</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -242,72 +153,23 @@
 
                                     <div class="col-md-9">
                                         <p class="form-control-static">
-                                            <a href="#" editable-text="customer.email">{{customer.email}}</a>
+                                            {{user.email}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">شماره موبایل</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            {{user.mobile}}
                                         </p>
                                     </div>
                                 </div>
                             </div>
-
-                            <!--/span-->
                         </div>
 
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">شماره کارت بانکی</label>
 
-                                    <div class="col-md-9">
-                                        <p class="form-control-static">
-                                            <a href="#" editable-text="customer.card">{{customer.card}}</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">پست الکترونیک</label>
-
-                                    <div class="col-md-9">
-                                        <p class="form-control-static">
-                                            <a href="#" editable-text="customer.email">{{customer.email}}</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--/span-->
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">امتیاز</label>
-
-                                    <div class="col-md-9">
-                                        <p class="form-control-static">
-                                            {{customer.score}}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">معرف</label>
-
-                                    <div class="col-md-9">
-                                        <p class="form-control-static">
-                                            <a href="#/customer/{{customer.mentorCustomer.id}}">{{customer.mentorCustomer.name}}</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--/span-->
-                        </div>
 
                         <div class="form-actions">
                             <div class="row">
@@ -317,8 +179,8 @@
                                             <button type="submit" class="btn green"><i class="fa fa-pencil"></i>
                                                 ذخیره تغییرات
                                             </button>
-                                            <button ng-click="goCustomerList()" type="button" class="btn default">مشاهده
-                                                لیست مشتریان
+                                            <button ng-click="goUserList()" type="button" class="btn default">
+                                                مشاهده لیست کاربران سیستم
                                             </button>
                                         </div>
                                     </div>
@@ -339,166 +201,11 @@
 
 <div class="row">
     <div class="col-md-6 col-sm-12">
-        <!-- BEGIN PORTLET-->
-        <div class="portlet bordered light ">
-            <div class="portlet-title tabbable-line">
-                <div class="caption caption-md">
-                    <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">معرفی مشتری جدید</span>
-                </div>
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#" data-target="#select_tab" data-toggle="tab">
-                            انتخاب از میان مشتریان </a>
-                    </li>
-                </ul>
 
-            </div>
-            <div class="portlet-body">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="#select_tab">
-                        <a ng-click="open()" href="#" class="btn btn-lg yellow">
-                            انتخاب از میان مشتریان موجود <i class="fa fa-search"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END PORTLET-->
-
-
-        <!-- BEGIN PORTLET-->
-        <div class="portlet bordered light ">
-            <div class="portlet-title ">
-                <div class="caption caption-md">
-                    <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">نمودار امتیازات کسب شده</span>
-                </div>
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <div google-chart chart="chartObject"></div>
-                    </li>
-                </ul>
-
-            </div>
-            <div class="portlet-body">
-
-            </div>
-        </div>
 
     </div>
     <div class="col-md-6 col-sm-12">
         <!-- BEGIN PORTLET-->
-        <div class="portlet bordered light ">
-            <div class="portlet-title">
-                <div class="caption caption-md">
-                    <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">لیست مشتری های معرفی شده</span>
-                    <span class="caption-helper hide">لیست مشتریان</span>
-                </div>
-                <div class="actions">
-                    <div class="btn-group btn-group-devided" data-toggle="buttons">
-
-                    </div>
-                </div>
-                <div class="inputs">
-                    <div class="portlet-input input-inline input-medium">
-                        <div class="input-group">
-                            <input type="text" data-ng-change="doSearch()" ng-model="query"
-                                   class="form-control input-circle-left" placeholder="search...">
-                                    <span class="input-group-btn">
-                                    <button class="btn btn-circle-right btn-default" type="submit">Go!</button>
-                                    </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="portlet-body">
-                <div class="row number-stats margin-bottom-30">
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div class="stat-left">
-                            <div class="stat-chart">
-                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                <div id="sparkline_bar"></div>
-                            </div>
-                            <div class="stat-number">
-                                <div class="title">
-                                    تعداد
-                                </div>
-                                <div class="number">
-                                    {{customer.invitees.length}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div class="stat-right">
-                            <div class="stat-chart">
-                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                <div id="sparkline_bar2"></div>
-                            </div>
-                            <div class="stat-number">
-                                <div class="title">
-                                    جمع امتیازات
-                                </div>
-                                <div class="number">
-                                    {{inviteesTotalScore}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-scrollable table-scrollable-borderless">
-                    <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="uppercase">
-                            <th colspan="2">
-                                نام
-                            </th>
-                            <th>
-                                ایمیل
-                            </th>
-                            <th>
-                                موبایل
-                            </th>
-                            <th>
-                                امتیاز
-                            </th>
-                            <th>
-                                حذف
-                            </th>
-                        </tr>
-                        </thead>
-                        <tr ng-repeat="invitee in customer.invitees">
-                            <td class="fit">
-                                <img class="user-pic"
-                                     src="/delegate/resource/assets/admin/layout/img/avatar4.jpg">
-                            </td>
-                            <td>
-                                <a href="#/customer/{{invitee.id}}" class="primary-link">{{invitee.name}}</a>
-                            </td>
-                            <td>
-                                {{invitee.email}}
-                            </td>
-
-                            <td>
-                                {{invitee.mobile}}
-                            </td>
-
-                            <td>
-                                <span class="bold font-green-haze">{{invitee.score}}</span>
-                            </td>
-
-                            <td>
-                                <a ng-click="deleteInvitee(invitee)" class="bold font-red"><i
-                                        style="font-size:20px" class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
         <!-- END PORTLET-->
     </div>
 

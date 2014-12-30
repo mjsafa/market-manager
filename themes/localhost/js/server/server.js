@@ -221,12 +221,39 @@ MetronicApp.factory("ScoreService", ['CustomerService', function (CustomerServic
 
 
 //Users Service
-MetronicApp.factory("UserService", function (JsonServer) {
+MetronicApp.factory("UserService", function (JsonServer, $rootScope) {
     return {
-        addUser: function(user){
-            return JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'new-user',{user: JSON.stringify(user)}, {});
-        }
+        addUser:function (user) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'new-user', {user:JSON.stringify(user), serviceContext:{}}, {});
+            result.success(function (data, status) {
+                if (data.result) {
+                    $rootScope.$emit('UserService.addUser', data);
+                } else {
+                    $rootScope.$emit('UserService.addUser.error', data);
+                }
+            });
+        },
+        find:function (query) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'find-users', {filter:JSON.stringify({query:query}), serviceContext:{}}, {});
+            result.success(function (data, status) {
+                if (data.result) {
+                    $rootScope.$emit('UserService.find', data);
+                } else {
+                    $rootScope.$emit('UserService.find.error', data);
+                }
 
+            });
+        }, getById:function (userId) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'get-by-id', {userId:userId, serviceContext:{}}, {});
+            result.success(function (data, status) {
+                if (data.result) {
+                    $rootScope.$emit('UserService.getById', data);
+                } else {
+                    $rootScope.$emit('UserService.getById.error', data);
+                }
+
+            });
+        }
     };
 
 });
@@ -250,49 +277,7 @@ MetronicApp.factory("JsonServer", function ($http) {
 
             var dataStr = JSON.stringify(data);
 
-            /*
-             var _success = function(res){
-             app.loading.end(options.loadingKey);
-             app.loader.ready(url);
-             options.success(res);
-             };
-             */
-
-            /*
-             var _error = function(res){
-             app.loading.end(options.loadingKey);
-             app.loader.ready(url);
-             options.error(res);
-             };
-             */
-
-            //params.p_auth = authToken;
-
-
-            /*
-             $.ajax({
-             type:'POST',
-             url:url,
-             data: dataStr,
-             success: _success,
-             error: _error,
-             contentType: 'application/json'
-             });
-             */
-
-            $http.post(_url, dataStr ).
-                success(
-                function (data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    return data;
-                }).
-                error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
-
-            return;
+            return $http.post(_url, dataStr);
         }
     };
 
