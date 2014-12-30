@@ -14,11 +14,11 @@
 
     #set($pageContent = $myPageService.renderPageHTML($layoutId))
 
-<html>
+<html  $pageContent.htmlAttributes>
 <head>
 ##    $theme.include($top_head_include)
 
-    #parse ("$full_templates_path/header-js.vm")
+##    #parse ("$full_templates_path/header-js.vm")
 
     ##Render Head Tag Content Of Template
     $pageContent.head
