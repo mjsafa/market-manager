@@ -32,6 +32,7 @@
             <button class="btn btn-primary" ng-click="ok()">OK</button>
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>
+    </div>
 </script>
 
 
@@ -45,7 +46,10 @@
             <table class="table table-hover table-light">
                 <thead>
                 <tr class="uppercase">
-                    <th colspan="2">
+                    <th>
+                        تصویر
+                    </th>
+                    <th>
                         نام
                     </th>
                     <th>
@@ -60,11 +64,11 @@
                 </tr>
                 </thead>
                 <tr ng-click="ok(customer)" ng-repeat="customer in customers">
-                    <td class="fit">
+                    <td>
                         <img class="user-pic" src="/delegate/resource/assets/admin/layout/img/avatar4.jpg">
                     </td>
                     <td>
-                        <a href="javascript:;" class="primary-link">{{customer.name}}</a>
+                        <a href="javascript:;" class="primary-link">{{customer.firstName}} {{customer.lastName}}</a>
                     </td>
                     <td>
                         {{customer.email}}
@@ -138,6 +142,11 @@
     سامانه مدیریت سپاسه
 </h3>
 <!-- END PAGE HEADER-->
+
+<div ng-controller="GeneralPageController">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.message}}</alert>
+</div>
+
 <!-- BEGIN MAIN CONTENT -->
 <div ng-controller="CustomersController">
 
@@ -219,210 +228,252 @@
 </div>
 <!-- END DASHBOARD STATS -->
 <div class="row">
-    <div class="col-md-6 col-sm-12">
-        <!-- BEGIN PORTLET-->
-        <div class="portlet light ">
-            <div class="portlet-title">
-                <div class="caption caption-md">
-                    <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">ثبت مشتری جدید</span>
-                    <span class="caption-helper hide">لیست مشتریان</span>
-                </div>
-                <div class="actions">
-                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+<div class="col-md-6 col-sm-12">
+    <!-- BEGIN PORTLET-->
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart font-green-haze hide"></i>
+                <span class="caption-subject font-green-haze bold uppercase">ثبت مشتری جدید</span>
+                <span class="caption-helper hide">لیست مشتریان</span>
+            </div>
+            <div class="actions">
+                <div class="btn-group btn-group-devided" data-toggle="buttons">
 
 
-                    </div>
                 </div>
             </div>
-            <div class="portlet-body form">
-                <form class="form-horizontal" ng-submit="submitCustomer()">
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">نام</label>
+        </div>
+        <div class="portlet-body form">
+            <form class="form-horizontal" ng-submit="submitCustomer()">
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">نام</label>
 
-                            <div class="input-group col-md-9">
+                        <div class="input-group col-md-9">
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input ng-model="newCustomer.name" type="text" class="form-control">
-                            </div>
+                            <input ng-model="newCustomer.firstName" type="text" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">تلفن همراه</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">نام خانوادگی</label>
 
-                            <div class="input-group col-md-9">
+                        <div class="input-group col-md-9">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <input ng-model="newCustomer.lastName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">تلفن همراه</label>
+
+                        <div class="input-group col-md-9">
                                 <span class="input-group-addon">
                                     <i class="fa fa-mobile"></i>
                                 </span>
-                                <input ng-model="newCustomer.mobile" data-mask="phone" type="text" class="form-control"
-                                       style="direction: ltr;">
-                            </div>
+                            <input ng-model="newCustomer.mobile" data-mask="phone" type="text" class="form-control"
+                                   style="direction: ltr;">
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">شماره کارت بانکی</label>
-                            <div class="input-group col-md-9">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">شماره کارت بانکی</label>
+
+                        <div class="input-group col-md-9">
                                 <span class="input-group-addon">
                                     <i class="fa fa-credit-card"></i>
                                 </span>
-                                <input ng-model="newCustomer.card" data-mask="credit-card" type="text" class="form-control"
-                                       style="direction: ltr;">
-                            </div>
+                            <input ng-model="newCustomer.card" data-mask="credit-card" type="text" class="form-control"
+                                   style="direction: ltr;">
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">کد ملی</label>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">کد ملی</label>
 
-                            <div class="input-group col-md-9">
+                        <div class="input-group col-md-9">
                                                         <span class="input-group-addon">
                                                             <i class="fa fa-user"></i>
                                                         </span>
-                                <input ng-model="newCustomer.nationalCode" data-mask="national-code" type="text" class="form-control"
-                                       style="direction: ltr;">
-                            </div>
+                            <input ng-model="newCustomer.nationalCode" data-mask="national-code" type="text"
+                                   class="form-control"
+                                   style="direction: ltr;">
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">آدرس ایمیل</label>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">آدرس ایمیل</label>
 
-                            <div class="input-group col-md-9">
+                        <div class="input-group col-md-9">
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input ng-model="newCustomer.email" style="direction: ltr;" type="text"
-                                       class="form-control">
-                            </div>
+                            <input ng-model="newCustomer.email" style="direction: ltr;" type="text"
+                                   class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">مشتری معرف</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">مشتری معرف</label>
 
-                            <div class="input-group col-md-9">
+                        <div class="input-group col-md-9">
                                 <span class="input-group-addon">
                                     <i class="fa fa-users"></i>
                                 </span>
-                                <input ng-click="open()" type="text" class="form-control input-lg"
-                                       ng-model="newCustomer.mentorCustomer.name"/>
-                            </div>
+                            <input ng-click="open()" type="text" class="form-control input-lg"
+                                   ng-model="newCustomer.mentorCustomer.name"/>
                         </div>
-
-                    </div>
-                    <div class="form-actions right">
-                        <button type="submit" class="btn green">ثبت اطلاعات مشتری</button>
                     </div>
 
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">رمز عبور</label>
+
+                        <div class="input-group col-md-9">
+                            <span class="input-group-addon">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                            <input ng-model="newCustomer.password1" style="direction: ltr;" type="password"
+                                   class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">تکرار رمز عبور</label>
+
+                        <div class="input-group col-md-9">
+                            <span class="input-group-addon">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                            <input ng-model="newCustomer.password2" style="direction: ltr;" type="password"
+                                   class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-actions right">
+                    <button type="submit" class="btn green">ثبت اطلاعات مشتری</button>
+                </div>
+
+            </form>
         </div>
-        <!-- END PORTLET-->
     </div>
+    <!-- END PORTLET-->
+</div>
 
 
-    <div class="col-md-6 col-sm-12">
-        <!-- BEGIN PORTLET-->
-        <div class="portlet light ">
-            <div class="portlet-title">
-                <div class="caption caption-md">
-                    <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">جستجو در مشتریان</span>
-                    <span class="caption-helper hide">لیست مشتریان</span>
+<div class="col-md-6 col-sm-12">
+    <!-- BEGIN PORTLET-->
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart font-green-haze hide"></i>
+                <span class="caption-subject font-green-haze bold uppercase">جستجو در مشتریان</span>
+                <span class="caption-helper hide">لیست مشتریان</span>
+            </div>
+            <div class="actions">
+                <div class="btn-group btn-group-devided" data-toggle="buttons">
+
                 </div>
-                <div class="actions">
-                    <div class="btn-group btn-group-devided" data-toggle="buttons">
-
-                    </div>
-                </div>
-                <div class="inputs">
-                    <div class="portlet-input input-inline input-medium">
-                        <div class="input-group">
-                            <input type="text" data-ng-change="doSearch()" ng-model="query"
-                                   class="form-control input-circle-left" placeholder="search...">
+            </div>
+            <div class="inputs">
+                <div class="portlet-input input-inline input-medium">
+                    <div class="input-group">
+                        <input ng-enter="doSearch()" type="text" ng-model="query"
+                               class="form-control input-circle-left" placeholder="جستجو ..."/>
                                 <span class="input-group-btn">
-                                <button class="btn btn-circle-right btn-default" type="submit">Go!</button>
+                                <button ng-click="doSearch()" class="btn btn-circle-right btn-default" type="submit">
+                                    جستجو
+                                </button>
                                 </span>
-                        </div>
                     </div>
                 </div>
-
             </div>
-            <div class="portlet-body">
-                <div class="row number-stats margin-bottom-30">
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div class="stat-left">
-                            <div class="stat-chart">
-                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                <div id="sparkline_bar"></div>
-                            </div>
-                            <div class="stat-number">
-                                <div class="title">
-                                    کل امتیاز
-                                </div>
-                                <div class="number">
-                                    {{totalScore}}
-                                </div>
-                            </div>
+
+        </div>
+        <div class="portlet-body">
+            <div class="row number-stats margin-bottom-30">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="stat-left">
+                        <div class="stat-chart">
+                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                            <div id="sparkline_bar"></div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div class="stat-right">
-                            <div class="stat-chart">
-                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                <div id="sparkline_bar2"></div>
+                        <div class="stat-number">
+                            <div class="title">
+                                کل امتیاز
                             </div>
-                            <div class="stat-number">
-                                <div class="title">
-                                    تعداد کل
-                                </div>
-                                <div class="number">
-                                    {{customers.length}}
-                                </div>
+                            <div class="number">
+                                {{totalScore}}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="table-scrollable table-scrollable-borderless">
-                    <table class="table table-hover table-light">
-                        <thead>
-                        <tr class="uppercase">
-                            <th colspan="2">
-                                نام
-                            </th>
-                            <th>
-                                ایمیل
-                            </th>
-                            <th>
-                                موبایل
-                            </th>
-                            <th>
-                                امتیاز
-                            </th>
-                        </tr>
-                        </thead>
-                        <tr ng-repeat="customer in customers | filter: query">
-                            <td class="fit">
-                                <img class="user-pic" src="/delegate/resource/assets/admin/layout/img/avatar4.jpg">
-                            </td>
-                            <td>
-                                <a href="#/customer/{{customer.id}}" class="primary-link">{{customer.name}}</a>
-                            </td>
-                            <td>
-                                {{customer.email}}
-                            </td>
-
-                            <td style="direction: ltr; text-align: right;">
-                                {{customer.mobile}}
-                            </td>
-
-                            <td>
-                                <a ng-click="openScore('small', customer)" class="bold font-green-haze">{{customer.score}}</a>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="stat-right">
+                        <div class="stat-chart">
+                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                            <div id="sparkline_bar2"></div>
+                        </div>
+                        <div class="stat-number">
+                            <div class="title">
+                                تعداد کل
+                            </div>
+                            <div class="number">
+                                {{customers.length}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-hover table-light">
+                    <thead>
+                    <tr class="uppercase">
+                        <th>
+                            تصویر
+                        </th>
+                        <th>
+                            نام
+                        </th>
+                        <th>
+                            ایمیل
+                        </th>
+                        <th>
+                            موبایل
+                        </th>
+                        <th>
+                            امتیاز
+                        </th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="customer in customers">
+                        <td class="fit">
+                            <img class="user-pic" src="/delegate/resource/assets/admin/layout/img/avatar4.jpg">
+                        </td>
+                        <td>
+                            <a href="#/customer/{{customer.id}}" class="primary-link">{{customer.name}}</a>
+                        </td>
+                        <td>
+                            {{customer.email}}
+                        </td>
+
+                        <td style="direction: ltr; text-align: right;">
+                            {{customer.mobile}}
+                        </td>
+
+                        <td>
+                            <a ng-click="openScore('small', customer)"
+                               class="bold font-green-haze">{{customer.score}}</a>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-        <!-- END PORTLET-->
     </div>
+    <!-- END PORTLET-->
+</div>
 </div>
 </div>
 <!-- END MAIN CONTENT -->

@@ -440,8 +440,14 @@
                         </td>
 
                         <td>
-                            <a ng-click="openScore('small', customer)"
-                               class="bold font-green-haze">--</a>
+
+                            <button type="button" class="btn btn-success" ng-click="changeStatus(user)"
+                                                                        ng-model="user.isActive"
+                                                                        btn-checkbox>
+                                {{user.isActive ? "فعال" : "غیر فعال"}}
+
+                            </button>
+
                         </td>
                     </tr>
                 </table>
