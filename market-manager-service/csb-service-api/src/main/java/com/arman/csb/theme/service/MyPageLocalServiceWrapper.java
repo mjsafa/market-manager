@@ -52,8 +52,8 @@ public class MyPageLocalServiceWrapper implements MyPageLocalService,
 
     @Override
     public java.util.Map<java.lang.String, java.lang.Object> renderPageHTML(
-        long pageId) {
-        return _myPageLocalService.renderPageHTML(pageId);
+        long pageId, com.liferay.portal.theme.ThemeDisplay themeDisplay) {
+        return _myPageLocalService.renderPageHTML(pageId, themeDisplay);
     }
 
     @Override

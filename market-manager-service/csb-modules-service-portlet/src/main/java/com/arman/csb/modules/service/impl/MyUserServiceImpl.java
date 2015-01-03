@@ -12,6 +12,8 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactory;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
+import com.liferay.portal.kernel.webdav.Status;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
@@ -66,7 +68,6 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
 
         String screenName = ((String) user.get("email")).replace("@", "-");
 
-
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
 
@@ -91,11 +92,11 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
 
         LinkedHashMap<String, Object> params = new LinkedHashMap<String, java.lang.Object>();
         params.put("usersUserGroups", operatorGroup.getUserGroupId());
-        List<User> users = UserLocalServiceUtil.search(serviceContext.getCompanyId(), (String) filter.get("query"), 0, params, 0, 20, (OrderByComparator) null);
+        List<User> users = UserLocalServiceUtil.search(serviceContext.getCompanyId(), (String) filter.get("query"), WorkflowConstants.STATUS_ANY, params, 0, 20, (OrderByComparator) null);
 
+        //put users inside JSON Array
         JSONArray result = JSONFactoryUtil.createJSONArray();
         for (User user : users) {
-
             JSONObject userJsonObject = JSONFactoryUtil.createJSONObject();
             userJsonObject.put("firstName", user.getFirstName());
             userJsonObject.put("lastName", user.getLastName());
@@ -103,9 +104,24 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
             userJsonObject.put("id", user.getUserId());
             userJsonObject.put("mobile", user.getMiddleName());
 
+            if(user.getStatus() == WorkflowConstants.STATUS_APPROVED){
+                userJsonObject.put("isActive", true);
+            }else {
+                userJsonObject.put("isActive", false);
+            }
             result.put(userJsonObject);
         }
 
+        return result;
+    }
+
+    public JSONObject updateStatus(Long userId,boolean isActive, ServiceContext serviceContext) throws PortalException, SystemException {
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        if(isActive){
+            UserLocalServiceUtil.updateStatus(userId, WorkflowConstants.STATUS_APPROVED);
+        }else {
+            UserLocalServiceUtil.updateStatus(userId, WorkflowConstants.STATUS_INACTIVE);
+        }
         return result;
     }
 
@@ -135,4 +151,12 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
 
         return userJsonObject;
     }
+
+    public JSONObject agreed(Long userId, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER.toString());
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        UserLocalServiceUtil.updateAgreedToTermsOfUse(userId, true);
+        return result;
+    }
+
 }

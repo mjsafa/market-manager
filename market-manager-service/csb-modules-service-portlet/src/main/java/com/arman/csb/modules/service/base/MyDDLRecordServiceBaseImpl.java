@@ -1,6 +1,8 @@
 package com.arman.csb.modules.service.base;
 
 import com.arman.csb.modules.service.MyDDLRecordService;
+import com.arman.csb.modules.service.persistence.CustomerPersistence;
+import com.arman.csb.modules.service.persistence.ScorePersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
@@ -30,6 +32,12 @@ import javax.sql.DataSource;
  */
 public abstract class MyDDLRecordServiceBaseImpl extends BaseServiceImpl
     implements MyDDLRecordService, IdentifiableBean {
+    @BeanReference(type = com.arman.csb.modules.service.CustomerLocalService.class)
+    protected com.arman.csb.modules.service.CustomerLocalService customerLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.CustomerService.class)
+    protected com.arman.csb.modules.service.CustomerService customerService;
+    @BeanReference(type = CustomerPersistence.class)
+    protected CustomerPersistence customerPersistence;
     @BeanReference(type = com.arman.csb.modules.service.MyBlogLocalService.class)
     protected com.arman.csb.modules.service.MyBlogLocalService myBlogLocalService;
     @BeanReference(type = com.arman.csb.modules.service.MyBlogService.class)
@@ -42,6 +50,12 @@ public abstract class MyDDLRecordServiceBaseImpl extends BaseServiceImpl
     protected com.arman.csb.modules.service.MyUserLocalService myUserLocalService;
     @BeanReference(type = com.arman.csb.modules.service.MyUserService.class)
     protected com.arman.csb.modules.service.MyUserService myUserService;
+    @BeanReference(type = com.arman.csb.modules.service.ScoreLocalService.class)
+    protected com.arman.csb.modules.service.ScoreLocalService scoreLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.ScoreService.class)
+    protected com.arman.csb.modules.service.ScoreService scoreService;
+    @BeanReference(type = ScorePersistence.class)
+    protected ScorePersistence scorePersistence;
     @BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
     protected com.liferay.counter.service.CounterLocalService counterLocalService;
     @BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
@@ -73,6 +87,62 @@ public abstract class MyDDLRecordServiceBaseImpl extends BaseServiceImpl
      *
      * Never modify or reference this class directly. Always use {@link com.arman.csb.modules.service.MyDDLRecordServiceUtil} to access the my d d l record remote service.
      */
+
+    /**
+     * Returns the customer local service.
+     *
+     * @return the customer local service
+     */
+    public com.arman.csb.modules.service.CustomerLocalService getCustomerLocalService() {
+        return customerLocalService;
+    }
+
+    /**
+     * Sets the customer local service.
+     *
+     * @param customerLocalService the customer local service
+     */
+    public void setCustomerLocalService(
+        com.arman.csb.modules.service.CustomerLocalService customerLocalService) {
+        this.customerLocalService = customerLocalService;
+    }
+
+    /**
+     * Returns the customer remote service.
+     *
+     * @return the customer remote service
+     */
+    public com.arman.csb.modules.service.CustomerService getCustomerService() {
+        return customerService;
+    }
+
+    /**
+     * Sets the customer remote service.
+     *
+     * @param customerService the customer remote service
+     */
+    public void setCustomerService(
+        com.arman.csb.modules.service.CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    /**
+     * Returns the customer persistence.
+     *
+     * @return the customer persistence
+     */
+    public CustomerPersistence getCustomerPersistence() {
+        return customerPersistence;
+    }
+
+    /**
+     * Sets the customer persistence.
+     *
+     * @param customerPersistence the customer persistence
+     */
+    public void setCustomerPersistence(CustomerPersistence customerPersistence) {
+        this.customerPersistence = customerPersistence;
+    }
 
     /**
      * Returns the my blog local service.
@@ -186,6 +256,62 @@ public abstract class MyDDLRecordServiceBaseImpl extends BaseServiceImpl
     public void setMyUserService(
         com.arman.csb.modules.service.MyUserService myUserService) {
         this.myUserService = myUserService;
+    }
+
+    /**
+     * Returns the score local service.
+     *
+     * @return the score local service
+     */
+    public com.arman.csb.modules.service.ScoreLocalService getScoreLocalService() {
+        return scoreLocalService;
+    }
+
+    /**
+     * Sets the score local service.
+     *
+     * @param scoreLocalService the score local service
+     */
+    public void setScoreLocalService(
+        com.arman.csb.modules.service.ScoreLocalService scoreLocalService) {
+        this.scoreLocalService = scoreLocalService;
+    }
+
+    /**
+     * Returns the score remote service.
+     *
+     * @return the score remote service
+     */
+    public com.arman.csb.modules.service.ScoreService getScoreService() {
+        return scoreService;
+    }
+
+    /**
+     * Sets the score remote service.
+     *
+     * @param scoreService the score remote service
+     */
+    public void setScoreService(
+        com.arman.csb.modules.service.ScoreService scoreService) {
+        this.scoreService = scoreService;
+    }
+
+    /**
+     * Returns the score persistence.
+     *
+     * @return the score persistence
+     */
+    public ScorePersistence getScorePersistence() {
+        return scorePersistence;
+    }
+
+    /**
+     * Sets the score persistence.
+     *
+     * @param scorePersistence the score persistence
+     */
+    public void setScorePersistence(ScorePersistence scorePersistence) {
+        this.scorePersistence = scorePersistence;
     }
 
     /**

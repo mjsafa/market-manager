@@ -9,31 +9,31 @@ import java.util.Arrays;
  * @generated
  */
 public class MyBlogServiceClpInvoker {
-    private String _methodName30;
-    private String[] _methodParameterTypes30;
-    private String _methodName31;
-    private String[] _methodParameterTypes31;
-    private String _methodName34;
-    private String[] _methodParameterTypes34;
-    private String _methodName35;
-    private String[] _methodParameterTypes35;
+    private String _methodName42;
+    private String[] _methodParameterTypes42;
+    private String _methodName43;
+    private String[] _methodParameterTypes43;
+    private String _methodName46;
+    private String[] _methodParameterTypes46;
+    private String _methodName47;
+    private String[] _methodParameterTypes47;
 
     public MyBlogServiceClpInvoker() {
-        _methodName30 = "getBeanIdentifier";
+        _methodName42 = "getBeanIdentifier";
 
-        _methodParameterTypes30 = new String[] {  };
+        _methodParameterTypes42 = new String[] {  };
 
-        _methodName31 = "setBeanIdentifier";
+        _methodName43 = "setBeanIdentifier";
 
-        _methodParameterTypes31 = new String[] { "java.lang.String" };
+        _methodParameterTypes43 = new String[] { "java.lang.String" };
 
-        _methodName34 = "getEntry";
+        _methodName46 = "getEntry";
 
-        _methodParameterTypes34 = new String[] { "long" };
+        _methodParameterTypes46 = new String[] { "long" };
 
-        _methodName35 = "getLatestBlogEntries";
+        _methodName47 = "getLatestBlogEntries";
 
-        _methodParameterTypes35 = new String[] {
+        _methodParameterTypes47 = new String[] {
                 "java.lang.String", "int", "int", "int", "java.lang.String",
                 "java.lang.String", "java.util.Map"
             };
@@ -41,25 +41,25 @@ public class MyBlogServiceClpInvoker {
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName30.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
+        if (_methodName42.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
             return MyBlogServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName31.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
+        if (_methodName43.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
             MyBlogServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName34.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+        if (_methodName46.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
             return MyBlogServiceUtil.getEntry(((Long) arguments[0]).longValue());
         }
 
-        if (_methodName35.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+        if (_methodName47.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
             return MyBlogServiceUtil.getLatestBlogEntries((java.lang.String) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue(),

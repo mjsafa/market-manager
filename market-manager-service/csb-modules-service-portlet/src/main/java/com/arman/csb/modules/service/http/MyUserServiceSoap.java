@@ -39,11 +39,42 @@ import java.rmi.RemoteException;
 public class MyUserServiceSoap {
     private static Log _log = LogFactoryUtil.getLog(MyUserServiceSoap.class);
 
+    public static java.lang.String updateStatus(java.lang.Long userId,
+        boolean isActive,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = MyUserServiceUtil.updateStatus(userId,
+                    isActive, serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
     public static java.lang.String getById(java.lang.Long userId,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws RemoteException {
         try {
             com.liferay.portal.kernel.json.JSONObject returnValue = MyUserServiceUtil.getById(userId,
+                    serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String agreed(java.lang.Long userId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = MyUserServiceUtil.agreed(userId,
                     serviceContext);
 
             return returnValue.toString();

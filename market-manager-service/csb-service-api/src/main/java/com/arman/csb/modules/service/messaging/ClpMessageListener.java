@@ -1,12 +1,16 @@
 package com.arman.csb.modules.service.messaging;
 
 import com.arman.csb.modules.service.ClpSerializer;
+import com.arman.csb.modules.service.CustomerLocalServiceUtil;
+import com.arman.csb.modules.service.CustomerServiceUtil;
 import com.arman.csb.modules.service.MyBlogLocalServiceUtil;
 import com.arman.csb.modules.service.MyBlogServiceUtil;
 import com.arman.csb.modules.service.MyDDLRecordLocalServiceUtil;
 import com.arman.csb.modules.service.MyDDLRecordServiceUtil;
 import com.arman.csb.modules.service.MyUserLocalServiceUtil;
 import com.arman.csb.modules.service.MyUserServiceUtil;
+import com.arman.csb.modules.service.ScoreLocalServiceUtil;
+import com.arman.csb.modules.service.ScoreServiceUtil;
 
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
@@ -24,6 +28,9 @@ public class ClpMessageListener extends BaseMessageListener {
 
         if (command.equals("undeploy") &&
                 servletContextName.equals(getServletContextName())) {
+            CustomerLocalServiceUtil.clearService();
+
+            CustomerServiceUtil.clearService();
             MyBlogLocalServiceUtil.clearService();
 
             MyBlogServiceUtil.clearService();
@@ -33,6 +40,9 @@ public class ClpMessageListener extends BaseMessageListener {
             MyUserLocalServiceUtil.clearService();
 
             MyUserServiceUtil.clearService();
+            ScoreLocalServiceUtil.clearService();
+
+            ScoreServiceUtil.clearService();
         }
     }
 }
