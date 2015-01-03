@@ -57,8 +57,8 @@ public class MyPageLocalServiceUtil {
     }
 
     public static java.util.Map<java.lang.String, java.lang.Object> renderPageHTML(
-        long pageId) {
-        return getService().renderPageHTML(pageId);
+        long pageId, com.liferay.portal.theme.ThemeDisplay themeDisplay) {
+        return getService().renderPageHTML(pageId, themeDisplay);
     }
 
     public static java.util.Map<java.lang.String, java.lang.Object> renderAdminHTML(

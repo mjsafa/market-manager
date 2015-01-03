@@ -38,7 +38,9 @@ public class MyPageLocalServiceClp implements MyPageLocalService {
 
         _methodName4 = "renderPageHTML";
 
-        _methodParameterTypes4 = new String[] { "long" };
+        _methodParameterTypes4 = new String[] {
+                "long", "com.liferay.portal.theme.ThemeDisplay"
+            };
 
         _methodName5 = "renderAdminHTML";
 
@@ -118,12 +120,17 @@ public class MyPageLocalServiceClp implements MyPageLocalService {
 
     @Override
     public java.util.Map<java.lang.String, java.lang.Object> renderPageHTML(
-        long pageId) {
+        long pageId, com.liferay.portal.theme.ThemeDisplay themeDisplay) {
         Object returnObj = null;
 
         try {
             returnObj = _invokableLocalService.invokeMethod(_methodName4,
-                    _methodParameterTypes4, new Object[] { pageId });
+                    _methodParameterTypes4,
+                    new Object[] {
+                        pageId,
+                        
+                    ClpSerializer.translateInput(themeDisplay)
+                    });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 

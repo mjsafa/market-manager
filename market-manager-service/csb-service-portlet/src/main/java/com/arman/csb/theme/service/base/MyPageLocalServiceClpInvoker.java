@@ -37,7 +37,9 @@ public class MyPageLocalServiceClpInvoker {
 
         _methodName33 = "renderPageHTML";
 
-        _methodParameterTypes33 = new String[] { "long" };
+        _methodParameterTypes33 = new String[] {
+                "long", "com.liferay.portal.theme.ThemeDisplay"
+            };
 
         _methodName34 = "renderAdminHTML";
 
@@ -68,7 +70,8 @@ public class MyPageLocalServiceClpInvoker {
 
         if (_methodName33.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
-            return MyPageLocalServiceUtil.renderPageHTML(((Long) arguments[0]).longValue());
+            return MyPageLocalServiceUtil.renderPageHTML(((Long) arguments[0]).longValue(),
+                (com.liferay.portal.theme.ThemeDisplay) arguments[1]);
         }
 
         if (_methodName34.equals(name) &&

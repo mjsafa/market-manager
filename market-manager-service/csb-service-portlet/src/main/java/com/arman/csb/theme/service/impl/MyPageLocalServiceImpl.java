@@ -16,10 +16,14 @@ import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Layout;
+import com.liferay.portal.model.Role;
+import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.security.auth.AuthTokenUtil;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.CompanyServiceUtil;
 import com.liferay.portal.service.LayoutLocalServiceUtil;
+import com.liferay.portal.service.persistence.UserUtil;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.portlet.PortletProps;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
@@ -63,7 +67,8 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
 
     private static final String TEMPLATE_DIRECTORY = "templates";
     private static final String PAGE_DIRECTORY = "pages";
-    public static final String SITE_ABSOLUTE_PAT = PortletProps.get("site.files.absolutePath");;
+    public static final String SITE_ABSOLUTE_PAT = PortletProps.get("site.files.absolutePath");
+    ;
     private static final String CONTENT_TAG_NAME = "content";
     private static final String FILE_SYSTEM_RELATIVE_PATH = PortletProps.get("site.files.path");
     private static final String MODULE_NAMESPACE = "module";
@@ -144,7 +149,7 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
     }
 
 
-    public Map<String, Object> renderPageHTML(long pageId) {
+    public Map<String, Object> renderPageHTML(long pageId, ThemeDisplay themeDisplay) {
         try {
             Layout layout = LayoutLocalServiceUtil.getLayout(pageId);
             Long templateId = (Long) layout.getExpandoBridge().getAttribute("templateId");
@@ -202,6 +207,32 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
             result.put("htmlAttributes", templateDoc.getElementsByTag("html").get(0).attributes());
 
             result.put("authToken", AuthTokenUtil.getAuthToken());
+
+            List<Role> userRoles = themeDisplay.getUser().getRoles();
+            List<UserGroup> userGroups = themeDisplay.getUser().getUserGroups();
+            String user = "{";
+            user += "id: " + themeDisplay.getUserId();
+            user += ",agreed: " + themeDisplay.getUser().getAgreedToTermsOfUse();
+            user += ",firstName: '" + themeDisplay.getUser().getFirstName() + "'";
+            user += ",lastName: '" + themeDisplay.getUser().getLastName() + "'";
+
+            //set roles
+            user += ",roles:{ ";
+            for (Role role : userRoles) {
+                user += role.getName().replaceAll(" ", "___") + ": true, ";
+            }
+            user += "}";
+
+            //set user groups
+            user += ",userGroups:{ ";
+            for (UserGroup userGroup: userGroups) {
+                user += userGroup.getName().replaceAll(" ", "___") + ": true, ";
+            }
+            user += "}";
+
+            user += "}";
+
+            result.put("user", user);
 
             return result;
 
@@ -296,8 +327,8 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
         return getContent(companyId, repositoryId, directory, fileName, null);
     }
 
-    private String getContent( long repositoryId, String directory, String fileName, String staticHost) {
-            return getContent(0L, repositoryId, directory, fileName, staticHost);
+    private String getContent(long repositoryId, String directory, String fileName, String staticHost) {
+        return getContent(0L, repositoryId, directory, fileName, staticHost);
     }
 
 
@@ -307,7 +338,7 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
             Company company = null;
 
             String companyDomain = virtualHost;
-            if(null == companyDomain){
+            if (null == companyDomain) {
                 company = CompanyLocalServiceUtil.getCompany(companyId);
                 companyDomain = company.getVirtualHostname();
             }

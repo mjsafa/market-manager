@@ -53,7 +53,7 @@ public interface MyPageLocalService extends BaseLocalService,
         java.lang.String newContent);
 
     public java.util.Map<java.lang.String, java.lang.Object> renderPageHTML(
-        long pageId);
+        long pageId, com.liferay.portal.theme.ThemeDisplay themeDisplay);
 
     public java.util.Map<java.lang.String, java.lang.Object> renderAdminHTML(
         long pageId);

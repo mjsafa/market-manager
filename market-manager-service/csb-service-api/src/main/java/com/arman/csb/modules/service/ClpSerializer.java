@@ -1,5 +1,8 @@
 package com.arman.csb.modules.service;
 
+import com.arman.csb.modules.model.CustomerClp;
+import com.arman.csb.modules.model.ScoreClp;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
@@ -82,6 +85,18 @@ public class ClpSerializer {
     }
 
     public static Object translateInput(BaseModel<?> oldModel) {
+        Class<?> oldModelClass = oldModel.getClass();
+
+        String oldModelClassName = oldModelClass.getName();
+
+        if (oldModelClassName.equals(CustomerClp.class.getName())) {
+            return translateInputCustomer(oldModel);
+        }
+
+        if (oldModelClassName.equals(ScoreClp.class.getName())) {
+            return translateInputScore(oldModel);
+        }
+
         return oldModel;
     }
 
@@ -97,6 +112,26 @@ public class ClpSerializer {
         return newList;
     }
 
+    public static Object translateInputCustomer(BaseModel<?> oldModel) {
+        CustomerClp oldClpModel = (CustomerClp) oldModel;
+
+        BaseModel<?> newModel = oldClpModel.getCustomerRemoteModel();
+
+        newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+        return newModel;
+    }
+
+    public static Object translateInputScore(BaseModel<?> oldModel) {
+        ScoreClp oldClpModel = (ScoreClp) oldModel;
+
+        BaseModel<?> newModel = oldClpModel.getScoreRemoteModel();
+
+        newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+        return newModel;
+    }
+
     public static Object translateInput(Object obj) {
         if (obj instanceof BaseModel<?>) {
             return translateInput((BaseModel<?>) obj);
@@ -108,6 +143,20 @@ public class ClpSerializer {
     }
 
     public static Object translateOutput(BaseModel<?> oldModel) {
+        Class<?> oldModelClass = oldModel.getClass();
+
+        String oldModelClassName = oldModelClass.getName();
+
+        if (oldModelClassName.equals(
+                    "com.arman.csb.modules.model.impl.CustomerImpl")) {
+            return translateOutputCustomer(oldModel);
+        }
+
+        if (oldModelClassName.equals(
+                    "com.arman.csb.modules.model.impl.ScoreImpl")) {
+            return translateOutputScore(oldModel);
+        }
+
         return oldModel;
     }
 
@@ -184,6 +233,34 @@ public class ClpSerializer {
             return new SystemException();
         }
 
+        if (className.equals("com.arman.csb.modules.NoSuchCustomerException")) {
+            return new com.arman.csb.modules.NoSuchCustomerException();
+        }
+
+        if (className.equals("com.arman.csb.modules.NoSuchScoreException")) {
+            return new com.arman.csb.modules.NoSuchScoreException();
+        }
+
         return throwable;
+    }
+
+    public static Object translateOutputCustomer(BaseModel<?> oldModel) {
+        CustomerClp newModel = new CustomerClp();
+
+        newModel.setModelAttributes(oldModel.getModelAttributes());
+
+        newModel.setCustomerRemoteModel(oldModel);
+
+        return newModel;
+    }
+
+    public static Object translateOutputScore(BaseModel<?> oldModel) {
+        ScoreClp newModel = new ScoreClp();
+
+        newModel.setModelAttributes(oldModel.getModelAttributes());
+
+        newModel.setScoreRemoteModel(oldModel);
+
+        return newModel;
     }
 }

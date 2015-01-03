@@ -9,25 +9,25 @@ import java.util.Arrays;
  * @generated
  */
 public class MyBlogLocalServiceClpInvoker {
-    private String _methodName30;
-    private String[] _methodParameterTypes30;
-    private String _methodName31;
-    private String[] _methodParameterTypes31;
-    private String _methodName34;
-    private String[] _methodParameterTypes34;
+    private String _methodName42;
+    private String[] _methodParameterTypes42;
+    private String _methodName43;
+    private String[] _methodParameterTypes43;
+    private String _methodName46;
+    private String[] _methodParameterTypes46;
 
     public MyBlogLocalServiceClpInvoker() {
-        _methodName30 = "getBeanIdentifier";
+        _methodName42 = "getBeanIdentifier";
 
-        _methodParameterTypes30 = new String[] {  };
+        _methodParameterTypes42 = new String[] {  };
 
-        _methodName31 = "setBeanIdentifier";
+        _methodName43 = "setBeanIdentifier";
 
-        _methodParameterTypes31 = new String[] { "java.lang.String" };
+        _methodParameterTypes43 = new String[] { "java.lang.String" };
 
-        _methodName34 = "findGroupEntries";
+        _methodName46 = "findGroupEntries";
 
-        _methodParameterTypes34 = new String[] {
+        _methodParameterTypes46 = new String[] {
                 "long", "long", "int", "int", "int", "java.lang.String",
                 "java.lang.String", "java.util.Map"
             };
@@ -35,20 +35,20 @@ public class MyBlogLocalServiceClpInvoker {
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName30.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
+        if (_methodName42.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
             return MyBlogLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName31.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
+        if (_methodName43.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
             MyBlogLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName34.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+        if (_methodName46.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
             return MyBlogLocalServiceUtil.findGroupEntries(((Long) arguments[0]).longValue(),
                 ((Long) arguments[1]).longValue(),
                 ((Integer) arguments[2]).intValue(),
