@@ -1,5 +1,5 @@
 //afMarket = afMarket || {}
-MetronicApp.factory("CustomerService", function () {
+MetronicApp.factory("CustomerServiceMock", function () {
     var customers = [
         {
             id:0,
@@ -224,43 +224,38 @@ MetronicApp.factory("ScoreService", ['CustomerService', function (CustomerServic
 MetronicApp.factory("UserService", function (JsonServer, $rootScope) {
     return {
         addUser:function (user) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'new-user', {user:JSON.stringify(user), serviceContext:{}}, {});
-            result.success(function (data, status) {
-                if (data.result) {
-                    $rootScope.$emit('UserService.addUser', data);
-                } else {
-                    $rootScope.$emit('UserService.addUser.error', data);
-                }
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'new-user', {user:JSON.stringify(user), serviceContext:{}}, {
+                eventName:'UserService.addUser'
             });
         },
         find:function (query) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'find-users', {filter:JSON.stringify({query:query}), serviceContext:{}}, {});
-            result.success(function (data, status) {
-                if (data.result) {
-                    $rootScope.$emit('UserService.find', data);
-                } else {
-                    $rootScope.$emit('UserService.find.error', data);
-                }
-
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'find-users', {filter:JSON.stringify({query:query}), serviceContext:{}}, {
+                eventName:'UserService.find'
             });
-        }, getById:function (userId) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'get-by-id', {userId:userId, serviceContext:{}}, {});
-            result.success(function (data, status) {
-                if (data.result) {
-                    $rootScope.$emit('UserService.getById', data);
-                } else {
-                    $rootScope.$emit('UserService.getById.error', data);
-                }
-
+        },
+        getById:function (userId) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'get-by-id', {userId:userId, serviceContext:{}}, {
+                eventName:'UserService.getById'
             });
+        },
+        updateStatus:function (userId, isActive) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'update-status', {userId:userId, isActive:isActive, serviceContext:{}},
+                {eventName:'UserService.updateStatus'}
+            );
+        },
+        setAgreed:function (userId) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'agreed', {userId:userId, serviceContext:{}},
+                {eventName:'UserService.setAgreed'}
+            );
         }
+
     };
 
 });
 
 
 //Users Service
-MetronicApp.factory("JsonServer", function ($http) {
+MetronicApp.factory("JsonServer", function ($http, $rootScope) {
     var baseUrl = '/api/jsonws';
 
     return {
@@ -277,7 +272,16 @@ MetronicApp.factory("JsonServer", function ($http) {
 
             var dataStr = JSON.stringify(data);
 
-            return $http.post(_url, dataStr);
+            var result = $http.post(_url, dataStr);
+            result.success(function (data, status) {
+                if (data.result) {
+                    $rootScope.$emit(options.eventName, data);
+                } else {
+                    $rootScope.$emit( options.eventName + '.error', data);
+                }
+            });
+
+            return result;
         }
     };
 

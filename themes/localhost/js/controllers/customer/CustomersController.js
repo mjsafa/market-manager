@@ -6,6 +6,12 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
         Metronic.initAjax();
     });
 
+    if (!$scope.initialized) {
+        $rootScope.$on('CustomerService.search', function (event, data) {
+            $scope.customers = data.result;
+        });
+    }
+
     $scope.customers = CustomerService.search('');
     $scope.customerService = CustomerService;
     $scope.scoreService = ScoreService;
@@ -20,14 +26,16 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
         score:0,
         mentorCustomer:{}
     };
+
     $scope.submitCustomer = function () {
         if ($scope.newCustomer.mentorCustomer) {
             $scope.newCustomer.mentorCustomerId = $scope.newCustomer.mentorCustomer.id;
         }
 
-        $scope.customerService.lastId++;
-        $scope.newCustomer.id = $scope.customerService.lastId;
-        $scope.customers.unshift($scope.newCustomer);
+        //$scope.customerService.lastId++;
+        //$scope.newCustomer.id = $scope.customerService.lastId;
+        //$scope.customers.unshift($scope.newCustomer);
+        $scope.customerService.addCustomer($scope.newCustomer);
         $scope.newCustomer = {};
         $state.go('customers');
     }

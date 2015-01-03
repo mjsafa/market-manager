@@ -12,7 +12,7 @@
 ##    #set($authTokens = $authUtil.getToken($request))
 
 
-    #set($pageContent = $myPageService.renderPageHTML($layoutId))
+    #set($pageContent = $myPageService.renderPageHTML($layoutId, $themeDisplay))
 
 <html  $pageContent.htmlAttributes>
 <head>
@@ -31,6 +31,7 @@
         var authToken = '$pageContent.authToken.getToken($request)';
         var isSignedIn = $themeDisplay.isSignedIn();
         var pageId = '$themeDisplay.getPlid()';
+        var onlineUser = $pageContent.user;
     </script>
 
 ##    $theme.include($body_top_include)

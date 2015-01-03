@@ -69,6 +69,13 @@ MetronicApp.controller('UsersController', ['$rootScope', '$scope', 'UserService'
         });
     };
 
+    $scope.changeStatus = function(user){
+        if(user.isActive){
+            $scope.userService.updateStatus(user.id, false);
+        } else{
+            $scope.userService.updateStatus(user.id, true);
+        }
+    };
 
     $scope.initialized = true;
 }]);

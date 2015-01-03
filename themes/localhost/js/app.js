@@ -91,7 +91,14 @@ MetronicApp.controller('FooterController', ['$scope', function ($scope) {
 /* Setup Rounting For All Pages */
 MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     // Redirect any unmatched url
-    $urlRouterProvider.otherwise("/dashboard.html");
+
+
+    if(!onlineUser.agreed && onlineUser.userGroups && onlineUser.userGroups.customer_group){
+        $urlRouterProvider.otherwise("/userAgreement");
+    }else{
+        $urlRouterProvider.otherwise("/dashboard.html");
+    }
+
 
     $stateProvider
 
@@ -138,11 +145,12 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
                             '/delegate/resource/assets/admin/pages/scripts/customers.js',
-
+                            '/delegate/resource/js/controllers/GeneralPageController.js',
                             '/delegate/resource/assets/global/plugins/morris/morris.min.js',
                             '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
                             '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
                             '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/server/CustomerService.js',
                             '/delegate/resource/js/controllers/customer/CustomersController.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
                             '/delegate/resource/js/controllers/customer/CustomerScoreController.js'
@@ -237,6 +245,36 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
                             '/delegate/resource/js/server/server.js',
                             '/delegate/resource/js/controllers/user/UserDetailController.js',
+                            '/delegate/resource/js/controllers/GeneralPageController.js'
+                        ]
+                    });
+                }]
+            }
+        })
+
+         //User Agreement
+        .state('userAgreement', {
+            url:"/userAgreement",
+            templateUrl:"/delegate/resource/views/users/userAgreement.html",
+            data:{pageTitle:'جزئیات کاربر'},
+            controller:"OnlineUserController",
+            resolve:{
+                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'MetronicApp',
+                        files:[
+                            '/delegate/resource/assets/global/plugins/morris/morris.css',
+                            '/delegate/resource/assets/admin/pages/css/tasks.css',
+                            '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
+                            '/delegate/resource/assets/admin/pages/scripts/customers.js',
+
+                            '/delegate/resource/assets/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js',
+
+                            '/delegate/resource/assets/global/plugins/morris/morris.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
+                            '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/controllers/user/OnlineUserController.js',
                             '/delegate/resource/js/controllers/GeneralPageController.js'
                         ]
                     });
