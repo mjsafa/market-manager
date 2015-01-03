@@ -61,4 +61,24 @@
     </sql>
 
 
+    <sql id="com.arman.csb.modules.service.InvoiceService.search">
+        <![CDATA[
+            SELECT
+                customer.name, invoice.createDate, itemData.numberOfItem, itemData.totalCost, invoice.id_
+            FROM CSBModules_Invoice AS invoice
+            INNER JOIN
+                CSBModules_Customer as customer
+            ON invoice.customerid = customer.id_
+            LEFT OUTER JOIN
+                (SELECT item.invoiceId, COUNT(item.id_) AS numberOfItem, SUM(item.number_ * item.basePrice) AS totalCost
+                FROM CSBModules_InvoiceItem AS item GROUP BY item.invoiceId)
+            AS itemData ON itemData.invoiceId = invoice.id_
+            WHERE
+                (invoice.address like '##KEYWORD##') OR
+                (invoice.telephone like '##KEYWORD##') OR
+                (invoice.mobile like '##KEYWORD##')
+            ORDER BY invoice.createDate DESC
+        ]]>
+    </sql>
+
 </custom-sql>

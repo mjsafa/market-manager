@@ -1,0 +1,55 @@
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+
+<service-builder package-path="com.arman.csb.modules.service">
+
+    <entity name="Invoice" uuid="true" local-service="true" remote-service="true">
+        <column name="id" type="long" primary="true" />
+
+        <!-- Group instance -->
+        <column name="groupId" type="long" />
+        <column name="companyId" type="long" />
+
+        <!-- Audit fields -->
+        <column name="userId" type="long" />
+        <column name="userName" type="String" />
+        <column name="createDate" type="Date" />
+        <column name="modifiedDate" type="Date" />
+
+        <!-- Other fields -->
+        <column name="customerId" type="long" />
+        <column name="address" type="String" />
+        <column name="telephone" type="String" />
+        <column name="mobile" type="String" />
+        <column name="typeOfDelivery" type="Short" />
+        
+        <finder name="UserId" return-type="Collection">
+            <finder-column name="userId"></finder-column>
+        </finder>
+
+        <finder name="CustomerId" return-type="Collection">
+            <finder-column name="customerId"></finder-column>
+        </finder>
+
+    </entity>
+
+    <entity name="InvoiceItem" uuid="true" local-service="true" remote-service="true" >
+        <column name="id" type="long" primary="true" />
+
+        <!-- Audit fields -->
+        <column name="createDate" type="Date" />
+        <column name="modifiedDate" type="Date" />
+
+        <!-- Other fields -->
+        <column name="invoiceId" type="long" />
+        <column name="productCode" type="String" />
+        <column name="productName" type="String" />
+        <column name="number" type="Short" />
+        <column name="basePrice" type="long" />
+
+        <finder name="InvoiceId" return-type="collection">
+            <finder-column name="invoiceId"></finder-column>
+        </finder>
+        
+    </entity>
+
+</service-builder>

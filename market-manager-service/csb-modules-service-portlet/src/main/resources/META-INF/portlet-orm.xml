@@ -41,6 +41,61 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.arman.csb.modules.model.impl.InvoiceModelImpl">
+		<attributes>
+			<id name="id">
+				<column name="ID_" />
+			</id>
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="customerId" />
+			<basic name="address" />
+			<basic name="telephone" />
+			<basic name="mobile" />
+			<basic name="typeOfDelivery" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.arman.csb.modules.model.impl.InvoiceItemModelImpl">
+		<attributes>
+			<id name="id">
+				<column name="ID_" />
+			</id>
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="invoiceId" />
+			<basic name="productCode" />
+			<basic name="productName" />
+			<basic name="number">
+				<column name="NUMBER_" />
+			</basic>
+			<basic name="basePrice" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.arman.csb.modules.model.impl.ScoreModelImpl">
 		<attributes>
 			<id name="id">
@@ -72,6 +127,14 @@
 	</mapped-superclass>
 	<entity class="com.arman.csb.modules.model.impl.CustomerImpl" name="Customer">
 		<table name="CSBModules_Customer" />
+		<attributes />
+	</entity>
+	<entity class="com.arman.csb.modules.model.impl.InvoiceImpl" name="Invoice">
+		<table name="CSBModules_Invoice" />
+		<attributes />
+	</entity>
+	<entity class="com.arman.csb.modules.model.impl.InvoiceItemImpl" name="InvoiceItem">
+		<table name="CSBModules_InvoiceItem" />
 		<attributes />
 	</entity>
 	<entity class="com.arman.csb.modules.model.impl.ScoreImpl" name="Score">

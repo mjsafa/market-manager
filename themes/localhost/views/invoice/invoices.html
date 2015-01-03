@@ -1,0 +1,415 @@
+<!-- BEGIN PAGE HEADER-->
+
+<div data-ng-include="'/delegate/resource/views/customer/customerSelectPopup.html'" >
+</div>
+
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/dashboard.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">داشبورد مدیریت سامانه سپاسه</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-menu-toggle
+                    dropdown-menu-hover data-delay="1000" data-close-others="true">
+                Actions <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a href="#">
+                        <i class="icon-user"></i> New User </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-present"></i> New Event <span class="badge badge-success">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-basket"></i> New order </a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-flag"></i> Pending Orders <span class="badge badge-danger">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-users"></i> Pending Users <span class="badge badge-warning">12</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h3 class="page-title">
+    سامانه مدیریت سپاسه
+</h3>
+<!-- END PAGE HEADER-->
+
+<div ng-controller="GeneralPageController">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.message}}</alert>
+</div>
+
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="InvoicesController">
+
+
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue-madison">
+            <div class="visual">
+                <i class="fa fa-comments"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    1349
+                </div>
+                <div class="desc">
+                    New Feedbacks
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-intense">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    12,5M$
+                </div>
+                <div class="desc">
+                    Total Profit
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    549
+                </div>
+                <div class="desc">
+                    New Orders
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    +89%
+                </div>
+                <div class="desc">
+                    Brand Popularity
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- END DASHBOARD STATS -->
+
+<div class="row">
+<div class="col-md-6 col-sm-12">
+    <!-- BEGIN PORTLET-->
+    <div class="portlet light ">
+        <div class="portlet-title tabbable-line">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart font-green-haze hide"></i>
+                <span class="caption-subject font-green-haze bold uppercase">ثبت فاکتور جدید</span>
+            </div>
+            <ul class="nav nav-tabs">
+                <li>
+                    <a href="#" data-target="#portlet_tab2" data-toggle="tab">
+                        فرم جزییات
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#" data-target="#portlet_tab1" data-toggle="tab">
+اطلاعات کلی
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="portlet-body form">
+            <form class="form-horizontal" ng-submit="submitInvoice()">
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="portlet_tab1">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">تلفن همراه</label>
+
+                                <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-mobile"></i>
+                                </span>
+                                    <input ng-model="newInvoice.mobile" data-mask="phone" type="text" class="form-control"
+                                           style="direction: ltr;">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">تلفن</label>
+
+                                <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-mobile"></i>
+                                </span>
+                                    <input ng-model="newInvoice.telephone" data-mask="phone" type="text" class="form-control"
+                                           style="direction: ltr;">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">مشتری</label>
+
+                                <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-users"></i>
+                                </span>
+                                    <input ng-click="open()" type="text" class="form-control input-lg"
+                                           ng-model="newInvoice.customer.name"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">مدل حمل</label>
+
+                                <div class="col-md-9">
+                                    <div class="radio-list">
+                                        <label>
+                                            <div class="radio">
+                                                <input type="radio" checked="" value="1"
+                                                       ng-model="newInvoice.typeOfDelivery" name="typeOfDelivery">
+                                            </div>
+                                            پستی
+                                        </label>
+                                        <label>
+                                            <div class="radio">
+                                                <input type="radio" value="2"
+                                                       ng-model="newInvoice.typeOfDelivery" name="typeOfDelivery">
+                                            </div>
+                                            حضوری
+                                        </label>
+                                        <label>
+                                            <div class="radio">
+                                                <input type="radio" value="3"
+                                                       ng-model="newInvoice.typeOfDelivery" name="typeOfDelivery">
+                                            </div>
+                                            پیک
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">آدرس</label>
+
+                                <div class="col-md-9">
+                                    <textarea ng-model="newInvoice.address" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="portlet_tab2">
+                        <button type="button" ng-click="addItem()" class="btn green">جدید</button>
+
+                        <div class="form-body" ng-repeat="item in newInvoice.invoiceItems">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">نام محصول</label>
+
+                                <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-edit"></i>
+                                </span>
+                                    <input ng-model="item.productName" type="text" class="form-control" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">کد محصول</label>
+
+                                <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-edit"></i>
+                                </span>
+                                    <input ng-model="item.productCode" type="text" class="form-control"
+                                           style="direction: ltr;">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">تعداد</label>
+
+                                <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-tag"></i>
+                                </span>
+                                    <input ng-model="item.number" type="text" class="form-control"
+                                           style="direction: ltr;">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">قیمت پایه</label>
+
+                                <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-tag"></i>
+                                </span>
+                                    <input ng-model="item.basePrice" type="text" class="form-control"
+                                           style="direction: ltr;">
+                                </div>
+                            </div>
+
+                            <button type="button" ng-click="deleteItem($index)" class="btn green">حذف</button>
+
+                            <hr>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="form-actions right">
+                    <button type="submit" class="btn green">ثبت فاکتور جدید</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!-- END PORTLET-->
+</div>
+
+<div class="col-md-6 col-sm-12">
+    <!-- BEGIN PORTLET-->
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-bar-chart font-green-haze hide"></i>
+                <span class="caption-subject font-green-haze bold uppercase">جستجو در فاکتورها</span>
+                <span class="caption-helper hide">لیست فاکتورها</span>
+            </div>
+            <div class="actions">
+                <div class="btn-group btn-group-devided" data-toggle="buttons">
+
+                </div>
+            </div>
+            <div class="inputs">
+                <div class="portlet-input input-inline input-medium">
+                    <div class="input-group">
+                        <input ng-enter="doSearch()" type="text" ng-model="query"
+                               class="form-control input-circle-left" placeholder="جستجو ..."/>
+                                <span class="input-group-btn">
+                                <button ng-click="doSearch()" class="btn btn-circle-right btn-default" type="submit">
+                                    جستجو
+                                </button>
+                                </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="portlet-body">
+            <div class="row number-stats margin-bottom-30">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="stat-right">
+                        <div class="stat-chart">
+                            <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                            <div id="sparkline_bar2"></div>
+                        </div>
+                        <div class="stat-number">
+                            <div class="title">
+                                تعداد کل
+                            </div>
+                            <div class="number">
+                                {{invoices.length}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-hover table-light">
+                    <thead>
+                    <tr class="uppercase">
+                        <th>
+نام مشتری
+                        </th>
+                        <th>
+تعداد اقلام
+                        </th>
+                        <th>
+جمع هزینه ها
+                        </th>
+                        <th>
+                            تاریخ
+                        </th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="invoice in invoices">
+                        <td>
+                            <a href="#/invoice/{{invoice.id}}" class="primary-link">{{invoice.customerName}}</a>
+                        </td>
+                        <td>
+                            {{invoice.itemNumber}}
+                        </td>
+                        <td>
+                            {{invoice.totalCost}}
+                        </td>
+                        <td>
+                            {{invoice.invoiceDate}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- END PORTLET-->
+</div>
+
+</div>
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<script>
+    //Index.init();
+    //Tasks.initDashboardWidget();
+    CustomersTools.init();
+</script>
+<!-- BEGIN MAIN JS & CSS -->

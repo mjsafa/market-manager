@@ -49,10 +49,10 @@ public class ScoreLocalServiceClpInvoker {
     private String[] _methodParameterTypes18;
     private String _methodName19;
     private String[] _methodParameterTypes19;
-    private String _methodName56;
-    private String[] _methodParameterTypes56;
-    private String _methodName57;
-    private String[] _methodParameterTypes57;
+    private String _methodName68;
+    private String[] _methodParameterTypes68;
+    private String _methodName69;
+    private String[] _methodParameterTypes69;
 
     public ScoreLocalServiceClpInvoker() {
         _methodName0 = "addScore";
@@ -153,13 +153,13 @@ public class ScoreLocalServiceClpInvoker {
                 "com.arman.csb.modules.model.Score"
             };
 
-        _methodName56 = "getBeanIdentifier";
+        _methodName68 = "getBeanIdentifier";
 
-        _methodParameterTypes56 = new String[] {  };
+        _methodParameterTypes68 = new String[] {  };
 
-        _methodName57 = "setBeanIdentifier";
+        _methodName69 = "setBeanIdentifier";
 
-        _methodParameterTypes57 = new String[] { "java.lang.String" };
+        _methodParameterTypes69 = new String[] { "java.lang.String" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -275,13 +275,13 @@ public class ScoreLocalServiceClpInvoker {
             return ScoreLocalServiceUtil.updateScore((com.arman.csb.modules.model.Score) arguments[0]);
         }
 
-        if (_methodName56.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+        if (_methodName68.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
             return ScoreLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName57.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+        if (_methodName69.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
             ScoreLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;

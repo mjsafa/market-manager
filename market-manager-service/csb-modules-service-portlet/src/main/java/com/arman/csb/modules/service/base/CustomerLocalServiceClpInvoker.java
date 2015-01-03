@@ -49,12 +49,12 @@ public class CustomerLocalServiceClpInvoker {
     private String[] _methodParameterTypes18;
     private String _methodName19;
     private String[] _methodParameterTypes19;
-    private String _methodName56;
-    private String[] _methodParameterTypes56;
-    private String _methodName57;
-    private String[] _methodParameterTypes57;
-    private String _methodName62;
-    private String[] _methodParameterTypes62;
+    private String _methodName68;
+    private String[] _methodParameterTypes68;
+    private String _methodName69;
+    private String[] _methodParameterTypes69;
+    private String _methodName74;
+    private String[] _methodParameterTypes74;
 
     public CustomerLocalServiceClpInvoker() {
         _methodName0 = "addCustomer";
@@ -155,17 +155,17 @@ public class CustomerLocalServiceClpInvoker {
                 "com.arman.csb.modules.model.Customer"
             };
 
-        _methodName56 = "getBeanIdentifier";
+        _methodName68 = "getBeanIdentifier";
 
-        _methodParameterTypes56 = new String[] {  };
+        _methodParameterTypes68 = new String[] {  };
 
-        _methodName57 = "setBeanIdentifier";
+        _methodName69 = "setBeanIdentifier";
 
-        _methodParameterTypes57 = new String[] { "java.lang.String" };
+        _methodParameterTypes69 = new String[] { "java.lang.String" };
 
-        _methodName62 = "addCustomer";
+        _methodName74 = "addCustomer";
 
-        _methodParameterTypes62 = new String[] {
+        _methodParameterTypes74 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
             };
     }
@@ -283,20 +283,20 @@ public class CustomerLocalServiceClpInvoker {
             return CustomerLocalServiceUtil.updateCustomer((com.arman.csb.modules.model.Customer) arguments[0]);
         }
 
-        if (_methodName56.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+        if (_methodName68.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
             return CustomerLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName57.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+        if (_methodName69.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
             CustomerLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName62.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+        if (_methodName74.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
             return CustomerLocalServiceUtil.addCustomer((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
