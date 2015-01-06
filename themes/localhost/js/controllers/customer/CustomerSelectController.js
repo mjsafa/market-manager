@@ -1,12 +1,19 @@
 'use strict';
 
 MetronicApp.controller('CustomerSelectController', ['$rootScope', '$scope', 'CustomerService', '$state', '$modal', '$modalInstance', function ($rootScope, $scope, CustomerService, $state, $modal, $modalInstance, customers) {
+    if (!$scope.initialized) {
+        $scope.$on('CustomerService.search', function (event, data) {
+            $scope.customers = data.result;
+        });
 
-    $scope.customers = CustomerService.search('');
+        CustomerService.search('',{scope: $scope});
+    }
+
+
     $scope.customerService = CustomerService;
 
     $scope.doSearch = function () {
-        $scope.customerService.search($scope.query);
+        $scope.customerService.search($scope.query, {scope: $scope});
     }
 
     $scope.ok = function (item) {
@@ -15,5 +22,7 @@ MetronicApp.controller('CustomerSelectController', ['$rootScope', '$scope', 'Cus
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
-     };
+    };
+
+    $scope.initialized = true;
 }]);

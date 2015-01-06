@@ -138,7 +138,7 @@ MetronicApp.factory("CustomerServiceMock", function () {
 });
 
 
-MetronicApp.factory("ScoreService", ['CustomerService', function (CustomerService) {
+MetronicApp.factory("ScoreServiceMock", ['CustomerService', function (CustomerService) {
     var scores = [
         {
             customerId:0,
@@ -247,8 +247,10 @@ MetronicApp.factory("UserService", function (JsonServer, $rootScope) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'agreed', {userId:userId, serviceContext:{}},
                 {eventName:'UserService.setAgreed'}
             );
+        },
+        getOnlineUser:function () {
+            return onlineUser;
         }
-
     };
 
 });
@@ -275,7 +277,11 @@ MetronicApp.factory("JsonServer", function ($http, $rootScope) {
             var result = $http.post(_url, dataStr);
             result.success(function (data, status) {
                 if (data.result) {
-                    $rootScope.$emit(options.eventName, data);
+                     if(options.scope){
+                         options.scope.$emit(options.eventName, data);
+                     }else{
+                         $rootScope.$emit(options.eventName, data);
+                     }
                 } else {
                     $rootScope.$emit( options.eventName + '.error', data);
                 }
