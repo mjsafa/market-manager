@@ -7,12 +7,23 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
     });
 
     if (!$scope.initialized) {
+        $scope.customers = CustomerService.search('');
+
         $rootScope.$on('CustomerService.search', function (event, data) {
             $scope.customers = data.result;
         });
+
+        $rootScope.$on('CustomerService.addCustomer', function (event, data) {
+            $scope.doSearch();
+        });
+
+
+        $rootScope.$on('ScoreService.addScore', function (event, data) {
+            $scope.doSearch();
+        });
     }
 
-    $scope.customers = CustomerService.search('');
+
     $scope.customerService = CustomerService;
     $scope.scoreService = ScoreService;
 
@@ -84,8 +95,7 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
         $scope.scoreModal = scoreModal;
 
         scoreModal.result.then(function (score) {
-            var _customer = $scope.customerService.getById(score.customerId);
-            $scope.scoreService.addScore(_customer, score.value)
+            $scope.scoreService.addScore(score.customerId, score.value)
         }, function () {
             //$log.info('Modal dismissed at: ' + newDate());
         });
@@ -101,5 +111,5 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
     }
 
     $scope.totalScore = calculateScore();
-
+    $scope.initialized = true;
 }]);

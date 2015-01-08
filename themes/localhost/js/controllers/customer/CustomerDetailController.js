@@ -1,20 +1,53 @@
 'use strict';
 
-MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal',
-    function ($rootScope, $scope, CustomerService, ScoreService, $stateParams, $state, $modal) {
+MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal', 'UserService',
+    function ($rootScope, $scope, CustomerService, ScoreService, $stateParams, $state, $modal, UserService) {
+
+        if (!$scope.initialized) {    //bind listeners only for the first time
+            //server side events
+            $rootScope.$on('CustomerService.getById', function (event, data) {
+                $scope.customer = data.result;
+                //load invitee customers
+                CustomerService.getInvitees($scope.customer.id);
+                CustomerService.getStats($scope.customer.id);
+                ScoreService.customerChartData($scope.customer.id);
+                ScoreService.findByCustomerId($scope.customer.id, 0 ,30 , {});
+            });
+
+            $rootScope.$on('CustomerService.getInvitees', function (event, data) {
+                $scope.customer.invitees = data.result;
+                $scope.inviteesTotalScore = $scope.inviteesScore();
+            });
+
+            $rootScope.$on('ScoreService.customerChartData', function (event, data) {
+                $scope.scoreChartData = {
+                    "series":[
+                        ""
+                    ],
+                    "data":[
+                    ]
+                }
+                angular.forEach(data.result.records, function (record) {
+                    $scope.scoreChartData.data.push({"x":record.date, "y":[record.value]});
+                });
+            });
+
+            $rootScope.$on('CustomerService.getStats', function (event, data) {
+                $scope.stats = data.result;
+            });
+
+            $rootScope.$on('ScoreService.findByCustomerId', function (event, data) {
+                $scope.scores = data.result;
+            });
+        }
 
         $scope.scoreService = ScoreService;
 
         $scope.customerId = $stateParams.customerId;
-        $scope.customer = CustomerService.getById($scope.customerId);
-
-        //load mentor customer
-        if ($scope.customer.mentorCustomerId) {
-            $scope.customer.mentorCustomer = CustomerService.getById($scope.customer.mentorCustomerId);
+        if (!$scope.customerId && UserService.getOnlineUser() && UserService.getOnlineUser().customerId) {
+            $scope.customerId = UserService.getOnlineUser().customerId;
         }
-
-        //load invitee customers
-        $scope.customer.invitees = CustomerService.findInvitees($scope.customer.id);
+        CustomerService.getById($scope.customerId);
 
         $scope.goCustomerList = function () {
             $state.go('customers');
@@ -28,9 +61,6 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
 
             return totalScore;
         }
-
-        $scope.inviteesTotalScore = $scope.inviteesScore();
-
 
         //Select Invitee Modal
         $scope.open = function (size) {
@@ -59,13 +89,27 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
             CustomerService.deleteInvitee($scope.customer, invitee);
         };
 
-        $scope.chartObject = {};
 
-        $scope.chartObject.data = $scope.scoreService.chartData($scope.customer.id);
-
-        $scope.chartObject.type = 'LineChart';
-        $scope.chartObject.options = {
-            'title':'امتیاز کسب شده توسط مشتری'
+        $scope.scoreChartConfig = {
+            title:'',
+            tooltips:true,
+            labels:false,
+            mouseover:function () {
+            },
+            mouseout:function () {
+            },
+            click:function () {
+            },
+            legend:{
+                display:true,
+                //could be 'left, right'
+                position:'right'
+            },
+            innerRadius:0, // applicable on pieCharts, can be a percentage like '50%'
+            lineLegend:'tradditional' // can be also 'traditional'
         }
+
+
+        $scope.initialized = true;
     }
 ]);

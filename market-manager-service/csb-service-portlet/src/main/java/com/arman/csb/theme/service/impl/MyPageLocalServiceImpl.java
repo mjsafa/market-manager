@@ -1,5 +1,7 @@
 package com.arman.csb.theme.service.impl;
 
+import com.arman.csb.modules.model.Customer;
+import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.theme.model.ContentHolder;
 import com.arman.csb.theme.model.Template;
 import com.arman.csb.theme.service.ContentHolderLocalServiceUtil;
@@ -210,11 +212,15 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
 
             List<Role> userRoles = themeDisplay.getUser().getRoles();
             List<UserGroup> userGroups = themeDisplay.getUser().getUserGroups();
+            Customer customer = CustomerLocalServiceUtil.findByUserId(themeDisplay.getUserId());
             String user = "{";
             user += "id: " + themeDisplay.getUserId();
             user += ",agreed: " + themeDisplay.getUser().getAgreedToTermsOfUse();
             user += ",firstName: '" + themeDisplay.getUser().getFirstName() + "'";
             user += ",lastName: '" + themeDisplay.getUser().getLastName() + "'";
+            if(null != customer){
+                user += ",customerId:" + customer.getId();
+            }
 
             //set roles
             user += ",roles:{ ";

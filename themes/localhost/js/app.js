@@ -9,7 +9,8 @@ var MetronicApp = angular.module("MetronicApp", [
     "oc.lazyLoad",
     "ngSanitize",
     "xeditable",
-    "googlechart"
+    "googlechart",
+    "angularCharts"
 ]);
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -55,13 +56,16 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function ($scop
 MetronicApp.controller('HeaderController', ['$scope', function ($scope) {
     $scope.$on('$includeContentLoaded', function () {
         Layout.initHeader(); // init header
+        $scope.onlineUser = onlineUser;
     });
+
 }]);
 
 /* Setup Layout Part - Sidebar */
 MetronicApp.controller('SidebarController', ['$scope', function ($scope) {
     $scope.$on('$includeContentLoaded', function () {
         Layout.initSidebar(); // init sidebar
+        $scope.onlineUser = onlineUser;
     });
 }]);
 
@@ -93,8 +97,17 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
     // Redirect any unmatched url
 
 
-    if(!onlineUser.agreed && onlineUser.userGroups && onlineUser.userGroups.customer_group){
-        $urlRouterProvider.otherwise("/userAgreement");
+    if(onlineUser.userGroups && onlineUser.userGroups.customer_group){
+        if(!onlineUser.agreed ){
+            $urlRouterProvider.otherwise("/userAgreement");
+        }else{
+            $urlRouterProvider.otherwise("/customerDashboard");
+        }
+
+    }else  if(onlineUser.userGroups && onlineUser.userGroups.operator_group){
+        if(onlineUser.roles && onlineUser.roles.ADMINISTRATOR_USER){
+            $urlRouterProvider.otherwise("/adminDashboard");
+        }
     }else{
         $urlRouterProvider.otherwise("/dashboard.html");
     }
@@ -151,6 +164,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
                             '/delegate/resource/js/server/server.js',
                             '/delegate/resource/js/server/CustomerService.js',
+                            '/delegate/resource/js/server/ScoreService.js',
+
                             '/delegate/resource/js/controllers/customer/CustomersController.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
                             '/delegate/resource/js/controllers/customer/CustomerScoreController.js'
@@ -179,9 +194,69 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
                             '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
                             '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/server/CustomerService.js',
+                            '/delegate/resource/js/server/ScoreService.js',
                             '/delegate/resource/js/controllers/customer/CustomerDetailController.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js'
 
+                        ]
+                    });
+                }]
+            }
+        })
+
+         // customer details
+        .state('customerDashboard', {
+            url:"/customerDashboard",
+            templateUrl:"/delegate/resource/views/customer/customerDashboard.html",
+            data:{pageTitle:'صفحه اختصاصی مشتری'},
+            controller:"CustomerDetailController",
+            resolve:{
+                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'MetronicApp',
+                        files:[
+                            '/delegate/resource/assets/global/plugins/morris/morris.css',
+                            '/delegate/resource/assets/admin/pages/css/tasks.css',
+
+                            //'/delegate/resource/assets/global/plugins/d3/d3.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/morris.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
+                            '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/server/ScoreService.js',
+                            '/delegate/resource/js/server/CustomerService.js',
+                            '/delegate/resource/js/controllers/customer/CustomerDetailController.js',
+                            '/delegate/resource/js/controllers/customer/CustomerSelectController.js'
+                        ]
+                    });
+                }]
+            }
+        })
+
+
+         // customer details
+        .state('adminDashboard', {
+            url:"/adminDashboard",
+            templateUrl:"/delegate/resource/views/admin/adminDashboard.html",
+            data:{pageTitle:'صفحه اختصاصی مشتری'},
+            controller:"AdminDashboardController",
+            resolve:{
+                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'MetronicApp',
+                        files:[
+                            '/delegate/resource/assets/global/plugins/morris/morris.css',
+                            '/delegate/resource/assets/admin/pages/css/tasks.css',
+
+                            //'/delegate/resource/assets/global/plugins/d3/d3.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/morris.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
+                            '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/server/ScoreService.js',
+                            '/delegate/resource/js/server/CustomerService.js',
+                            '/delegate/resource/js/controllers/AdminDashboardController.js'
                         ]
                     });
                 }]

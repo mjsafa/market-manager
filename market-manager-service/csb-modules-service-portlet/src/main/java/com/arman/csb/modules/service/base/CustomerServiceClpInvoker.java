@@ -21,6 +21,16 @@ public class CustomerServiceClpInvoker {
     private String[] _methodParameterTypes44;
     private String _methodName45;
     private String[] _methodParameterTypes45;
+    private String _methodName46;
+    private String[] _methodParameterTypes46;
+    private String _methodName47;
+    private String[] _methodParameterTypes47;
+    private String _methodName48;
+    private String[] _methodParameterTypes48;
+    private String _methodName49;
+    private String[] _methodParameterTypes49;
+    private String _methodName50;
+    private String[] _methodParameterTypes50;
 
     public CustomerServiceClpInvoker() {
         _methodName36 = "getBeanIdentifier";
@@ -54,6 +64,36 @@ public class CustomerServiceClpInvoker {
 
         _methodParameterTypes45 = new String[] {
                 "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName46 = "getInvitees";
+
+        _methodParameterTypes46 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName47 = "getStats";
+
+        _methodParameterTypes47 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName48 = "getTotalStats";
+
+        _methodParameterTypes48 = new String[] {
+                "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName49 = "updateCustomer";
+
+        _methodParameterTypes49 = new String[] {
+                "java.util.Map", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName50 = "updateCustomerStatus";
+
+        _methodParameterTypes50 = new String[] {
+                "long", "boolean", "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -94,6 +134,36 @@ public class CustomerServiceClpInvoker {
                 Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
             return CustomerServiceUtil.getById(((Long) arguments[0]).longValue(),
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName46.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+            return CustomerServiceUtil.getInvitees(((Long) arguments[0]).longValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName47.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+            return CustomerServiceUtil.getStats(((Long) arguments[0]).longValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName48.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+            return CustomerServiceUtil.getTotalStats((com.liferay.portal.service.ServiceContext) arguments[0]);
+        }
+
+        if (_methodName49.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+            return CustomerServiceUtil.updateCustomer((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName50.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+            return CustomerServiceUtil.updateCustomerStatus(((Long) arguments[0]).longValue(),
+                ((Boolean) arguments[1]).booleanValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[2]);
         }
 
         throw new UnsupportedOperationException();

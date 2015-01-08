@@ -52,6 +52,10 @@ public class ScoreLocalServiceClp implements ScoreLocalService {
     private String[] _methodParameterTypes20;
     private String _methodName21;
     private String[] _methodParameterTypes21;
+    private String _methodName23;
+    private String[] _methodParameterTypes23;
+    private String _methodName24;
+    private String[] _methodParameterTypes24;
 
     public ScoreLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -161,6 +165,19 @@ public class ScoreLocalServiceClp implements ScoreLocalService {
         _methodName21 = "setBeanIdentifier";
 
         _methodParameterTypes21 = new String[] { "java.lang.String" };
+
+        _methodName23 = "sumByCustomerAndType";
+
+        _methodParameterTypes23 = new String[] {
+                "java.lang.Long", "java.lang.Integer", "java.util.Date",
+                "java.util.Date"
+            };
+
+        _methodName24 = "sumByType";
+
+        _methodParameterTypes24 = new String[] {
+                "java.lang.Integer", "java.util.Date", "java.util.Date"
+            };
     }
 
     @Override
@@ -793,5 +810,85 @@ public class ScoreLocalServiceClp implements ScoreLocalService {
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int sumByCustomerAndType(java.lang.Long customerId,
+        java.lang.Integer type, java.util.Date fromDate, java.util.Date toDate)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName23,
+                    _methodParameterTypes23,
+                    new Object[] {
+                        ClpSerializer.translateInput(customerId),
+                        
+                    ClpSerializer.translateInput(type),
+                        
+                    ClpSerializer.translateInput(fromDate),
+                        
+                    ClpSerializer.translateInput(toDate)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return ((Integer) returnObj).intValue();
+    }
+
+    @Override
+    public int sumByType(java.lang.Integer type, java.util.Date fromDate,
+        java.util.Date toDate)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName24,
+                    _methodParameterTypes24,
+                    new Object[] {
+                        ClpSerializer.translateInput(type),
+                        
+                    ClpSerializer.translateInput(fromDate),
+                        
+                    ClpSerializer.translateInput(toDate)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return ((Integer) returnObj).intValue();
     }
 }

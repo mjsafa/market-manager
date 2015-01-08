@@ -80,6 +80,46 @@ public class CustomerServiceUtil {
         return getService().getById(customerId, serviceContext);
     }
 
+    public static com.liferay.portal.kernel.json.JSONArray getInvitees(
+        long customerId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().getInvitees(customerId, serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONObject getStats(
+        long customerId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().getStats(customerId, serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONObject getTotalStats(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().getTotalStats(serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONObject updateCustomer(
+        java.util.Map<java.lang.String, java.lang.Object> customer,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().updateCustomer(customer, serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONObject updateCustomerStatus(
+        long customerId, boolean isActive,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService()
+                   .updateCustomerStatus(customerId, isActive, serviceContext);
+    }
+
     public static void clearService() {
         _service = null;
     }

@@ -8,6 +8,8 @@ create table CSBModules_Customer (
 	createDate DATE null,
 	modifiedDate DATE null,
 	name VARCHAR(75) null,
+	firstName VARCHAR(75) null,
+	lastName VARCHAR(75) null,
 	mobile VARCHAR(75) null,
 	nationalCode VARCHAR(75) null,
 	email VARCHAR(75) null,
@@ -29,6 +31,7 @@ create table CSBModules_Score (
 	modifiedDate DATE null,
 	value INTEGER,
 	customerId LONG,
+	originCustomerId LONG,
 	type_ INTEGER
 );
 

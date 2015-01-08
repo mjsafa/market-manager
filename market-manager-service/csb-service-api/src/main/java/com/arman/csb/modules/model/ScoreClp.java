@@ -33,6 +33,7 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
     private Date _modifiedDate;
     private int _value;
     private long _customerId;
+    private long _originCustomerId;
     private int _type;
     private BaseModel<?> _scoreRemoteModel;
 
@@ -83,6 +84,7 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
         attributes.put("modifiedDate", getModifiedDate());
         attributes.put("value", getValue());
         attributes.put("customerId", getCustomerId());
+        attributes.put("originCustomerId", getOriginCustomerId());
         attributes.put("type", getType());
 
         return attributes;
@@ -148,6 +150,12 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
 
         if (customerId != null) {
             setCustomerId(customerId);
+        }
+
+        Long originCustomerId = (Long) attributes.get("originCustomerId");
+
+        if (originCustomerId != null) {
+            setOriginCustomerId(originCustomerId);
         }
 
         Integer type = (Integer) attributes.get("type");
@@ -388,6 +396,29 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
     }
 
     @Override
+    public long getOriginCustomerId() {
+        return _originCustomerId;
+    }
+
+    @Override
+    public void setOriginCustomerId(long originCustomerId) {
+        _originCustomerId = originCustomerId;
+
+        if (_scoreRemoteModel != null) {
+            try {
+                Class<?> clazz = _scoreRemoteModel.getClass();
+
+                Method method = clazz.getMethod("setOriginCustomerId",
+                        long.class);
+
+                method.invoke(_scoreRemoteModel, originCustomerId);
+            } catch (Exception e) {
+                throw new UnsupportedOperationException(e);
+            }
+        }
+    }
+
+    @Override
     public int getType() {
         return _type;
     }
@@ -492,6 +523,7 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
         clone.setModifiedDate(getModifiedDate());
         clone.setValue(getValue());
         clone.setCustomerId(getCustomerId());
+        clone.setOriginCustomerId(getOriginCustomerId());
         clone.setType(getType());
 
         return clone;
@@ -538,7 +570,7 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(23);
+        StringBundler sb = new StringBundler(25);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -560,6 +592,8 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
         sb.append(getValue());
         sb.append(", customerId=");
         sb.append(getCustomerId());
+        sb.append(", originCustomerId=");
+        sb.append(getOriginCustomerId());
         sb.append(", type=");
         sb.append(getType());
         sb.append("}");
@@ -569,7 +603,7 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(37);
+        StringBundler sb = new StringBundler(40);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Score");
@@ -614,6 +648,10 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
         sb.append(
             "<column><column-name>customerId</column-name><column-value><![CDATA[");
         sb.append(getCustomerId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>originCustomerId</column-name><column-value><![CDATA[");
+        sb.append(getOriginCustomerId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>type</column-name><column-value><![CDATA[");

@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.security.ac.AccessControlled;
 import com.liferay.portal.service.BaseService;
@@ -50,4 +51,32 @@ public interface ScoreService extends BaseService, InvokableService {
     public java.lang.Object invokeMethod(java.lang.String name,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
+
+    public com.liferay.portal.kernel.json.JSONObject customerScoresByDate(
+        java.lang.Long customerId, java.lang.String fromDate,
+        java.lang.String toDate,
+        com.liferay.portal.service.ServiceContext serviceContext);
+
+    public com.liferay.portal.kernel.json.JSONObject scoresByDate(
+        java.lang.String fromDate, java.lang.String toDate,
+        java.lang.String timePeriod,
+        com.liferay.portal.service.ServiceContext serviceContext);
+
+    public com.liferay.portal.kernel.json.JSONObject addScore(
+        java.lang.Long customerId, int value,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.liferay.portal.kernel.json.JSONArray customerScores(
+        java.lang.Long customerId, int start, int total,
+        java.util.Map<java.lang.String, java.lang.Object> filter,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.liferay.portal.kernel.json.JSONObject getTotalStats()
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
 }

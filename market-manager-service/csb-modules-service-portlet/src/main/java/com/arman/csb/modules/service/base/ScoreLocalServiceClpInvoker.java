@@ -53,6 +53,10 @@ public class ScoreLocalServiceClpInvoker {
     private String[] _methodParameterTypes56;
     private String _methodName57;
     private String[] _methodParameterTypes57;
+    private String _methodName62;
+    private String[] _methodParameterTypes62;
+    private String _methodName63;
+    private String[] _methodParameterTypes63;
 
     public ScoreLocalServiceClpInvoker() {
         _methodName0 = "addScore";
@@ -160,6 +164,19 @@ public class ScoreLocalServiceClpInvoker {
         _methodName57 = "setBeanIdentifier";
 
         _methodParameterTypes57 = new String[] { "java.lang.String" };
+
+        _methodName62 = "sumByCustomerAndType";
+
+        _methodParameterTypes62 = new String[] {
+                "java.lang.Long", "java.lang.Integer", "java.util.Date",
+                "java.util.Date"
+            };
+
+        _methodName63 = "sumByType";
+
+        _methodParameterTypes63 = new String[] {
+                "java.lang.Integer", "java.util.Date", "java.util.Date"
+            };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -285,6 +302,19 @@ public class ScoreLocalServiceClpInvoker {
             ScoreLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
+        }
+
+        if (_methodName62.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+            return ScoreLocalServiceUtil.sumByCustomerAndType((java.lang.Long) arguments[0],
+                (java.lang.Integer) arguments[1],
+                (java.util.Date) arguments[2], (java.util.Date) arguments[3]);
+        }
+
+        if (_methodName63.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+            return ScoreLocalServiceUtil.sumByType((java.lang.Integer) arguments[0],
+                (java.util.Date) arguments[1], (java.util.Date) arguments[2]);
         }
 
         throw new UnsupportedOperationException();

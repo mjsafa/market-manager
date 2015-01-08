@@ -44,6 +44,51 @@ public class ScoreServiceWrapper implements ScoreService,
         return _scoreService.invokeMethod(name, parameterTypes, arguments);
     }
 
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject customerScoresByDate(
+        java.lang.Long customerId, java.lang.String fromDate,
+        java.lang.String toDate,
+        com.liferay.portal.service.ServiceContext serviceContext) {
+        return _scoreService.customerScoresByDate(customerId, fromDate, toDate,
+            serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject scoresByDate(
+        java.lang.String fromDate, java.lang.String toDate,
+        java.lang.String timePeriod,
+        com.liferay.portal.service.ServiceContext serviceContext) {
+        return _scoreService.scoresByDate(fromDate, toDate, timePeriod,
+            serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject addScore(
+        java.lang.Long customerId, int value,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _scoreService.addScore(customerId, value, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONArray customerScores(
+        java.lang.Long customerId, int start, int total,
+        java.util.Map<java.lang.String, java.lang.Object> filter,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _scoreService.customerScores(customerId, start, total, filter,
+            serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getTotalStats()
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _scoreService.getTotalStats();
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

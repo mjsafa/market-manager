@@ -9,6 +9,7 @@ package com.arman.csb.modules.util;
 public enum RoleEnum {
     USER_ADMINISTRATOR,
     ADMINISTRATOR,
+    ADMINISTRATOR_USER,
     CUSTOMER,
     OPERATOR,
     CUSTOMER_ADMINISTRATOR;

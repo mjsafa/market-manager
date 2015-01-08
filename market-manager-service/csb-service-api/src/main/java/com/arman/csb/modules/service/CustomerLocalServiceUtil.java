@@ -327,6 +327,40 @@ public class CustomerLocalServiceUtil {
         return getService().addCustomer(customer, serviceContext);
     }
 
+    public static com.arman.csb.modules.model.Customer getById(
+        java.lang.Long customerId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().getById(customerId);
+    }
+
+    public static com.arman.csb.modules.model.Customer findByUserId(
+        java.lang.Long userId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByUserId(userId);
+    }
+
+    public static int countByMentorCustomerId(java.lang.Long customerId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().countByMentorCustomerId(customerId);
+    }
+
+    public static long count(java.util.Date fromDate, java.util.Date toDate)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().count(fromDate, toDate);
+    }
+
+    public static com.arman.csb.modules.model.Customer updateCustomer(
+        com.arman.csb.modules.model.Customer customer,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().updateCustomer(customer, serviceContext);
+    }
+
     public static void clearService() {
         _service = null;
     }

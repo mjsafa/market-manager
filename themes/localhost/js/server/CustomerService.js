@@ -1,9 +1,9 @@
 MetronicApp.factory("CustomerService", function (JsonServer) {
     return{
         search:function (filter, options) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'search', {filter:filter, start:0, maxResult:30, serviceContext:{}}, {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'search', {filter:filter ? filter : '', start:0, maxResult:30, serviceContext:{}}, {
                 eventName:'CustomerService.search',
-                scope: options ? options.scope : undefined
+                scope:options ? options.scope : undefined
             });
         },
         addCustomer:function (customer) {
@@ -22,8 +22,18 @@ MetronicApp.factory("CustomerService", function (JsonServer) {
             });
         },
         getInvitees:function (customerId) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'get-invitees', {customerId: customerId ,serviceContext:{}}, {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'get-invitees', {customerId:customerId, serviceContext:{}}, {
                 eventName:'CustomerService.getInvitees'
+            });
+        },
+        getStats:function (customerId) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'get-stats', {customerId:customerId, serviceContext:{}}, {
+                eventName:'CustomerService.getStats'
+            });
+        },
+        getTotalStats:function () {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'get-total-stats', {serviceContext:{}}, {
+                eventName:'CustomerService.getTotalStats'
             });
         }
     };

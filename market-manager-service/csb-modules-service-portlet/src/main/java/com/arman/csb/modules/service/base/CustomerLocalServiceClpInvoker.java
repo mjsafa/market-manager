@@ -55,6 +55,16 @@ public class CustomerLocalServiceClpInvoker {
     private String[] _methodParameterTypes57;
     private String _methodName62;
     private String[] _methodParameterTypes62;
+    private String _methodName63;
+    private String[] _methodParameterTypes63;
+    private String _methodName64;
+    private String[] _methodParameterTypes64;
+    private String _methodName65;
+    private String[] _methodParameterTypes65;
+    private String _methodName66;
+    private String[] _methodParameterTypes66;
+    private String _methodName67;
+    private String[] _methodParameterTypes67;
 
     public CustomerLocalServiceClpInvoker() {
         _methodName0 = "addCustomer";
@@ -167,6 +177,31 @@ public class CustomerLocalServiceClpInvoker {
 
         _methodParameterTypes62 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName63 = "getById";
+
+        _methodParameterTypes63 = new String[] { "java.lang.Long" };
+
+        _methodName64 = "findByUserId";
+
+        _methodParameterTypes64 = new String[] { "java.lang.Long" };
+
+        _methodName65 = "countByMentorCustomerId";
+
+        _methodParameterTypes65 = new String[] { "java.lang.Long" };
+
+        _methodName66 = "count";
+
+        _methodParameterTypes66 = new String[] {
+                "java.util.Date", "java.util.Date"
+            };
+
+        _methodName67 = "updateCustomer";
+
+        _methodParameterTypes67 = new String[] {
+                "com.arman.csb.modules.model.Customer",
+                "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -298,6 +333,33 @@ public class CustomerLocalServiceClpInvoker {
         if (_methodName62.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
             return CustomerLocalServiceUtil.addCustomer((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName63.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+            return CustomerLocalServiceUtil.getById((java.lang.Long) arguments[0]);
+        }
+
+        if (_methodName64.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+            return CustomerLocalServiceUtil.findByUserId((java.lang.Long) arguments[0]);
+        }
+
+        if (_methodName65.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+            return CustomerLocalServiceUtil.countByMentorCustomerId((java.lang.Long) arguments[0]);
+        }
+
+        if (_methodName66.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+            return CustomerLocalServiceUtil.count((java.util.Date) arguments[0],
+                (java.util.Date) arguments[1]);
+        }
+
+        if (_methodName67.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+            return CustomerLocalServiceUtil.updateCustomer((com.arman.csb.modules.model.Customer) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 

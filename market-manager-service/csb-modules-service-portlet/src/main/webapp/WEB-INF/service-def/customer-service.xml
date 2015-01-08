@@ -21,6 +21,8 @@
         <!-- Other fields -->
 
         <column name="name" type="String"/>
+        <column name="firstName" type="String"/>
+        <column name="lastName" type="String"/>
         <column name="mobile" type="String"/>
         <column name="nationalCode" type="String"/>
         <column name="email" type="String"/>
@@ -31,6 +33,14 @@
         <column name="customerUserId" type="long"/>
         <column name="mentorCustomerId" type="long"/>
 
+        <finder name="Mentor" return-type="Collection">
+            <finder-column name="mentorCustomerId"/>
+        </finder>
+
+
+        <finder name="UserId" return-type="Customer">
+            <finder-column name="customerUserId"/>
+        </finder>
 
     </entity>
 

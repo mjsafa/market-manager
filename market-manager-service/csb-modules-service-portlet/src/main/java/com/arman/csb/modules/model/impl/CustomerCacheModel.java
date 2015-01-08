@@ -30,6 +30,8 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
     public long createDate;
     public long modifiedDate;
     public String name;
+    public String firstName;
+    public String lastName;
     public String mobile;
     public String nationalCode;
     public String email;
@@ -41,7 +43,7 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(35);
+        StringBundler sb = new StringBundler(39);
 
         sb.append("{uuid=");
         sb.append(uuid);
@@ -61,6 +63,10 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
         sb.append(modifiedDate);
         sb.append(", name=");
         sb.append(name);
+        sb.append(", firstName=");
+        sb.append(firstName);
+        sb.append(", lastName=");
+        sb.append(lastName);
         sb.append(", mobile=");
         sb.append(mobile);
         sb.append(", nationalCode=");
@@ -121,6 +127,18 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
             customerImpl.setName(name);
         }
 
+        if (firstName == null) {
+            customerImpl.setFirstName(StringPool.BLANK);
+        } else {
+            customerImpl.setFirstName(firstName);
+        }
+
+        if (lastName == null) {
+            customerImpl.setLastName(StringPool.BLANK);
+        } else {
+            customerImpl.setLastName(lastName);
+        }
+
         if (mobile == null) {
             customerImpl.setMobile(StringPool.BLANK);
         } else {
@@ -166,6 +184,8 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
         createDate = objectInput.readLong();
         modifiedDate = objectInput.readLong();
         name = objectInput.readUTF();
+        firstName = objectInput.readUTF();
+        lastName = objectInput.readUTF();
         mobile = objectInput.readUTF();
         nationalCode = objectInput.readUTF();
         email = objectInput.readUTF();
@@ -203,6 +223,18 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
             objectOutput.writeUTF(StringPool.BLANK);
         } else {
             objectOutput.writeUTF(name);
+        }
+
+        if (firstName == null) {
+            objectOutput.writeUTF(StringPool.BLANK);
+        } else {
+            objectOutput.writeUTF(firstName);
+        }
+
+        if (lastName == null) {
+            objectOutput.writeUTF(StringPool.BLANK);
+        } else {
+            objectOutput.writeUTF(lastName);
         }
 
         if (mobile == null) {

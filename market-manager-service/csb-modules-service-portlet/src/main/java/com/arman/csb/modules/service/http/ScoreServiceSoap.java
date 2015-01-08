@@ -1,5 +1,12 @@
 package com.arman.csb.modules.service.http;
 
+import com.arman.csb.modules.service.ScoreServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link com.arman.csb.modules.service.ScoreServiceUtil} service utility. The
@@ -41,4 +48,65 @@ package com.arman.csb.modules.service.http;
  * @generated
  */
 public class ScoreServiceSoap {
+    private static Log _log = LogFactoryUtil.getLog(ScoreServiceSoap.class);
+
+    public static java.lang.String customerScoresByDate(
+        java.lang.Long customerId, java.lang.String fromDate,
+        java.lang.String toDate,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = ScoreServiceUtil.customerScoresByDate(customerId,
+                    fromDate, toDate, serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String scoresByDate(java.lang.String fromDate,
+        java.lang.String toDate, java.lang.String timePeriod,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = ScoreServiceUtil.scoresByDate(fromDate,
+                    toDate, timePeriod, serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String addScore(java.lang.Long customerId,
+        int value, com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = ScoreServiceUtil.addScore(customerId,
+                    value, serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String getTotalStats() throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = ScoreServiceUtil.getTotalStats();
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

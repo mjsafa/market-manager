@@ -117,6 +117,25 @@ Change Quick Sidebar Width
 
 body{
     font-family: tahoma ;
-    font-size: :20 px;
     line-height: 29px;
+}
+
+.chart {
+    height: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.angular-charts-template .ac-chart{
+    width:100% !important;
+}
+
+.page-title{
+    font-family: tahoma;
+    line-height: 60px;
+    color: #aaa;
+}
+
+.dropdown span{
+    white-space: nowrap;
 }

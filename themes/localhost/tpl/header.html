@@ -1,3 +1,5 @@
+<div class="hide" ng-controller="GeneralPageController"></div>
+
 <!-- BEGIN HEADER INNER -->
 <div class="page-header-inner">
 	<!-- BEGIN LOGO -->
@@ -30,7 +32,7 @@
 		<ul class="nav navbar-nav pull-right">
 			<!-- BEGIN NOTIFICATION DROPDOWN -->
 			<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-			<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+			<li class="dropdown dropdown-extended dropdown-notification hide" id="header_notification_bar">
 				<a href="#" class="dropdown-toggle" dropdown-menu-hover dropdown-menu-toggle data-close-others="true">
 				<i class="icon-bell"></i>
 				<span class="badge badge-default">
@@ -140,7 +142,7 @@
 			<!-- END NOTIFICATION DROPDOWN -->
 			<!-- BEGIN INBOX DROPDOWN -->
 			<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-			<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+			<li class="dropdown dropdown-extended dropdown-inbox hide" id="header_inbox_bar">
 				<a href="#" class="dropdown-toggle" dropdown-menu-hover dropdown-menu-toggle data-close-others="true">
 				<i class="icon-envelope-open"></i>
 				<span class="badge badge-default">
@@ -230,7 +232,7 @@
 			<!-- END INBOX DROPDOWN -->
 			<!-- BEGIN TODO DROPDOWN -->
 			<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-			<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
+			<li style="display: none;" class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
 				<a href="#" class="dropdown-toggle" dropdown-menu-hover dropdown-menu-toggle data-close-others="true">
 				<i class="icon-calendar"></i>
 				<span class="badge badge-default">
@@ -356,50 +358,24 @@
 			<!-- END LANGUAGE BAR -->
 			<!-- BEGIN USER LOGIN DROPDOWN -->
 			<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-			<li class="dropdown dropdown-user">
+			<li class="dropdown dropdown-user ">
 				<a href="#" class="dropdown-toggle" dropdown-menu-hover dropdown-menu-toggle data-close-others="true">
 				<img alt="" class="img-circle" src="/delegate/resource/assets/admin/layout/img/avatar3_small.jpg"/>
 				<span class="username username-hide-on-mobile">
-				Nick </span>
+				{{onlineUser.firstName}} {{onlineUser.lastName}} </span>
 				<i class="fa fa-angle-down"></i>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-default">
 					<li>
-						<a href="#/profile/dashboard">
-						<i class="icon-user"></i> My Profile </a>
-					</li>
-					<li>
-						<a href="#">
-						<i class="icon-calendar"></i> My Calendar </a>
-					</li>
-					<li>
-						<a href="#">
-						<i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-						3 </span>
-						</a>
-					</li>
-					<li>
-						<a href="#/todo">
-						<i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-						7 </span>
-						</a>
-					</li>
-					<li class="divider">
-					</li>
-					<li>
-						<a href="#">
-						<i class="icon-lock"></i> Lock Screen </a>
-					</li>
-					<li>
 						<a href="/c/portal/logout">
-						<i class="icon-key"></i> Log Out </a>
+						<i class="icon-key"></i> خروج از سامانه </a>
 					</li>
 				</ul>
 			</li>
 			<!-- END USER LOGIN DROPDOWN -->
 			<!-- BEGIN QUICK SIDEBAR TOGGLER -->
 			<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-			<li class="dropdown dropdown-quick-sidebar-toggler">
+			<li class="dropdown dropdown-quick-sidebar-toggler hide">
 				<a href="javascript:;" class="dropdown-toggle">
 				<i class="icon-logout"></i>
 				</a>

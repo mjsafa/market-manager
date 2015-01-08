@@ -23,6 +23,8 @@ public class CustomerSoap implements Serializable {
     private Date _createDate;
     private Date _modifiedDate;
     private String _name;
+    private String _firstName;
+    private String _lastName;
     private String _mobile;
     private String _nationalCode;
     private String _email;
@@ -47,6 +49,8 @@ public class CustomerSoap implements Serializable {
         soapModel.setCreateDate(model.getCreateDate());
         soapModel.setModifiedDate(model.getModifiedDate());
         soapModel.setName(model.getName());
+        soapModel.setFirstName(model.getFirstName());
+        soapModel.setLastName(model.getLastName());
         soapModel.setMobile(model.getMobile());
         soapModel.setNationalCode(model.getNationalCode());
         soapModel.setEmail(model.getEmail());
@@ -173,6 +177,22 @@ public class CustomerSoap implements Serializable {
 
     public void setName(String name) {
         _name = name;
+    }
+
+    public String getFirstName() {
+        return _firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        _firstName = firstName;
+    }
+
+    public String getLastName() {
+        return _lastName;
+    }
+
+    public void setLastName(String lastName) {
+        _lastName = lastName;
     }
 
     public String getMobile() {

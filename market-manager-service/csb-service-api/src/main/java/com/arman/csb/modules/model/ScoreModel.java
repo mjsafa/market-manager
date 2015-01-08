@@ -221,6 +221,20 @@ public interface ScoreModel extends BaseModel<Score>, StagedGroupedModel {
     public void setCustomerId(long customerId);
 
     /**
+     * Returns the origin customer ID of this score.
+     *
+     * @return the origin customer ID of this score
+     */
+    public long getOriginCustomerId();
+
+    /**
+     * Sets the origin customer ID of this score.
+     *
+     * @param originCustomerId the origin customer ID of this score
+     */
+    public void setOriginCustomerId(long originCustomerId);
+
+    /**
      * Returns the type of this score.
      *
      * @return the type of this score

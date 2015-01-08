@@ -21,6 +21,8 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="firstName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lastName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="mobile" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="nationalCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="email" type="com.liferay.portal.dao.orm.hibernate.StringType" />
@@ -44,6 +46,7 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="value" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="customerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="originCustomerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="type" type="com.liferay.portal.dao.orm.hibernate.IntegerType" column="type_" />
 	</class>
 </hibernate-mapping>

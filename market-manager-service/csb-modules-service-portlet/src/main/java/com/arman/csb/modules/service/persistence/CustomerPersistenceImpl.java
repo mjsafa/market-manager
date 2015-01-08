@@ -132,6 +132,36 @@ public class CustomerPersistenceImpl extends BasePersistenceImpl<Customer>
     private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "customer.uuid = ? AND ";
     private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(customer.uuid IS NULL OR customer.uuid = '') AND ";
     private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "customer.companyId = ?";
+    public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_MENTOR = new FinderPath(CustomerModelImpl.ENTITY_CACHE_ENABLED,
+            CustomerModelImpl.FINDER_CACHE_ENABLED, CustomerImpl.class,
+            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByMentor",
+            new String[] {
+                Long.class.getName(),
+                
+            Integer.class.getName(), Integer.class.getName(),
+                OrderByComparator.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MENTOR =
+        new FinderPath(CustomerModelImpl.ENTITY_CACHE_ENABLED,
+            CustomerModelImpl.FINDER_CACHE_ENABLED, CustomerImpl.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByMentor",
+            new String[] { Long.class.getName() },
+            CustomerModelImpl.MENTORCUSTOMERID_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_MENTOR = new FinderPath(CustomerModelImpl.ENTITY_CACHE_ENABLED,
+            CustomerModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByMentor",
+            new String[] { Long.class.getName() });
+    private static final String _FINDER_COLUMN_MENTOR_MENTORCUSTOMERID_2 = "customer.mentorCustomerId = ?";
+    public static final FinderPath FINDER_PATH_FETCH_BY_USERID = new FinderPath(CustomerModelImpl.ENTITY_CACHE_ENABLED,
+            CustomerModelImpl.FINDER_CACHE_ENABLED, CustomerImpl.class,
+            FINDER_CLASS_NAME_ENTITY, "fetchByUserId",
+            new String[] { Long.class.getName() },
+            CustomerModelImpl.CUSTOMERUSERID_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_USERID = new FinderPath(CustomerModelImpl.ENTITY_CACHE_ENABLED,
+            CustomerModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserId",
+            new String[] { Long.class.getName() });
+    private static final String _FINDER_COLUMN_USERID_CUSTOMERUSERID_2 = "customer.customerUserId = ?";
     private static final String _SQL_SELECT_CUSTOMER = "SELECT customer FROM Customer customer";
     private static final String _SQL_SELECT_CUSTOMER_WHERE = "SELECT customer FROM Customer customer WHERE ";
     private static final String _SQL_COUNT_CUSTOMER = "SELECT COUNT(customer) FROM Customer customer";
@@ -1411,6 +1441,662 @@ public class CustomerPersistenceImpl extends BasePersistenceImpl<Customer>
     }
 
     /**
+     * Returns all the customers where mentorCustomerId = &#63;.
+     *
+     * @param mentorCustomerId the mentor customer ID
+     * @return the matching customers
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Customer> findByMentor(long mentorCustomerId)
+        throws SystemException {
+        return findByMentor(mentorCustomerId, QueryUtil.ALL_POS,
+            QueryUtil.ALL_POS, null);
+    }
+
+    /**
+     * Returns a range of all the customers where mentorCustomerId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.CustomerModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param mentorCustomerId the mentor customer ID
+     * @param start the lower bound of the range of customers
+     * @param end the upper bound of the range of customers (not inclusive)
+     * @return the range of matching customers
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Customer> findByMentor(long mentorCustomerId, int start, int end)
+        throws SystemException {
+        return findByMentor(mentorCustomerId, start, end, null);
+    }
+
+    /**
+     * Returns an ordered range of all the customers where mentorCustomerId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.CustomerModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param mentorCustomerId the mentor customer ID
+     * @param start the lower bound of the range of customers
+     * @param end the upper bound of the range of customers (not inclusive)
+     * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+     * @return the ordered range of matching customers
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Customer> findByMentor(long mentorCustomerId, int start,
+        int end, OrderByComparator orderByComparator) throws SystemException {
+        boolean pagination = true;
+        FinderPath finderPath = null;
+        Object[] finderArgs = null;
+
+        if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+                (orderByComparator == null)) {
+            pagination = false;
+            finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MENTOR;
+            finderArgs = new Object[] { mentorCustomerId };
+        } else {
+            finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_MENTOR;
+            finderArgs = new Object[] {
+                    mentorCustomerId,
+                    
+                    start, end, orderByComparator
+                };
+        }
+
+        List<Customer> list = (List<Customer>) FinderCacheUtil.getResult(finderPath,
+                finderArgs, this);
+
+        if ((list != null) && !list.isEmpty()) {
+            for (Customer customer : list) {
+                if ((mentorCustomerId != customer.getMentorCustomerId())) {
+                    list = null;
+
+                    break;
+                }
+            }
+        }
+
+        if (list == null) {
+            StringBundler query = null;
+
+            if (orderByComparator != null) {
+                query = new StringBundler(3 +
+                        (orderByComparator.getOrderByFields().length * 3));
+            } else {
+                query = new StringBundler(3);
+            }
+
+            query.append(_SQL_SELECT_CUSTOMER_WHERE);
+
+            query.append(_FINDER_COLUMN_MENTOR_MENTORCUSTOMERID_2);
+
+            if (orderByComparator != null) {
+                appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+                    orderByComparator);
+            } else
+             if (pagination) {
+                query.append(CustomerModelImpl.ORDER_BY_JPQL);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(mentorCustomerId);
+
+                if (!pagination) {
+                    list = (List<Customer>) QueryUtil.list(q, getDialect(),
+                            start, end, false);
+
+                    Collections.sort(list);
+
+                    list = new UnmodifiableList<Customer>(list);
+                } else {
+                    list = (List<Customer>) QueryUtil.list(q, getDialect(),
+                            start, end);
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, list);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * Returns the first customer in the ordered set where mentorCustomerId = &#63;.
+     *
+     * @param mentorCustomerId the mentor customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching customer
+     * @throws com.arman.csb.modules.NoSuchCustomerException if a matching customer could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Customer findByMentor_First(long mentorCustomerId,
+        OrderByComparator orderByComparator)
+        throws NoSuchCustomerException, SystemException {
+        Customer customer = fetchByMentor_First(mentorCustomerId,
+                orderByComparator);
+
+        if (customer != null) {
+            return customer;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("mentorCustomerId=");
+        msg.append(mentorCustomerId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchCustomerException(msg.toString());
+    }
+
+    /**
+     * Returns the first customer in the ordered set where mentorCustomerId = &#63;.
+     *
+     * @param mentorCustomerId the mentor customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching customer, or <code>null</code> if a matching customer could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Customer fetchByMentor_First(long mentorCustomerId,
+        OrderByComparator orderByComparator) throws SystemException {
+        List<Customer> list = findByMentor(mentorCustomerId, 0, 1,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the last customer in the ordered set where mentorCustomerId = &#63;.
+     *
+     * @param mentorCustomerId the mentor customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching customer
+     * @throws com.arman.csb.modules.NoSuchCustomerException if a matching customer could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Customer findByMentor_Last(long mentorCustomerId,
+        OrderByComparator orderByComparator)
+        throws NoSuchCustomerException, SystemException {
+        Customer customer = fetchByMentor_Last(mentorCustomerId,
+                orderByComparator);
+
+        if (customer != null) {
+            return customer;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("mentorCustomerId=");
+        msg.append(mentorCustomerId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchCustomerException(msg.toString());
+    }
+
+    /**
+     * Returns the last customer in the ordered set where mentorCustomerId = &#63;.
+     *
+     * @param mentorCustomerId the mentor customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching customer, or <code>null</code> if a matching customer could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Customer fetchByMentor_Last(long mentorCustomerId,
+        OrderByComparator orderByComparator) throws SystemException {
+        int count = countByMentor(mentorCustomerId);
+
+        if (count == 0) {
+            return null;
+        }
+
+        List<Customer> list = findByMentor(mentorCustomerId, count - 1, count,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the customers before and after the current customer in the ordered set where mentorCustomerId = &#63;.
+     *
+     * @param id the primary key of the current customer
+     * @param mentorCustomerId the mentor customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the previous, current, and next customer
+     * @throws com.arman.csb.modules.NoSuchCustomerException if a customer with the primary key could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Customer[] findByMentor_PrevAndNext(long id, long mentorCustomerId,
+        OrderByComparator orderByComparator)
+        throws NoSuchCustomerException, SystemException {
+        Customer customer = findByPrimaryKey(id);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            Customer[] array = new CustomerImpl[3];
+
+            array[0] = getByMentor_PrevAndNext(session, customer,
+                    mentorCustomerId, orderByComparator, true);
+
+            array[1] = customer;
+
+            array[2] = getByMentor_PrevAndNext(session, customer,
+                    mentorCustomerId, orderByComparator, false);
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    protected Customer getByMentor_PrevAndNext(Session session,
+        Customer customer, long mentorCustomerId,
+        OrderByComparator orderByComparator, boolean previous) {
+        StringBundler query = null;
+
+        if (orderByComparator != null) {
+            query = new StringBundler(6 +
+                    (orderByComparator.getOrderByFields().length * 6));
+        } else {
+            query = new StringBundler(3);
+        }
+
+        query.append(_SQL_SELECT_CUSTOMER_WHERE);
+
+        query.append(_FINDER_COLUMN_MENTOR_MENTORCUSTOMERID_2);
+
+        if (orderByComparator != null) {
+            String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+            if (orderByConditionFields.length > 0) {
+                query.append(WHERE_AND);
+            }
+
+            for (int i = 0; i < orderByConditionFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByConditionFields[i]);
+
+                if ((i + 1) < orderByConditionFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN_HAS_NEXT);
+                    } else {
+                        query.append(WHERE_LESSER_THAN_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN);
+                    } else {
+                        query.append(WHERE_LESSER_THAN);
+                    }
+                }
+            }
+
+            query.append(ORDER_BY_CLAUSE);
+
+            String[] orderByFields = orderByComparator.getOrderByFields();
+
+            for (int i = 0; i < orderByFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByFields[i]);
+
+                if ((i + 1) < orderByFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC_HAS_NEXT);
+                    } else {
+                        query.append(ORDER_BY_DESC_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC);
+                    } else {
+                        query.append(ORDER_BY_DESC);
+                    }
+                }
+            }
+        } else {
+            query.append(CustomerModelImpl.ORDER_BY_JPQL);
+        }
+
+        String sql = query.toString();
+
+        Query q = session.createQuery(sql);
+
+        q.setFirstResult(0);
+        q.setMaxResults(2);
+
+        QueryPos qPos = QueryPos.getInstance(q);
+
+        qPos.add(mentorCustomerId);
+
+        if (orderByComparator != null) {
+            Object[] values = orderByComparator.getOrderByConditionValues(customer);
+
+            for (Object value : values) {
+                qPos.add(value);
+            }
+        }
+
+        List<Customer> list = q.list();
+
+        if (list.size() == 2) {
+            return list.get(1);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Removes all the customers where mentorCustomerId = &#63; from the database.
+     *
+     * @param mentorCustomerId the mentor customer ID
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public void removeByMentor(long mentorCustomerId) throws SystemException {
+        for (Customer customer : findByMentor(mentorCustomerId,
+                QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+            remove(customer);
+        }
+    }
+
+    /**
+     * Returns the number of customers where mentorCustomerId = &#63;.
+     *
+     * @param mentorCustomerId the mentor customer ID
+     * @return the number of matching customers
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countByMentor(long mentorCustomerId) throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_MENTOR;
+
+        Object[] finderArgs = new Object[] { mentorCustomerId };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(2);
+
+            query.append(_SQL_COUNT_CUSTOMER_WHERE);
+
+            query.append(_FINDER_COLUMN_MENTOR_MENTORCUSTOMERID_2);
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(mentorCustomerId);
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
+     * Returns the customer where customerUserId = &#63; or throws a {@link com.arman.csb.modules.NoSuchCustomerException} if it could not be found.
+     *
+     * @param customerUserId the customer user ID
+     * @return the matching customer
+     * @throws com.arman.csb.modules.NoSuchCustomerException if a matching customer could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Customer findByUserId(long customerUserId)
+        throws NoSuchCustomerException, SystemException {
+        Customer customer = fetchByUserId(customerUserId);
+
+        if (customer == null) {
+            StringBundler msg = new StringBundler(4);
+
+            msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+            msg.append("customerUserId=");
+            msg.append(customerUserId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchCustomerException(msg.toString());
+        }
+
+        return customer;
+    }
+
+    /**
+     * Returns the customer where customerUserId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+     *
+     * @param customerUserId the customer user ID
+     * @return the matching customer, or <code>null</code> if a matching customer could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Customer fetchByUserId(long customerUserId)
+        throws SystemException {
+        return fetchByUserId(customerUserId, true);
+    }
+
+    /**
+     * Returns the customer where customerUserId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+     *
+     * @param customerUserId the customer user ID
+     * @param retrieveFromCache whether to use the finder cache
+     * @return the matching customer, or <code>null</code> if a matching customer could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Customer fetchByUserId(long customerUserId, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { customerUserId };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_USERID,
+                    finderArgs, this);
+        }
+
+        if (result instanceof Customer) {
+            Customer customer = (Customer) result;
+
+            if ((customerUserId != customer.getCustomerUserId())) {
+                result = null;
+            }
+        }
+
+        if (result == null) {
+            StringBundler query = new StringBundler(3);
+
+            query.append(_SQL_SELECT_CUSTOMER_WHERE);
+
+            query.append(_FINDER_COLUMN_USERID_CUSTOMERUSERID_2);
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(customerUserId);
+
+                List<Customer> list = q.list();
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID,
+                        finderArgs, list);
+                } else {
+                    if ((list.size() > 1) && _log.isWarnEnabled()) {
+                        _log.warn(
+                            "CustomerPersistenceImpl.fetchByUserId(long, boolean) with parameters (" +
+                            StringUtil.merge(finderArgs) +
+                            ") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+                    }
+
+                    Customer customer = list.get(0);
+
+                    result = customer;
+
+                    cacheResult(customer);
+
+                    if ((customer.getCustomerUserId() != customerUserId)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID,
+                            finderArgs, customer);
+                    }
+                }
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_USERID,
+                    finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        if (result instanceof List<?>) {
+            return null;
+        } else {
+            return (Customer) result;
+        }
+    }
+
+    /**
+     * Removes the customer where customerUserId = &#63; from the database.
+     *
+     * @param customerUserId the customer user ID
+     * @return the customer that was removed
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Customer removeByUserId(long customerUserId)
+        throws NoSuchCustomerException, SystemException {
+        Customer customer = findByUserId(customerUserId);
+
+        return remove(customer);
+    }
+
+    /**
+     * Returns the number of customers where customerUserId = &#63;.
+     *
+     * @param customerUserId the customer user ID
+     * @return the number of matching customers
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countByUserId(long customerUserId) throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_USERID;
+
+        Object[] finderArgs = new Object[] { customerUserId };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(2);
+
+            query.append(_SQL_COUNT_CUSTOMER_WHERE);
+
+            query.append(_FINDER_COLUMN_USERID_CUSTOMERUSERID_2);
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(customerUserId);
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
      * Caches the customer in the entity cache if it is enabled.
      *
      * @param customer the customer
@@ -1422,6 +2108,9 @@ public class CustomerPersistenceImpl extends BasePersistenceImpl<Customer>
 
         FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
             new Object[] { customer.getUuid(), customer.getGroupId() }, customer);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID,
+            new Object[] { customer.getCustomerUserId() }, customer);
 
         customer.resetOriginalValues();
     }
@@ -1505,6 +2194,13 @@ public class CustomerPersistenceImpl extends BasePersistenceImpl<Customer>
                 Long.valueOf(1));
             FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
                 customer);
+
+            args = new Object[] { customer.getCustomerUserId() };
+
+            FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_USERID, args,
+                Long.valueOf(1));
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID, args,
+                customer);
         } else {
             CustomerModelImpl customerModelImpl = (CustomerModelImpl) customer;
 
@@ -1517,6 +2213,16 @@ public class CustomerPersistenceImpl extends BasePersistenceImpl<Customer>
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
                     Long.valueOf(1));
                 FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
+                    customer);
+            }
+
+            if ((customerModelImpl.getColumnBitmask() &
+                    FINDER_PATH_FETCH_BY_USERID.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] { customer.getCustomerUserId() };
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_USERID, args,
+                    Long.valueOf(1));
+                FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_USERID, args,
                     customer);
             }
         }
@@ -1539,6 +2245,19 @@ public class CustomerPersistenceImpl extends BasePersistenceImpl<Customer>
 
             FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
             FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+        }
+
+        args = new Object[] { customer.getCustomerUserId() };
+
+        FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_USERID, args);
+
+        if ((customerModelImpl.getColumnBitmask() &
+                FINDER_PATH_FETCH_BY_USERID.getColumnBitmask()) != 0) {
+            args = new Object[] { customerModelImpl.getOriginalCustomerUserId() };
+
+            FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_USERID, args);
         }
     }
 
@@ -1718,6 +2437,23 @@ public class CustomerPersistenceImpl extends BasePersistenceImpl<Customer>
                 FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
                     args);
             }
+
+            if ((customerModelImpl.getColumnBitmask() &
+                    FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MENTOR.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] {
+                        customerModelImpl.getOriginalMentorCustomerId()
+                    };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_MENTOR, args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MENTOR,
+                    args);
+
+                args = new Object[] { customerModelImpl.getMentorCustomerId() };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_MENTOR, args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_MENTOR,
+                    args);
+            }
         }
 
         EntityCacheUtil.putResult(CustomerModelImpl.ENTITY_CACHE_ENABLED,
@@ -1748,6 +2484,8 @@ public class CustomerPersistenceImpl extends BasePersistenceImpl<Customer>
         customerImpl.setCreateDate(customer.getCreateDate());
         customerImpl.setModifiedDate(customer.getModifiedDate());
         customerImpl.setName(customer.getName());
+        customerImpl.setFirstName(customer.getFirstName());
+        customerImpl.setLastName(customer.getLastName());
         customerImpl.setMobile(customer.getMobile());
         customerImpl.setNationalCode(customer.getNationalCode());
         customerImpl.setEmail(customer.getEmail());

@@ -132,6 +132,52 @@ public class ScorePersistenceImpl extends BasePersistenceImpl<Score>
     private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "score.uuid = ? AND ";
     private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(score.uuid IS NULL OR score.uuid = '') AND ";
     private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "score.companyId = ?";
+    public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_CUSTOMERID =
+        new FinderPath(ScoreModelImpl.ENTITY_CACHE_ENABLED,
+            ScoreModelImpl.FINDER_CACHE_ENABLED, ScoreImpl.class,
+            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCustomerId",
+            new String[] {
+                Long.class.getName(),
+                
+            Integer.class.getName(), Integer.class.getName(),
+                OrderByComparator.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERID =
+        new FinderPath(ScoreModelImpl.ENTITY_CACHE_ENABLED,
+            ScoreModelImpl.FINDER_CACHE_ENABLED, ScoreImpl.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCustomerId",
+            new String[] { Long.class.getName() },
+            ScoreModelImpl.CUSTOMERID_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_CUSTOMERID = new FinderPath(ScoreModelImpl.ENTITY_CACHE_ENABLED,
+            ScoreModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCustomerId",
+            new String[] { Long.class.getName() });
+    private static final String _FINDER_COLUMN_CUSTOMERID_CUSTOMERID_2 = "score.customerId = ?";
+    public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_CUSTOMERIDANDTYPE =
+        new FinderPath(ScoreModelImpl.ENTITY_CACHE_ENABLED,
+            ScoreModelImpl.FINDER_CACHE_ENABLED, ScoreImpl.class,
+            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCustomerIdAndType",
+            new String[] {
+                Long.class.getName(), Integer.class.getName(),
+                
+            Integer.class.getName(), Integer.class.getName(),
+                OrderByComparator.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERIDANDTYPE =
+        new FinderPath(ScoreModelImpl.ENTITY_CACHE_ENABLED,
+            ScoreModelImpl.FINDER_CACHE_ENABLED, ScoreImpl.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+            "findByCustomerIdAndType",
+            new String[] { Long.class.getName(), Integer.class.getName() },
+            ScoreModelImpl.CUSTOMERID_COLUMN_BITMASK |
+            ScoreModelImpl.TYPE_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_CUSTOMERIDANDTYPE = new FinderPath(ScoreModelImpl.ENTITY_CACHE_ENABLED,
+            ScoreModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+            "countByCustomerIdAndType",
+            new String[] { Long.class.getName(), Integer.class.getName() });
+    private static final String _FINDER_COLUMN_CUSTOMERIDANDTYPE_CUSTOMERID_2 = "score.customerId = ? AND ";
+    private static final String _FINDER_COLUMN_CUSTOMERIDANDTYPE_TYPE_2 = "score.type = ?";
     private static final String _SQL_SELECT_SCORE = "SELECT score FROM Score score";
     private static final String _SQL_SELECT_SCORE_WHERE = "SELECT score FROM Score score WHERE ";
     private static final String _SQL_COUNT_SCORE = "SELECT COUNT(score) FROM Score score";
@@ -1406,6 +1452,940 @@ public class ScorePersistenceImpl extends BasePersistenceImpl<Score>
     }
 
     /**
+     * Returns all the scores where customerId = &#63;.
+     *
+     * @param customerId the customer ID
+     * @return the matching scores
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Score> findByCustomerId(long customerId)
+        throws SystemException {
+        return findByCustomerId(customerId, QueryUtil.ALL_POS,
+            QueryUtil.ALL_POS, null);
+    }
+
+    /**
+     * Returns a range of all the scores where customerId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.ScoreModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param customerId the customer ID
+     * @param start the lower bound of the range of scores
+     * @param end the upper bound of the range of scores (not inclusive)
+     * @return the range of matching scores
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Score> findByCustomerId(long customerId, int start, int end)
+        throws SystemException {
+        return findByCustomerId(customerId, start, end, null);
+    }
+
+    /**
+     * Returns an ordered range of all the scores where customerId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.ScoreModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param customerId the customer ID
+     * @param start the lower bound of the range of scores
+     * @param end the upper bound of the range of scores (not inclusive)
+     * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+     * @return the ordered range of matching scores
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Score> findByCustomerId(long customerId, int start, int end,
+        OrderByComparator orderByComparator) throws SystemException {
+        boolean pagination = true;
+        FinderPath finderPath = null;
+        Object[] finderArgs = null;
+
+        if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+                (orderByComparator == null)) {
+            pagination = false;
+            finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERID;
+            finderArgs = new Object[] { customerId };
+        } else {
+            finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_CUSTOMERID;
+            finderArgs = new Object[] { customerId, start, end, orderByComparator };
+        }
+
+        List<Score> list = (List<Score>) FinderCacheUtil.getResult(finderPath,
+                finderArgs, this);
+
+        if ((list != null) && !list.isEmpty()) {
+            for (Score score : list) {
+                if ((customerId != score.getCustomerId())) {
+                    list = null;
+
+                    break;
+                }
+            }
+        }
+
+        if (list == null) {
+            StringBundler query = null;
+
+            if (orderByComparator != null) {
+                query = new StringBundler(3 +
+                        (orderByComparator.getOrderByFields().length * 3));
+            } else {
+                query = new StringBundler(3);
+            }
+
+            query.append(_SQL_SELECT_SCORE_WHERE);
+
+            query.append(_FINDER_COLUMN_CUSTOMERID_CUSTOMERID_2);
+
+            if (orderByComparator != null) {
+                appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+                    orderByComparator);
+            } else
+             if (pagination) {
+                query.append(ScoreModelImpl.ORDER_BY_JPQL);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(customerId);
+
+                if (!pagination) {
+                    list = (List<Score>) QueryUtil.list(q, getDialect(), start,
+                            end, false);
+
+                    Collections.sort(list);
+
+                    list = new UnmodifiableList<Score>(list);
+                } else {
+                    list = (List<Score>) QueryUtil.list(q, getDialect(), start,
+                            end);
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, list);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * Returns the first score in the ordered set where customerId = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching score
+     * @throws com.arman.csb.modules.NoSuchScoreException if a matching score could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score findByCustomerId_First(long customerId,
+        OrderByComparator orderByComparator)
+        throws NoSuchScoreException, SystemException {
+        Score score = fetchByCustomerId_First(customerId, orderByComparator);
+
+        if (score != null) {
+            return score;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("customerId=");
+        msg.append(customerId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchScoreException(msg.toString());
+    }
+
+    /**
+     * Returns the first score in the ordered set where customerId = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching score, or <code>null</code> if a matching score could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score fetchByCustomerId_First(long customerId,
+        OrderByComparator orderByComparator) throws SystemException {
+        List<Score> list = findByCustomerId(customerId, 0, 1, orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the last score in the ordered set where customerId = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching score
+     * @throws com.arman.csb.modules.NoSuchScoreException if a matching score could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score findByCustomerId_Last(long customerId,
+        OrderByComparator orderByComparator)
+        throws NoSuchScoreException, SystemException {
+        Score score = fetchByCustomerId_Last(customerId, orderByComparator);
+
+        if (score != null) {
+            return score;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("customerId=");
+        msg.append(customerId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchScoreException(msg.toString());
+    }
+
+    /**
+     * Returns the last score in the ordered set where customerId = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching score, or <code>null</code> if a matching score could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score fetchByCustomerId_Last(long customerId,
+        OrderByComparator orderByComparator) throws SystemException {
+        int count = countByCustomerId(customerId);
+
+        if (count == 0) {
+            return null;
+        }
+
+        List<Score> list = findByCustomerId(customerId, count - 1, count,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the scores before and after the current score in the ordered set where customerId = &#63;.
+     *
+     * @param id the primary key of the current score
+     * @param customerId the customer ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the previous, current, and next score
+     * @throws com.arman.csb.modules.NoSuchScoreException if a score with the primary key could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score[] findByCustomerId_PrevAndNext(long id, long customerId,
+        OrderByComparator orderByComparator)
+        throws NoSuchScoreException, SystemException {
+        Score score = findByPrimaryKey(id);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            Score[] array = new ScoreImpl[3];
+
+            array[0] = getByCustomerId_PrevAndNext(session, score, customerId,
+                    orderByComparator, true);
+
+            array[1] = score;
+
+            array[2] = getByCustomerId_PrevAndNext(session, score, customerId,
+                    orderByComparator, false);
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    protected Score getByCustomerId_PrevAndNext(Session session, Score score,
+        long customerId, OrderByComparator orderByComparator, boolean previous) {
+        StringBundler query = null;
+
+        if (orderByComparator != null) {
+            query = new StringBundler(6 +
+                    (orderByComparator.getOrderByFields().length * 6));
+        } else {
+            query = new StringBundler(3);
+        }
+
+        query.append(_SQL_SELECT_SCORE_WHERE);
+
+        query.append(_FINDER_COLUMN_CUSTOMERID_CUSTOMERID_2);
+
+        if (orderByComparator != null) {
+            String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+            if (orderByConditionFields.length > 0) {
+                query.append(WHERE_AND);
+            }
+
+            for (int i = 0; i < orderByConditionFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByConditionFields[i]);
+
+                if ((i + 1) < orderByConditionFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN_HAS_NEXT);
+                    } else {
+                        query.append(WHERE_LESSER_THAN_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN);
+                    } else {
+                        query.append(WHERE_LESSER_THAN);
+                    }
+                }
+            }
+
+            query.append(ORDER_BY_CLAUSE);
+
+            String[] orderByFields = orderByComparator.getOrderByFields();
+
+            for (int i = 0; i < orderByFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByFields[i]);
+
+                if ((i + 1) < orderByFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC_HAS_NEXT);
+                    } else {
+                        query.append(ORDER_BY_DESC_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC);
+                    } else {
+                        query.append(ORDER_BY_DESC);
+                    }
+                }
+            }
+        } else {
+            query.append(ScoreModelImpl.ORDER_BY_JPQL);
+        }
+
+        String sql = query.toString();
+
+        Query q = session.createQuery(sql);
+
+        q.setFirstResult(0);
+        q.setMaxResults(2);
+
+        QueryPos qPos = QueryPos.getInstance(q);
+
+        qPos.add(customerId);
+
+        if (orderByComparator != null) {
+            Object[] values = orderByComparator.getOrderByConditionValues(score);
+
+            for (Object value : values) {
+                qPos.add(value);
+            }
+        }
+
+        List<Score> list = q.list();
+
+        if (list.size() == 2) {
+            return list.get(1);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Removes all the scores where customerId = &#63; from the database.
+     *
+     * @param customerId the customer ID
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public void removeByCustomerId(long customerId) throws SystemException {
+        for (Score score : findByCustomerId(customerId, QueryUtil.ALL_POS,
+                QueryUtil.ALL_POS, null)) {
+            remove(score);
+        }
+    }
+
+    /**
+     * Returns the number of scores where customerId = &#63;.
+     *
+     * @param customerId the customer ID
+     * @return the number of matching scores
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countByCustomerId(long customerId) throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_CUSTOMERID;
+
+        Object[] finderArgs = new Object[] { customerId };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(2);
+
+            query.append(_SQL_COUNT_SCORE_WHERE);
+
+            query.append(_FINDER_COLUMN_CUSTOMERID_CUSTOMERID_2);
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(customerId);
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
+     * Returns all the scores where customerId = &#63; and type = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param type the type
+     * @return the matching scores
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Score> findByCustomerIdAndType(long customerId, int type)
+        throws SystemException {
+        return findByCustomerIdAndType(customerId, type, QueryUtil.ALL_POS,
+            QueryUtil.ALL_POS, null);
+    }
+
+    /**
+     * Returns a range of all the scores where customerId = &#63; and type = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.ScoreModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param customerId the customer ID
+     * @param type the type
+     * @param start the lower bound of the range of scores
+     * @param end the upper bound of the range of scores (not inclusive)
+     * @return the range of matching scores
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Score> findByCustomerIdAndType(long customerId, int type,
+        int start, int end) throws SystemException {
+        return findByCustomerIdAndType(customerId, type, start, end, null);
+    }
+
+    /**
+     * Returns an ordered range of all the scores where customerId = &#63; and type = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.ScoreModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param customerId the customer ID
+     * @param type the type
+     * @param start the lower bound of the range of scores
+     * @param end the upper bound of the range of scores (not inclusive)
+     * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+     * @return the ordered range of matching scores
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Score> findByCustomerIdAndType(long customerId, int type,
+        int start, int end, OrderByComparator orderByComparator)
+        throws SystemException {
+        boolean pagination = true;
+        FinderPath finderPath = null;
+        Object[] finderArgs = null;
+
+        if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+                (orderByComparator == null)) {
+            pagination = false;
+            finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERIDANDTYPE;
+            finderArgs = new Object[] { customerId, type };
+        } else {
+            finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_CUSTOMERIDANDTYPE;
+            finderArgs = new Object[] {
+                    customerId, type,
+                    
+                    start, end, orderByComparator
+                };
+        }
+
+        List<Score> list = (List<Score>) FinderCacheUtil.getResult(finderPath,
+                finderArgs, this);
+
+        if ((list != null) && !list.isEmpty()) {
+            for (Score score : list) {
+                if ((customerId != score.getCustomerId()) ||
+                        (type != score.getType())) {
+                    list = null;
+
+                    break;
+                }
+            }
+        }
+
+        if (list == null) {
+            StringBundler query = null;
+
+            if (orderByComparator != null) {
+                query = new StringBundler(4 +
+                        (orderByComparator.getOrderByFields().length * 3));
+            } else {
+                query = new StringBundler(4);
+            }
+
+            query.append(_SQL_SELECT_SCORE_WHERE);
+
+            query.append(_FINDER_COLUMN_CUSTOMERIDANDTYPE_CUSTOMERID_2);
+
+            query.append(_FINDER_COLUMN_CUSTOMERIDANDTYPE_TYPE_2);
+
+            if (orderByComparator != null) {
+                appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+                    orderByComparator);
+            } else
+             if (pagination) {
+                query.append(ScoreModelImpl.ORDER_BY_JPQL);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(customerId);
+
+                qPos.add(type);
+
+                if (!pagination) {
+                    list = (List<Score>) QueryUtil.list(q, getDialect(), start,
+                            end, false);
+
+                    Collections.sort(list);
+
+                    list = new UnmodifiableList<Score>(list);
+                } else {
+                    list = (List<Score>) QueryUtil.list(q, getDialect(), start,
+                            end);
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, list);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * Returns the first score in the ordered set where customerId = &#63; and type = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param type the type
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching score
+     * @throws com.arman.csb.modules.NoSuchScoreException if a matching score could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score findByCustomerIdAndType_First(long customerId, int type,
+        OrderByComparator orderByComparator)
+        throws NoSuchScoreException, SystemException {
+        Score score = fetchByCustomerIdAndType_First(customerId, type,
+                orderByComparator);
+
+        if (score != null) {
+            return score;
+        }
+
+        StringBundler msg = new StringBundler(6);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("customerId=");
+        msg.append(customerId);
+
+        msg.append(", type=");
+        msg.append(type);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchScoreException(msg.toString());
+    }
+
+    /**
+     * Returns the first score in the ordered set where customerId = &#63; and type = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param type the type
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching score, or <code>null</code> if a matching score could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score fetchByCustomerIdAndType_First(long customerId, int type,
+        OrderByComparator orderByComparator) throws SystemException {
+        List<Score> list = findByCustomerIdAndType(customerId, type, 0, 1,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the last score in the ordered set where customerId = &#63; and type = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param type the type
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching score
+     * @throws com.arman.csb.modules.NoSuchScoreException if a matching score could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score findByCustomerIdAndType_Last(long customerId, int type,
+        OrderByComparator orderByComparator)
+        throws NoSuchScoreException, SystemException {
+        Score score = fetchByCustomerIdAndType_Last(customerId, type,
+                orderByComparator);
+
+        if (score != null) {
+            return score;
+        }
+
+        StringBundler msg = new StringBundler(6);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("customerId=");
+        msg.append(customerId);
+
+        msg.append(", type=");
+        msg.append(type);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchScoreException(msg.toString());
+    }
+
+    /**
+     * Returns the last score in the ordered set where customerId = &#63; and type = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param type the type
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching score, or <code>null</code> if a matching score could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score fetchByCustomerIdAndType_Last(long customerId, int type,
+        OrderByComparator orderByComparator) throws SystemException {
+        int count = countByCustomerIdAndType(customerId, type);
+
+        if (count == 0) {
+            return null;
+        }
+
+        List<Score> list = findByCustomerIdAndType(customerId, type, count - 1,
+                count, orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the scores before and after the current score in the ordered set where customerId = &#63; and type = &#63;.
+     *
+     * @param id the primary key of the current score
+     * @param customerId the customer ID
+     * @param type the type
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the previous, current, and next score
+     * @throws com.arman.csb.modules.NoSuchScoreException if a score with the primary key could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Score[] findByCustomerIdAndType_PrevAndNext(long id,
+        long customerId, int type, OrderByComparator orderByComparator)
+        throws NoSuchScoreException, SystemException {
+        Score score = findByPrimaryKey(id);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            Score[] array = new ScoreImpl[3];
+
+            array[0] = getByCustomerIdAndType_PrevAndNext(session, score,
+                    customerId, type, orderByComparator, true);
+
+            array[1] = score;
+
+            array[2] = getByCustomerIdAndType_PrevAndNext(session, score,
+                    customerId, type, orderByComparator, false);
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    protected Score getByCustomerIdAndType_PrevAndNext(Session session,
+        Score score, long customerId, int type,
+        OrderByComparator orderByComparator, boolean previous) {
+        StringBundler query = null;
+
+        if (orderByComparator != null) {
+            query = new StringBundler(6 +
+                    (orderByComparator.getOrderByFields().length * 6));
+        } else {
+            query = new StringBundler(3);
+        }
+
+        query.append(_SQL_SELECT_SCORE_WHERE);
+
+        query.append(_FINDER_COLUMN_CUSTOMERIDANDTYPE_CUSTOMERID_2);
+
+        query.append(_FINDER_COLUMN_CUSTOMERIDANDTYPE_TYPE_2);
+
+        if (orderByComparator != null) {
+            String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+            if (orderByConditionFields.length > 0) {
+                query.append(WHERE_AND);
+            }
+
+            for (int i = 0; i < orderByConditionFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByConditionFields[i]);
+
+                if ((i + 1) < orderByConditionFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN_HAS_NEXT);
+                    } else {
+                        query.append(WHERE_LESSER_THAN_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN);
+                    } else {
+                        query.append(WHERE_LESSER_THAN);
+                    }
+                }
+            }
+
+            query.append(ORDER_BY_CLAUSE);
+
+            String[] orderByFields = orderByComparator.getOrderByFields();
+
+            for (int i = 0; i < orderByFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByFields[i]);
+
+                if ((i + 1) < orderByFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC_HAS_NEXT);
+                    } else {
+                        query.append(ORDER_BY_DESC_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC);
+                    } else {
+                        query.append(ORDER_BY_DESC);
+                    }
+                }
+            }
+        } else {
+            query.append(ScoreModelImpl.ORDER_BY_JPQL);
+        }
+
+        String sql = query.toString();
+
+        Query q = session.createQuery(sql);
+
+        q.setFirstResult(0);
+        q.setMaxResults(2);
+
+        QueryPos qPos = QueryPos.getInstance(q);
+
+        qPos.add(customerId);
+
+        qPos.add(type);
+
+        if (orderByComparator != null) {
+            Object[] values = orderByComparator.getOrderByConditionValues(score);
+
+            for (Object value : values) {
+                qPos.add(value);
+            }
+        }
+
+        List<Score> list = q.list();
+
+        if (list.size() == 2) {
+            return list.get(1);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Removes all the scores where customerId = &#63; and type = &#63; from the database.
+     *
+     * @param customerId the customer ID
+     * @param type the type
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public void removeByCustomerIdAndType(long customerId, int type)
+        throws SystemException {
+        for (Score score : findByCustomerIdAndType(customerId, type,
+                QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+            remove(score);
+        }
+    }
+
+    /**
+     * Returns the number of scores where customerId = &#63; and type = &#63;.
+     *
+     * @param customerId the customer ID
+     * @param type the type
+     * @return the number of matching scores
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countByCustomerIdAndType(long customerId, int type)
+        throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_CUSTOMERIDANDTYPE;
+
+        Object[] finderArgs = new Object[] { customerId, type };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(3);
+
+            query.append(_SQL_COUNT_SCORE_WHERE);
+
+            query.append(_FINDER_COLUMN_CUSTOMERIDANDTYPE_CUSTOMERID_2);
+
+            query.append(_FINDER_COLUMN_CUSTOMERIDANDTYPE_TYPE_2);
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(customerId);
+
+                qPos.add(type);
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
      * Caches the score in the entity cache if it is enabled.
      *
      * @param score the score
@@ -1704,6 +2684,47 @@ public class ScorePersistenceImpl extends BasePersistenceImpl<Score>
                 FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
                     args);
             }
+
+            if ((scoreModelImpl.getColumnBitmask() &
+                    FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERID.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] {
+                        scoreModelImpl.getOriginalCustomerId()
+                    };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CUSTOMERID,
+                    args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERID,
+                    args);
+
+                args = new Object[] { scoreModelImpl.getCustomerId() };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CUSTOMERID,
+                    args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERID,
+                    args);
+            }
+
+            if ((scoreModelImpl.getColumnBitmask() &
+                    FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERIDANDTYPE.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] {
+                        scoreModelImpl.getOriginalCustomerId(),
+                        scoreModelImpl.getOriginalType()
+                    };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CUSTOMERIDANDTYPE,
+                    args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERIDANDTYPE,
+                    args);
+
+                args = new Object[] {
+                        scoreModelImpl.getCustomerId(), scoreModelImpl.getType()
+                    };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CUSTOMERIDANDTYPE,
+                    args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CUSTOMERIDANDTYPE,
+                    args);
+            }
         }
 
         EntityCacheUtil.putResult(ScoreModelImpl.ENTITY_CACHE_ENABLED,
@@ -1735,6 +2756,7 @@ public class ScorePersistenceImpl extends BasePersistenceImpl<Score>
         scoreImpl.setModifiedDate(score.getModifiedDate());
         scoreImpl.setValue(score.getValue());
         scoreImpl.setCustomerId(score.getCustomerId());
+        scoreImpl.setOriginCustomerId(score.getOriginCustomerId());
         scoreImpl.setType(score.getType());
 
         return scoreImpl;

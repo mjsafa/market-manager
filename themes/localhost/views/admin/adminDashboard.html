@@ -1,0 +1,229 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/dashboard.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">صفحه اختصاصی - {{customer.name}}</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-menu-toggle
+                    dropdown-menu-hover data-delay="1000" data-close-others="true">
+                Actions <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a href="#">
+                        <i class="icon-user"></i> New User </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-present"></i> New Event <span class="badge badge-success">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-basket"></i> New order </a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-flag"></i> Pending Orders <span class="badge badge-danger">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-users"></i> Pending Users <span class="badge badge-warning">12</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h3 class="page-title">
+    صفحه اصلی -
+       پنل مدیریت
+</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="AdminDashboardController">
+
+    <!-- BEGIN DASHBOARD STATS -->
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat blue-madison">
+                <div class="visual">
+                    <i class="fa fa-comments"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        {{stats.totalScores}}
+                    </div>
+                    <div class="desc">
+                        مجموع امتیازات سیستم
+                    </div>
+                </div>
+                <a class="more" href="#">
+                    View more <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat red-intense">
+                <div class="visual">
+                    <i class="fa fa-bar-chart-o"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        {{stats.totalWeekScores}}
+                    </div>
+                    <div class="desc">
+                        امتیازات هفته اخیر
+                    </div>
+                </div>
+                <a class="more" href="#">
+                    View more <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat green-haze">
+                <div class="visual">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        {{stats.totalCustomers}}
+                    </div>
+                    <div class="desc">
+                        تعداد کل مشتری ها
+                    </div>
+                </div>
+                <a class="more" href="#">
+                    View more <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat purple-plum">
+                <div class="visual">
+                    <i class="fa fa-globe"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        {{stats.totalWeekCustomers}}
+                    </div>
+                    <div class="desc">
+                        مشتریان هفته گذشته
+                    </div>
+                </div>
+                <a class="more" href="#">
+                    View more <i class="m-icon-swapright m-icon-white"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="portlet light ">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart font-green-haze hide"></i>
+                        <span class="caption-subject font-green-haze bold uppercase">امتیازات کسب شده شما</span>
+                    </div>
+                </div>
+                <div class="portlet-body ">
+
+
+                    <div style="direction: ltr;" ac-chart="'line'" ac-data="scoreChartData" ac-config="scoreChartConfig"
+                         id="chart"
+                         class="chart"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END DASHBOARD STATS -->
+
+
+    <div class="row">
+
+        <div class="col-md-12 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet bordered light ">
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart font-green-haze hide"></i>
+                        <span class="caption-subject font-green-haze bold uppercase">لیست امتیازات اخیر</span>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-hover table-light">
+                            <thead>
+                            <tr class="uppercase">
+                                <th colspan="1">
+                                    تاریخ
+                                </th>
+                                <th>
+                                    میزان
+                                </th>
+                                <th>
+                                    نوع
+                                </th>
+                                <th>
+                                    مشتری
+                                </th>
+                            </tr>
+                            </thead>
+                            <tr ng-repeat="score in scores">
+                                <td>
+                                    {{score.date}}
+                                </td>
+                                <td>
+                                    {{score.value}}
+                                </td>
+
+                                <td class="">
+                                            <span class="label label-bg label-{{score.isDirect ? 'success' : 'warning'}}">
+                                                {{score.isDirect ? 'مستقیم' : 'غیر مستقیم'}}
+                                            </span>
+
+                                </td>
+
+
+                                <td>
+                                    <span class="bold font-green-haze">{{score.customer.name}}</span>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END PORTLET-->
+
+        </div>
+
+    </div>
+
+
+    <!-- END MAIN CONTENT -->
+    <!-- BEGIN MAIN JS & CSS -->
+    <script>
+        //Index.init();
+        //Tasks.initDashboardWidget();
+    </script>
+    <!-- BEGIN MAIN JS & CSS -->

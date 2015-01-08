@@ -62,6 +62,8 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
             { "createDate", Types.TIMESTAMP },
             { "modifiedDate", Types.TIMESTAMP },
             { "name", Types.VARCHAR },
+            { "firstName", Types.VARCHAR },
+            { "lastName", Types.VARCHAR },
             { "mobile", Types.VARCHAR },
             { "nationalCode", Types.VARCHAR },
             { "email", Types.VARCHAR },
@@ -71,7 +73,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
             { "customerUserId", Types.BIGINT },
             { "mentorCustomerId", Types.BIGINT }
         };
-    public static final String TABLE_SQL_CREATE = "create table CSBModules_Customer (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,mobile VARCHAR(75) null,nationalCode VARCHAR(75) null,email VARCHAR(75) null,card VARCHAR(75) null,score INTEGER,status INTEGER,customerUserId LONG,mentorCustomerId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table CSBModules_Customer (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,firstName VARCHAR(75) null,lastName VARCHAR(75) null,mobile VARCHAR(75) null,nationalCode VARCHAR(75) null,email VARCHAR(75) null,card VARCHAR(75) null,score INTEGER,status INTEGER,customerUserId LONG,mentorCustomerId LONG)";
     public static final String TABLE_SQL_DROP = "drop table CSBModules_Customer";
     public static final String ORDER_BY_JPQL = " ORDER BY customer.id ASC";
     public static final String ORDER_BY_SQL = " ORDER BY CSBModules_Customer.id_ ASC";
@@ -88,9 +90,11 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
                 "value.object.column.bitmask.enabled.com.arman.csb.modules.model.Customer"),
             true);
     public static long COMPANYID_COLUMN_BITMASK = 1L;
-    public static long GROUPID_COLUMN_BITMASK = 2L;
-    public static long UUID_COLUMN_BITMASK = 4L;
-    public static long ID_COLUMN_BITMASK = 8L;
+    public static long CUSTOMERUSERID_COLUMN_BITMASK = 2L;
+    public static long GROUPID_COLUMN_BITMASK = 4L;
+    public static long MENTORCUSTOMERID_COLUMN_BITMASK = 8L;
+    public static long UUID_COLUMN_BITMASK = 16L;
+    public static long ID_COLUMN_BITMASK = 32L;
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
                 "lock.expiration.time.com.arman.csb.modules.model.Customer"));
     private static ClassLoader _classLoader = Customer.class.getClassLoader();
@@ -112,6 +116,8 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
     private Date _createDate;
     private Date _modifiedDate;
     private String _name;
+    private String _firstName;
+    private String _lastName;
     private String _mobile;
     private String _nationalCode;
     private String _email;
@@ -120,7 +126,11 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
     private int _status;
     private long _customerUserId;
     private String _customerUserUuid;
+    private long _originalCustomerUserId;
+    private boolean _setOriginalCustomerUserId;
     private long _mentorCustomerId;
+    private long _originalMentorCustomerId;
+    private boolean _setOriginalMentorCustomerId;
     private long _columnBitmask;
     private Customer _escapedModel;
 
@@ -149,6 +159,8 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         model.setCreateDate(soapModel.getCreateDate());
         model.setModifiedDate(soapModel.getModifiedDate());
         model.setName(soapModel.getName());
+        model.setFirstName(soapModel.getFirstName());
+        model.setLastName(soapModel.getLastName());
         model.setMobile(soapModel.getMobile());
         model.setNationalCode(soapModel.getNationalCode());
         model.setEmail(soapModel.getEmail());
@@ -224,6 +236,8 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         attributes.put("createDate", getCreateDate());
         attributes.put("modifiedDate", getModifiedDate());
         attributes.put("name", getName());
+        attributes.put("firstName", getFirstName());
+        attributes.put("lastName", getLastName());
         attributes.put("mobile", getMobile());
         attributes.put("nationalCode", getNationalCode());
         attributes.put("email", getEmail());
@@ -290,6 +304,18 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
         if (name != null) {
             setName(name);
+        }
+
+        String firstName = (String) attributes.get("firstName");
+
+        if (firstName != null) {
+            setFirstName(firstName);
+        }
+
+        String lastName = (String) attributes.get("lastName");
+
+        if (lastName != null) {
+            setLastName(lastName);
         }
 
         String mobile = (String) attributes.get("mobile");
@@ -496,6 +522,36 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
     @JSON
     @Override
+    public String getFirstName() {
+        if (_firstName == null) {
+            return StringPool.BLANK;
+        } else {
+            return _firstName;
+        }
+    }
+
+    @Override
+    public void setFirstName(String firstName) {
+        _firstName = firstName;
+    }
+
+    @JSON
+    @Override
+    public String getLastName() {
+        if (_lastName == null) {
+            return StringPool.BLANK;
+        } else {
+            return _lastName;
+        }
+    }
+
+    @Override
+    public void setLastName(String lastName) {
+        _lastName = lastName;
+    }
+
+    @JSON
+    @Override
     public String getMobile() {
         if (_mobile == null) {
             return StringPool.BLANK;
@@ -584,6 +640,14 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
     @Override
     public void setCustomerUserId(long customerUserId) {
+        _columnBitmask |= CUSTOMERUSERID_COLUMN_BITMASK;
+
+        if (!_setOriginalCustomerUserId) {
+            _setOriginalCustomerUserId = true;
+
+            _originalCustomerUserId = _customerUserId;
+        }
+
         _customerUserId = customerUserId;
     }
 
@@ -598,6 +662,10 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         _customerUserUuid = customerUserUuid;
     }
 
+    public long getOriginalCustomerUserId() {
+        return _originalCustomerUserId;
+    }
+
     @JSON
     @Override
     public long getMentorCustomerId() {
@@ -606,7 +674,19 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
     @Override
     public void setMentorCustomerId(long mentorCustomerId) {
+        _columnBitmask |= MENTORCUSTOMERID_COLUMN_BITMASK;
+
+        if (!_setOriginalMentorCustomerId) {
+            _setOriginalMentorCustomerId = true;
+
+            _originalMentorCustomerId = _mentorCustomerId;
+        }
+
         _mentorCustomerId = mentorCustomerId;
+    }
+
+    public long getOriginalMentorCustomerId() {
+        return _originalMentorCustomerId;
     }
 
     @Override
@@ -655,6 +735,8 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         customerImpl.setCreateDate(getCreateDate());
         customerImpl.setModifiedDate(getModifiedDate());
         customerImpl.setName(getName());
+        customerImpl.setFirstName(getFirstName());
+        customerImpl.setLastName(getLastName());
         customerImpl.setMobile(getMobile());
         customerImpl.setNationalCode(getNationalCode());
         customerImpl.setEmail(getEmail());
@@ -722,6 +804,14 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
         customerModelImpl._setOriginalCompanyId = false;
 
+        customerModelImpl._originalCustomerUserId = customerModelImpl._customerUserId;
+
+        customerModelImpl._setOriginalCustomerUserId = false;
+
+        customerModelImpl._originalMentorCustomerId = customerModelImpl._mentorCustomerId;
+
+        customerModelImpl._setOriginalMentorCustomerId = false;
+
         customerModelImpl._columnBitmask = 0;
     }
 
@@ -777,6 +867,22 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
             customerCacheModel.name = null;
         }
 
+        customerCacheModel.firstName = getFirstName();
+
+        String firstName = customerCacheModel.firstName;
+
+        if ((firstName != null) && (firstName.length() == 0)) {
+            customerCacheModel.firstName = null;
+        }
+
+        customerCacheModel.lastName = getLastName();
+
+        String lastName = customerCacheModel.lastName;
+
+        if ((lastName != null) && (lastName.length() == 0)) {
+            customerCacheModel.lastName = null;
+        }
+
         customerCacheModel.mobile = getMobile();
 
         String mobile = customerCacheModel.mobile;
@@ -822,7 +928,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(35);
+        StringBundler sb = new StringBundler(39);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -842,6 +948,10 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         sb.append(getModifiedDate());
         sb.append(", name=");
         sb.append(getName());
+        sb.append(", firstName=");
+        sb.append(getFirstName());
+        sb.append(", lastName=");
+        sb.append(getLastName());
         sb.append(", mobile=");
         sb.append(getMobile());
         sb.append(", nationalCode=");
@@ -865,7 +975,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(55);
+        StringBundler sb = new StringBundler(61);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Customer");
@@ -906,6 +1016,14 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         sb.append(
             "<column><column-name>name</column-name><column-value><![CDATA[");
         sb.append(getName());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>firstName</column-name><column-value><![CDATA[");
+        sb.append(getFirstName());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>lastName</column-name><column-value><![CDATA[");
+        sb.append(getLastName());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>mobile</column-name><column-value><![CDATA[");

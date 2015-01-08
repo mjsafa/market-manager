@@ -99,7 +99,8 @@
     </div>
 </div>
 <h3 class="page-title">
-    Dashboard
+    اطلاعات مشتری -
+    {{customer.name}}
 </h3>
 <!-- END PAGE HEADER-->
 <!-- BEGIN MAIN CONTENT -->
@@ -114,10 +115,10 @@
             </div>
             <div class="details">
                 <div class="number">
-                    1349
+                    {{stats.totalInvitees}}
                 </div>
                 <div class="desc">
-                    New Feedbacks
+                    تعداد زیر مجموعه ها
                 </div>
             </div>
             <a class="more" href="#">
@@ -132,10 +133,10 @@
             </div>
             <div class="details">
                 <div class="number">
-                    12,5M$
+                    {{stats.totalWeekScore}}
                 </div>
                 <div class="desc">
-                    Total Profit
+کل امتیاز هفته اخیر
                 </div>
             </div>
             <a class="more" href="#">
@@ -150,10 +151,10 @@
             </div>
             <div class="details">
                 <div class="number">
-                    549
+                    {{stats.totalInDirectScore}}
                 </div>
                 <div class="desc">
-                    New Orders
+                    کل امتیاز غیر مستیم
                 </div>
             </div>
             <a class="more" href="#">
@@ -168,10 +169,10 @@
             </div>
             <div class="details">
                 <div class="number">
-                    +89%
+                    {{stats.totalDirectScore}}
                 </div>
                 <div class="desc">
-                    Brand Popularity
+                    کل امتیاز مستقیم
                 </div>
             </div>
             <a class="more" href="#">
@@ -181,6 +182,58 @@
     </div>
 </div>
 <!-- END DASHBOARD STATS -->
+
+<div class="row">
+
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div style="display: none" class="portlet bordered light ">
+            <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-green-haze hide"></i>
+                    <span class="caption-subject font-green-haze bold uppercase">معرفی مشتری جدید</span>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#" data-target="#select_tab" data-toggle="tab">
+                            انتخاب از میان مشتریان </a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="#select_tab">
+                        <a ng-click="open()" href="#" class="btn btn-lg yellow">
+                            انتخاب از میان مشتریان موجود <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+
+
+        <!-- BEGIN PORTLET-->
+        <div class="portlet bordered light ">
+            <div class="portlet-title ">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-green-haze hide"></i>
+                    <span class="caption-subject font-green-haze bold uppercase">نمودار امتیازات کسب شده</span>
+                </div>
+
+
+            </div>
+            <div class="portlet-body">
+                <div style="direction: ltr;" ac-chart="'line'" ac-data="scoreChartData" ac-config="scoreChartConfig"
+                     id="chart"
+                     class="chart"></div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <!-- BEGIN PORTLET-->
@@ -188,14 +241,13 @@
             <div class="portlet-title">
                 <div class="caption caption-md">
                     <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">صفحه اختصاصی مشتری</span>
+                    <span class="caption-subject font-green-haze bold uppercase">اطلاعات مشتری</span>
                 </div>
             </div>
             <div class="portlet-body form">
 
                 <div class="form-horizontal" role="form">
                     <div class="form-body">
-                        <h2 class="margin-bottom-20"> مشاهده اطلاعات مشتری - {{customer.name}}</h2>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -204,23 +256,24 @@
 
                                     <div class="col-md-9">
                                         <p class="form-control-static">
-                                            <a href="#" editable-text="customer.name">{{customer.name}}</a>
+                                            <a href="#" editable-text="customer.name">{{customer.firstName}}</a>
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">کد ملی</label>
+                                    <label class="control-label col-md-3">نام خانوادگی</label>
 
                                     <div class="col-md-9">
                                         <p class="form-control-static">
-                                            {{customer.nationalCode}}
+                                            <a href="#" editable-text="customer.name">{{customer.firstName}}</a>
                                         </p>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
 
                         <div class="row">
@@ -235,14 +288,15 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">پست الکترونیک</label>
+                                    <label class="control-label col-md-3">کد ملی</label>
 
                                     <div class="col-md-9">
                                         <p class="form-control-static">
-                                            <a href="#" editable-text="customer.email">{{customer.email}}</a>
+                                            {{customer.nationalCode}}
                                         </p>
                                     </div>
                                 </div>
@@ -271,7 +325,7 @@
 
                                     <div class="col-md-9">
                                         <p class="form-control-static">
-                                            <a href="#" editable-text="customer.email">{{customer.email}}</a>
+                                           {{customer.email}}
                                         </p>
                                     </div>
                                 </div>
@@ -336,58 +390,69 @@
     </div>
 
 </div>
-
 <div class="row">
-    <div class="col-md-6 col-sm-12">
+
+    <div class="col-md-4 col-sm-12">
         <!-- BEGIN PORTLET-->
         <div class="portlet bordered light ">
-            <div class="portlet-title tabbable-line">
+            <div class="portlet-title">
                 <div class="caption caption-md">
                     <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">معرفی مشتری جدید</span>
+                    <span class="caption-subject font-green-haze bold uppercase">لیست امتیازات اخیر</span>
                 </div>
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#" data-target="#select_tab" data-toggle="tab">
-                            انتخاب از میان مشتریان </a>
-                    </li>
-                </ul>
+                <div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
 
+                    </div>
+                </div>
             </div>
             <div class="portlet-body">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="#select_tab">
-                        <a ng-click="open()" href="#" class="btn btn-lg yellow">
-                            انتخاب از میان مشتریان موجود <i class="fa fa-search"></i>
-                        </a>
-                    </div>
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="uppercase">
+                            <th colspan="1">
+تاریخ
+                            </th>
+                            <th>
+                                میزان
+                            </th>
+                            <th>
+                                نوع
+                            </th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="score in scores">
+                            <td>
+                                {{score.date}}
+                            </td>
+                            <td>
+                                {{score.value}}
+                            </td>
+
+                            <td class="">
+                                <span class="label label-bg label-{{score.isDirect ? 'success' : 'warning'}}">
+                                    {{score.isDirect ? 'مستقیم' : 'غیر مستقیم'}}
+                                </span>
+
+                            </td>
+
+                            <td>
+                                <span class="bold font-green-haze">{{invitee.score}}</span>
+                            </td>
+
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
         <!-- END PORTLET-->
-
-
-        <!-- BEGIN PORTLET-->
-        <div class="portlet bordered light ">
-            <div class="portlet-title ">
-                <div class="caption caption-md">
-                    <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">نمودار امتیازات کسب شده</span>
-                </div>
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <div google-chart chart="chartObject"></div>
-                    </li>
-                </ul>
-
-            </div>
-            <div class="portlet-body">
-
-            </div>
-        </div>
-
     </div>
-    <div class="col-md-6 col-sm-12">
+
+
+
+
+    <div class="col-md-8 col-sm-12">
         <!-- BEGIN PORTLET-->
         <div class="portlet bordered light ">
             <div class="portlet-title">

@@ -47,6 +47,8 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
         attributes.put("createDate", getCreateDate());
         attributes.put("modifiedDate", getModifiedDate());
         attributes.put("name", getName());
+        attributes.put("firstName", getFirstName());
+        attributes.put("lastName", getLastName());
         attributes.put("mobile", getMobile());
         attributes.put("nationalCode", getNationalCode());
         attributes.put("email", getEmail());
@@ -113,6 +115,18 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
 
         if (name != null) {
             setName(name);
+        }
+
+        String firstName = (String) attributes.get("firstName");
+
+        if (firstName != null) {
+            setFirstName(firstName);
+        }
+
+        String lastName = (String) attributes.get("lastName");
+
+        if (lastName != null) {
+            setLastName(lastName);
         }
 
         String mobile = (String) attributes.get("mobile");
@@ -384,6 +398,46 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
     @Override
     public void setName(java.lang.String name) {
         _customer.setName(name);
+    }
+
+    /**
+    * Returns the first name of this customer.
+    *
+    * @return the first name of this customer
+    */
+    @Override
+    public java.lang.String getFirstName() {
+        return _customer.getFirstName();
+    }
+
+    /**
+    * Sets the first name of this customer.
+    *
+    * @param firstName the first name of this customer
+    */
+    @Override
+    public void setFirstName(java.lang.String firstName) {
+        _customer.setFirstName(firstName);
+    }
+
+    /**
+    * Returns the last name of this customer.
+    *
+    * @return the last name of this customer
+    */
+    @Override
+    public java.lang.String getLastName() {
+        return _customer.getLastName();
+    }
+
+    /**
+    * Sets the last name of this customer.
+    *
+    * @param lastName the last name of this customer
+    */
+    @Override
+    public void setLastName(java.lang.String lastName) {
+        _customer.setLastName(lastName);
     }
 
     /**

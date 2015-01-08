@@ -345,6 +345,45 @@ public class CustomerLocalServiceWrapper implements CustomerLocalService,
         return _customerLocalService.addCustomer(customer, serviceContext);
     }
 
+    @Override
+    public com.arman.csb.modules.model.Customer getById(
+        java.lang.Long customerId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerLocalService.getById(customerId);
+    }
+
+    @Override
+    public com.arman.csb.modules.model.Customer findByUserId(
+        java.lang.Long userId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerLocalService.findByUserId(userId);
+    }
+
+    @Override
+    public int countByMentorCustomerId(java.lang.Long customerId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerLocalService.countByMentorCustomerId(customerId);
+    }
+
+    @Override
+    public long count(java.util.Date fromDate, java.util.Date toDate)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerLocalService.count(fromDate, toDate);
+    }
+
+    @Override
+    public com.arman.csb.modules.model.Customer updateCustomer(
+        com.arman.csb.modules.model.Customer customer,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerLocalService.updateCustomer(customer, serviceContext);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

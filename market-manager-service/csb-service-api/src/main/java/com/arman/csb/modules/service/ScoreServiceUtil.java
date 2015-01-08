@@ -51,6 +51,48 @@ public class ScoreServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static com.liferay.portal.kernel.json.JSONObject customerScoresByDate(
+        java.lang.Long customerId, java.lang.String fromDate,
+        java.lang.String toDate,
+        com.liferay.portal.service.ServiceContext serviceContext) {
+        return getService()
+                   .customerScoresByDate(customerId, fromDate, toDate,
+            serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONObject scoresByDate(
+        java.lang.String fromDate, java.lang.String toDate,
+        java.lang.String timePeriod,
+        com.liferay.portal.service.ServiceContext serviceContext) {
+        return getService()
+                   .scoresByDate(fromDate, toDate, timePeriod, serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONObject addScore(
+        java.lang.Long customerId, int value,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().addScore(customerId, value, serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONArray customerScores(
+        java.lang.Long customerId, int start, int total,
+        java.util.Map<java.lang.String, java.lang.Object> filter,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService()
+                   .customerScores(customerId, start, total, filter,
+            serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONObject getTotalStats()
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().getTotalStats();
+    }
+
     public static void clearService() {
         _service = null;
     }

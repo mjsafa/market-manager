@@ -32,6 +32,8 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
     private Date _createDate;
     private Date _modifiedDate;
     private String _name;
+    private String _firstName;
+    private String _lastName;
     private String _mobile;
     private String _nationalCode;
     private String _email;
@@ -89,6 +91,8 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
         attributes.put("createDate", getCreateDate());
         attributes.put("modifiedDate", getModifiedDate());
         attributes.put("name", getName());
+        attributes.put("firstName", getFirstName());
+        attributes.put("lastName", getLastName());
         attributes.put("mobile", getMobile());
         attributes.put("nationalCode", getNationalCode());
         attributes.put("email", getEmail());
@@ -155,6 +159,18 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
 
         if (name != null) {
             setName(name);
+        }
+
+        String firstName = (String) attributes.get("firstName");
+
+        if (firstName != null) {
+            setFirstName(firstName);
+        }
+
+        String lastName = (String) attributes.get("lastName");
+
+        if (lastName != null) {
+            setLastName(lastName);
         }
 
         String mobile = (String) attributes.get("mobile");
@@ -408,6 +424,50 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
                 Method method = clazz.getMethod("setName", String.class);
 
                 method.invoke(_customerRemoteModel, name);
+            } catch (Exception e) {
+                throw new UnsupportedOperationException(e);
+            }
+        }
+    }
+
+    @Override
+    public String getFirstName() {
+        return _firstName;
+    }
+
+    @Override
+    public void setFirstName(String firstName) {
+        _firstName = firstName;
+
+        if (_customerRemoteModel != null) {
+            try {
+                Class<?> clazz = _customerRemoteModel.getClass();
+
+                Method method = clazz.getMethod("setFirstName", String.class);
+
+                method.invoke(_customerRemoteModel, firstName);
+            } catch (Exception e) {
+                throw new UnsupportedOperationException(e);
+            }
+        }
+    }
+
+    @Override
+    public String getLastName() {
+        return _lastName;
+    }
+
+    @Override
+    public void setLastName(String lastName) {
+        _lastName = lastName;
+
+        if (_customerRemoteModel != null) {
+            try {
+                Class<?> clazz = _customerRemoteModel.getClass();
+
+                Method method = clazz.getMethod("setLastName", String.class);
+
+                method.invoke(_customerRemoteModel, lastName);
             } catch (Exception e) {
                 throw new UnsupportedOperationException(e);
             }
@@ -684,6 +744,8 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
         clone.setCreateDate(getCreateDate());
         clone.setModifiedDate(getModifiedDate());
         clone.setName(getName());
+        clone.setFirstName(getFirstName());
+        clone.setLastName(getLastName());
         clone.setMobile(getMobile());
         clone.setNationalCode(getNationalCode());
         clone.setEmail(getEmail());
@@ -737,7 +799,7 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(35);
+        StringBundler sb = new StringBundler(39);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -757,6 +819,10 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
         sb.append(getModifiedDate());
         sb.append(", name=");
         sb.append(getName());
+        sb.append(", firstName=");
+        sb.append(getFirstName());
+        sb.append(", lastName=");
+        sb.append(getLastName());
         sb.append(", mobile=");
         sb.append(getMobile());
         sb.append(", nationalCode=");
@@ -780,7 +846,7 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(55);
+        StringBundler sb = new StringBundler(61);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Customer");
@@ -821,6 +887,14 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
         sb.append(
             "<column><column-name>name</column-name><column-value><![CDATA[");
         sb.append(getName());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>firstName</column-name><column-value><![CDATA[");
+        sb.append(getFirstName());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>lastName</column-name><column-value><![CDATA[");
+        sb.append(getLastName());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>mobile</column-name><column-value><![CDATA[");

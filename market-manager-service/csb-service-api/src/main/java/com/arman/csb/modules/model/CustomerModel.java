@@ -208,6 +208,36 @@ public interface CustomerModel extends BaseModel<Customer>, StagedGroupedModel {
     public void setName(String name);
 
     /**
+     * Returns the first name of this customer.
+     *
+     * @return the first name of this customer
+     */
+    @AutoEscape
+    public String getFirstName();
+
+    /**
+     * Sets the first name of this customer.
+     *
+     * @param firstName the first name of this customer
+     */
+    public void setFirstName(String firstName);
+
+    /**
+     * Returns the last name of this customer.
+     *
+     * @return the last name of this customer
+     */
+    @AutoEscape
+    public String getLastName();
+
+    /**
+     * Sets the last name of this customer.
+     *
+     * @param lastName the last name of this customer
+     */
+    public void setLastName(String lastName);
+
+    /**
      * Returns the mobile of this customer.
      *
      * @return the mobile of this customer

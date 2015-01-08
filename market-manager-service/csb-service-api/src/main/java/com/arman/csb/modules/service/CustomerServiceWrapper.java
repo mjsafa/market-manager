@@ -76,6 +76,50 @@ public class CustomerServiceWrapper implements CustomerService,
         return _customerService.getById(customerId, serviceContext);
     }
 
+    @Override
+    public com.liferay.portal.kernel.json.JSONArray getInvitees(
+        long customerId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerService.getInvitees(customerId, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getStats(long customerId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerService.getStats(customerId, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getTotalStats(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerService.getTotalStats(serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject updateCustomer(
+        java.util.Map<java.lang.String, java.lang.Object> customer,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerService.updateCustomer(customer, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject updateCustomerStatus(
+        long customerId, boolean isActive,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _customerService.updateCustomerStatus(customerId, isActive,
+            serviceContext);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

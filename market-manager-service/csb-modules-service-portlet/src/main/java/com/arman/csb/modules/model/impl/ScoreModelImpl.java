@@ -62,9 +62,10 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
             { "modifiedDate", Types.TIMESTAMP },
             { "value", Types.INTEGER },
             { "customerId", Types.BIGINT },
+            { "originCustomerId", Types.BIGINT },
             { "type_", Types.INTEGER }
         };
-    public static final String TABLE_SQL_CREATE = "create table CSBModules_Score (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,value INTEGER,customerId LONG,type_ INTEGER)";
+    public static final String TABLE_SQL_CREATE = "create table CSBModules_Score (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,value INTEGER,customerId LONG,originCustomerId LONG,type_ INTEGER)";
     public static final String TABLE_SQL_DROP = "drop table CSBModules_Score";
     public static final String ORDER_BY_JPQL = " ORDER BY score.id ASC";
     public static final String ORDER_BY_SQL = " ORDER BY CSBModules_Score.id_ ASC";
@@ -81,9 +82,11 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
                 "value.object.column.bitmask.enabled.com.arman.csb.modules.model.Score"),
             true);
     public static long COMPANYID_COLUMN_BITMASK = 1L;
-    public static long GROUPID_COLUMN_BITMASK = 2L;
-    public static long UUID_COLUMN_BITMASK = 4L;
-    public static long ID_COLUMN_BITMASK = 8L;
+    public static long CUSTOMERID_COLUMN_BITMASK = 2L;
+    public static long GROUPID_COLUMN_BITMASK = 4L;
+    public static long TYPE_COLUMN_BITMASK = 8L;
+    public static long UUID_COLUMN_BITMASK = 16L;
+    public static long ID_COLUMN_BITMASK = 32L;
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
                 "lock.expiration.time.com.arman.csb.modules.model.Score"));
     private static ClassLoader _classLoader = Score.class.getClassLoader();
@@ -104,7 +107,12 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
     private Date _modifiedDate;
     private int _value;
     private long _customerId;
+    private long _originalCustomerId;
+    private boolean _setOriginalCustomerId;
+    private long _originCustomerId;
     private int _type;
+    private int _originalType;
+    private boolean _setOriginalType;
     private long _columnBitmask;
     private Score _escapedModel;
 
@@ -134,6 +142,7 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
         model.setModifiedDate(soapModel.getModifiedDate());
         model.setValue(soapModel.getValue());
         model.setCustomerId(soapModel.getCustomerId());
+        model.setOriginCustomerId(soapModel.getOriginCustomerId());
         model.setType(soapModel.getType());
 
         return model;
@@ -203,6 +212,7 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
         attributes.put("modifiedDate", getModifiedDate());
         attributes.put("value", getValue());
         attributes.put("customerId", getCustomerId());
+        attributes.put("originCustomerId", getOriginCustomerId());
         attributes.put("type", getType());
 
         return attributes;
@@ -268,6 +278,12 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
 
         if (customerId != null) {
             setCustomerId(customerId);
+        }
+
+        Long originCustomerId = (Long) attributes.get("originCustomerId");
+
+        if (originCustomerId != null) {
+            setOriginCustomerId(originCustomerId);
         }
 
         Integer type = (Integer) attributes.get("type");
@@ -434,7 +450,30 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
 
     @Override
     public void setCustomerId(long customerId) {
+        _columnBitmask |= CUSTOMERID_COLUMN_BITMASK;
+
+        if (!_setOriginalCustomerId) {
+            _setOriginalCustomerId = true;
+
+            _originalCustomerId = _customerId;
+        }
+
         _customerId = customerId;
+    }
+
+    public long getOriginalCustomerId() {
+        return _originalCustomerId;
+    }
+
+    @JSON
+    @Override
+    public long getOriginCustomerId() {
+        return _originCustomerId;
+    }
+
+    @Override
+    public void setOriginCustomerId(long originCustomerId) {
+        _originCustomerId = originCustomerId;
     }
 
     @JSON
@@ -445,7 +484,19 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
 
     @Override
     public void setType(int type) {
+        _columnBitmask |= TYPE_COLUMN_BITMASK;
+
+        if (!_setOriginalType) {
+            _setOriginalType = true;
+
+            _originalType = _type;
+        }
+
         _type = type;
+    }
+
+    public int getOriginalType() {
+        return _originalType;
     }
 
     @Override
@@ -495,6 +546,7 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
         scoreImpl.setModifiedDate(getModifiedDate());
         scoreImpl.setValue(getValue());
         scoreImpl.setCustomerId(getCustomerId());
+        scoreImpl.setOriginCustomerId(getOriginCustomerId());
         scoreImpl.setType(getType());
 
         scoreImpl.resetOriginalValues();
@@ -555,6 +607,14 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
 
         scoreModelImpl._setOriginalCompanyId = false;
 
+        scoreModelImpl._originalCustomerId = scoreModelImpl._customerId;
+
+        scoreModelImpl._setOriginalCustomerId = false;
+
+        scoreModelImpl._originalType = scoreModelImpl._type;
+
+        scoreModelImpl._setOriginalType = false;
+
         scoreModelImpl._columnBitmask = 0;
     }
 
@@ -606,6 +666,8 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
 
         scoreCacheModel.customerId = getCustomerId();
 
+        scoreCacheModel.originCustomerId = getOriginCustomerId();
+
         scoreCacheModel.type = getType();
 
         return scoreCacheModel;
@@ -613,7 +675,7 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(23);
+        StringBundler sb = new StringBundler(25);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -635,6 +697,8 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
         sb.append(getValue());
         sb.append(", customerId=");
         sb.append(getCustomerId());
+        sb.append(", originCustomerId=");
+        sb.append(getOriginCustomerId());
         sb.append(", type=");
         sb.append(getType());
         sb.append("}");
@@ -644,7 +708,7 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(37);
+        StringBundler sb = new StringBundler(40);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Score");
@@ -689,6 +753,10 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
         sb.append(
             "<column><column-name>customerId</column-name><column-value><![CDATA[");
         sb.append(getCustomerId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>originCustomerId</column-name><column-value><![CDATA[");
+        sb.append(getOriginCustomerId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>type</column-name><column-value><![CDATA[");

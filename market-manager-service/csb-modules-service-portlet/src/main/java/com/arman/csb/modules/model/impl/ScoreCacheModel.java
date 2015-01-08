@@ -31,11 +31,12 @@ public class ScoreCacheModel implements CacheModel<Score>, Externalizable {
     public long modifiedDate;
     public int value;
     public long customerId;
+    public long originCustomerId;
     public int type;
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(23);
+        StringBundler sb = new StringBundler(25);
 
         sb.append("{uuid=");
         sb.append(uuid);
@@ -57,6 +58,8 @@ public class ScoreCacheModel implements CacheModel<Score>, Externalizable {
         sb.append(value);
         sb.append(", customerId=");
         sb.append(customerId);
+        sb.append(", originCustomerId=");
+        sb.append(originCustomerId);
         sb.append(", type=");
         sb.append(type);
         sb.append("}");
@@ -99,6 +102,7 @@ public class ScoreCacheModel implements CacheModel<Score>, Externalizable {
 
         scoreImpl.setValue(value);
         scoreImpl.setCustomerId(customerId);
+        scoreImpl.setOriginCustomerId(originCustomerId);
         scoreImpl.setType(type);
 
         scoreImpl.resetOriginalValues();
@@ -118,6 +122,7 @@ public class ScoreCacheModel implements CacheModel<Score>, Externalizable {
         modifiedDate = objectInput.readLong();
         value = objectInput.readInt();
         customerId = objectInput.readLong();
+        originCustomerId = objectInput.readLong();
         type = objectInput.readInt();
     }
 
@@ -145,6 +150,7 @@ public class ScoreCacheModel implements CacheModel<Score>, Externalizable {
         objectOutput.writeLong(modifiedDate);
         objectOutput.writeInt(value);
         objectOutput.writeLong(customerId);
+        objectOutput.writeLong(originCustomerId);
         objectOutput.writeInt(type);
     }
 }

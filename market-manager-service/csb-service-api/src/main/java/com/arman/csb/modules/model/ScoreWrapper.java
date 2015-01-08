@@ -48,6 +48,7 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
         attributes.put("modifiedDate", getModifiedDate());
         attributes.put("value", getValue());
         attributes.put("customerId", getCustomerId());
+        attributes.put("originCustomerId", getOriginCustomerId());
         attributes.put("type", getType());
 
         return attributes;
@@ -113,6 +114,12 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
 
         if (customerId != null) {
             setCustomerId(customerId);
+        }
+
+        Long originCustomerId = (Long) attributes.get("originCustomerId");
+
+        if (originCustomerId != null) {
+            setOriginCustomerId(originCustomerId);
         }
 
         Integer type = (Integer) attributes.get("type");
@@ -365,6 +372,26 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
     }
 
     /**
+    * Returns the origin customer ID of this score.
+    *
+    * @return the origin customer ID of this score
+    */
+    @Override
+    public long getOriginCustomerId() {
+        return _score.getOriginCustomerId();
+    }
+
+    /**
+    * Sets the origin customer ID of this score.
+    *
+    * @param originCustomerId the origin customer ID of this score
+    */
+    @Override
+    public void setOriginCustomerId(long originCustomerId) {
+        _score.setOriginCustomerId(originCustomerId);
+    }
+
+    /**
     * Returns the type of this score.
     *
     * @return the type of this score
@@ -448,7 +475,7 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
     }
 
     @Override
-    public int compareTo(Score score) {
+    public int compareTo(com.arman.csb.modules.model.Score score) {
         return _score.compareTo(score);
     }
 
@@ -458,17 +485,17 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
     }
 
     @Override
-    public com.liferay.portal.model.CacheModel<Score> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<com.arman.csb.modules.model.Score> toCacheModel() {
         return _score.toCacheModel();
     }
 
     @Override
-    public Score toEscapedModel() {
+    public com.arman.csb.modules.model.Score toEscapedModel() {
         return new ScoreWrapper(_score.toEscapedModel());
     }
 
     @Override
-    public Score toUnescapedModel() {
+    public com.arman.csb.modules.model.Score toUnescapedModel() {
         return new ScoreWrapper(_score.toUnescapedModel());
     }
 

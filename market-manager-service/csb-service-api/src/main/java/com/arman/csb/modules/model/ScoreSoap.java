@@ -24,6 +24,7 @@ public class ScoreSoap implements Serializable {
     private Date _modifiedDate;
     private int _value;
     private long _customerId;
+    private long _originCustomerId;
     private int _type;
 
     public ScoreSoap() {
@@ -42,6 +43,7 @@ public class ScoreSoap implements Serializable {
         soapModel.setModifiedDate(model.getModifiedDate());
         soapModel.setValue(model.getValue());
         soapModel.setCustomerId(model.getCustomerId());
+        soapModel.setOriginCustomerId(model.getOriginCustomerId());
         soapModel.setType(model.getType());
 
         return soapModel;
@@ -169,6 +171,14 @@ public class ScoreSoap implements Serializable {
 
     public void setCustomerId(long customerId) {
         _customerId = customerId;
+    }
+
+    public long getOriginCustomerId() {
+        return _originCustomerId;
+    }
+
+    public void setOriginCustomerId(long originCustomerId) {
+        _originCustomerId = originCustomerId;
     }
 
     public int getType() {
