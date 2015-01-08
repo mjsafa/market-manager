@@ -1,13 +1,25 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.modules.NoSuchCustomerException;
 import com.arman.csb.modules.model.Customer;
+import com.arman.csb.modules.model.CustomerModel;
+import com.arman.csb.modules.model.impl.CustomerModelImpl;
+import com.arman.csb.modules.service.ClpSerializer;
 import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.modules.service.base.CustomerLocalServiceBaseImpl;
+import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.service.RoleServiceUtil;
@@ -65,7 +77,11 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
         newCustomer.setGroupId(serviceContext.getScopeGroupId());
 
         newCustomer.setName((String) customer.get("firstName") + " " + (String) customer.get("lastName"));
+        newCustomer.setFirstName((String) customer.get("firstName"));
+        newCustomer.setLastName((String) customer.get("lastName"));
         newCustomer.setEmail((String) customer.get("email"));
+        newCustomer.setCard((String) customer.get("card"));
+        newCustomer.setStatus(WorkflowConstants.STATUS_APPROVED);
         newCustomer.setMobile((String) customer.get("mobile"));
         newCustomer.setNationalCode((String) customer.get("nationalCode"));
         newCustomer.setScore(0);
@@ -85,4 +101,41 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
 
         return result;
     }
+
+    public Customer getById(Long customerId) throws PortalException, SystemException {
+        return customerPersistence.fetchByPrimaryKey(customerId);
+    }
+
+    public Customer findByUserId(Long userId) throws SystemException, PortalException {
+        try {
+            return customerPersistence.findByUserId(userId);
+        } catch (NoSuchCustomerException e) {
+            return null;
+        }
+    }
+
+    public int countByMentorCustomerId(Long customerId) throws SystemException, PortalException {
+        return customerPersistence.countByMentor(customerId);
+    }
+
+
+    public long count(Date fromDate, Date toDate) throws SystemException, PortalException {
+        ClassLoader classLoader = (ClassLoader) PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(), "portletClassLoader");
+
+        DynamicQuery query = DynamicQueryFactoryUtil.forClass(Customer.class, classLoader);
+        if (null != fromDate) {
+            query.add(PropertyFactoryUtil.forName("createDate").ge(fromDate));
+        }
+        if (null != toDate) {
+            query.add(PropertyFactoryUtil.forName("createDate").le(toDate));
+        }
+
+        return dynamicQueryCount(query);
+    }
+
+    public Customer updateCustomer(Customer customer, ServiceContext serviceContext) throws PortalException, SystemException {
+        Customer updatedCustomer = customerPersistence.update(customer);
+        return updatedCustomer;
+    }
+
 }

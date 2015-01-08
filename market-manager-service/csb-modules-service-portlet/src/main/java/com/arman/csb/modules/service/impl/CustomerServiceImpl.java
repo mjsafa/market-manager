@@ -1,9 +1,11 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.constants.ScoreConstants;
 import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.CustomerModel;
 import com.arman.csb.modules.model.impl.CustomerImpl;
 import com.arman.csb.modules.service.CustomerLocalServiceUtil;
+import com.arman.csb.modules.service.ScoreLocalServiceUtil;
 import com.arman.csb.modules.service.base.CustomerServiceBaseImpl;
 import com.arman.csb.theme.model.Template;
 import com.arman.csb.theme.service.TemplateLocalServiceUtil;
@@ -16,6 +18,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.service.RoleServiceUtil;
@@ -49,7 +52,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
      */
 
 
-    public JSONArray search(String filter, int start , int maxResult, ServiceContext serviceContext) {
+    public JSONArray search(String filter, int start, int maxResult, ServiceContext serviceContext) {
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
         SessionFactory sessionFactory = (SessionFactory) PortalBeanLocatorUtil.locate("liferaySessionFactory");
@@ -58,7 +61,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
         //session = sessionFactory.openSession();
 
         String sql = CustomSQLUtil.get("com.arman.csb.modules.service.CustomerService.search");
-        sql = sql.replaceAll("##KEYWORD##","%" + filter + "%");
+        sql = sql.replaceAll("##KEYWORD##", "%" + filter + "%");
 
         SQLQuery queryObject = session.createSQLQuery(sql);
         queryObject.setCacheable(false);
@@ -79,6 +82,8 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
         for (Customer customer : customers) {
             JSONObject customerJson = JSONFactoryUtil.createJSONObject();
             customerJson.put("name", customer.getName());
+            customerJson.put("firstName", customer.getFirstName());
+            customerJson.put("lastName", customer.getLastName());
             customerJson.put("mobile", customer.getMobile());
             customerJson.put("email", customer.getEmail());
             customerJson.put("score", customer.getScore());
@@ -90,7 +95,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
     public JSONObject addCustomer(Map<String, Object> customer, ServiceContext serviceContext) throws PortalException, SystemException {
-       return CustomerLocalServiceUtil.addCustomer(customer, serviceContext);
+        return CustomerLocalServiceUtil.addCustomer(customer, serviceContext);
     }
 
     public JSONObject getTotal(ServiceContext serviceContext) throws PortalException, SystemException {
@@ -100,19 +105,106 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
 
-    public JSONObject getById(long customerId,ServiceContext serviceContext) throws PortalException, SystemException {
+    public JSONObject getById(long customerId, ServiceContext serviceContext) throws PortalException, SystemException {
         JSONObject result = JSONFactoryUtil.createJSONObject();
 
         Customer customer = customerPersistence.fetchByPrimaryKey(customerId);
         result.put("name", customer.getName());
+        result.put("firstName", customer.getFirstName());
+        result.put("lastName", customer.getLastName());
         result.put("email", customer.getEmail());
         result.put("mobile", customer.getMobile());
         result.put("card", customer.getCard());
         result.put("nationalCode", customer.getNationalCode());
         result.put("status", customer.getStatus());
+        result.put("score", customer.getScore());
+        result.put("id", customer.getId());
+
+        if (customer.getMentorCustomerId() > 0) {
+            JSONObject mentorJSon = JSONFactoryUtil.createJSONObject();
+            Customer mentorCustomer = customerPersistence.fetchByPrimaryKey(customer.getMentorCustomerId());
+            mentorJSon.put("id", mentorCustomer.getId());
+            mentorJSon.put("name", mentorCustomer.getName());
+            mentorJSon.put("firstName", mentorCustomer.getFirstName());
+            mentorJSon.put("lastName", mentorCustomer.getLastName());
+            mentorJSon.put("email", mentorCustomer.getEmail());
+            mentorJSon.put("mobile", mentorCustomer.getMobile());
+            result.put("mentor", mentorJSon);
+        }
+
+        return result;
+    }
+
+    public JSONArray getInvitees(long customerId, ServiceContext serviceContext) throws PortalException, SystemException {
+        JSONArray result = JSONFactoryUtil.createJSONArray();
+        List<Customer> invitees = customerPersistence.findByMentor(customerId);
+
+        for (Customer invitee : invitees) {
+            JSONObject customer = JSONFactoryUtil.createJSONObject();
+            customer.put("name", invitee.getName());
+            customer.put("firstName", invitee.getFirstName());
+            customer.put("lastName", invitee.getLastName());
+            customer.put("email", invitee.getEmail());
+            customer.put("mobile", invitee.getMobile());
+            customer.put("card", invitee.getCard());
+            customer.put("nationalCode", invitee.getNationalCode());
+            customer.put("status", invitee.getStatus());
+            customer.put("score", invitee.getScore());
+            customer.put("id", invitee.getId());
+            result.put(customer);
+        }
+
+        return result;
+    }
 
 
+    public JSONObject getStats(long customerId, ServiceContext serviceContext) throws PortalException, SystemException {
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        result.put("totalInvitees", CustomerLocalServiceUtil.countByMentorCustomerId(customerId));
+        result.put("totalDirectScore", ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_DIRECT, null, null));
+        result.put("totalInDirectScore", ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_INDIRECT, null, null));
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        int totalWeekScore = ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_INDIRECT, calendar.getTime(), new Date())
+                + ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_DIRECT, calendar.getTime(), new Date());
+        result.put("totalWeekScore", totalWeekScore);
+
+        return result;
+    }
+
+    public JSONObject getTotalStats(ServiceContext serviceContext) throws PortalException, SystemException {
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -7);
+        result.put("totalCustomers", CustomerLocalServiceUtil.count(null, null));
+        result.put("lastWeekCustomers", CustomerLocalServiceUtil.count(calendar.getTime(), new Date()));
+        return result;
+    }
+
+
+    public JSONObject updateCustomer(Map<String, Object> customer, ServiceContext serviceContext) throws PortalException, SystemException {
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        Customer oldCustomer = CustomerLocalServiceUtil.getById(Long.valueOf((String)customer.get("id")));
+        oldCustomer.setLastName((String) customer.get("lastName"));
+        oldCustomer.setFirstName((String) customer.get("firstName"));
+        oldCustomer.setName((String) customer.get("firstName") + (String) customer.get("lsatName"));
+        oldCustomer.setCard((String)customer.get("card"));
+        oldCustomer.setEmail((String) customer.get("email"));
+        oldCustomer.setMobile((String) customer.get("mobile"));
+
+        CustomerLocalServiceUtil.updateCustomer(oldCustomer);
+        result.put("customerId", Long.valueOf((String)customer.get("id")));
+        return result;
+    }
+
+    public JSONObject updateCustomerStatus(long customerId, boolean isActive, ServiceContext serviceContext) throws PortalException, SystemException {
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        Customer oldCustomer = CustomerLocalServiceUtil.getById(customerId);
+        oldCustomer.setStatus(isActive ? WorkflowConstants.STATUS_APPROVED : WorkflowConstants.STATUS_DENIED);
+        CustomerLocalServiceUtil.updateCustomer(oldCustomer);
+        UserLocalServiceUtil.updateStatus(oldCustomer.getCustomerUserId(),isActive ? WorkflowConstants.STATUS_APPROVED : WorkflowConstants.STATUS_DENIED);
+        result.put("customerId", customerId);
         return result;
     }
 
