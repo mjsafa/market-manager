@@ -9,103 +9,103 @@ import java.util.Arrays;
  * @generated
  */
 public class MyUserServiceClpInvoker {
-    private String _methodName36;
-    private String[] _methodParameterTypes36;
-    private String _methodName37;
-    private String[] _methodParameterTypes37;
-    private String _methodName40;
-    private String[] _methodParameterTypes40;
-    private String _methodName41;
-    private String[] _methodParameterTypes41;
-    private String _methodName42;
-    private String[] _methodParameterTypes42;
-    private String _methodName43;
-    private String[] _methodParameterTypes43;
-    private String _methodName44;
-    private String[] _methodParameterTypes44;
+    private String _methodName48;
+    private String[] _methodParameterTypes48;
+    private String _methodName49;
+    private String[] _methodParameterTypes49;
+    private String _methodName52;
+    private String[] _methodParameterTypes52;
+    private String _methodName53;
+    private String[] _methodParameterTypes53;
+    private String _methodName54;
+    private String[] _methodParameterTypes54;
+    private String _methodName55;
+    private String[] _methodParameterTypes55;
+    private String _methodName56;
+    private String[] _methodParameterTypes56;
 
     public MyUserServiceClpInvoker() {
-        _methodName36 = "getBeanIdentifier";
+        _methodName48 = "getBeanIdentifier";
 
-        _methodParameterTypes36 = new String[] {  };
+        _methodParameterTypes48 = new String[] {  };
 
-        _methodName37 = "setBeanIdentifier";
+        _methodName49 = "setBeanIdentifier";
 
-        _methodParameterTypes37 = new String[] { "java.lang.String" };
+        _methodParameterTypes49 = new String[] { "java.lang.String" };
 
-        _methodName40 = "newUser";
+        _methodName52 = "newUser";
 
-        _methodParameterTypes40 = new String[] {
+        _methodParameterTypes52 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName41 = "findUsers";
+        _methodName53 = "findUsers";
 
-        _methodParameterTypes41 = new String[] {
+        _methodParameterTypes53 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName42 = "updateStatus";
+        _methodName54 = "updateStatus";
 
-        _methodParameterTypes42 = new String[] {
+        _methodParameterTypes54 = new String[] {
                 "java.lang.Long", "boolean",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName43 = "getById";
+        _methodName55 = "getById";
 
-        _methodParameterTypes43 = new String[] {
+        _methodParameterTypes55 = new String[] {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName44 = "agreed";
+        _methodName56 = "agreed";
 
-        _methodParameterTypes44 = new String[] {
+        _methodParameterTypes56 = new String[] {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName36.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
+        if (_methodName48.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
             return MyUserServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName37.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
+        if (_methodName49.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
             MyUserServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName40.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+        if (_methodName52.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
             return MyUserServiceUtil.newUser((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName41.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+        if (_methodName53.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
             return MyUserServiceUtil.findUsers((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName42.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+        if (_methodName54.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
             return MyUserServiceUtil.updateStatus((java.lang.Long) arguments[0],
                 ((Boolean) arguments[1]).booleanValue(),
                 (com.liferay.portal.service.ServiceContext) arguments[2]);
         }
 
-        if (_methodName43.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
+        if (_methodName55.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
             return MyUserServiceUtil.getById((java.lang.Long) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName44.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+        if (_methodName56.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
             return MyUserServiceUtil.agreed((java.lang.Long) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }

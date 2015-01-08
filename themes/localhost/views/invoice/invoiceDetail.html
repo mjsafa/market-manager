@@ -1,0 +1,265 @@
+<!-- BEGIN PAGE HEADER-->
+
+<div data-ng-include="'/delegate/resource/views/customer/customerSelectPopup.html'" >
+</div>
+
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/dashboard.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Dashboard</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-menu-toggle
+                    dropdown-menu-hover data-delay="1000" data-close-others="true">
+                Actions <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a href="#">
+                        <i class="icon-user"></i> New User </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-present"></i> New Event <span class="badge badge-success">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-basket"></i> New order </a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-flag"></i> Pending Orders <span class="badge badge-danger">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-users"></i> Pending Users <span class="badge badge-warning">12</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h3 class="page-title">
+    Dashboard
+</h3>
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="InvoiceDetailController">
+
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue-madison">
+            <div class="visual">
+                <i class="fa fa-comments"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    1349
+                </div>
+                <div class="desc">
+                    New Feedbacks
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-intense">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    12,5M$
+                </div>
+                <div class="desc">
+                    Total Profit
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    549
+                </div>
+                <div class="desc">
+                    New Orders
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    +89%
+                </div>
+                <div class="desc">
+                    Brand Popularity
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- END DASHBOARD STATS -->
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light bg-inverse">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-green-haze hide"></i>
+                    <span class="caption-subject font-green-haze bold uppercase">صفحه اختصاصی فاکتور</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-horizontal" role="form">
+                    <div class="form-body">
+                        <h2 class="margin-bottom-20"> مشاهده اطلاعات فاکتور</h2>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">تلفن همراه</label>
+
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            <a href="#" editable-text="invoice.mobile">{{invoice.mobile}}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">تلفن</label>
+
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            <a href="#" editable-text="invoice.telephone">{{invoice.telephone}}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--/span-->
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">مدل حمل</label>
+
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            <a href="#" editable-radiolist="invoice.typeOfDelivery"
+                                               e-ng-options="t.value as t.text for t in types" >
+                                                {{ showType() }}
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">معرف</label>
+
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            <a href="#/customer/{{invoice.customer.id}}">{{invoice.customer.name}}</a>
+                                        </p>
+                                        <button ng-click="open()" type="button" class="btn default">
+                                            انتخاب
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">آدرس</label>
+
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            <a href="#" editable-textarea="invoice.address" e-rows="7" e-cols="40" >
+                                                {{invoice.address}}
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button ng-click="submitInvoice()" type="button" class="btn green"><i class="fa fa-pencil"></i>
+                                                ذخیره تغییرات
+                                            </button>
+                                            <button ng-click="goInvoiceList()" type="button" class="btn default">
+                                                لیست فاکتورها
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- END PORTLET-->
+        </div>
+    </div>
+
+</div>
+
+
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<script>
+    //Index.init();
+    //Tasks.initDashboardWidget();
+</script>
+<!-- BEGIN MAIN JS & CSS -->

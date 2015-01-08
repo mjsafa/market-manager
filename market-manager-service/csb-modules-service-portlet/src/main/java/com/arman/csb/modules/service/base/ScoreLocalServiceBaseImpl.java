@@ -3,6 +3,8 @@ package com.arman.csb.modules.service.base;
 import com.arman.csb.modules.model.Score;
 import com.arman.csb.modules.service.ScoreLocalService;
 import com.arman.csb.modules.service.persistence.CustomerPersistence;
+import com.arman.csb.modules.service.persistence.InvoiceItemPersistence;
+import com.arman.csb.modules.service.persistence.InvoicePersistence;
 import com.arman.csb.modules.service.persistence.ScorePersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -48,6 +50,18 @@ public abstract class ScoreLocalServiceBaseImpl extends BaseLocalServiceImpl
     protected com.arman.csb.modules.service.CustomerService customerService;
     @BeanReference(type = CustomerPersistence.class)
     protected CustomerPersistence customerPersistence;
+    @BeanReference(type = com.arman.csb.modules.service.InvoiceLocalService.class)
+    protected com.arman.csb.modules.service.InvoiceLocalService invoiceLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.InvoiceService.class)
+    protected com.arman.csb.modules.service.InvoiceService invoiceService;
+    @BeanReference(type = InvoicePersistence.class)
+    protected InvoicePersistence invoicePersistence;
+    @BeanReference(type = com.arman.csb.modules.service.InvoiceItemLocalService.class)
+    protected com.arman.csb.modules.service.InvoiceItemLocalService invoiceItemLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.InvoiceItemService.class)
+    protected com.arman.csb.modules.service.InvoiceItemService invoiceItemService;
+    @BeanReference(type = InvoiceItemPersistence.class)
+    protected InvoiceItemPersistence invoiceItemPersistence;
     @BeanReference(type = com.arman.csb.modules.service.MyBlogLocalService.class)
     protected com.arman.csb.modules.service.MyBlogLocalService myBlogLocalService;
     @BeanReference(type = com.arman.csb.modules.service.MyBlogService.class)
@@ -407,6 +421,119 @@ public abstract class ScoreLocalServiceBaseImpl extends BaseLocalServiceImpl
      */
     public void setCustomerPersistence(CustomerPersistence customerPersistence) {
         this.customerPersistence = customerPersistence;
+    }
+
+    /**
+     * Returns the invoice local service.
+     *
+     * @return the invoice local service
+     */
+    public com.arman.csb.modules.service.InvoiceLocalService getInvoiceLocalService() {
+        return invoiceLocalService;
+    }
+
+    /**
+     * Sets the invoice local service.
+     *
+     * @param invoiceLocalService the invoice local service
+     */
+    public void setInvoiceLocalService(
+        com.arman.csb.modules.service.InvoiceLocalService invoiceLocalService) {
+        this.invoiceLocalService = invoiceLocalService;
+    }
+
+    /**
+     * Returns the invoice remote service.
+     *
+     * @return the invoice remote service
+     */
+    public com.arman.csb.modules.service.InvoiceService getInvoiceService() {
+        return invoiceService;
+    }
+
+    /**
+     * Sets the invoice remote service.
+     *
+     * @param invoiceService the invoice remote service
+     */
+    public void setInvoiceService(
+        com.arman.csb.modules.service.InvoiceService invoiceService) {
+        this.invoiceService = invoiceService;
+    }
+
+    /**
+     * Returns the invoice persistence.
+     *
+     * @return the invoice persistence
+     */
+    public InvoicePersistence getInvoicePersistence() {
+        return invoicePersistence;
+    }
+
+    /**
+     * Sets the invoice persistence.
+     *
+     * @param invoicePersistence the invoice persistence
+     */
+    public void setInvoicePersistence(InvoicePersistence invoicePersistence) {
+        this.invoicePersistence = invoicePersistence;
+    }
+
+    /**
+     * Returns the invoice item local service.
+     *
+     * @return the invoice item local service
+     */
+    public com.arman.csb.modules.service.InvoiceItemLocalService getInvoiceItemLocalService() {
+        return invoiceItemLocalService;
+    }
+
+    /**
+     * Sets the invoice item local service.
+     *
+     * @param invoiceItemLocalService the invoice item local service
+     */
+    public void setInvoiceItemLocalService(
+        com.arman.csb.modules.service.InvoiceItemLocalService invoiceItemLocalService) {
+        this.invoiceItemLocalService = invoiceItemLocalService;
+    }
+
+    /**
+     * Returns the invoice item remote service.
+     *
+     * @return the invoice item remote service
+     */
+    public com.arman.csb.modules.service.InvoiceItemService getInvoiceItemService() {
+        return invoiceItemService;
+    }
+
+    /**
+     * Sets the invoice item remote service.
+     *
+     * @param invoiceItemService the invoice item remote service
+     */
+    public void setInvoiceItemService(
+        com.arman.csb.modules.service.InvoiceItemService invoiceItemService) {
+        this.invoiceItemService = invoiceItemService;
+    }
+
+    /**
+     * Returns the invoice item persistence.
+     *
+     * @return the invoice item persistence
+     */
+    public InvoiceItemPersistence getInvoiceItemPersistence() {
+        return invoiceItemPersistence;
+    }
+
+    /**
+     * Sets the invoice item persistence.
+     *
+     * @param invoiceItemPersistence the invoice item persistence
+     */
+    public void setInvoiceItemPersistence(
+        InvoiceItemPersistence invoiceItemPersistence) {
+        this.invoiceItemPersistence = invoiceItemPersistence;
     }
 
     /**

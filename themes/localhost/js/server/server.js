@@ -24,7 +24,7 @@ MetronicApp.factory("CustomerServiceMock", function () {
             mobile:"09123437888",
             email:"mjsafa@gmail.com",
             score:0,
-            nationalCode:0984578765
+            nationalCode:"0984578765"
         },
         {
             id:3,

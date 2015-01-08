@@ -3,6 +3,10 @@ package com.arman.csb.modules.service.messaging;
 import com.arman.csb.modules.service.ClpSerializer;
 import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.modules.service.CustomerServiceUtil;
+import com.arman.csb.modules.service.InvoiceItemLocalServiceUtil;
+import com.arman.csb.modules.service.InvoiceItemServiceUtil;
+import com.arman.csb.modules.service.InvoiceLocalServiceUtil;
+import com.arman.csb.modules.service.InvoiceServiceUtil;
 import com.arman.csb.modules.service.MyBlogLocalServiceUtil;
 import com.arman.csb.modules.service.MyBlogServiceUtil;
 import com.arman.csb.modules.service.MyDDLRecordLocalServiceUtil;
@@ -31,6 +35,12 @@ public class ClpMessageListener extends BaseMessageListener {
             CustomerLocalServiceUtil.clearService();
 
             CustomerServiceUtil.clearService();
+            InvoiceLocalServiceUtil.clearService();
+
+            InvoiceServiceUtil.clearService();
+            InvoiceItemLocalServiceUtil.clearService();
+
+            InvoiceItemServiceUtil.clearService();
             MyBlogLocalServiceUtil.clearService();
 
             MyBlogServiceUtil.clearService();

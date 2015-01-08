@@ -3,6 +3,8 @@
 
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="com.arman.csb.modules.model.Customer" />
+	<import class="com.arman.csb.modules.model.Invoice" />
+	<import class="com.arman.csb.modules.model.InvoiceItem" />
 	<import class="com.arman.csb.modules.model.MyBlog" />
 	<import class="com.arman.csb.modules.model.MyDDLRecord" />
 	<import class="com.arman.csb.modules.model.MyUser" />
@@ -31,6 +33,38 @@
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="customerUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="mentorCustomerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.arman.csb.modules.model.impl.InvoiceImpl" table="CSBModules_Invoice">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="customerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="address" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="telephone" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="mobile" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="typeOfDelivery" type="com.liferay.portal.dao.orm.hibernate.ShortType" />
+	</class>
+	<class name="com.arman.csb.modules.model.impl.InvoiceItemImpl" table="CSBModules_InvoiceItem">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="invoiceId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="productCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="productName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="number" type="com.liferay.portal.dao.orm.hibernate.ShortType" column="number_" />
+		<property name="basePrice" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="com.arman.csb.modules.model.impl.ScoreImpl" table="CSBModules_Score">
 		<cache usage="read-write" />

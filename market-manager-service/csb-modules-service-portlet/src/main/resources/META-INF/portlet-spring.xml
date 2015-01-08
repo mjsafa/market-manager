@@ -4,6 +4,12 @@
 	<bean id="com.arman.csb.modules.service.CustomerLocalService" class="com.arman.csb.modules.service.impl.CustomerLocalServiceImpl" />
 	<bean id="com.arman.csb.modules.service.CustomerService" class="com.arman.csb.modules.service.impl.CustomerServiceImpl" />
 	<bean id="com.arman.csb.modules.service.persistence.CustomerPersistence" class="com.arman.csb.modules.service.persistence.CustomerPersistenceImpl" parent="basePersistence" />
+	<bean id="com.arman.csb.modules.service.InvoiceLocalService" class="com.arman.csb.modules.service.impl.InvoiceLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.InvoiceService" class="com.arman.csb.modules.service.impl.InvoiceServiceImpl" />
+	<bean id="com.arman.csb.modules.service.persistence.InvoicePersistence" class="com.arman.csb.modules.service.persistence.InvoicePersistenceImpl" parent="basePersistence" />
+	<bean id="com.arman.csb.modules.service.InvoiceItemLocalService" class="com.arman.csb.modules.service.impl.InvoiceItemLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.InvoiceItemService" class="com.arman.csb.modules.service.impl.InvoiceItemServiceImpl" />
+	<bean id="com.arman.csb.modules.service.persistence.InvoiceItemPersistence" class="com.arman.csb.modules.service.persistence.InvoiceItemPersistenceImpl" parent="basePersistence" />
 	<bean id="com.arman.csb.modules.service.MyBlogLocalService" class="com.arman.csb.modules.service.impl.MyBlogLocalServiceImpl" />
 	<bean id="com.arman.csb.modules.service.MyBlogService" class="com.arman.csb.modules.service.impl.MyBlogServiceImpl" />
 	<bean id="com.arman.csb.modules.service.MyDDLRecordLocalService" class="com.arman.csb.modules.service.impl.MyDDLRecordLocalServiceImpl" />
