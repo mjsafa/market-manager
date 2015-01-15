@@ -98,6 +98,38 @@
 			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.arman.csb.modules.model.impl.PaymentModelImpl">
+		<attributes>
+			<id name="id">
+				<column name="ID_" />
+			</id>
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="description" />
+			<basic name="card" />
+			<basic name="amount" />
+			<basic name="status" />
+			<basic name="paymentDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="customerId" />
+			<basic name="factorId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.arman.csb.modules.model.impl.ScoreModelImpl">
 		<attributes>
 			<id name="id">
@@ -138,6 +170,10 @@
 	</entity>
 	<entity class="com.arman.csb.modules.model.impl.InvoiceItemImpl" name="InvoiceItem">
 		<table name="CSBModules_InvoiceItem" />
+		<attributes />
+	</entity>
+	<entity class="com.arman.csb.modules.model.impl.PaymentImpl" name="Payment">
+		<table name="CSBModules_Payment" />
 		<attributes />
 	</entity>
 	<entity class="com.arman.csb.modules.model.impl.ScoreImpl" name="Score">

@@ -4,6 +4,7 @@ import com.arman.csb.modules.service.MyBlogLocalService;
 import com.arman.csb.modules.service.persistence.CustomerPersistence;
 import com.arman.csb.modules.service.persistence.InvoiceItemPersistence;
 import com.arman.csb.modules.service.persistence.InvoicePersistence;
+import com.arman.csb.modules.service.persistence.PaymentPersistence;
 import com.arman.csb.modules.service.persistence.ScorePersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -63,6 +64,12 @@ public abstract class MyBlogLocalServiceBaseImpl extends BaseLocalServiceImpl
     protected com.arman.csb.modules.service.MyUserLocalService myUserLocalService;
     @BeanReference(type = com.arman.csb.modules.service.MyUserService.class)
     protected com.arman.csb.modules.service.MyUserService myUserService;
+    @BeanReference(type = com.arman.csb.modules.service.PaymentLocalService.class)
+    protected com.arman.csb.modules.service.PaymentLocalService paymentLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.PaymentService.class)
+    protected com.arman.csb.modules.service.PaymentService paymentService;
+    @BeanReference(type = PaymentPersistence.class)
+    protected PaymentPersistence paymentPersistence;
     @BeanReference(type = com.arman.csb.modules.service.ScoreLocalService.class)
     protected com.arman.csb.modules.service.ScoreLocalService scoreLocalService;
     @BeanReference(type = com.arman.csb.modules.service.ScoreService.class)
@@ -376,6 +383,62 @@ public abstract class MyBlogLocalServiceBaseImpl extends BaseLocalServiceImpl
     public void setMyUserService(
         com.arman.csb.modules.service.MyUserService myUserService) {
         this.myUserService = myUserService;
+    }
+
+    /**
+     * Returns the payment local service.
+     *
+     * @return the payment local service
+     */
+    public com.arman.csb.modules.service.PaymentLocalService getPaymentLocalService() {
+        return paymentLocalService;
+    }
+
+    /**
+     * Sets the payment local service.
+     *
+     * @param paymentLocalService the payment local service
+     */
+    public void setPaymentLocalService(
+        com.arman.csb.modules.service.PaymentLocalService paymentLocalService) {
+        this.paymentLocalService = paymentLocalService;
+    }
+
+    /**
+     * Returns the payment remote service.
+     *
+     * @return the payment remote service
+     */
+    public com.arman.csb.modules.service.PaymentService getPaymentService() {
+        return paymentService;
+    }
+
+    /**
+     * Sets the payment remote service.
+     *
+     * @param paymentService the payment remote service
+     */
+    public void setPaymentService(
+        com.arman.csb.modules.service.PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+
+    /**
+     * Returns the payment persistence.
+     *
+     * @return the payment persistence
+     */
+    public PaymentPersistence getPaymentPersistence() {
+        return paymentPersistence;
+    }
+
+    /**
+     * Sets the payment persistence.
+     *
+     * @param paymentPersistence the payment persistence
+     */
+    public void setPaymentPersistence(PaymentPersistence paymentPersistence) {
+        this.paymentPersistence = paymentPersistence;
     }
 
     /**

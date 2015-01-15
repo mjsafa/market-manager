@@ -13,6 +13,8 @@ import com.arman.csb.modules.service.MyDDLRecordLocalServiceUtil;
 import com.arman.csb.modules.service.MyDDLRecordServiceUtil;
 import com.arman.csb.modules.service.MyUserLocalServiceUtil;
 import com.arman.csb.modules.service.MyUserServiceUtil;
+import com.arman.csb.modules.service.PaymentLocalServiceUtil;
+import com.arman.csb.modules.service.PaymentServiceUtil;
 import com.arman.csb.modules.service.ScoreLocalServiceUtil;
 import com.arman.csb.modules.service.ScoreServiceUtil;
 
@@ -50,6 +52,9 @@ public class ClpMessageListener extends BaseMessageListener {
             MyUserLocalServiceUtil.clearService();
 
             MyUserServiceUtil.clearService();
+            PaymentLocalServiceUtil.clearService();
+
+            PaymentServiceUtil.clearService();
             ScoreLocalServiceUtil.clearService();
 
             ScoreServiceUtil.clearService();

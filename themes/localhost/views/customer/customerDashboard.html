@@ -63,10 +63,13 @@
             </div>
             <div class="details">
                 <div class="number">
-                    {{stats.totalInvitees}}
+                    {{stats.totalCustomerPayment}}
+                    <span style="line-height: 25px" class="desc">
+                        (ریال)
+                    </span>
                 </div>
                 <div class="desc">
-                    تعداد زیر مجموعه ها
+                    مبلغ کل پرداختی
                 </div>
             </div>
             <a class="more" href="#">
@@ -84,7 +87,7 @@
                     {{stats.totalWeekScore}}
                 </div>
                 <div class="desc">
-کل امتیاز هفته اخیر
+                    کل امتیاز هفته اخیر
                 </div>
             </div>
             <a class="more" href="#">
@@ -133,122 +136,122 @@
 
 <div class="row">
 
-     <div class="col-md-12 col-sm-12">
-         <!-- BEGIN PORTLET-->
-         <div class="portlet bordered light ">
-             <div class="portlet-title">
-                 <div class="caption caption-md">
-                     <i class="icon-bar-chart font-green-haze hide"></i>
-                     <span class="caption-subject font-green-haze bold uppercase">لیست مشتری های معرفی شده</span>
-                     <span class="caption-helper hide">لیست مشتریان</span>
-                 </div>
-                 <div class="actions">
-                     <div class="btn-group btn-group-devided" data-toggle="buttons">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet bordered light ">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-green-haze hide"></i>
+                    <span class="caption-subject font-green-haze bold uppercase">لیست مشتری های معرفی شده</span>
+                    <span class="caption-helper hide">لیست مشتریان</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
 
-                     </div>
-                 </div>
-                 <div class="inputs">
-                     <div class="portlet-input input-inline input-medium">
-                         <div class="input-group">
-                             <input type="text" data-ng-change="doSearch()" ng-model="query"
-                                    class="form-control input-circle-left" placeholder="search...">
+                    </div>
+                </div>
+                <div class="inputs">
+                    <div class="portlet-input input-inline input-medium">
+                        <div class="input-group">
+                            <input type="text" data-ng-change="doSearch()" ng-model="query"
+                                   class="form-control input-circle-left" placeholder="search...">
                                      <span class="input-group-btn">
                                      <button class="btn btn-circle-right btn-default" type="submit">Go!</button>
                                      </span>
-                         </div>
-                     </div>
-                 </div>
+                        </div>
+                    </div>
+                </div>
 
-             </div>
-             <div class="portlet-body">
-                 <div class="row number-stats margin-bottom-30">
-                     <div class="col-md-6 col-sm-6 col-xs-6">
-                         <div class="stat-left">
-                             <div class="stat-chart">
-                                 <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                 <div id="sparkline_bar"></div>
-                             </div>
-                             <div class="stat-number">
-                                 <div class="title">
-                                     تعداد
-                                 </div>
-                                 <div class="number">
-                                     {{customer.invitees.length}}
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-6 col-sm-6 col-xs-6">
-                         <div class="stat-right">
-                             <div class="stat-chart">
-                                 <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                 <div id="sparkline_bar2"></div>
-                             </div>
-                             <div class="stat-number">
-                                 <div class="title">
-                                     جمع امتیازات
-                                 </div>
-                                 <div class="number">
-                                     {{inviteesTotalScore}}
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="table-scrollable table-scrollable-borderless">
-                     <table class="table table-hover table-light">
-                         <thead>
-                         <tr class="uppercase">
-                             <th colspan="2">
-                                 نام
-                             </th>
-                             <th>
-                                 ایمیل
-                             </th>
-                             <th>
-                                 موبایل
-                             </th>
-                             <th>
-                                 امتیاز
-                             </th>
-                             <th>
-                                 حذف
-                             </th>
-                         </tr>
-                         </thead>
-                         <tr ng-repeat="invitee in customer.invitees">
-                             <td class="fit">
-                                 <img class="user-pic"
-                                      src="/delegate/resource/assets/admin/layout/img/avatar4.jpg">
-                             </td>
-                             <td>
-                                 <a href="#/customer/{{invitee.id}}" class="primary-link">{{invitee.name}}</a>
-                             </td>
-                             <td>
-                                 {{invitee.email}}
-                             </td>
+            </div>
+            <div class="portlet-body">
+                <div class="row number-stats margin-bottom-30">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="stat-left">
+                            <div class="stat-chart">
+                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                <div id="sparkline_bar"></div>
+                            </div>
+                            <div class="stat-number">
+                                <div class="title">
+                                    تعداد
+                                </div>
+                                <div class="number">
+                                    {{customer.invitees.length}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="stat-right">
+                            <div class="stat-chart">
+                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                <div id="sparkline_bar2"></div>
+                            </div>
+                            <div class="stat-number">
+                                <div class="title">
+                                    جمع امتیازات
+                                </div>
+                                <div class="number">
+                                    {{inviteesTotalScore}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="uppercase">
+                            <th colspan="2">
+                                نام
+                            </th>
+                            <th>
+                                ایمیل
+                            </th>
+                            <th>
+                                موبایل
+                            </th>
+                            <th>
+                                امتیاز
+                            </th>
+                            <th>
+                                حذف
+                            </th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="invitee in customer.invitees">
+                            <td class="fit">
+                                <img class="user-pic"
+                                     src="/delegate/resource/assets/admin/layout/img/avatar4.jpg">
+                            </td>
+                            <td>
+                                <a href="#/customer/{{invitee.id}}" class="primary-link">{{invitee.name}}</a>
+                            </td>
+                            <td>
+                                {{invitee.email}}
+                            </td>
 
-                             <td>
-                                 {{invitee.mobile}}
-                             </td>
+                            <td>
+                                {{invitee.mobile}}
+                            </td>
 
-                             <td>
-                                 <span class="bold font-green-haze">{{invitee.score}}</span>
-                             </td>
+                            <td>
+                                <span class="bold font-green-haze">{{invitee.score}}</span>
+                            </td>
 
-                             <td>
-                                 <a ng-click="deleteInvitee(invitee)" class="bold font-red"><i
-                                         style="font-size:20px" class="fa fa-times"></i></a>
-                             </td>
-                         </tr>
-                     </table>
-                 </div>
-             </div>
-         </div>
-         <!-- END PORTLET-->
-     </div>
+                            <td>
+                                <a ng-click="deleteInvitee(invitee)" class="bold font-red"><i
+                                        style="font-size:20px" class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
 
- </div>
+</div>
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <div class="portlet light ">

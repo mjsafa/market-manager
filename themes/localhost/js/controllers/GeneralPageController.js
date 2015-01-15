@@ -1,5 +1,5 @@
 /* Setup general page controller */
-MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settings', '$rootScope', '$state', '$window', function ($rootScope, $scope, settings, $rootScope, $state, $window) {
+MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settings', '$rootScope', '$state', '$window','$location', function ($rootScope, $scope, settings, $rootScope, $state, $window,$location) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -23,5 +23,16 @@ MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settin
     } else if (onlineUser.roles && onlineUser.roles.Guest) {
         $window.location.href = '/login';
     }
+
+    $rootScope.$on('$stateChangeSuccess', function() {
+        if (!onlineUser.agreed && onlineUser.userGroups && onlineUser.userGroups.customer_group) {
+//            event.preventDefault();
+            $state.go('userAgreement');
+            $location.path("/userAgreement");
+
+        } else if (onlineUser.roles && onlineUser.roles.Guest) {
+            $window.location.href = '/login';
+        }
+    });
 
 }]);

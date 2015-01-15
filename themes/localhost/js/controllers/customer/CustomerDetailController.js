@@ -89,6 +89,9 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
             CustomerService.deleteInvitee($scope.customer, invitee);
         };
 
+        $scope.updateCustomer = function(){
+            CustomerService.updateCustomer($scope.customer);
+        }
 
         $scope.scoreChartConfig = {
             title:'',

@@ -5,6 +5,7 @@ import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.CustomerModel;
 import com.arman.csb.modules.model.impl.CustomerImpl;
 import com.arman.csb.modules.service.CustomerLocalServiceUtil;
+import com.arman.csb.modules.service.PaymentLocalServiceUtil;
 import com.arman.csb.modules.service.ScoreLocalServiceUtil;
 import com.arman.csb.modules.service.base.CustomerServiceBaseImpl;
 import com.arman.csb.theme.model.Template;
@@ -89,6 +90,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
             customerJson.put("score", customer.getScore());
             customerJson.put("nationalCode", customer.getNationalCode());
             customerJson.put("id", customer.getId());
+            customerJson.put("isActive", customer.getStatus() == WorkflowConstants.STATUS_APPROVED ? true : false);
             result.put(customerJson);
         }
         return result;
@@ -170,6 +172,9 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
                 + ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_DIRECT, calendar.getTime(), new Date());
         result.put("totalWeekScore", totalWeekScore);
 
+        long customerPayment = PaymentLocalServiceUtil.totalPaymentAmount(customerId, null, null);
+        result.put("totalCustomerPayment", customerPayment);
+
         return result;
     }
 
@@ -185,16 +190,16 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
 
     public JSONObject updateCustomer(Map<String, Object> customer, ServiceContext serviceContext) throws PortalException, SystemException {
         JSONObject result = JSONFactoryUtil.createJSONObject();
-        Customer oldCustomer = CustomerLocalServiceUtil.getById(Long.valueOf((String)customer.get("id")));
+        Customer oldCustomer = CustomerLocalServiceUtil.getById((Long)customer.get("id"));
         oldCustomer.setLastName((String) customer.get("lastName"));
         oldCustomer.setFirstName((String) customer.get("firstName"));
-        oldCustomer.setName((String) customer.get("firstName") + (String) customer.get("lsatName"));
+        oldCustomer.setName((String) customer.get("firstName") + " " + (String) customer.get("lastName"));
         oldCustomer.setCard((String)customer.get("card"));
         oldCustomer.setEmail((String) customer.get("email"));
         oldCustomer.setMobile((String) customer.get("mobile"));
 
         CustomerLocalServiceUtil.updateCustomer(oldCustomer);
-        result.put("customerId", Long.valueOf((String)customer.get("id")));
+        result.put("customerId", (Long)customer.get("id"));
         return result;
     }
 
@@ -207,5 +212,6 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
         result.put("customerId", customerId);
         return result;
     }
+
 
 }

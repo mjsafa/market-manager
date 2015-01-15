@@ -9,25 +9,25 @@ import java.util.Arrays;
  * @generated
  */
 public class MyDDLRecordServiceClpInvoker {
-    private String _methodName60;
-    private String[] _methodParameterTypes60;
-    private String _methodName61;
-    private String[] _methodParameterTypes61;
-    private String _methodName64;
-    private String[] _methodParameterTypes64;
+    private String _methodName66;
+    private String[] _methodParameterTypes66;
+    private String _methodName67;
+    private String[] _methodParameterTypes67;
+    private String _methodName70;
+    private String[] _methodParameterTypes70;
 
     public MyDDLRecordServiceClpInvoker() {
-        _methodName60 = "getBeanIdentifier";
+        _methodName66 = "getBeanIdentifier";
 
-        _methodParameterTypes60 = new String[] {  };
+        _methodParameterTypes66 = new String[] {  };
 
-        _methodName61 = "setBeanIdentifier";
+        _methodName67 = "setBeanIdentifier";
 
-        _methodParameterTypes61 = new String[] { "java.lang.String" };
+        _methodParameterTypes67 = new String[] { "java.lang.String" };
 
-        _methodName64 = "addRecord";
+        _methodName70 = "addRecord";
 
-        _methodParameterTypes64 = new String[] {
+        _methodParameterTypes70 = new String[] {
                 "java.lang.String", "java.lang.String", "java.util.Map",
                 "com.liferay.portal.service.ServiceContext"
             };
@@ -35,20 +35,20 @@ public class MyDDLRecordServiceClpInvoker {
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName60.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+        if (_methodName66.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
             return MyDDLRecordServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName61.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+        if (_methodName67.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
             MyDDLRecordServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName64.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+        if (_methodName70.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
             return MyDDLRecordServiceUtil.addRecord((java.lang.String) arguments[0],
                 (java.lang.String) arguments[1],
                 (java.util.Map<java.lang.String, java.io.Serializable>) arguments[2],

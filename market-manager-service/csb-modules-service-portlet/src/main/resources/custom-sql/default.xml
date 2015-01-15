@@ -41,11 +41,6 @@
     </sql>
 
 
-
-
-
-
-
     <sql id="com.arman.csb.modules.service.CustomerService.search">
         <![CDATA[
             SELECT  distinct Customer.*  FROM CSBModules_Customer AS Customer
@@ -139,6 +134,18 @@
                 (invoice.mobile like '##KEYWORD##')
             ORDER BY invoice.createDate DESC
         ]]>
+    </sql>
+
+
+    <sql id="com.arman.csb.modules.service.PaymentService.paymentsByDate">
+        <![CDATA[
+                SELECT  distinct sum(Payment.amount), date_trunc('day' , Payment.createDate) FROM CSBModules_Payment AS Payment
+                GROUP BY
+                    date_trunc('day' , Payment.paymentDate)
+                HAVING
+                    date_trunc('day' , Score.paymentDate) >= ? AND date_trunc('day' , Payment.paymentDate) <= ?
+                ORDER BY date_trunc('day' , Payment.paymentDate) ASC
+            ]]>
     </sql>
 
 </custom-sql>

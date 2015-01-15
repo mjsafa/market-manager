@@ -49,14 +49,14 @@ public class ScoreLocalServiceClpInvoker {
     private String[] _methodParameterTypes18;
     private String _methodName19;
     private String[] _methodParameterTypes19;
-    private String _methodName56;
-    private String[] _methodParameterTypes56;
-    private String _methodName57;
-    private String[] _methodParameterTypes57;
-    private String _methodName62;
-    private String[] _methodParameterTypes62;
-    private String _methodName63;
-    private String[] _methodParameterTypes63;
+    private String _methodName74;
+    private String[] _methodParameterTypes74;
+    private String _methodName75;
+    private String[] _methodParameterTypes75;
+    private String _methodName80;
+    private String[] _methodParameterTypes80;
+    private String _methodName81;
+    private String[] _methodParameterTypes81;
 
     public ScoreLocalServiceClpInvoker() {
         _methodName0 = "addScore";
@@ -157,24 +157,24 @@ public class ScoreLocalServiceClpInvoker {
                 "com.arman.csb.modules.model.Score"
             };
 
-        _methodName56 = "getBeanIdentifier";
+        _methodName74 = "getBeanIdentifier";
 
-        _methodParameterTypes56 = new String[] {  };
+        _methodParameterTypes74 = new String[] {  };
 
-        _methodName57 = "setBeanIdentifier";
+        _methodName75 = "setBeanIdentifier";
 
-        _methodParameterTypes57 = new String[] { "java.lang.String" };
+        _methodParameterTypes75 = new String[] { "java.lang.String" };
 
-        _methodName62 = "sumByCustomerAndType";
+        _methodName80 = "sumByCustomerAndType";
 
-        _methodParameterTypes62 = new String[] {
+        _methodParameterTypes80 = new String[] {
                 "java.lang.Long", "java.lang.Integer", "java.util.Date",
                 "java.util.Date"
             };
 
-        _methodName63 = "sumByType";
+        _methodName81 = "sumByType";
 
-        _methodParameterTypes63 = new String[] {
+        _methodParameterTypes81 = new String[] {
                 "java.lang.Integer", "java.util.Date", "java.util.Date"
             };
     }
@@ -292,27 +292,27 @@ public class ScoreLocalServiceClpInvoker {
             return ScoreLocalServiceUtil.updateScore((com.arman.csb.modules.model.Score) arguments[0]);
         }
 
-        if (_methodName56.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+        if (_methodName74.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
             return ScoreLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName57.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+        if (_methodName75.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
             ScoreLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName62.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+        if (_methodName80.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
             return ScoreLocalServiceUtil.sumByCustomerAndType((java.lang.Long) arguments[0],
                 (java.lang.Integer) arguments[1],
                 (java.util.Date) arguments[2], (java.util.Date) arguments[3]);
         }
 
-        if (_methodName63.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+        if (_methodName81.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
             return ScoreLocalServiceUtil.sumByType((java.lang.Integer) arguments[0],
                 (java.util.Date) arguments[1], (java.util.Date) arguments[2]);
         }

@@ -8,6 +8,7 @@
 	<import class="com.arman.csb.modules.model.MyBlog" />
 	<import class="com.arman.csb.modules.model.MyDDLRecord" />
 	<import class="com.arman.csb.modules.model.MyUser" />
+	<import class="com.arman.csb.modules.model.Payment" />
 	<import class="com.arman.csb.modules.model.Score" />
 	<import class="com.liferay.portlet.blogs.model.impl.BlogsEntryImpl" />
 	<class name="com.arman.csb.modules.model.impl.CustomerImpl" table="CSBModules_Customer">
@@ -65,6 +66,25 @@
 		<property name="productName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="number" type="com.liferay.portal.dao.orm.hibernate.ShortType" column="number_" />
 		<property name="basePrice" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.arman.csb.modules.model.impl.PaymentImpl" table="CSBModules_Payment">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="card" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="amount" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="paymentDate" type="org.hibernate.type.TimestampType" />
+		<property name="customerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="factorId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="com.arman.csb.modules.model.impl.ScoreImpl" table="CSBModules_Score">
 		<cache usage="read-write" />

@@ -1,4 +1,6 @@
+create index IX_9BB9A3B on CSBModules_Customer (customerId);
 create index IX_933615A6 on CSBModules_Customer (customerUserId);
+create index IX_F6299F2C on CSBModules_Customer (factorId);
 create index IX_9B46FB26 on CSBModules_Customer (id_);
 create index IX_A6B0949C on CSBModules_Customer (mentorCustomerId);
 create index IX_7DEA3C86 on CSBModules_Customer (uuid_);
@@ -15,6 +17,12 @@ create index IX_6595373C on CSBModules_InvoiceItem (invoiceId);
 create index IX_D6ED0018 on CSBModules_InvoiceItem (uuid_);
 
 create index IX_36E94CF2 on CSBModules_MyBlog ();
+
+create index IX_E5E5108F on CSBModules_Payment (customerId);
+create index IX_A5249A80 on CSBModules_Payment (factorId);
+create index IX_59DD21B2 on CSBModules_Payment (uuid_);
+create index IX_E7533F36 on CSBModules_Payment (uuid_, companyId);
+create unique index IX_63EE1B38 on CSBModules_Payment (uuid_, groupId);
 
 create index IX_C84DDD9B on CSBModules_Score (customerId);
 create index IX_955A17DA on CSBModules_Score (customerId, type_);

@@ -2,7 +2,7 @@
 
 MetronicApp.controller('AdminDashboardController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', 'UserService', '$state', '$modal', function ($rootScope, $scope, CustomerService, ScoreService, UserService, $state, $modal) {
     if (!$scope.initialized) {
-        $scope.timePeriod = 'week';
+        $scope.timePeriod = 'month';
         $scope.stats = $scope.stats || {};
         ScoreService.findByCustomerId(null, 0, 30, {});
 

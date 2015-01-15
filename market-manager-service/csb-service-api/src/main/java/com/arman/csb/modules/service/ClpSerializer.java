@@ -1,6 +1,9 @@
 package com.arman.csb.modules.service;
 
 import com.arman.csb.modules.model.CustomerClp;
+import com.arman.csb.modules.model.InvoiceClp;
+import com.arman.csb.modules.model.InvoiceItemClp;
+import com.arman.csb.modules.model.PaymentClp;
 import com.arman.csb.modules.model.ScoreClp;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -93,6 +96,18 @@ public class ClpSerializer {
             return translateInputCustomer(oldModel);
         }
 
+        if (oldModelClassName.equals(InvoiceClp.class.getName())) {
+            return translateInputInvoice(oldModel);
+        }
+
+        if (oldModelClassName.equals(InvoiceItemClp.class.getName())) {
+            return translateInputInvoiceItem(oldModel);
+        }
+
+        if (oldModelClassName.equals(PaymentClp.class.getName())) {
+            return translateInputPayment(oldModel);
+        }
+
         if (oldModelClassName.equals(ScoreClp.class.getName())) {
             return translateInputScore(oldModel);
         }
@@ -116,6 +131,36 @@ public class ClpSerializer {
         CustomerClp oldClpModel = (CustomerClp) oldModel;
 
         BaseModel<?> newModel = oldClpModel.getCustomerRemoteModel();
+
+        newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+        return newModel;
+    }
+
+    public static Object translateInputInvoice(BaseModel<?> oldModel) {
+        InvoiceClp oldClpModel = (InvoiceClp) oldModel;
+
+        BaseModel<?> newModel = oldClpModel.getInvoiceRemoteModel();
+
+        newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+        return newModel;
+    }
+
+    public static Object translateInputInvoiceItem(BaseModel<?> oldModel) {
+        InvoiceItemClp oldClpModel = (InvoiceItemClp) oldModel;
+
+        BaseModel<?> newModel = oldClpModel.getInvoiceItemRemoteModel();
+
+        newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+        return newModel;
+    }
+
+    public static Object translateInputPayment(BaseModel<?> oldModel) {
+        PaymentClp oldClpModel = (PaymentClp) oldModel;
+
+        BaseModel<?> newModel = oldClpModel.getPaymentRemoteModel();
 
         newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -150,6 +195,21 @@ public class ClpSerializer {
         if (oldModelClassName.equals(
                     "com.arman.csb.modules.model.impl.CustomerImpl")) {
             return translateOutputCustomer(oldModel);
+        }
+
+        if (oldModelClassName.equals(
+                    "com.arman.csb.modules.model.impl.InvoiceImpl")) {
+            return translateOutputInvoice(oldModel);
+        }
+
+        if (oldModelClassName.equals(
+                    "com.arman.csb.modules.model.impl.InvoiceItemImpl")) {
+            return translateOutputInvoiceItem(oldModel);
+        }
+
+        if (oldModelClassName.equals(
+                    "com.arman.csb.modules.model.impl.PaymentImpl")) {
+            return translateOutputPayment(oldModel);
         }
 
         if (oldModelClassName.equals(
@@ -237,6 +297,18 @@ public class ClpSerializer {
             return new com.arman.csb.modules.NoSuchCustomerException();
         }
 
+        if (className.equals("com.arman.csb.modules.NoSuchInvoiceException")) {
+            return new com.arman.csb.modules.NoSuchInvoiceException();
+        }
+
+        if (className.equals("com.arman.csb.modules.NoSuchInvoiceItemException")) {
+            return new com.arman.csb.modules.NoSuchInvoiceItemException();
+        }
+
+        if (className.equals("com.arman.csb.modules.NoSuchPaymentException")) {
+            return new com.arman.csb.modules.NoSuchPaymentException();
+        }
+
         if (className.equals("com.arman.csb.modules.NoSuchScoreException")) {
             return new com.arman.csb.modules.NoSuchScoreException();
         }
@@ -250,6 +322,36 @@ public class ClpSerializer {
         newModel.setModelAttributes(oldModel.getModelAttributes());
 
         newModel.setCustomerRemoteModel(oldModel);
+
+        return newModel;
+    }
+
+    public static Object translateOutputInvoice(BaseModel<?> oldModel) {
+        InvoiceClp newModel = new InvoiceClp();
+
+        newModel.setModelAttributes(oldModel.getModelAttributes());
+
+        newModel.setInvoiceRemoteModel(oldModel);
+
+        return newModel;
+    }
+
+    public static Object translateOutputInvoiceItem(BaseModel<?> oldModel) {
+        InvoiceItemClp newModel = new InvoiceItemClp();
+
+        newModel.setModelAttributes(oldModel.getModelAttributes());
+
+        newModel.setInvoiceItemRemoteModel(oldModel);
+
+        return newModel;
+    }
+
+    public static Object translateOutputPayment(BaseModel<?> oldModel) {
+        PaymentClp newModel = new PaymentClp();
+
+        newModel.setModelAttributes(oldModel.getModelAttributes());
+
+        newModel.setPaymentRemoteModel(oldModel);
 
         return newModel;
     }

@@ -11,6 +11,11 @@ MetronicApp.factory("CustomerService", function (JsonServer) {
                 eventName:'CustomerService.addCustomer'
             });
         },
+        updateCustomer:function (customer) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'update-customer', {customer:JSON.stringify(customer), serviceContext:{}}, {
+                eventName:'CustomerService.updateCustomer'
+            });
+        },
         total:function () {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'add-customer', {serviceContext:{}}, {
                 eventName:'CustomerService.total'
@@ -35,6 +40,11 @@ MetronicApp.factory("CustomerService", function (JsonServer) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'get-total-stats', {serviceContext:{}}, {
                 eventName:'CustomerService.getTotalStats'
             });
+        },
+        updateStatus:function (customerId, isActive) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'update-customer-status', {customerId:customerId, isActive:isActive, serviceContext:{}},
+                {eventName:'CustomerService.updateStatus'}
+            );
         }
     };
 });

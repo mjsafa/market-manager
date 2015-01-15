@@ -9,102 +9,102 @@ import java.util.Arrays;
  * @generated
  */
 public class ScoreServiceClpInvoker {
-    private String _methodName36;
-    private String[] _methodParameterTypes36;
-    private String _methodName37;
-    private String[] _methodParameterTypes37;
-    private String _methodName42;
-    private String[] _methodParameterTypes42;
-    private String _methodName43;
-    private String[] _methodParameterTypes43;
-    private String _methodName44;
-    private String[] _methodParameterTypes44;
-    private String _methodName45;
-    private String[] _methodParameterTypes45;
-    private String _methodName46;
-    private String[] _methodParameterTypes46;
+    private String _methodName54;
+    private String[] _methodParameterTypes54;
+    private String _methodName55;
+    private String[] _methodParameterTypes55;
+    private String _methodName60;
+    private String[] _methodParameterTypes60;
+    private String _methodName61;
+    private String[] _methodParameterTypes61;
+    private String _methodName62;
+    private String[] _methodParameterTypes62;
+    private String _methodName63;
+    private String[] _methodParameterTypes63;
+    private String _methodName64;
+    private String[] _methodParameterTypes64;
 
     public ScoreServiceClpInvoker() {
-        _methodName36 = "getBeanIdentifier";
+        _methodName54 = "getBeanIdentifier";
 
-        _methodParameterTypes36 = new String[] {  };
+        _methodParameterTypes54 = new String[] {  };
 
-        _methodName37 = "setBeanIdentifier";
+        _methodName55 = "setBeanIdentifier";
 
-        _methodParameterTypes37 = new String[] { "java.lang.String" };
+        _methodParameterTypes55 = new String[] { "java.lang.String" };
 
-        _methodName42 = "customerScoresByDate";
+        _methodName60 = "customerScoresByDate";
 
-        _methodParameterTypes42 = new String[] {
+        _methodParameterTypes60 = new String[] {
                 "java.lang.Long", "java.lang.String", "java.lang.String",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName43 = "scoresByDate";
+        _methodName61 = "scoresByDate";
 
-        _methodParameterTypes43 = new String[] {
+        _methodParameterTypes61 = new String[] {
                 "java.lang.String", "java.lang.String", "java.lang.String",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName44 = "addScore";
+        _methodName62 = "addScore";
 
-        _methodParameterTypes44 = new String[] {
+        _methodParameterTypes62 = new String[] {
                 "java.lang.Long", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName45 = "customerScores";
+        _methodName63 = "customerScores";
 
-        _methodParameterTypes45 = new String[] {
+        _methodParameterTypes63 = new String[] {
                 "java.lang.Long", "int", "int", "java.util.Map",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName46 = "getTotalStats";
+        _methodName64 = "getTotalStats";
 
-        _methodParameterTypes46 = new String[] {  };
+        _methodParameterTypes64 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName36.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
+        if (_methodName54.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
             return ScoreServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName37.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
+        if (_methodName55.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
             ScoreServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName42.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+        if (_methodName60.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
             return ScoreServiceUtil.customerScoresByDate((java.lang.Long) arguments[0],
                 (java.lang.String) arguments[1],
                 (java.lang.String) arguments[2],
                 (com.liferay.portal.service.ServiceContext) arguments[3]);
         }
 
-        if (_methodName43.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
+        if (_methodName61.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
             return ScoreServiceUtil.scoresByDate((java.lang.String) arguments[0],
                 (java.lang.String) arguments[1],
                 (java.lang.String) arguments[2],
                 (com.liferay.portal.service.ServiceContext) arguments[3]);
         }
 
-        if (_methodName44.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+        if (_methodName62.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
             return ScoreServiceUtil.addScore((java.lang.Long) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 (com.liferay.portal.service.ServiceContext) arguments[2]);
         }
 
-        if (_methodName45.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+        if (_methodName63.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
             return ScoreServiceUtil.customerScores((java.lang.Long) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue(),
@@ -112,8 +112,8 @@ public class ScoreServiceClpInvoker {
                 (com.liferay.portal.service.ServiceContext) arguments[4]);
         }
 
-        if (_methodName46.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+        if (_methodName64.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
             return ScoreServiceUtil.getTotalStats();
         }
 

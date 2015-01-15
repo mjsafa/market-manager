@@ -110,6 +110,14 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
         return totalScore;
     }
 
+    $scope.changeStatus = function(customer){
+        if(customer.isActive){
+            $scope.customerService.updateStatus(customer.id, false);
+        } else{
+            $scope.customerService.updateStatus(customer.id, true);
+        }
+    };
+
     $scope.totalScore = calculateScore();
     $scope.initialized = true;
 }]);

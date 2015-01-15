@@ -11,7 +11,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONSerializer;
 import com.liferay.portal.service.ServiceContext;
-import sun.misc.Sort;
+
 
 import java.util.Date;
 import java.util.Map;

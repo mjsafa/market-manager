@@ -12,7 +12,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.util.dao.orm.CustomSQLUtil;
-import sun.security.util.BigInt;
 
 import java.math.BigInteger;
 import java.util.Date;

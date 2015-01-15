@@ -6,7 +6,7 @@ MetronicApp.controller('OnlineUserController', ['$rootScope', '$scope', 'UserSer
         $rootScope.$on('UserService.setAgreed', function (event, data) {
             onlineUser.agreed = true;
             $scope.onlineUser = onlineUser;
-            $state.go('dashboard');
+            $state.go('customerDashboard');
         });
     }
 

@@ -48,6 +48,22 @@
 		<field name="number" type="Short" />
 		<field name="basePrice" type="long" />
 	</model>
+	<model name="com.arman.csb.modules.model.Payment">
+		<field name="uuid" type="String" />
+		<field name="id" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="description" type="String" />
+		<field name="card" type="String" />
+		<field name="amount" type="long" />
+		<field name="status" type="int" />
+		<field name="paymentDate" type="Date" />
+		<field name="customerId" type="long" />
+		<field name="factorId" type="long" />
+	</model>
 	<model name="com.arman.csb.modules.model.Score">
 		<field name="uuid" type="String" />
 		<field name="id" type="long" />

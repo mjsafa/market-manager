@@ -234,12 +234,46 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
+                // customers
+        .state('payments', {
+            url:"/payments",
+            templateUrl:"/delegate/resource/views/payment/payments.html",
+            data:{pageTitle:'بخش پرداخت ها'},
+            controller:"PaymentsController",
+            resolve:{
+                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'MetronicApp',
+                        files:[
+                            '/delegate/resource/assets/global/plugins/morris/morris.css',
+                            '/delegate/resource/assets/admin/pages/css/tasks.css',
+                            '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
+                            '/delegate/resource/assets/admin/pages/scripts/customers.js',
+                            '/delegate/resource/js/controllers/GeneralPageController.js',
+                            '/delegate/resource/assets/global/plugins/morris/morris.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
+                            '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/server/CustomerService.js',
+                            '/delegate/resource/js/server/ScoreService.js',
+                            '/delegate/resource/js/server/PaymentService.js',
+
+                            '/delegate/resource/js/controllers/payment/PaymentsController.js',
+                            '/delegate/resource/js/controllers/customer/CustomerSelectController.js'
+                        ]
+                    });
+                }]
+            }
+        })
+
+
+
 
          // customer details
         .state('adminDashboard', {
             url:"/adminDashboard",
             templateUrl:"/delegate/resource/views/admin/adminDashboard.html",
-            data:{pageTitle:'صفحه اختصاصی مشتری'},
+            data:{pageTitle:'پنل مدیریت'},
             controller:"AdminDashboardController",
             resolve:{
                 deps:['$ocLazyLoad', function ($ocLazyLoad) {
