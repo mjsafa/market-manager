@@ -9,47 +9,79 @@ import java.util.Arrays;
  * @generated
  */
 public class InvoiceItemServiceClpInvoker {
+    private String _methodName48;
+    private String[] _methodParameterTypes48;
+    private String _methodName49;
+    private String[] _methodParameterTypes49;
     private String _methodName54;
     private String[] _methodParameterTypes54;
     private String _methodName55;
     private String[] _methodParameterTypes55;
-    private String _methodName60;
-    private String[] _methodParameterTypes60;
+    private String _methodName56;
+    private String[] _methodParameterTypes56;
 
     public InvoiceItemServiceClpInvoker() {
-        _methodName54 = "getBeanIdentifier";
+        _methodName48 = "getBeanIdentifier";
 
-        _methodParameterTypes54 = new String[] {  };
+        _methodParameterTypes48 = new String[] {  };
 
-        _methodName55 = "setBeanIdentifier";
+        _methodName49 = "setBeanIdentifier";
 
-        _methodParameterTypes55 = new String[] { "java.lang.String" };
+        _methodParameterTypes49 = new String[] { "java.lang.String" };
 
-        _methodName60 = "addInvoiceItem";
+        _methodName54 = "addInvoiceItem";
 
-        _methodParameterTypes60 = new String[] {
+        _methodParameterTypes54 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName55 = "deleteInvoiceItem";
+
+        _methodParameterTypes55 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName56 = "search";
+
+        _methodParameterTypes56 = new String[] {
+                "java.lang.String", "long", "int", "int",
+                "com.liferay.portal.service.ServiceContext"
             };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName54.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+        if (_methodName48.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
             return InvoiceItemServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName55.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+        if (_methodName49.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
             InvoiceItemServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName60.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+        if (_methodName54.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
             return InvoiceItemServiceUtil.addInvoiceItem((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName55.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+            return InvoiceItemServiceUtil.deleteInvoiceItem(((Long) arguments[0]).longValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName56.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+            return InvoiceItemServiceUtil.search((java.lang.String) arguments[0],
+                ((Long) arguments[1]).longValue(),
+                ((Integer) arguments[2]).intValue(),
+                ((Integer) arguments[3]).intValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[4]);
         }
 
         throw new UnsupportedOperationException();

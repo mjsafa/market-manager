@@ -1,7 +1,9 @@
 MetronicApp.controller('InvoiceDetailController', ['$rootScope', '$scope', 'InvoiceService', 'CustomerService', '$stateParams', '$state', '$modal', function ($rootScope, $scope, InvoiceService, CustomerService, $stateParams, $state, $modal, $filter) {
+    $scope.newItem = {};
 
     $scope.invoiceId = $stateParams.invoiceId;
-    $scope.invoice = InvoiceService.getById($scope.invoiceId);
+    InvoiceService.getById($scope.invoiceId);
+    InvoiceService.searchItems('', $scope.invoiceId);
 
     if (!$scope.initialized) {
         $rootScope.$on('InvoiceService.getById', function (event, data) {
@@ -16,7 +18,29 @@ MetronicApp.controller('InvoiceDetailController', ['$rootScope', '$scope', 'Invo
             $scope.invoice.customer = data.result;
             $scope.invoice.customer.id = $scope.invoice.customerId;
         });
+
+        $rootScope.$on('InvoiceItemService.search', function (event, data) {
+            $scope.items = data.result;
+        });
+
+
+        $rootScope.$on('InvoiceService.addInvoiceItem', function (event, data) {
+            $scope.doSearch();
+            $scope.initialData();
+        });
+
+        $rootScope.$on('InvoiceService.deleteInvoiceItem', function (event, data) {
+            $scope.doSearch();
+        });
     }
+
+    $scope.initialData = function () {
+        $scope.newItem = {
+            invoiceId: $scope.invoiceId
+        };
+    };
+
+    $scope.initialData();
 
     $scope.types = [
         {value: 1, text: 'پستی'},
@@ -69,5 +93,40 @@ MetronicApp.controller('InvoiceDetailController', ['$rootScope', '$scope', 'Invo
         InvoiceService.updateInvoice($scope.invoice);
     };
 
+    $scope.showTotalCost = function() {
+        var result = 0;
 
+        angular.forEach($scope.items, function (item) {
+            result += item.number * item.basePrice;
+        });
+
+        return result;
+    };
+
+    $scope.doSearch = function () {
+        InvoiceService.searchItems($scope.query || '', $scope.invoiceId);
+    }
+
+    $scope.submitInvoiceItem = function () {
+        InvoiceService.addInvoiceItem($scope.newItem);
+    };
+
+    $scope.deleteItem = function (itemId, size) {
+        var modalInstance = $modal.open({
+            templateUrl:'confirmDeleteItemModal.html',
+            controller:'ConfirmDialogController',
+            size:size,
+            resolve:{}
+        });
+
+        $scope.modalInstance = modalInstance;
+
+        modalInstance.result.then(function (selectedItem) {
+            InvoiceService.deleteInvoiceItem(itemId);
+        }, function () {
+            //$log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.initialized = true;
 }]);

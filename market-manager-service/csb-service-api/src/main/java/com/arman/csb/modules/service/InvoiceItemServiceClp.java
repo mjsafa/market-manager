@@ -14,6 +14,10 @@ public class InvoiceItemServiceClp implements InvoiceItemService {
     private String[] _methodParameterTypes1;
     private String _methodName3;
     private String[] _methodParameterTypes3;
+    private String _methodName4;
+    private String[] _methodParameterTypes4;
+    private String _methodName5;
+    private String[] _methodParameterTypes5;
 
     public InvoiceItemServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -30,6 +34,19 @@ public class InvoiceItemServiceClp implements InvoiceItemService {
 
         _methodParameterTypes3 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName4 = "deleteInvoiceItem";
+
+        _methodParameterTypes4 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName5 = "search";
+
+        _methodParameterTypes5 = new String[] {
+                "java.lang.String", "long", "int", "int",
+                "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -115,5 +132,81 @@ public class InvoiceItemServiceClp implements InvoiceItemService {
         }
 
         return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.lang.Long deleteInvoiceItem(long invoiceItemId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName4,
+                    _methodParameterTypes4,
+                    new Object[] {
+                        invoiceItemId,
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.lang.Long) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONArray search(
+        java.lang.String filter, long invoiceId, int start, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.json.JSONException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName5,
+                    _methodParameterTypes5,
+                    new Object[] {
+                        ClpSerializer.translateInput(filter),
+                        
+                    invoiceId,
+                        
+                    start,
+                        
+                    maxResult,
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.json.JSONException) {
+                throw (com.liferay.portal.kernel.json.JSONException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONArray) ClpSerializer.translateOutput(returnObj);
     }
 }

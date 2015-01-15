@@ -19,7 +19,27 @@ MetronicApp.factory("InvoiceService", function (JsonServer) {
            var result = JsonServer.postByUrl('/csb-modules-service-portlet.invoice', 'update-invoice', {invoice:JSON.stringify(invoice), serviceContext:{}}, {
                eventName:'InvoiceService.updateInvoice'
            });
+       },
+
+       ////////// Invoice Item Services ////////////////////
+       ////////// Invoice Item Services ////////////////////
+
+       searchItems:function (filter, invoiceId) {
+           var result = JsonServer.postByUrl('/csb-modules-service-portlet.invoiceitem', 'search', {filter:filter, invoiceId:invoiceId, start:0, maxResult:30, serviceContext:{}}, {
+               eventName:'InvoiceItemService.search'
+           });
+       },
+       addInvoiceItem:function (item) {
+           var result = JsonServer.postByUrl('/csb-modules-service-portlet.invoiceitem', 'add-invoice-item', {invoiceItem:JSON.stringify(item), serviceContext:{}}, {
+               eventName:'InvoiceService.addInvoiceItem'
+           });
+       },
+       deleteInvoiceItem:function (invoiceItemId) {
+           var result = JsonServer.postByUrl('/csb-modules-service-portlet.invoiceitem', 'delete-invoice-item', {invoiceItemId:JSON.stringify(invoiceItemId), serviceContext:{}}, {
+               eventName:'InvoiceService.deleteInvoiceItem'
+           });
        }
+
 
    }
 });

@@ -1,5 +1,12 @@
 package com.arman.csb.modules.service.http;
 
+import com.arman.csb.modules.service.InvoiceItemServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link com.arman.csb.modules.service.InvoiceItemServiceUtil} service utility. The
@@ -41,4 +48,36 @@ package com.arman.csb.modules.service.http;
  * @generated
  */
 public class InvoiceItemServiceSoap {
+    private static Log _log = LogFactoryUtil.getLog(InvoiceItemServiceSoap.class);
+
+    public static java.lang.Long deleteInvoiceItem(long invoiceItemId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            java.lang.Long returnValue = InvoiceItemServiceUtil.deleteInvoiceItem(invoiceItemId,
+                    serviceContext);
+
+            return returnValue;
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String search(java.lang.String filter,
+        long invoiceId, int start, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONArray returnValue = InvoiceItemServiceUtil.search(filter,
+                    invoiceId, start, maxResult, serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

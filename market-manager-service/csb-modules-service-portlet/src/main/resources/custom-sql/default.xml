@@ -148,4 +148,20 @@
             ]]>
     </sql>
 
+    <sql id="com.arman.csb.modules.service.InvoiceItemService.search">
+        <![CDATA[
+            SELECT
+                *
+            FROM CSBModules_InvoiceItem AS item
+            WHERE
+                (
+                    (item.productName like '##KEYWORD##') OR
+                    (item.productCode like '##KEYWORD##')
+                ) AND
+                (item.invoiceId = ?)
+            ORDER BY item.createDate DESC
+        ]]>
+    </sql>
+
+
 </custom-sql>
