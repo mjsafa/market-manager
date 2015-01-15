@@ -1,7 +1,7 @@
 <!-- BEGIN PAGE HEADER-->
 
-<div data-ng-include="'/delegate/resource/views/customer/customerSelectPopup.html'" >
-</div>
+<div data-ng-include="'/delegate/resource/views/customer/customerSelectPopup.html'" ></div>
+<div data-ng-include="'/delegate/resource/views/invoice/confirmDeleteInvoiceItem.html'" ></div>
 
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -55,7 +55,7 @@
 </h3>
 <!-- END PAGE HEADER-->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="InvoiceDetailController">
+<div >
 
 <!-- BEGIN DASHBOARD STATS -->
 <div class="row">
@@ -253,13 +253,198 @@
         </div>
     </div>
 
+    <div class="col-md-6 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-green-haze hide"></i>
+                    <span class="caption-subject font-green-haze bold uppercase">اقلام فاکتور</span>
+                    <span class="caption-helper hide">مشاده اقلام فاکتور</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+
+                    </div>
+                </div>
+                <div class="inputs">
+                    <div class="portlet-input input-inline input-medium">
+                        <div class="input-group">
+                            <input ng-enter="doSearch()" type="text" ng-model="query"
+                                   class="form-control input-circle-left" placeholder="جستجو ..."/>
+                                <span class="input-group-btn">
+                                <button ng-click="doSearch()" class="btn btn-circle-right btn-default" type="submit">
+                                    جستجو
+                                </button>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="row number-stats margin-bottom-30">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="stat-left">
+                            <div class="stat-chart">
+                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                <div id="sparkline_bar"></div>
+                            </div>
+                            <div class="stat-number">
+                                <div class="title">
+                                    مبلغ کل
+                                </div>
+                                <div class="number">
+                                    {{ showTotalCost() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="stat-right">
+                            <div class="stat-chart">
+                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                <div id="sparkline_bar2"></div>
+                            </div>
+                            <div class="stat-number">
+                                <div class="title">
+                                    تعداد کل
+                                </div>
+                                <div class="number">
+                                    {{items.length}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="uppercase">
+                            <th>
+                                نام کالا
+                            </th>
+                            <th>
+                                کد کالا
+                            </th>
+                            <th>
+                                قیمت پایه
+                            </th>
+                            <th>
+                                تعداد
+                            </th>
+                            <th>
+                                تاریخ
+                            </th>
+                            <th>
+                                عملیات
+                            </th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="item in items">
+                            <td>
+                                {{item.productName}}
+                            </td>
+                            <td>
+                                {{item.productCode}}
+                            </td>
+                            <td>
+                                {{item.basePrice}}
+                            </td>
+                            <td>
+                                {{item.number}}
+                            </td>
+                            <td>
+                                {{item.createDate}}
+                            </td>
+                            <td>
+                                <button type="button" ng-click="deleteItem(item.id)" class="btn red">حذف</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-green-haze hide"></i>
+                    <span class="caption-subject font-green-haze bold uppercase">ثبت قلم جدید</span>
+                    <span class="caption-helper hide">ثبت قلم جدید</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-horizontal" ng-submit="submitInvoiceItem()">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">نام محصول</label>
+
+                            <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-edit"></i>
+                                </span>
+                                <input ng-model="newItem.productName" type="text" class="form-control" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">کد محصول</label>
+
+                            <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-edit"></i>
+                                </span>
+                                <input ng-model="newItem.productCode" type="text" class="form-control"
+                                       style="direction: ltr;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">تعداد</label>
+
+                            <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-tag"></i>
+                                </span>
+                                <input ng-model="newItem.number" type="text" class="form-control"
+                                       style="direction: ltr;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">قیمت پایه</label>
+
+                            <div class="input-group col-md-9">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-tag"></i>
+                                </span>
+                                <input ng-model="newItem.basePrice" type="text" class="form-control"
+                                       style="direction: ltr;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions right">
+                        <button type="submit" class="btn green">ثبت</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+
 </div>
 
 
-<!-- END MAIN CONTENT -->
-<!-- BEGIN MAIN JS & CSS -->
-<script>
-    //Index.init();
-    //Tasks.initDashboardWidget();
-</script>
-<!-- BEGIN MAIN JS & CSS -->
+
+</div>

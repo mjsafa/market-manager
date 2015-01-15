@@ -59,6 +59,21 @@ public class InvoiceItemServiceUtil {
         return getService().addInvoiceItem(invoiceItem, serviceContext);
     }
 
+    public static java.lang.Long deleteInvoiceItem(long invoiceItemId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().deleteInvoiceItem(invoiceItemId, serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONArray search(
+        java.lang.String filter, long invoiceId, int start, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.json.JSONException {
+        return getService()
+                   .search(filter, invoiceId, start, maxResult, serviceContext);
+    }
+
     public static void clearService() {
         _service = null;
     }

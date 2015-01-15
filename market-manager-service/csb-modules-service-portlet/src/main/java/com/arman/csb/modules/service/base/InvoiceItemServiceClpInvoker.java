@@ -15,6 +15,10 @@ public class InvoiceItemServiceClpInvoker {
     private String[] _methodParameterTypes49;
     private String _methodName54;
     private String[] _methodParameterTypes54;
+    private String _methodName55;
+    private String[] _methodParameterTypes55;
+    private String _methodName56;
+    private String[] _methodParameterTypes56;
 
     public InvoiceItemServiceClpInvoker() {
         _methodName48 = "getBeanIdentifier";
@@ -29,6 +33,19 @@ public class InvoiceItemServiceClpInvoker {
 
         _methodParameterTypes54 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName55 = "deleteInvoiceItem";
+
+        _methodParameterTypes55 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName56 = "search";
+
+        _methodParameterTypes56 = new String[] {
+                "java.lang.String", "long", "int", "int",
+                "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -50,6 +67,21 @@ public class InvoiceItemServiceClpInvoker {
                 Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
             return InvoiceItemServiceUtil.addInvoiceItem((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName55.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+            return InvoiceItemServiceUtil.deleteInvoiceItem(((Long) arguments[0]).longValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName56.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+            return InvoiceItemServiceUtil.search((java.lang.String) arguments[0],
+                ((Long) arguments[1]).longValue(),
+                ((Integer) arguments[2]).intValue(),
+                ((Integer) arguments[3]).intValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[4]);
         }
 
         throw new UnsupportedOperationException();

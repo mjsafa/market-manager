@@ -53,6 +53,24 @@ public class InvoiceItemServiceWrapper implements InvoiceItemService,
         return _invoiceItemService.addInvoiceItem(invoiceItem, serviceContext);
     }
 
+    @Override
+    public java.lang.Long deleteInvoiceItem(long invoiceItemId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _invoiceItemService.deleteInvoiceItem(invoiceItemId,
+            serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONArray search(
+        java.lang.String filter, long invoiceId, int start, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.json.JSONException {
+        return _invoiceItemService.search(filter, invoiceId, start, maxResult,
+            serviceContext);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

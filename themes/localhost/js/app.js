@@ -695,7 +695,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/js/server/InvoiceService.js',
                             '/delegate/resource/js/server/CustomerService.js',
                             '/delegate/resource/js/controllers/invoice/InvoiceDetailController.js',
-                            '/delegate/resource/js/controllers/customer/CustomerSelectController.js'
+                            '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
+                            '/delegate/resource/js/controllers/base/ConfirmDialogController.js'
 
                         ]
                     });
