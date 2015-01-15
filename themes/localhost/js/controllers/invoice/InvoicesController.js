@@ -66,7 +66,7 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
     };
 
     $scope.deleteItem = function (index) {
-        $scope.newInvoice.invoiceItems.splice(index, index);
+        $scope.newInvoice.invoiceItems.splice(index, 1);
     };
 
     $scope.doSearch = function () {
