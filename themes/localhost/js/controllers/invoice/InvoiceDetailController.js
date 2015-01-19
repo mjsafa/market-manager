@@ -27,10 +27,12 @@ MetronicApp.controller('InvoiceDetailController', ['$rootScope', '$scope', 'Invo
         $rootScope.$on('InvoiceService.addInvoiceItem', function (event, data) {
             $scope.doSearch();
             $scope.initialData();
+            $rootScope.$emit('page.alert', {message:'اقلام فاکتور جدید در سیستم ثبت شد', type:"success"});
         });
 
         $rootScope.$on('InvoiceService.deleteInvoiceItem', function (event, data) {
             $scope.doSearch();
+            $rootScope.$emit('page.alert', {message:'اقلام فاکتور انتخاب شده از سیستم حذف شد', type:"success"});
         });
     }
 
