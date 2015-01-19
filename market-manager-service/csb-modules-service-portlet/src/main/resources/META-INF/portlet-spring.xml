@@ -19,4 +19,7 @@
 	<bean id="com.arman.csb.modules.service.ScoreLocalService" class="com.arman.csb.modules.service.impl.ScoreLocalServiceImpl" />
 	<bean id="com.arman.csb.modules.service.ScoreService" class="com.arman.csb.modules.service.impl.ScoreServiceImpl" />
 	<bean id="com.arman.csb.modules.service.persistence.ScorePersistence" class="com.arman.csb.modules.service.persistence.ScorePersistenceImpl" parent="basePersistence" />
+	<bean id="com.arman.csb.modules.service.UserActivityLocalService" class="com.arman.csb.modules.service.impl.UserActivityLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.UserActivityService" class="com.arman.csb.modules.service.impl.UserActivityServiceImpl" />
+	<bean id="com.arman.csb.modules.service.persistence.UserActivityPersistence" class="com.arman.csb.modules.service.persistence.UserActivityPersistenceImpl" parent="basePersistence" />
 </beans>

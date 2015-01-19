@@ -55,8 +55,8 @@ public interface InvoiceItemService extends BaseService, InvokableService {
     public com.liferay.portal.kernel.json.JSONObject addInvoiceItem(
         java.util.Map<java.lang.String, java.lang.Object> invoiceItem,
         com.liferay.portal.service.ServiceContext serviceContext)
-        throws com.liferay.portal.kernel.exception.SystemException,
-            com.liferay.portal.kernel.json.JSONException;
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
 
     public java.lang.Long deleteInvoiceItem(long invoiceItemId,
         com.liferay.portal.service.ServiceContext serviceContext)

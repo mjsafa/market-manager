@@ -59,4 +59,19 @@
 		<field name="customerId" type="long" />
 		<field name="type" type="int" />
 	</model>
+	<model name="com.arman.csb.modules.model.UserActivity">
+		<field name="uuid" type="String" />
+		<field name="id" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="entity" type="String" />
+		<field name="action" type="Short" />
+		<field name="importance" type="Short" />
+		<field name="data" type="String">
+			<hint name="max-length">2000</hint>
+		</field>
+	</model>
 </model-hints>

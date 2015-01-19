@@ -49,10 +49,10 @@ public class InvoiceLocalServiceClpInvoker {
     private String[] _methodParameterTypes18;
     private String _methodName19;
     private String[] _methodParameterTypes19;
-    private String _methodName68;
-    private String[] _methodParameterTypes68;
-    private String _methodName69;
-    private String[] _methodParameterTypes69;
+    private String _methodName74;
+    private String[] _methodParameterTypes74;
+    private String _methodName75;
+    private String[] _methodParameterTypes75;
 
     public InvoiceLocalServiceClpInvoker() {
         _methodName0 = "addInvoice";
@@ -153,13 +153,13 @@ public class InvoiceLocalServiceClpInvoker {
                 "com.arman.csb.modules.model.Invoice"
             };
 
-        _methodName68 = "getBeanIdentifier";
+        _methodName74 = "getBeanIdentifier";
 
-        _methodParameterTypes68 = new String[] {  };
+        _methodParameterTypes74 = new String[] {  };
 
-        _methodName69 = "setBeanIdentifier";
+        _methodName75 = "setBeanIdentifier";
 
-        _methodParameterTypes69 = new String[] { "java.lang.String" };
+        _methodParameterTypes75 = new String[] { "java.lang.String" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -275,13 +275,13 @@ public class InvoiceLocalServiceClpInvoker {
             return InvoiceLocalServiceUtil.updateInvoice((com.arman.csb.modules.model.Invoice) arguments[0]);
         }
 
-        if (_methodName68.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+        if (_methodName74.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
             return InvoiceLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName69.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+        if (_methodName75.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
             InvoiceLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;

@@ -9,6 +9,7 @@
 	<import class="com.arman.csb.modules.model.MyDDLRecord" />
 	<import class="com.arman.csb.modules.model.MyUser" />
 	<import class="com.arman.csb.modules.model.Score" />
+	<import class="com.arman.csb.modules.model.UserActivity" />
 	<import class="com.liferay.portlet.blogs.model.impl.BlogsEntryImpl" />
 	<class name="com.arman.csb.modules.model.impl.CustomerImpl" table="CSBModules_Customer">
 		<cache usage="read-write" />
@@ -79,5 +80,21 @@
 		<property name="value" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="customerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="type" type="com.liferay.portal.dao.orm.hibernate.IntegerType" column="type_" />
+	</class>
+	<class name="com.arman.csb.modules.model.impl.UserActivityImpl" table="CSBModules_UserActivity">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="entity" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="action" type="com.liferay.portal.dao.orm.hibernate.ShortType" />
+		<property name="importance" type="com.liferay.portal.dao.orm.hibernate.ShortType" />
+		<property name="data" type="com.liferay.portal.dao.orm.hibernate.StringType" column="data_" />
 	</class>
 </hibernate-mapping>

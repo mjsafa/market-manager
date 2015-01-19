@@ -100,8 +100,8 @@ public class InvoiceItemServiceClp implements InvoiceItemService {
     public com.liferay.portal.kernel.json.JSONObject addInvoiceItem(
         java.util.Map<java.lang.String, java.lang.Object> invoiceItem,
         com.liferay.portal.service.ServiceContext serviceContext)
-        throws com.liferay.portal.kernel.exception.SystemException,
-            com.liferay.portal.kernel.json.JSONException {
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
@@ -115,12 +115,12 @@ public class InvoiceItemServiceClp implements InvoiceItemService {
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 
-            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
             }
 
-            if (t instanceof com.liferay.portal.kernel.json.JSONException) {
-                throw (com.liferay.portal.kernel.json.JSONException) t;
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
             }
 
             if (t instanceof RuntimeException) {

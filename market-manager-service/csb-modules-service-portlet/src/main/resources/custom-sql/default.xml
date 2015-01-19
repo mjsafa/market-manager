@@ -96,5 +96,25 @@
         ]]>
     </sql>
 
+    <sql id="com.arman.csb.modules.service.UserActivity.search">
+        <![CDATA[
+            SELECT
+                *
+            FROM CSBModules_UserActivity AS activity
+            WHERE
+                (
+                    (activity.userName like '##KEYWORD##') OR
+                    (activity.data_ like '##KEYWORD##')
+                ) AND
+                (
+                    (? OR activity.entity = ?) AND
+                    (? OR activity.action = ?) AND
+                    (? OR activity.importance = ?)
+                )
+
+            ORDER BY activity.createDate DESC
+        ]]>
+    </sql>
+
 
 </custom-sql>

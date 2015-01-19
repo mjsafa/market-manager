@@ -60,6 +60,20 @@ create table CSBModules_Score (
 	type_ INTEGER
 );
 
+create table CSBModules_UserActivity (
+	uuid_ VARCHAR(75) null,
+	id_ LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	entity VARCHAR(75) null,
+	action INTEGER,
+	importance INTEGER,
+	data_ VARCHAR(2000) null
+);
+
 create table CSB_ContentHolder (
 	uuid_ VARCHAR(75) null,
 	id_ LONG not null primary key,

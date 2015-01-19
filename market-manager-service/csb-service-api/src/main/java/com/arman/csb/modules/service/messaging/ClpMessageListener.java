@@ -15,6 +15,8 @@ import com.arman.csb.modules.service.MyUserLocalServiceUtil;
 import com.arman.csb.modules.service.MyUserServiceUtil;
 import com.arman.csb.modules.service.ScoreLocalServiceUtil;
 import com.arman.csb.modules.service.ScoreServiceUtil;
+import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
+import com.arman.csb.modules.service.UserActivityServiceUtil;
 
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
@@ -53,6 +55,9 @@ public class ClpMessageListener extends BaseMessageListener {
             ScoreLocalServiceUtil.clearService();
 
             ScoreServiceUtil.clearService();
+            UserActivityLocalServiceUtil.clearService();
+
+            UserActivityServiceUtil.clearService();
         }
     }
 }

@@ -125,6 +125,33 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.arman.csb.modules.model.impl.UserActivityModelImpl">
+		<attributes>
+			<id name="id">
+				<column name="ID_" />
+			</id>
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="entity" />
+			<basic name="action" />
+			<basic name="importance" />
+			<basic name="data">
+				<column name="DATA_" />
+			</basic>
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<entity class="com.arman.csb.modules.model.impl.CustomerImpl" name="Customer">
 		<table name="CSBModules_Customer" />
 		<attributes />
@@ -139,6 +166,10 @@
 	</entity>
 	<entity class="com.arman.csb.modules.model.impl.ScoreImpl" name="Score">
 		<table name="CSBModules_Score" />
+		<attributes />
+	</entity>
+	<entity class="com.arman.csb.modules.model.impl.UserActivityImpl" name="UserActivity">
+		<table name="CSBModules_UserActivity" />
 		<attributes />
 	</entity>
 </entity-mappings>
