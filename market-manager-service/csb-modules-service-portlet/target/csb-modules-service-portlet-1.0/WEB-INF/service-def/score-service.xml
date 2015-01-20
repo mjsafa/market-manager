@@ -1,0 +1,38 @@
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+
+<service-builder package-path="com.arman.csb.modules.service">
+
+    <entity name="Score" uuid="true" local-service="true" remote-service="true">
+
+        <column name="id" type="long" primary="true"/>
+
+        <!-- Group instance -->
+
+        <column name="groupId" type="long"/>
+        <column name="companyId" type="long"/>
+
+        <!-- Audit fields -->
+        <column name="userId" type="long"/>
+        <column name="userName" type="String"/>
+        <column name="createDate" type="Date"/>
+        <column name="modifiedDate" type="Date"/>
+
+        <!-- Other fields -->
+
+        <column name="value" type="int"/>
+        <column name="customerId" type="long"/>
+        <column name="originCustomerId" type="long"/>
+        <column name="type" type="int"/>
+
+        <finder name="CustomerId" return-type="Collection">
+            <finder-column name="customerId"/>
+        </finder>
+
+        <finder name="CustomerIdAndType" return-type="Collection">
+            <finder-column name="customerId"/>
+            <finder-column name="type"/>
+        </finder>
+    </entity>
+
+</service-builder>

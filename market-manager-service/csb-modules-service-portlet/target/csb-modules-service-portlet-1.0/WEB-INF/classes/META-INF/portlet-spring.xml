@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.arman.csb.modules.service.CustomerLocalService" class="com.arman.csb.modules.service.impl.CustomerLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.CustomerService" class="com.arman.csb.modules.service.impl.CustomerServiceImpl" />
+	<bean id="com.arman.csb.modules.service.persistence.CustomerPersistence" class="com.arman.csb.modules.service.persistence.CustomerPersistenceImpl" parent="basePersistence" />
+	<bean id="com.arman.csb.modules.service.InvoiceLocalService" class="com.arman.csb.modules.service.impl.InvoiceLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.InvoiceService" class="com.arman.csb.modules.service.impl.InvoiceServiceImpl" />
+	<bean id="com.arman.csb.modules.service.persistence.InvoicePersistence" class="com.arman.csb.modules.service.persistence.InvoicePersistenceImpl" parent="basePersistence" />
+	<bean id="com.arman.csb.modules.service.InvoiceItemLocalService" class="com.arman.csb.modules.service.impl.InvoiceItemLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.InvoiceItemService" class="com.arman.csb.modules.service.impl.InvoiceItemServiceImpl" />
+	<bean id="com.arman.csb.modules.service.persistence.InvoiceItemPersistence" class="com.arman.csb.modules.service.persistence.InvoiceItemPersistenceImpl" parent="basePersistence" />
+	<bean id="com.arman.csb.modules.service.MyBlogLocalService" class="com.arman.csb.modules.service.impl.MyBlogLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.MyBlogService" class="com.arman.csb.modules.service.impl.MyBlogServiceImpl" />
+	<bean id="com.arman.csb.modules.service.MyDDLRecordLocalService" class="com.arman.csb.modules.service.impl.MyDDLRecordLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.MyDDLRecordService" class="com.arman.csb.modules.service.impl.MyDDLRecordServiceImpl" />
+	<bean id="com.arman.csb.modules.service.MyUserLocalService" class="com.arman.csb.modules.service.impl.MyUserLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.MyUserService" class="com.arman.csb.modules.service.impl.MyUserServiceImpl" />
+	<bean id="com.arman.csb.modules.service.PaymentLocalService" class="com.arman.csb.modules.service.impl.PaymentLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.PaymentService" class="com.arman.csb.modules.service.impl.PaymentServiceImpl" />
+	<bean id="com.arman.csb.modules.service.persistence.PaymentPersistence" class="com.arman.csb.modules.service.persistence.PaymentPersistenceImpl" parent="basePersistence" />
+	<bean id="com.arman.csb.modules.service.ScoreLocalService" class="com.arman.csb.modules.service.impl.ScoreLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.ScoreService" class="com.arman.csb.modules.service.impl.ScoreServiceImpl" />
+	<bean id="com.arman.csb.modules.service.persistence.ScorePersistence" class="com.arman.csb.modules.service.persistence.ScorePersistenceImpl" parent="basePersistence" />
+</beans>

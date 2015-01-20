@@ -1,0 +1,20 @@
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+
+<service-builder package-path="com.arman.csb.modules.service">
+
+    <entity name="MyBlog" local-service="true" remote-service="true" tx-manager="none">
+        <reference package-path="com.liferay.portlet.blogs" entity="BlogsEntry"></reference>
+    </entity>
+
+    <entity name="MyDDLRecord" local-service="true" remote-service="true" tx-manager="none">
+        <reference package-path="com.liferay.portlet.dynamicdatalists" entity="DDLRecord"></reference>
+        <reference package-path="com.liferay.portlet.dynamicdatalists" entity="DDLRecordSet"></reference>
+    </entity>
+
+    <entity name="MyUser" local-service="true" remote-service="true" session-factory="none"
+            tx-manager="trainingTransactionManager">
+        <reference package-path="com.liferay.portal" entity="User"></reference>
+    </entity>
+
+</service-builder>

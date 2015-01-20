@@ -1,0 +1,10 @@
+<service-builder package-path="com.arman.csb.modules">
+    <namespace>CSBModules</namespace>
+
+    <service-builder-import file="service-def/my-blog-service.xml" />
+    <service-builder-import file="service-def/customer-service.xml" />
+    <service-builder-import file="service-def/score-service.xml" />
+    <service-builder-import file="service-def/invoice-service.xml" />
+    <service-builder-import file="service-def/payment-service.xml" />
+
+</service-builder>

@@ -1,0 +1,109 @@
+#*
+<script src="$javascript_folder/common/server.js?t=$theme_timestamp" type="text/javascript"></script>
+<script src="$javascript_folder/common/server/core-services.js?t=$theme_timestamp" type="text/javascript"></script>
+
+
+<script src="$javascript_folder/common/util.js?t=$theme_timestamp" type="text/javascript"></script>
+
+<script src="$javascript_folder/views/appView.js?t=$theme_timestamp" type="text/javascript"></script>
+<script src="$javascript_folder/views/blogEntryView.js?t=$theme_timestamp" type="text/javascript"></script>
+<script src="$javascript_folder/models/BlogEntry.js?t=$theme_timestamp" type="text/javascript"></script>
+<script src="$javascript_folder/collections/BlogEntries.js?t=$theme_timestamp" type="text/javascript"></script>
+
+<script src="$javascript_folder/models/BlogEntry.js?t=$theme_timestamp" type="text/javascript"></script>
+
+<script src="$javascript_folder/app.js?t=$theme_timestamp" type="text/javascript"></script>
+*#
+
+
+
+#*
+
+<script src="$javascript_folder/libs/backbone.collectionView.js" type="text/javascript"></script>
+<script src="$javascript_folder/libs/replacetag.jquery.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/common/constants/GetterUtil.js" type="text/javascript"></script>
+<script src="$javascript_folder/common/constants/Image.js" type="text/javascript"></script>
+
+
+<script src="$javascript_folder/common/server.js" type="text/javascript"></script>
+<script src="$javascript_folder/common/server/core-services.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/common/util.js" type="text/javascript"></script>
+
+
+<script src="$javascript_folder/Modules/blog_list/model/BlogEntry.js" type="text/javascript"></script>
+<script src="$javascript_folder/Modules/blog_list/model/BlogEntries.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/backbone-ext/csb.backbone.ModuleView.js" type="text/javascript"></script>
+<script src="$javascript_folder/backbone-ext/csb.backbone.ModuleItemView.js" type="text/javascript"></script>
+<script src="$javascript_folder/Modules/blog_list/view/BlogItemView.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/backbone-ext/Module.js" type="text/javascript"></script>
+<script src="$javascript_folder/Modules/blog_list/BlogModule.js" type="text/javascript"></script>
+<script src="$javascript_folder/Modules/blog_item/BlogItemModule.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/backbone-ext/csb.backbone.ModuleCollectionView.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/Modules/blog_list/view/BlogCollectionView.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/views/appView.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/routers/appRouter.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/common/LoadingUtil.js" type="text/javascript"></script>
+
+*#
+
+
+<script src="$javascript_folder/libs/underscore.js" type="text/javascript"></script>
+<script src="$javascript_folder/libs/backbone.js" type="text/javascript"></script>
+<script src="$javascript_folder/language/fa.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/libs/replacetag.jquery.js" type="text/javascript"></script>
+<script src="$javascript_folder/libs/backbone.collectionView.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/common/constants/GetterUtil.js" type="text/javascript"></script>
+<script src="$javascript_folder/common/constants/Image.js" type="text/javascript"></script>
+
+
+<script src="$javascript_folder/common/server.js" type="text/javascript"></script>
+<script src="$javascript_folder/common/server/core-services.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/common/util.js" type="text/javascript"></script>
+
+
+<script src="$javascript_folder/Modules/blog_list/model/BlogEntry.js" type="text/javascript"></script>
+<script src="$javascript_folder/Modules/blog_list/model/BlogEntries.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/backbone-ext/csb.backbone.ModuleView.js" type="text/javascript"></script>
+<script src="$javascript_folder/backbone-ext/csb.backbone.ModuleItemView.js" type="text/javascript"></script>
+<script src="$javascript_folder/Modules/blog_list/view/BlogItemView.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/backbone-ext/Module.js" type="text/javascript"></script>
+<script src="$javascript_folder/Modules/blog_list/BlogModule.js" type="text/javascript"></script>
+<script src="$javascript_folder/Modules/blog_item/BlogItemModule.js" type="text/javascript"></script>
+<script src="$javascript_folder/Modules/form/FormModule.js" type="text/javascript"></script>
+
+
+<script src="$javascript_folder/backbone-ext/csb.backbone.ModuleCollectionView.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/Modules/blog_list/view/BlogCollectionView.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/views/appView.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/routers/appRouter.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/common/LoadingUtil.js" type="text/javascript"></script>
+<script src="$javascript_folder/common/LoaderUtil.js" type="text/javascript"></script>
+
+<script src="$javascript_folder/app.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+        if ((!application) || (!application.initialized)) {
+            application = new app.AppView();
+        }
+    };
+</script>

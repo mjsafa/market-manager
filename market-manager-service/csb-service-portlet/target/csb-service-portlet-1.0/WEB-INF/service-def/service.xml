@@ -1,0 +1,9 @@
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+
+<service-builder package-path="com.arman.csb.theme">
+    <namespace>CSB</namespace>
+    <service-builder-import file="template-service.xml" />
+    <service-builder-import file="contentholder-service.xml" />
+    <service-builder-import file="my-page-service.xml" />
+
+</service-builder>

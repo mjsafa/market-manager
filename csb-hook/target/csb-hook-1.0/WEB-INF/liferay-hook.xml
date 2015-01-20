@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hook PUBLIC "-//Liferay//DTD Hook 6.1.0//EN" "http://www.liferay.com/dtd/liferay-hook_6_1_0.dtd">
+
+<hook>
+    <portal-properties>portal.properties</portal-properties>
+    <custom-jsp-dir>/META-INF/custom_jsps</custom-jsp-dir>
+
+    <indexer-post-processor>
+        <indexer-class-name>com.liferay.portal.model.User</indexer-class-name>
+        <indexer-post-processor-impl>com.armansoft.csb.indexer.MyUserIndexerPostProcessor</indexer-post-processor-impl>
+    </indexer-post-processor>
+
+    <service>
+        <service-type>com.liferay.portlet.blogs.service.BlogsEntryLocalService</service-type>
+        <service-impl>com.armansoft.csb.service.wrapper.BlogsEntryLocalServiceWrapperImpl</service-impl>
+    </service>
+
+    <servlet-filter>
+        <servlet-filter-name>SEO Filter</servlet-filter-name>
+        <servlet-filter-impl>com.armansoft.csb.filter.SEOFilter</servlet-filter-impl>
+        <init-param>
+            <param-name>url-regex-ignore-pattern</param-name>
+            <param-value>(.*?)\.(jpg|gif|doc|pdf|css|js|png|swf|txt)$</param-value>
+        </init-param>
+    </servlet-filter>
+    <servlet-filter-mapping>
+        <servlet-filter-name>SEO Filter</servlet-filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter-mapping>
+    <struts-action>
+        <struts-action-path>/portal/imageUploader</struts-action-path>
+        <struts-action-impl>no.uninett.agora.ckeditor.ImageUploaderStrutsAction</struts-action-impl>
+    </struts-action>
+    <struts-action>
+        <struts-action-path>/portal/getpageattachment</struts-action-path>
+        <struts-action-impl>no.uninett.agora.ckeditor.GetPageAttachmentStrutsAction</struts-action-impl>
+    </struts-action>
+
+</hook>
