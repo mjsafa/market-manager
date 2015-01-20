@@ -210,6 +210,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
         CustomerLocalServiceUtil.updateCustomer(oldCustomer);
         UserLocalServiceUtil.updateStatus(oldCustomer.getCustomerUserId(),isActive ? WorkflowConstants.STATUS_APPROVED : WorkflowConstants.STATUS_DENIED);
         result.put("customerId", customerId);
+        result.put("isActive", isActive);
         return result;
     }
 

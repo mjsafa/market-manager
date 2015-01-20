@@ -91,7 +91,7 @@ public class ScoreLocalServiceImpl extends ScoreLocalServiceBaseImpl {
         qPos.add(toDate);
 
         List<BigInteger> result = queryObject.list();
-        if (!result.isEmpty()) {
+        if (!result.isEmpty() && result.get(0) != null) {
             return result.get(0).intValue();
         } else {
             return 0;

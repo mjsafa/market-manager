@@ -1,8 +1,9 @@
 MetronicApp.factory("ScoreService", function (JsonServer) {
     return{
-        addScore:function (customerId, value) {
+        addScore:function (customerId, value, options) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.score', 'add-score', {customerId:customerId, value:value, serviceContext:{}}, {
-                eventName:'ScoreService.addScore'
+                eventName:'ScoreService.addScore',
+                scope:options ? options.scope : undefined
             });
         },
         findByCustomerId:function (customerId, start, total, filter) {

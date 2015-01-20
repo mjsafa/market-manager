@@ -1,7 +1,7 @@
 'use strict';
 
-MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal', 'UserService',
-    function ($rootScope, $scope, CustomerService, ScoreService, $stateParams, $state, $modal, UserService) {
+MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal', 'UserService', 'PaymentService',
+    function ($rootScope, $scope, CustomerService, ScoreService, $stateParams, $state, $modal, UserService, PaymentService) {
 
         if (!$scope.initialized) {    //bind listeners only for the first time
             //server side events
@@ -11,7 +11,7 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
                 CustomerService.getInvitees($scope.customer.id);
                 CustomerService.getStats($scope.customer.id);
                 ScoreService.customerChartData($scope.customer.id);
-                ScoreService.findByCustomerId($scope.customer.id, 0 ,30 , {});
+                ScoreService.findByCustomerId($scope.customer.id, 0, 30, {});
             });
 
             $rootScope.$on('CustomerService.getInvitees', function (event, data) {
@@ -39,6 +39,11 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
             $rootScope.$on('ScoreService.findByCustomerId', function (event, data) {
                 $scope.scores = data.result;
             });
+
+            $scope.$on('PaymentService.search', function (event, data) {
+                $scope.payments = data.result;
+            });
+
         }
 
         $scope.scoreService = ScoreService;
@@ -61,6 +66,14 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
 
             return totalScore;
         }
+
+        $scope.doSearchPayment = function () {
+            $scope.filter = $scope.filter || {};
+            $scope.filter.customerId = $scope.customerId;
+            PaymentService.search($scope.filter, {scope:$scope});
+        }
+
+        $scope.doSearchPayment();
 
         //Select Invitee Modal
         $scope.open = function (size) {
@@ -89,7 +102,7 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
             CustomerService.deleteInvitee($scope.customer, invitee);
         };
 
-        $scope.updateCustomer = function(){
+        $scope.updateCustomer = function () {
             CustomerService.updateCustomer($scope.customer);
         }
 

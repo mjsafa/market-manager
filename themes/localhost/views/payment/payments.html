@@ -13,7 +13,7 @@
             <a href="#">داشبورد مدیریت سامانه سپاسه</a>
         </li>
     </ul>
-    <div class="page-toolbar">
+    <div class="page-toolbar hide">
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-menu-toggle
                     dropdown-menu-hover data-delay="1000" data-close-others="true">
@@ -162,7 +162,7 @@
                     <span class="caption-subject font-white bold uppercase">ثبت پرداخت به مشتری</span>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li>
+                    <!--<li>
                         <a href="#" data-target="#portlet_tab2" data-toggle="tab">
                             دسترسی ها
                         </a>
@@ -171,11 +171,11 @@
                         <a href="#" data-target="#portlet_tab1" data-toggle="tab">
                             اطلاعات کلی
                         </a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
             <div class="portlet-body form ">
-                <form class="form-horizontal" ng-submit="submitPayment()">
+                <form class="form-horizontal" name="formAdd" ng-submit="submitPayment()">
                     <div class="tab-content">
 
                         <div class="tab-pane active" id="portlet_tab1">
@@ -189,9 +189,8 @@
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-usd"></i>
                                                 </span>
-                                                <input ng-model="newPayment.amount" type="text" class="form-control"/>
+                                                <input ng-model="newPayment.amount" name="amount" validation="integer|required" typing-limit="500" type="text" class="form-control"/>
                                             </div>
-
                                         </div>
 
 
@@ -200,8 +199,8 @@
 
                                             <div class="input-group col-md-9">
 
-                                                <input ng-click="open()" type="text" disabled
-                                                       class="form-control"
+                                                <input validation="required" typing-limit="10"  name="customer" ng-click="open()" type="text" readonly
+                                                       class="form-control selector"
                                                        ng-model="newPayment.customer.name"/>
 
 
@@ -240,7 +239,7 @@
                             </div>
                             <div class="form-actions right purple ">
                                 <div class="col-md-11">
-                                    <button type="submit" style="float: right;" class="btn btn-lg green-turquoise">ثبت
+                                    <button type="submit" ng-disabled="formAdd.$invalid" style="float: right;" class="btn btn-lg green-turquoise">ثبت
                                         پرداخت
                                     </button>
                                 </div>
@@ -364,7 +363,7 @@
                         <tr ng-repeat="payment in payments">
 
                             <td>
-                                <a href="#/userDetail/{{user.id}}" class="primary-link">{{user.firstName}}
+                                <a href="#/customer/{{payment.customer.id}}" class="primary-link">{{user.firstName}}
                                     {{payment.customer.name}}
                                 </a>
                             </td>

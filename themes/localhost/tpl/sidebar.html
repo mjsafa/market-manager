@@ -30,21 +30,21 @@
         </li>
         <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER'])">
             <a href="#/adminDashboard">
-                <i class="icon-home"></i>
+                <i class="icon-speedometer"></i>
                 <span class="title">صفحه مدیریت</span>
             </a>
         </li>
 
         <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER', 'OPERATOR'])">
             <a href="#/customers.html">
-                <i class="icon-home"></i>
+                <i class="icon-user"></i>
                 <span class="title">مدیریت مشتری ها</span>
             </a>
         </li>
 
         <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER'])">
             <a href="#/users.html">
-                <i class="icon-home"></i>
+                <i class="icon-settings"></i>
                 <span class="title">مدیریت کاربران</span>
             </a>
         </li>
@@ -52,15 +52,21 @@
 
         <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER','OPERATOR'])">
             <a href="#/invoices.html">
-                <i class="icon-home"></i>
+                <i class="icon-basket"></i>
                 <span class="title">مدیریت فاکتورها</span>
             </a>
         </li>
 
         <li class="start" ng-if="checkAnyGroups(['customer_group'])">
             <a href="#/customerDashboard">
-                <i class="icon-home"></i>
+                <i class="icon-user"></i>
                 <span class="title">صفحه اصلی مشتری</span>
+            </a>
+        </li>
+        <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER'])">
+            <a href="#/payments">
+                <i class="icon-wallet"></i>
+                <span class="title">مدیریت پرداخت ها</span>
             </a>
         </li>
 

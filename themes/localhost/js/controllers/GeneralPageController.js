@@ -1,5 +1,5 @@
 /* Setup general page controller */
-MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settings', '$rootScope', '$state', '$window','$location', function ($rootScope, $scope, settings, $rootScope, $state, $window,$location) {
+MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settings', '$rootScope', '$state', '$window', '$location', '$timeout', function ($rootScope, $scope, settings, $rootScope, $state, $window, $location , $timeout) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();
@@ -11,7 +11,13 @@ MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settin
 
     $scope.alerts = [];
     $rootScope.$on('page.alert', function (event, data) {
-        $scope.alerts.push(data);
+        data.index = $scope.alerts.length + 1;
+        $scope.alerts.unshift(data);
+        Metronic.scrollTo($('#alert_container'));
+
+        $timeout(function () {
+            $scope.alerts.splice( $scope.alerts.length - 1 , 1 );;
+        }, 6000);
     });
 
     $scope.closeAlert = function (index) {
@@ -24,7 +30,7 @@ MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settin
         $window.location.href = '/login';
     }
 
-    $rootScope.$on('$stateChangeSuccess', function() {
+    $rootScope.$on('$stateChangeSuccess', function () {
         if (!onlineUser.agreed && onlineUser.userGroups && onlineUser.userGroups.customer_group) {
 //            event.preventDefault();
             $state.go('userAgreement');

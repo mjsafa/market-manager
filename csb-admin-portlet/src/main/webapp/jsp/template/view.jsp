@@ -39,6 +39,12 @@
         title='<%= (template != null) ? template.getName() : "New Template" %>'
         />
 
+<portlet:actionURL var="loginURL">
+			<portlet:param name="struts_action" value="/login/login" />
+		</portlet:actionURL>
+
+<button><%= loginURL%></button>
+
 <aui:form action="<%= editTemplateURL%>" method="POST" name="fm">
     <aui:fieldset>
         <aui:input name="redirect" type="hidden" value="<%= redirect %>"/>

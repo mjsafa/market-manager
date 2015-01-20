@@ -207,6 +207,8 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
             result.put("footerScripts", footerScripts);
             result.put("bodyAttributes", bodyAttributes);
             result.put("htmlAttributes", templateDoc.getElementsByTag("html").get(0).attributes());
+            result.put("loginError", themeDisplay.getRequest().getSession().getAttribute("LoginError") );
+            themeDisplay.getRequest().getSession().removeAttribute("LoginError");
 
             result.put("authToken", AuthTokenUtil.getAuthToken());
 
@@ -237,6 +239,8 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
             user += "}";
 
             user += "}";
+
+
 
             result.put("user", user);
 

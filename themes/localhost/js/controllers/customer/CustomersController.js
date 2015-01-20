@@ -7,19 +7,46 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
     });
 
     if (!$scope.initialized) {
-        $scope.customers = CustomerService.search('');
+        $scope.customers = CustomerService.search('', {scope:$scope});
 
-        $rootScope.$on('CustomerService.search', function (event, data) {
+        $scope.$on('CustomerService.search', function (event, data) {
             $scope.customers = data.result;
         });
 
-        $rootScope.$on('CustomerService.addCustomer', function (event, data) {
+        $scope.$on('CustomerService.addCustomer', function (event, data) {
+            $rootScope.$emit('page.alert', {message:'مشتری جدید در سیستم ثبت شد', type:"success"});
+            $scope.doSearch();
+            $scope.newCustomer = {};
+            $scope.customer_form.$setPristine();
+            $state.go('customers');
+
+        });
+
+        $scope.$on('CustomerService.addCustomer.error', function (event, data) {
+            if (data.exception == "com.liferay.portal.DuplicateUserScreenNameException") {
+                $rootScope.$emit('page.alert', {message:'آدرس ایمیل وارد شده تکراری می باشد', type:"danger"});
+            } else if (data.exception == "com.liferay.portal.kernel.exception.PortalException: customer-maximum-invitee-exceed") {
+                $rootScope.$emit('page.alert', {message:'حد اکثر تعداد معرفی توسط این مشتری تمام شده است', type:"danger"});
+            }
+        });
+
+        $scope.$on('CustomerService.updateStatus', function (event, data) {
+            if (data.result.isActive) {
+                $rootScope.$emit('page.alert', {message:'مشتری مورد نظر شما فعال شد', type:"success"});
+            } else {
+                $rootScope.$emit('page.alert', {message:'مشتری مورد نظر غیر فعال شد', type:"success"});
+            }
+        });
+
+        $scope.$on('ScoreService.addScore', function (event, data) {
+            $rootScope.$emit('page.alert', {message:'امتیاز مورد نظر شما به درستی تخصیص یافت', type:"success"});
             $scope.doSearch();
         });
 
-
-        $rootScope.$on('ScoreService.addScore', function (event, data) {
-            $scope.doSearch();
+        $scope.$on('ScoreService.addScore.error', function (event, data) {
+            if (data.exception.indexOf("customer-deactive") > -1) {
+                $rootScope.$emit('page.alert', {message:'مشتری انتخاب شده غیر فعال می باشد. امتیاز تنها به مشتریان فعال تعلق می گیرد.', type:"danger"});
+            }
         });
     }
 
@@ -28,7 +55,7 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
     $scope.scoreService = ScoreService;
 
     $scope.doSearch = function () {
-        $scope.customerService.search($scope.query);
+        $scope.customerService.search($scope.query, {scope:$scope});
     }
 
 
@@ -42,13 +69,7 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
         if ($scope.newCustomer.mentorCustomer) {
             $scope.newCustomer.mentorCustomerId = $scope.newCustomer.mentorCustomer.id;
         }
-
-        //$scope.customerService.lastId++;
-        //$scope.newCustomer.id = $scope.customerService.lastId;
-        //$scope.customers.unshift($scope.newCustomer);
-        $scope.customerService.addCustomer($scope.newCustomer);
-        $scope.newCustomer = {};
-        $state.go('customers');
+        $scope.customerService.addCustomer($scope.newCustomer, {scope: $scope});
     }
 
 
@@ -95,7 +116,7 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
         $scope.scoreModal = scoreModal;
 
         scoreModal.result.then(function (score) {
-            $scope.scoreService.addScore(score.customerId, score.value)
+            $scope.scoreService.addScore(score.customerId, score.value, {scope:$scope});
         }, function () {
             //$log.info('Modal dismissed at: ' + newDate());
         });
@@ -110,11 +131,11 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
         return totalScore;
     }
 
-    $scope.changeStatus = function(customer){
-        if(customer.isActive){
-            $scope.customerService.updateStatus(customer.id, false);
-        } else{
-            $scope.customerService.updateStatus(customer.id, true);
+    $scope.changeStatus = function (customer) {
+        if (customer.isActive) {
+            $scope.customerService.updateStatus(customer.id, false, {scope:$scope});
+        } else {
+            $scope.customerService.updateStatus(customer.id, true, {scope:$scope});
         }
     };
 

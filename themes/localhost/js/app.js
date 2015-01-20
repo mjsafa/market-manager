@@ -10,7 +10,8 @@ var MetronicApp = angular.module("MetronicApp", [
     "ngSanitize",
     "xeditable",
     "googlechart",
-    "angularCharts"
+    "angularCharts",
+    'pascalprecht.translate', 'ghiscoding.validation'
 ]);
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -196,6 +197,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/js/server/server.js',
                             '/delegate/resource/js/server/CustomerService.js',
                             '/delegate/resource/js/server/ScoreService.js',
+                            '/delegate/resource/js/server/PaymentService.js',
+
                             '/delegate/resource/js/controllers/customer/CustomerDetailController.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js'
 
@@ -226,6 +229,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/js/server/server.js',
                             '/delegate/resource/js/server/ScoreService.js',
                             '/delegate/resource/js/server/CustomerService.js',
+                            '/delegate/resource/js/server/PaymentService.js',
                             '/delegate/resource/js/controllers/customer/CustomerDetailController.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js'
                         ]
@@ -821,3 +825,13 @@ MetronicApp.run(["$rootScope", "settings", "$state", "editableOptions", function
     $rootScope.$state = $state; // state to be accessed from view
     editableOptions.theme = 'bs3';
 }]);
+
+MetronicApp.config(function ($translateProvider) {
+  $translateProvider.useStaticFilesLoader({
+    prefix: '/delegate/resource/assets/global/plugins/angularjs/plugins/angular-validation/locales/validation/',
+    suffix: '.json'
+  });
+
+  // load English ('en') table on startup
+  $translateProvider.preferredLanguage('fa');
+});

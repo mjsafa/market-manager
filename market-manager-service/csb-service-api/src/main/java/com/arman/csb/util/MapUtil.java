@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class MapUtil extends com.liferay.portal.kernel.util.MapUtil {
 
-    public static final String DATE_PATTERN = "yy-MM-dd";
+    public static final String DATE_PATTERN = "yyyy-MM-dd";
 
     public static Date getDate(Map<String, ?> map, String key, Date defaultValue) {
         if (null != map.get(key)) {

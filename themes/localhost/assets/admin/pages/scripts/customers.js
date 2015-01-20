@@ -3,14 +3,17 @@ var CustomersTools = function () {
 
     var handleInputMasks = function () {
         $("[data-mask=phone]").inputmask("mask", {
-            "mask":"9999-999-9999"
+            "mask":"9999-999-9999",
+            clearIncomplete :true
         });
 
         $("[data-mask=credit-card]").inputmask("mask", {
-            "mask":"9999-9999-9999-9999"
+            "mask":"9999-9999-9999-9999",
+            clearIncomplete :true
         });
         $("[data-mask=national-code]").inputmask("mask", {
-            "mask":"999-999-9999"
+            "mask":"999-999-9999",
+            clearIncomplete :true
         });
     }
 

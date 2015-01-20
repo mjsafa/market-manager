@@ -16,6 +16,13 @@
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
-<portlet:defineObjects />
+<portlet:defineObjects/>
+
+<portlet:actionURL var="loginURL">
+    <portlet:param name="struts_action" value="/login/login"/>
+</portlet:actionURL>
+
+<button><%= loginURL%>
+</button>
 
 This is the <b>csb-service</b>.

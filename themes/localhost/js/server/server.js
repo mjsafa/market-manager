@@ -275,16 +275,36 @@ MetronicApp.factory("JsonServer", function ($http, $rootScope) {
             var dataStr = JSON.stringify(data);
 
             var result = $http.post(_url, dataStr);
+            $rootScope.$emit('service-call-start', {});
+
             result.success(function (data, status) {
                 if (data.result) {
-                     if(options.scope){
-                         options.scope.$emit(options.eventName, data);
-                     }else{
-                         $rootScope.$emit(options.eventName, data);
-                     }
+                    $rootScope.$emit('service-call-end', {});
+                    if (options.scope) {
+                        options.scope.$emit(options.eventName, data);
+                    } else {
+                        $rootScope.$emit(options.eventName, data);
+                    }
                 } else {
-                    $rootScope.$emit( options.eventName + '.error', data);
+                    $rootScope.$emit('service-call-end', {});
+
+                    if (data.error) {
+                        data.exception = data.error.message;
+                    }
+
+
+                    if (options.scope) {
+                        options.scope.$emit(options.eventName + '.error', data);
+                    } else {
+                        $rootScope.$emit(options.eventName + '.error', data);
+                    }
+
                 }
+            });
+
+
+            result.error(function (data, status) {
+                $rootScope.$emit('service-call-end', {});
             });
 
             return result;

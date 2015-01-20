@@ -148,12 +148,12 @@
 </h3>
 <!-- END PAGE HEADER-->
 
-<div ng-controller="GeneralPageController">
+<div id="alert_container" ng-controller="GeneralPageController">
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.message}}</alert>
 </div>
 
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="CustomersController">
+<div >
 
 
 <!-- BEGIN DASHBOARD STATS -->
@@ -248,7 +248,7 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <form class="form-horizontal" ng-submit="submitCustomer()">
+            <form name="customer_form" class="form-horizontal" ng-submit="submitCustomer()">
                 <div class="form-body">
                     <div class="form-group">
                         <label class="control-label col-md-3">نام</label>
@@ -257,7 +257,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                            <input ng-model="newCustomer.firstName" type="text" class="form-control">
+                            <input name="firstName" validation="min_len:3|max_len:50|required" ng-model="newCustomer.firstName" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -267,7 +267,7 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-user"></i>
                             </span>
-                            <input ng-model="newCustomer.lastName" type="text" class="form-control">
+                            <input name="lastName" validation="min_len:3|max_len:50|required" ng-model="newCustomer.lastName" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -277,7 +277,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-mobile"></i>
                                 </span>
-                            <input ng-model="newCustomer.mobile" data-mask="phone" type="text" class="form-control"
+                            <input name="mobile" validation="numeric|exact_len:11|required" ng-model="newCustomer.mobile"  type="text" class="form-control"
                                    style="direction: ltr;">
                         </div>
                     </div>
@@ -289,7 +289,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-credit-card"></i>
                                 </span>
-                            <input ng-model="newCustomer.card" data-mask="credit-card" type="text" class="form-control"
+                            <input name="cardNumber" validation="numeric|exact_len:16|required" ng-model="newCustomer.card" type="text" class="form-control"
                                    style="direction: ltr;">
                         </div>
                     </div>
@@ -301,7 +301,7 @@
                                                         <span class="input-group-addon">
                                                             <i class="fa fa-user"></i>
                                                         </span>
-                            <input ng-model="newCustomer.nationalCode" data-mask="national-code" type="text"
+                            <input name="nationalCode" validation="numeric|exact_len:10|required" ng-model="newCustomer.nationalCode"  type="text"
                                    class="form-control"
                                    style="direction: ltr;">
                         </div>
@@ -314,7 +314,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                            <input ng-model="newCustomer.email" style="direction: ltr;" type="text"
+                            <input name="email" validation="email|required" ng-model="newCustomer.email" style="direction: ltr;" type="text"
                                    class="form-control">
                         </div>
                     </div>
@@ -325,7 +325,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-users"></i>
                                 </span>
-                            <input ng-click="open()" type="text" class="form-control input-lg"
+                            <input name="mentorCustomer" readonly="true" validation="required" ng-click="open()" type="text" class="form-control selector"
                                    ng-model="newCustomer.mentorCustomer.name"/>
                         </div>
                     </div>
@@ -337,7 +337,7 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-lock"></i>
                             </span>
-                            <input ng-model="newCustomer.password1" style="direction: ltr;" type="password"
+                            <input name="password1" validation="min_len:6|max_len:50|required" ng-model="newCustomer.password1" style="direction: ltr;" type="password"
                                    class="form-control">
                         </div>
                     </div>
@@ -349,14 +349,14 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-lock"></i>
                             </span>
-                            <input ng-model="newCustomer.password2" style="direction: ltr;" type="password"
+                            <input validation="match:newCustomer.password1,تکرار رمز عبور,رمز عبور|min_len:6|max_len:50|required" name="password" ng-model="newCustomer.password2" style="direction: ltr;" type="password"
                                    class="form-control">
                         </div>
                     </div>
 
                 </div>
                 <div class="form-actions right">
-                    <button type="submit" class="btn green">ثبت اطلاعات مشتری</button>
+                    <button ng-disabled="customer_form.$invalid" type="submit" class="btn green">ثبت اطلاعات مشتری</button>
                 </div>
 
             </form>
@@ -471,7 +471,7 @@
                         </td>
 
                         <td>
-                            <a ng-click="openScore('small', customer)"
+                            <a  ng-click="openScore('small', customer)"
                                class="bold font-green-haze">{{customer.score}}</a>
                         </td>
 

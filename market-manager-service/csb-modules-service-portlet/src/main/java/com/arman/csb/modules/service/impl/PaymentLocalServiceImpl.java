@@ -115,7 +115,7 @@ public class PaymentLocalServiceImpl extends PaymentLocalServiceBaseImpl {
         query.setProjection(ProjectionFactoryUtil.sum("amount"));
         long amount = 0;
         List<Long> result = dynamicQuery(query);
-        if(!result.isEmpty()){
+        if(!result.isEmpty() && null != result.get(0)){
             return result.get(0);
         }
         return amount;

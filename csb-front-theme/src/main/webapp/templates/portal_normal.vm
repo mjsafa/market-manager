@@ -27,11 +27,14 @@
 
 <body $pageContent.bodyAttributes class="$pageContent.bodyClassName">
 
+
+
     <script>
         var authToken = '$pageContent.authToken.getToken($request)';
         var isSignedIn = $themeDisplay.isSignedIn();
         var pageId = '$themeDisplay.getPlid()';
         var onlineUser = $pageContent.user;
+        var loginError = '$pageContent.loginError';
     </script>
 
 ##    $theme.include($body_top_include)

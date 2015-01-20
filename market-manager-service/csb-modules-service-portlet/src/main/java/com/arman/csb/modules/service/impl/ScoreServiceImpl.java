@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 import com.liferay.util.portlet.PortletProps;
@@ -170,6 +171,10 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
         Integer maxDepth = Integer.valueOf(PortletProps.get("market-manager.config.max-depth-score"));
 
         Customer customer = customerPersistence.fetchByPrimaryKey(customerId);
+        if(customer.getStatus() != WorkflowConstants.STATUS_APPROVED){
+            throw new PortalException("customer-deactive");
+        }
+
         Score newScore = ScoreLocalServiceUtil.createScore(counterLocalService.increment(Score.class.getName()));
         newScore.setType(ScoreConstants.TYPE_DIRECT);
         newScore.setCreateDate(new Date());

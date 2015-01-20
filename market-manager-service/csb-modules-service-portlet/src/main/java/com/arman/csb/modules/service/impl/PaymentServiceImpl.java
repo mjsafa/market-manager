@@ -78,6 +78,7 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
             //prepare customer data
             Customer customer = CustomerLocalServiceUtil.fetchCustomer(payment.getCustomerId());
             JSONObject customerJson = JSONFactoryUtil.createJSONObject();
+            customerJson.put("id", customer.getId());
             customerJson.put("firstName", customer.getFirstName());
             customerJson.put("lastName", customer.getLastName());
             customerJson.put("name", customer.getFirstName() + " " + customer.getLastName());

@@ -7,6 +7,7 @@ import com.arman.csb.modules.model.impl.CustomerModelImpl;
 import com.arman.csb.modules.service.ClpSerializer;
 import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.modules.service.base.CustomerLocalServiceBaseImpl;
+import com.arman.csb.util.MapUtil;
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
@@ -57,6 +58,12 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
         JSONObject result = JSONFactoryUtil.createJSONObject();
 
         UserGroup customerGroup = UserGroupLocalServiceUtil.fetchUserGroup(serviceContext.getCompanyId(), PortletProps.get("market-manager.userGroup.customer"));
+
+        int maxDepth = Integer.valueOf(PortletProps.get("market-manager.config.max-depth-score"));
+        int inviteeCount = customerPersistence.countByMentor(MapUtil.getLong(customer, "mentorCustomerId"));
+        if(inviteeCount >= maxDepth){
+            throw new PortalException("customer-maximum-invitee-exceed");
+        }
 
         String screenName = ((String) customer.get("email")).replace("@", "-");
         Calendar calendar = new GregorianCalendar();
