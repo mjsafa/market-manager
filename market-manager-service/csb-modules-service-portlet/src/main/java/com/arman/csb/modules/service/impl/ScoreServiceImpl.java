@@ -264,14 +264,14 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
     }
 
     public JSONObject getScoreActivityJSONObject(Score score, Customer customer) {
-            JSONObject scoreJson = JSONFactoryUtil.createJSONObject();
-            scoreJson.put("firstName", customer.getFirstName());
-            scoreJson.put("lastName", customer.getLastName());
-            scoreJson.put("id", score.getId());
-            scoreJson.put("amount", score.getValue());
-            scoreJson.put("customerId", customer.getId());
-            scoreJson.put("createDate", DateUtil.getString(score.getCreateDate()));
+        JSONObject scoreJson = JSONFactoryUtil.createJSONObject();
+        scoreJson.put("firstName", customer.getFirstName());
+        scoreJson.put("lastName", customer.getLastName());
+        scoreJson.put("id", score.getId());
+        scoreJson.put("amount", score.getValue());
+        scoreJson.put("customerId", customer.getId());
+        scoreJson.put("createDate", DateUtil.getString(score.getCreateDate()));
 
-            return scoreJson;
-        }
+        return scoreJson;
+    }
 }

@@ -1,4 +1,4 @@
-MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'UserActivityService', '$state', '$modal', function ($rootScope, $scope, UserActivityService, $state, $modal) {
+MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'UserActivityService', '$state', '$modal', '$filter', function ($rootScope, $scope, UserActivityService, $state, $modal, $filter) {
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
@@ -92,6 +92,7 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
             return "customer/" + data.customerId;
         }
 
+
     }
 
     $scope.getExplain = function (entity, data, action) {
@@ -133,12 +134,48 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
         }
 
         if (entity == "Score") {
-            return   '<strong>' + data.amount + '</strong>'
-                +' امتیاز به مشتری با نام '
+            return   '<strong>' + $filter('score')(data.amount) + '</strong>'
+                + ' امتیاز به مشتری با نام '
                 + '<strong>'
                 + data.firstName + ' ' + data.lastName
                 + '</strong>'
                 + ' تخصیص یافت. ';
+        }
+
+        if (entity == "User") {
+            if (action == 1) {
+                return 'کاربر با نام  '
+                    + '<strong>'
+                    + data.firstName + ' ' + data.lastName
+                    + '</strong>'
+                    + ' به سامانه افزوده شد.'
+                    ;
+            } else if (action == 4) {
+                return 'وضعیت کاربر با نام  '
+                    + '<strong>'
+                    + data.firstName + ' ' + data.lastName
+                    + '</strong>'
+                    + ' به '
+                    + ' <span class=\"label font-' + ((data.isActive) ? 'green-jungle' : 'red-flamingo') + '\"> '
+                    + ((data.isActive) ? ' فعال' : 'غیر فعال')
+                    + '</span>'
+                    + '  تغییر یافت'
+                    ;
+            }
+        }
+
+        if (entity == "Payment") {
+            return 'مبلغ '
+                + '<strong>' + data.amount + '</strong>'
+                + ' تومان در وجه مشتری با نام '
+                + '<strong>'
+                + data.firstName + ' ' + data.lastName
+                + '</strong>'
+                + ' به شماره کارت  '
+                + '<strong>'
+                + data.cardNumber
+                + '</strong>'
+                + ' واریز شد. ';
         }
     }
 

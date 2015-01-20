@@ -84,4 +84,18 @@ public class MyUserServiceSoap {
             throw new RemoteException(e.getMessage());
         }
     }
+
+    public static java.lang.String getPaymentActivityJSONObject(
+        com.liferay.portal.model.UserSoap user) throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = MyUserServiceUtil.getPaymentActivityJSONObject(com.liferay.portal.model.impl.UserModelImpl.toModel(
+                        user));
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

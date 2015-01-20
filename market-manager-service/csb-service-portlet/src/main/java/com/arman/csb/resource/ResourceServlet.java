@@ -72,6 +72,11 @@ public class ResourceServlet extends HttpServlet {
 
     private String getFilePath(HttpServletRequest request, String virtualHost) {
         String SITE_ABSOLUTE_PAT = PortletProps.get("site.files.absolutePath");
+
+        try {
+            SITE_ABSOLUTE_PAT = PrefsPropsUtil.getString("site.files.absolutePath");
+        } catch (SystemException e) {}
+
         String[] paths = request.getPathInfo().split("/");
         String filePath = "";
         for (int i = 2; i < paths.length; i++) {
@@ -97,6 +102,10 @@ public class ResourceServlet extends HttpServlet {
      */
     private String getUploadPath(HttpServletRequest request, String virtualHost, String fileName) {
         String SITE_ABSOLUTE_PAT = PortletProps.get("site.files.absolutePath");
+        try {
+            SITE_ABSOLUTE_PAT = PrefsPropsUtil.getString("site.files.absolutePath");
+        } catch (SystemException e) {}
+
 
         //extracts relative path to the file
         String[] paths = request.getPathInfo().split("/");
@@ -116,9 +125,9 @@ public class ResourceServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-                String virtualHostName = PortalUtil.getCompany(request).getVirtualHostname();
+            String virtualHostName = PortalUtil.getCompany(request).getVirtualHostname();
 
-            if(request.getContentType().startsWith(ContentTypes.MULTIPART_FORM_DATA) || request.getContentType().startsWith(ContentTypes.MULTIPART_MIXED)){
+            if (request.getContentType().startsWith(ContentTypes.MULTIPART_FORM_DATA) || request.getContentType().startsWith(ContentTypes.MULTIPART_MIXED)) {
 
                 List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
                 for (FileItem item : items) {
@@ -139,7 +148,7 @@ public class ResourceServlet extends HttpServlet {
                         response.setContentType("text/html");
                     }
                 }
-            }else if(request.getParameter("imageData") != null || true){
+            } else if (request.getParameter("imageData") != null || true) {
                 byte[] bytes = Base64.decode(IOUtils.toString(request.getInputStream()));
 
                 String fileName = "cropped" + "_" + System.currentTimeMillis() + ".jpg";
@@ -163,7 +172,7 @@ public class ResourceServlet extends HttpServlet {
             String path = request.getRequestURI();
             String[] pathSlashes = path.split("/");
             String finalPath = "/" + pathSlashes[1] + "/" + pathSlashes[2] + "/" + PortletProps.get("site.upload.path");
-            for(int i = 3; i < pathSlashes.length  ; i++){
+            for (int i = 3; i < pathSlashes.length; i++) {
                 finalPath += "/" + pathSlashes[i];
             }
 

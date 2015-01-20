@@ -12,8 +12,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.SystemProperties;
 import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.model.Company;
@@ -69,8 +71,14 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
 
     private static final String TEMPLATE_DIRECTORY = "templates";
     private static final String PAGE_DIRECTORY = "pages";
-    public static final String SITE_ABSOLUTE_PAT = PortletProps.get("site.files.absolutePath");
-    ;
+    public static String SITE_ABSOLUTE_PAT;
+
+    static {
+        try {
+            SITE_ABSOLUTE_PAT = PrefsPropsUtil.getString("site.files.absolutePath") ;
+        } catch (SystemException e) {}
+    }
+
     private static final String CONTENT_TAG_NAME = "content";
     private static final String FILE_SYSTEM_RELATIVE_PATH = PortletProps.get("site.files.path");
     private static final String MODULE_NAMESPACE = "module";
@@ -83,6 +91,7 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
 
     public void editPageContent(long pageId, String itemId, String newContent) {
         try {
+
             Layout layout = LayoutLocalServiceUtil.getLayout(pageId);
             Long templateId = (Long) layout.getExpandoBridge().getAttribute("templateId");
             Template template = TemplateLocalServiceUtil.getTemplate(templateId);
@@ -153,6 +162,8 @@ public class MyPageLocalServiceImpl extends MyPageLocalServiceBaseImpl {
 
     public Map<String, Object> renderPageHTML(long pageId, ThemeDisplay themeDisplay) {
         try {
+
+
             Layout layout = LayoutLocalServiceUtil.getLayout(pageId);
             Long templateId = (Long) layout.getExpandoBridge().getAttribute("templateId");
             Template template = TemplateLocalServiceUtil.getTemplate(templateId);

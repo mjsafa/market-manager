@@ -82,6 +82,12 @@ public class PaymentServiceUtil {
         return getService().getTotalStats(serviceContext);
     }
 
+    public static com.liferay.portal.kernel.json.JSONObject getPaymentActivityJSONObject(
+        com.arman.csb.modules.model.Payment payment,
+        com.arman.csb.modules.model.Customer customer) {
+        return getService().getPaymentActivityJSONObject(payment, customer);
+    }
+
     public static void clearService() {
         _service = null;
     }

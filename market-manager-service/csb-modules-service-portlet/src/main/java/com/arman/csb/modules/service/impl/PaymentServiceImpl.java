@@ -1,10 +1,14 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.constant.UserActivityConstant;
 import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.Payment;
+import com.arman.csb.modules.model.Score;
 import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.modules.service.PaymentLocalServiceUtil;
+import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.PaymentServiceBaseImpl;
+import com.arman.csb.util.DateUtil;
 import com.arman.csb.util.MapUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -45,6 +49,9 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
         Payment newPayment = PaymentLocalServiceUtil.addPayment(MapUtil.getLong(paymentMap, "amount"), MapUtil.getLong(paymentMap, "customerId")
                 , new Date(), WorkflowConstants.STATUS_APPROVED, MapUtil.getLong(paymentMap, "factorId"), MapUtil.getString(paymentMap, "description")
                 , serviceContext);
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_PAYMENT, UserActivityConstant.ACTION_ADD,
+                UserActivityConstant.IMPORTANCE_HIGH, getPaymentActivityJSONObject(newPayment, CustomerLocalServiceUtil.fetchCustomer(newPayment.getCustomerId())).toString(), serviceContext);
 
         result.put("paymentId", newPayment.getId());
         return result;
@@ -111,4 +118,20 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
         result.put("totalPayment", totalPayment);
         return result;
     }
+
+
+    public JSONObject getPaymentActivityJSONObject(Payment payment, Customer customer) {
+        JSONObject paymentJson = JSONFactoryUtil.createJSONObject();
+        paymentJson.put("firstName", customer.getFirstName());
+        paymentJson.put("lastName", customer.getLastName());
+        paymentJson.put("id", payment.getId());
+        paymentJson.put("amount", payment.getAmount());
+        paymentJson.put("cardNumber", payment.getCard());
+        paymentJson.put("customerId", customer.getId());
+        paymentJson.put("createDate", DateUtil.getString(payment.getPaymentDate()));
+
+        return paymentJson;
+    }
+
+
 }

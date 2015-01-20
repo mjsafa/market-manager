@@ -21,6 +21,8 @@ public class PaymentServiceClpInvoker {
     private String[] _methodParameterTypes68;
     private String _methodName69;
     private String[] _methodParameterTypes69;
+    private String _methodName70;
+    private String[] _methodParameterTypes70;
 
     public PaymentServiceClpInvoker() {
         _methodName60 = "getBeanIdentifier";
@@ -54,6 +56,13 @@ public class PaymentServiceClpInvoker {
 
         _methodParameterTypes69 = new String[] {
                 "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName70 = "getPaymentActivityJSONObject";
+
+        _methodParameterTypes70 = new String[] {
+                "com.arman.csb.modules.model.Payment",
+                "com.arman.csb.modules.model.Customer"
             };
     }
 
@@ -94,6 +103,12 @@ public class PaymentServiceClpInvoker {
         if (_methodName69.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
             return PaymentServiceUtil.getTotalStats((com.liferay.portal.service.ServiceContext) arguments[0]);
+        }
+
+        if (_methodName70.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+            return PaymentServiceUtil.getPaymentActivityJSONObject((com.arman.csb.modules.model.Payment) arguments[0],
+                (com.arman.csb.modules.model.Customer) arguments[1]);
         }
 
         throw new UnsupportedOperationException();

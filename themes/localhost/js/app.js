@@ -110,7 +110,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             $urlRouterProvider.otherwise("/adminDashboard");
         }
     }else{
-        $urlRouterProvider.otherwise("/dashboard.html");
+        window.location.href = '/login';
     }
 
 

@@ -23,6 +23,8 @@ public class MyUserServiceClpInvoker {
     private String[] _methodParameterTypes67;
     private String _methodName68;
     private String[] _methodParameterTypes68;
+    private String _methodName69;
+    private String[] _methodParameterTypes69;
 
     public MyUserServiceClpInvoker() {
         _methodName60 = "getBeanIdentifier";
@@ -63,6 +65,10 @@ public class MyUserServiceClpInvoker {
         _methodParameterTypes68 = new String[] {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
+
+        _methodName69 = "getPaymentActivityJSONObject";
+
+        _methodParameterTypes69 = new String[] { "com.liferay.portal.model.User" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -108,6 +114,11 @@ public class MyUserServiceClpInvoker {
                 Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
             return MyUserServiceUtil.agreed((java.lang.Long) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName69.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+            return MyUserServiceUtil.getPaymentActivityJSONObject((com.liferay.portal.model.User) arguments[0]);
         }
 
         throw new UnsupportedOperationException();

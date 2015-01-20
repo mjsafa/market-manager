@@ -91,6 +91,11 @@ public class MyUserServiceUtil {
         return getService().agreed(userId, serviceContext);
     }
 
+    public static com.liferay.portal.kernel.json.JSONObject getPaymentActivityJSONObject(
+        com.liferay.portal.model.User user) {
+        return getService().getPaymentActivityJSONObject(user);
+    }
+
     public static void clearService() {
         _service = null;
     }

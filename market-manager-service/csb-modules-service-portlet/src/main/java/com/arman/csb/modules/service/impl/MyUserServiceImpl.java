@@ -1,8 +1,14 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.constant.UserActivityConstant;
+import com.arman.csb.modules.model.Customer;
+import com.arman.csb.modules.model.Payment;
+import com.arman.csb.modules.service.CustomerLocalServiceUtil;
+import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.MyUserServiceBaseImpl;
 import com.arman.csb.modules.util.RoleEnum;
 import com.arman.csb.modules.util.RoleUtil;
+import com.arman.csb.util.DateUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -80,6 +86,8 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
                 0, 0, true, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR), (String) user.get("jobTitle"), new long[0], new long[0], ArrayUtil.toLongArray(roles),
                 new long[]{operatorGroup.getUserGroupId()}, true, serviceContext);
 
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_USER, UserActivityConstant.ACTION_ADD,
+                UserActivityConstant.IMPORTANCE_HIGH, getPaymentActivityJSONObject(savedUser).toString(), serviceContext);
 
         result.put("userId", savedUser.getUserId());
         return result;
@@ -104,9 +112,9 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
             userJsonObject.put("id", user.getUserId());
             userJsonObject.put("mobile", user.getMiddleName());
 
-            if(user.getStatus() == WorkflowConstants.STATUS_APPROVED){
+            if (user.getStatus() == WorkflowConstants.STATUS_APPROVED) {
                 userJsonObject.put("isActive", true);
-            }else {
+            } else {
                 userJsonObject.put("isActive", false);
             }
             result.put(userJsonObject);
@@ -115,13 +123,16 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
         return result;
     }
 
-    public JSONObject updateStatus(Long userId,boolean isActive, ServiceContext serviceContext) throws PortalException, SystemException {
+    public JSONObject updateStatus(Long userId, boolean isActive, ServiceContext serviceContext) throws PortalException, SystemException {
         JSONObject result = JSONFactoryUtil.createJSONObject();
-        if(isActive){
+        if (isActive) {
             UserLocalServiceUtil.updateStatus(userId, WorkflowConstants.STATUS_APPROVED);
-        }else {
+        } else {
             UserLocalServiceUtil.updateStatus(userId, WorkflowConstants.STATUS_INACTIVE);
         }
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_USER, UserActivityConstant.ACTION_CHANGE_STATUS,
+                UserActivityConstant.IMPORTANCE_HIGH, getPaymentActivityJSONObject(UserLocalServiceUtil.fetchUser(userId)).toString(), serviceContext);
         return result;
     }
 
@@ -141,11 +152,12 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
         JSONObject roles = JSONFactoryUtil.createJSONObject();
         List<Role> userRoles = RoleLocalServiceUtil.getRoles(user.getRoleIds());
         for (Role userRole : userRoles) {
-            try{
-                if(null != RoleEnum.valueOf(userRole.getName())){
+            try {
+                if (null != RoleEnum.valueOf(userRole.getName())) {
                     roles.put(userRole.getName(), true);
                 }
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
         }
         userJsonObject.put("roles", roles);
 
@@ -158,5 +170,16 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
         UserLocalServiceUtil.updateAgreedToTermsOfUse(userId, true);
         return result;
     }
+
+    public JSONObject getPaymentActivityJSONObject(User user) {
+        JSONObject userJson = JSONFactoryUtil.createJSONObject();
+        userJson.put("firstName", user.getFirstName());
+        userJson.put("lastName", user.getLastName());
+        userJson.put("id", user.getUserId());
+        userJson.put("isActive", user.getStatus() == WorkflowConstants.STATUS_APPROVED ? true : false);
+        userJson.put("createDate", DateUtil.getString(user.getCreateDate()));
+        return userJson;
+    }
+
 
 }

@@ -89,6 +89,12 @@ public class MyUserServiceWrapper implements MyUserService,
         return _myUserService.agreed(userId, serviceContext);
     }
 
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getPaymentActivityJSONObject(
+        com.liferay.portal.model.User user) {
+        return _myUserService.getPaymentActivityJSONObject(user);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

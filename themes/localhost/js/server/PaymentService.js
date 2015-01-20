@@ -6,9 +6,10 @@ MetronicApp.factory("PaymentService", function (JsonServer) {
                 scope:options ? options.scope : undefined
             });
         },
-        addPayment:function (payment) {
+        addPayment:function (payment , options) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'add-payment', {paymentMap:JSON.stringify(payment), serviceContext:{}}, {
-                eventName:'PaymentService.addPayment'
+                eventName:'PaymentService.addPayment',
+               scope:options ? options.scope : undefined
             });
         },
         updateCustomer:function (customer) {

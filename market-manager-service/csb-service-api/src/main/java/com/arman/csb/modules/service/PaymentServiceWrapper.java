@@ -79,6 +79,13 @@ public class PaymentServiceWrapper implements PaymentService,
         return _paymentService.getTotalStats(serviceContext);
     }
 
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getPaymentActivityJSONObject(
+        com.arman.csb.modules.model.Payment payment,
+        com.arman.csb.modules.model.Customer customer) {
+        return _paymentService.getPaymentActivityJSONObject(payment, customer);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

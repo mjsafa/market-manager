@@ -78,4 +78,22 @@ public class PaymentServiceSoap {
             throw new RemoteException(e.getMessage());
         }
     }
+
+    public static java.lang.String getPaymentActivityJSONObject(
+        com.arman.csb.modules.model.PaymentSoap payment,
+        com.arman.csb.modules.model.CustomerSoap customer)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = PaymentServiceUtil.getPaymentActivityJSONObject(com.arman.csb.modules.model.impl.PaymentModelImpl.toModel(
+                        payment),
+                    com.arman.csb.modules.model.impl.CustomerModelImpl.toModel(
+                        customer));
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

@@ -8,9 +8,11 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
             $scope.payments = data.result;
         });
 
-        $rootScope.$on('PaymentService.addPayment', function (event, data) {
+        $scope.$on('PaymentService.addPayment', function (event, data) {
             $rootScope.$emit('page.alert', {message:'پرداخت مورد نظر شما با موفقیت ثبت شد', type:"success"});
             $scope.doSearch();
+            $scope.formAdd.$setPristine();
+            initNewPayment();
         });
 
         $rootScope.$on('PaymentService.getTotalStats', function (event, data) {
@@ -44,8 +46,7 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
     //handle customer entry
     $scope.submitPayment = function () {
         $scope.newPayment.customerId = $scope.newPayment.customer.id;
-        PaymentService.addPayment($scope.newPayment);
-        initNewPayment();
+        PaymentService.addPayment($scope.newPayment, {scope:$scope});
     }
 
 

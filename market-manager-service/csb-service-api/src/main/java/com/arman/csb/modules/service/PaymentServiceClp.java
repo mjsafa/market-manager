@@ -20,6 +20,8 @@ public class PaymentServiceClp implements PaymentService {
     private String[] _methodParameterTypes5;
     private String _methodName6;
     private String[] _methodParameterTypes6;
+    private String _methodName7;
+    private String[] _methodParameterTypes7;
 
     public PaymentServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -55,6 +57,13 @@ public class PaymentServiceClp implements PaymentService {
 
         _methodParameterTypes6 = new String[] {
                 "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName7 = "getPaymentActivityJSONObject";
+
+        _methodParameterTypes7 = new String[] {
+                "com.arman.csb.modules.model.Payment",
+                "com.arman.csb.modules.model.Customer"
             };
     }
 
@@ -243,6 +252,34 @@ public class PaymentServiceClp implements PaymentService {
             if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
                 throw (com.liferay.portal.kernel.exception.SystemException) t;
             }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getPaymentActivityJSONObject(
+        com.arman.csb.modules.model.Payment payment,
+        com.arman.csb.modules.model.Customer customer) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName7,
+                    _methodParameterTypes7,
+                    new Object[] {
+                        ClpSerializer.translateInput(payment),
+                        
+                    ClpSerializer.translateInput(customer)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
 
             if (t instanceof RuntimeException) {
                 throw (RuntimeException) t;
