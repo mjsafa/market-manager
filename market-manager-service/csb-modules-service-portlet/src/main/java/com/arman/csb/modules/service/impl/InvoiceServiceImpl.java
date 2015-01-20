@@ -1,11 +1,12 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.constant.UserActivityConstant;
+import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.Invoice;
+import com.arman.csb.modules.model.InvoiceItem;
 import com.arman.csb.modules.model.impl.CustomerImpl;
 import com.arman.csb.modules.model.impl.InvoiceImpl;
-import com.arman.csb.modules.service.InvoiceItemServiceUtil;
-import com.arman.csb.modules.service.InvoiceLocalServiceUtil;
-import com.arman.csb.modules.service.InvoiceServiceUtil;
+import com.arman.csb.modules.service.*;
 import com.arman.csb.modules.service.base.InvoiceServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
@@ -18,6 +19,7 @@ import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.impl.UserLocalServiceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -60,10 +62,15 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         InvoiceLocalServiceUtil.addInvoice(newInvoice);
 
         List<Map<String, Object>> items = (List) invoice.get("invoiceItems");
+        JSONArray invoiceItems = JSONFactoryUtil.createJSONArray();;
         for (Map<String, Object> item : items) {
             item.put("invoiceId", newInvoice.getId());
-            InvoiceItemServiceUtil.addInvoiceItem(item, serviceContext);
+            JSONObject itemObject = InvoiceItemServiceUtil.addInvoiceItem(item, serviceContext);
+            invoiceItems.put(itemObject);
         }
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_INVOICE, UserActivityConstant.ACTION_ADD,
+                UserActivityConstant.IMPORTANCE_MEDIUM, getUserActivityJSONObject(newInvoice, invoiceItems).toString(), serviceContext);
 
         return getJSONObject(newInvoice);
     }
@@ -77,6 +84,10 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         updateInvoice = getInvoiceData(updateInvoice, invoice, serviceContext);
 
         InvoiceLocalServiceUtil.updateInvoice(updateInvoice);
+
+        JSONArray invoiceItems = InvoiceItemServiceUtil.search("", updateInvoice.getId(), 0, Integer.MAX_VALUE, serviceContext);
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_INVOICE, UserActivityConstant.ACTION_EDIT,
+                UserActivityConstant.IMPORTANCE_MEDIUM, getUserActivityJSONObject(updateInvoice, invoiceItems).toString(), serviceContext);
 
         return getJSONObject(updateInvoice);
     }
@@ -134,6 +145,24 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
     private JSONObject getJSONObject(Invoice invoice) throws JSONException {
         JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
         JSONObject result = JSONFactoryUtil.createJSONObject(jsonSerializer.serialize(invoice));
+
+        return result;
+    }
+
+    private JSONObject getUserActivityJSONObject(Invoice invoice, JSONArray items) throws PortalException, SystemException {
+        JSONObject result = getJSONObject(invoice);
+
+        long totalCost = 0;
+        for (int i=0 ; i<items.length() ; i++) {
+            JSONObject item = items.getJSONObject(i);
+            totalCost += item.getLong("basePrice") * item.getInt("number");
+        }
+
+        Customer customer = CustomerLocalServiceUtil.getCustomer(invoice.getCustomerId());
+
+        result.put("totalCost", totalCost);
+        result.put("itemNumber", items.length());
+        result.put("customerName", customer.getName());
 
         return result;
     }

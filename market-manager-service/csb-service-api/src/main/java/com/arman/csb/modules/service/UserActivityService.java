@@ -11,14 +11,14 @@ import com.liferay.portal.service.BaseService;
 import com.liferay.portal.service.InvokableService;
 
 /**
- * Provides the remote service interface for InvoiceItem. Methods of this
+ * Provides the remote service interface for UserActivity. Methods of this
  * service are expected to have security checks based on the propagated JAAS
  * credentials because this service can be accessed remotely.
  *
  * @author Brian Wing Shun Chan
- * @see InvoiceItemServiceUtil
- * @see com.arman.csb.modules.service.base.InvoiceItemServiceBaseImpl
- * @see com.arman.csb.modules.service.impl.InvoiceItemServiceImpl
+ * @see UserActivityServiceUtil
+ * @see com.arman.csb.modules.service.base.UserActivityServiceBaseImpl
+ * @see com.arman.csb.modules.service.impl.UserActivityServiceImpl
  * @generated
  */
 @AccessControlled
@@ -26,11 +26,11 @@ import com.liferay.portal.service.InvokableService;
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
     PortalException.class, SystemException.class}
 )
-public interface InvoiceItemService extends BaseService, InvokableService {
+public interface UserActivityService extends BaseService, InvokableService {
     /*
      * NOTE FOR DEVELOPERS:
      *
-     * Never modify or reference this interface directly. Always use {@link InvoiceItemServiceUtil} to access the invoice item remote service. Add custom service methods to {@link com.arman.csb.modules.service.impl.InvoiceItemServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+     * Never modify or reference this interface directly. Always use {@link UserActivityServiceUtil} to access the user activity remote service. Add custom service methods to {@link com.arman.csb.modules.service.impl.UserActivityServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
      */
 
     /**
@@ -52,20 +52,10 @@ public interface InvoiceItemService extends BaseService, InvokableService {
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
 
-    public com.liferay.portal.kernel.json.JSONObject addInvoiceItem(
-        java.util.Map<java.lang.String, java.lang.Object> invoiceItem,
-        com.liferay.portal.service.ServiceContext serviceContext)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException;
-
-    public java.lang.Long deleteInvoiceItem(long invoiceItemId,
-        com.liferay.portal.service.ServiceContext serviceContext)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException;
-
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, long invoiceId, int start, int maxResult,
-        com.liferay.portal.service.ServiceContext serviceContext)
+        java.lang.String filter, java.lang.String entity,
+        java.lang.String action, java.lang.String importance, int start,
+        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.json.JSONException;
 }

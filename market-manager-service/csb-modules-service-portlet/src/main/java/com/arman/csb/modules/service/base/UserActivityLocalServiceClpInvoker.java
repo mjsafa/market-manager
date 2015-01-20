@@ -1,6 +1,6 @@
 package com.arman.csb.modules.service.base;
 
-import com.arman.csb.modules.service.InvoiceLocalServiceUtil;
+import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 
 import java.util.Arrays;
 
@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author Brian Wing Shun Chan
  * @generated
  */
-public class InvoiceLocalServiceClpInvoker {
+public class UserActivityLocalServiceClpInvoker {
     private String _methodName0;
     private String[] _methodParameterTypes0;
     private String _methodName1;
@@ -53,26 +53,28 @@ public class InvoiceLocalServiceClpInvoker {
     private String[] _methodParameterTypes74;
     private String _methodName75;
     private String[] _methodParameterTypes75;
+    private String _methodName80;
+    private String[] _methodParameterTypes80;
 
-    public InvoiceLocalServiceClpInvoker() {
-        _methodName0 = "addInvoice";
+    public UserActivityLocalServiceClpInvoker() {
+        _methodName0 = "addUserActivity";
 
         _methodParameterTypes0 = new String[] {
-                "com.arman.csb.modules.model.Invoice"
+                "com.arman.csb.modules.model.UserActivity"
             };
 
-        _methodName1 = "createInvoice";
+        _methodName1 = "createUserActivity";
 
         _methodParameterTypes1 = new String[] { "long" };
 
-        _methodName2 = "deleteInvoice";
+        _methodName2 = "deleteUserActivity";
 
         _methodParameterTypes2 = new String[] { "long" };
 
-        _methodName3 = "deleteInvoice";
+        _methodName3 = "deleteUserActivity";
 
         _methodParameterTypes3 = new String[] {
-                "com.arman.csb.modules.model.Invoice"
+                "com.arman.csb.modules.model.UserActivity"
             };
 
         _methodName4 = "dynamicQuery";
@@ -111,19 +113,19 @@ public class InvoiceLocalServiceClpInvoker {
                 "com.liferay.portal.kernel.dao.orm.Projection"
             };
 
-        _methodName10 = "fetchInvoice";
+        _methodName10 = "fetchUserActivity";
 
         _methodParameterTypes10 = new String[] { "long" };
 
-        _methodName11 = "fetchInvoiceByUuidAndCompanyId";
+        _methodName11 = "fetchUserActivityByUuidAndCompanyId";
 
         _methodParameterTypes11 = new String[] { "java.lang.String", "long" };
 
-        _methodName12 = "fetchInvoiceByUuidAndGroupId";
+        _methodName12 = "fetchUserActivityByUuidAndGroupId";
 
         _methodParameterTypes12 = new String[] { "java.lang.String", "long" };
 
-        _methodName13 = "getInvoice";
+        _methodName13 = "getUserActivity";
 
         _methodParameterTypes13 = new String[] { "long" };
 
@@ -131,26 +133,26 @@ public class InvoiceLocalServiceClpInvoker {
 
         _methodParameterTypes14 = new String[] { "java.io.Serializable" };
 
-        _methodName15 = "getInvoiceByUuidAndCompanyId";
+        _methodName15 = "getUserActivityByUuidAndCompanyId";
 
         _methodParameterTypes15 = new String[] { "java.lang.String", "long" };
 
-        _methodName16 = "getInvoiceByUuidAndGroupId";
+        _methodName16 = "getUserActivityByUuidAndGroupId";
 
         _methodParameterTypes16 = new String[] { "java.lang.String", "long" };
 
-        _methodName17 = "getInvoices";
+        _methodName17 = "getUserActivities";
 
         _methodParameterTypes17 = new String[] { "int", "int" };
 
-        _methodName18 = "getInvoicesCount";
+        _methodName18 = "getUserActivitiesCount";
 
         _methodParameterTypes18 = new String[] {  };
 
-        _methodName19 = "updateInvoice";
+        _methodName19 = "updateUserActivity";
 
         _methodParameterTypes19 = new String[] {
-                "com.arman.csb.modules.model.Invoice"
+                "com.arman.csb.modules.model.UserActivity"
             };
 
         _methodName74 = "getBeanIdentifier";
@@ -160,50 +162,57 @@ public class InvoiceLocalServiceClpInvoker {
         _methodName75 = "setBeanIdentifier";
 
         _methodParameterTypes75 = new String[] { "java.lang.String" };
+
+        _methodName80 = "addUserActivity";
+
+        _methodParameterTypes80 = new String[] {
+                "java.lang.String", "java.lang.Short", "java.lang.Short",
+                "java.lang.String", "com.liferay.portal.service.ServiceContext"
+            };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
         if (_methodName0.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes0, parameterTypes)) {
-            return InvoiceLocalServiceUtil.addInvoice((com.arman.csb.modules.model.Invoice) arguments[0]);
+            return UserActivityLocalServiceUtil.addUserActivity((com.arman.csb.modules.model.UserActivity) arguments[0]);
         }
 
         if (_methodName1.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes1, parameterTypes)) {
-            return InvoiceLocalServiceUtil.createInvoice(((Long) arguments[0]).longValue());
+            return UserActivityLocalServiceUtil.createUserActivity(((Long) arguments[0]).longValue());
         }
 
         if (_methodName2.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes2, parameterTypes)) {
-            return InvoiceLocalServiceUtil.deleteInvoice(((Long) arguments[0]).longValue());
+            return UserActivityLocalServiceUtil.deleteUserActivity(((Long) arguments[0]).longValue());
         }
 
         if (_methodName3.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes3, parameterTypes)) {
-            return InvoiceLocalServiceUtil.deleteInvoice((com.arman.csb.modules.model.Invoice) arguments[0]);
+            return UserActivityLocalServiceUtil.deleteUserActivity((com.arman.csb.modules.model.UserActivity) arguments[0]);
         }
 
         if (_methodName4.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes4, parameterTypes)) {
-            return InvoiceLocalServiceUtil.dynamicQuery();
+            return UserActivityLocalServiceUtil.dynamicQuery();
         }
 
         if (_methodName5.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes5, parameterTypes)) {
-            return InvoiceLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0]);
+            return UserActivityLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0]);
         }
 
         if (_methodName6.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes6, parameterTypes)) {
-            return InvoiceLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
+            return UserActivityLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue());
         }
 
         if (_methodName7.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes7, parameterTypes)) {
-            return InvoiceLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
+            return UserActivityLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue(),
                 (com.liferay.portal.kernel.util.OrderByComparator) arguments[3]);
@@ -211,80 +220,88 @@ public class InvoiceLocalServiceClpInvoker {
 
         if (_methodName8.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes8, parameterTypes)) {
-            return InvoiceLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0]);
+            return UserActivityLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0]);
         }
 
         if (_methodName9.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-            return InvoiceLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
+            return UserActivityLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery) arguments[0],
                 (com.liferay.portal.kernel.dao.orm.Projection) arguments[1]);
         }
 
         if (_methodName10.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-            return InvoiceLocalServiceUtil.fetchInvoice(((Long) arguments[0]).longValue());
+            return UserActivityLocalServiceUtil.fetchUserActivity(((Long) arguments[0]).longValue());
         }
 
         if (_methodName11.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-            return InvoiceLocalServiceUtil.fetchInvoiceByUuidAndCompanyId((java.lang.String) arguments[0],
+            return UserActivityLocalServiceUtil.fetchUserActivityByUuidAndCompanyId((java.lang.String) arguments[0],
                 ((Long) arguments[1]).longValue());
         }
 
         if (_methodName12.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-            return InvoiceLocalServiceUtil.fetchInvoiceByUuidAndGroupId((java.lang.String) arguments[0],
+            return UserActivityLocalServiceUtil.fetchUserActivityByUuidAndGroupId((java.lang.String) arguments[0],
                 ((Long) arguments[1]).longValue());
         }
 
         if (_methodName13.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-            return InvoiceLocalServiceUtil.getInvoice(((Long) arguments[0]).longValue());
+            return UserActivityLocalServiceUtil.getUserActivity(((Long) arguments[0]).longValue());
         }
 
         if (_methodName14.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-            return InvoiceLocalServiceUtil.getPersistedModel((java.io.Serializable) arguments[0]);
+            return UserActivityLocalServiceUtil.getPersistedModel((java.io.Serializable) arguments[0]);
         }
 
         if (_methodName15.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-            return InvoiceLocalServiceUtil.getInvoiceByUuidAndCompanyId((java.lang.String) arguments[0],
+            return UserActivityLocalServiceUtil.getUserActivityByUuidAndCompanyId((java.lang.String) arguments[0],
                 ((Long) arguments[1]).longValue());
         }
 
         if (_methodName16.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
-            return InvoiceLocalServiceUtil.getInvoiceByUuidAndGroupId((java.lang.String) arguments[0],
+            return UserActivityLocalServiceUtil.getUserActivityByUuidAndGroupId((java.lang.String) arguments[0],
                 ((Long) arguments[1]).longValue());
         }
 
         if (_methodName17.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
-            return InvoiceLocalServiceUtil.getInvoices(((Integer) arguments[0]).intValue(),
+            return UserActivityLocalServiceUtil.getUserActivities(((Integer) arguments[0]).intValue(),
                 ((Integer) arguments[1]).intValue());
         }
 
         if (_methodName18.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
-            return InvoiceLocalServiceUtil.getInvoicesCount();
+            return UserActivityLocalServiceUtil.getUserActivitiesCount();
         }
 
         if (_methodName19.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
-            return InvoiceLocalServiceUtil.updateInvoice((com.arman.csb.modules.model.Invoice) arguments[0]);
+            return UserActivityLocalServiceUtil.updateUserActivity((com.arman.csb.modules.model.UserActivity) arguments[0]);
         }
 
         if (_methodName74.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
-            return InvoiceLocalServiceUtil.getBeanIdentifier();
+            return UserActivityLocalServiceUtil.getBeanIdentifier();
         }
 
         if (_methodName75.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
-            InvoiceLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
+            UserActivityLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
+        }
+
+        if (_methodName80.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
+            return UserActivityLocalServiceUtil.addUserActivity((java.lang.String) arguments[0],
+                (java.lang.Short) arguments[1], (java.lang.Short) arguments[2],
+                (java.lang.String) arguments[3],
+                (com.liferay.portal.service.ServiceContext) arguments[4]);
         }
 
         throw new UnsupportedOperationException();

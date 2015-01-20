@@ -1,10 +1,10 @@
 package com.arman.csb.modules.service.impl;
 
-import com.arman.csb.modules.model.Invoice;
+import com.arman.csb.constant.UserActivityConstant;
 import com.arman.csb.modules.model.InvoiceItem;
 import com.arman.csb.modules.model.impl.InvoiceItemImpl;
 import com.arman.csb.modules.service.InvoiceItemLocalServiceUtil;
-import com.arman.csb.modules.service.InvoiceItemServiceUtil;
+import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.InvoiceItemServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -14,7 +14,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.*;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.util.dao.orm.CustomSQLUtil;
-import sun.misc.Sort;
 
 import java.util.Date;
 import java.util.List;
@@ -41,7 +40,7 @@ public class InvoiceItemServiceImpl extends InvoiceItemServiceBaseImpl {
      * Never reference this interface directly. Always use {@link com.arman.csb.modules.service.InvoiceItemServiceUtil} to access the invoice item remote service.
      */
 
-    public JSONObject addInvoiceItem(Map<String, Object> invoiceItem, ServiceContext serviceContext) throws SystemException, JSONException {
+    public JSONObject addInvoiceItem(Map<String, Object> invoiceItem, ServiceContext serviceContext) throws SystemException, PortalException {
         InvoiceItem newInvoiceItem = InvoiceItemLocalServiceUtil.createInvoiceItem(counterLocalService.increment(InvoiceItem.class.getName()));
 
         newInvoiceItem.setCreateDate(new Date());
@@ -51,11 +50,19 @@ public class InvoiceItemServiceImpl extends InvoiceItemServiceBaseImpl {
 
         InvoiceItemLocalServiceUtil.addInvoiceItem(newInvoiceItem);
 
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_INVOICE_ITEM, UserActivityConstant.ACTION_ADD,
+                UserActivityConstant.IMPORTANCE_MEDIUM, getJSONObject(newInvoiceItem).toString(), serviceContext);
+
         return getJSONObject(newInvoiceItem);
     }
 
     public Long deleteInvoiceItem(long invoiceItemId, ServiceContext serviceContext) throws SystemException, PortalException {
+        InvoiceItem item = InvoiceItemLocalServiceUtil.getInvoiceItem(invoiceItemId);
+
         InvoiceItemLocalServiceUtil.deleteInvoiceItem(invoiceItemId);
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_INVOICE_ITEM, UserActivityConstant.ACTION_DELETE,
+                UserActivityConstant.IMPORTANCE_HIGH, getJSONObject(item).toString(), serviceContext);
 
         return invoiceItemId;
     }

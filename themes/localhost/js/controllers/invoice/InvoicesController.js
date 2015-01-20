@@ -15,6 +15,8 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
             $scope.doSearch();
             $scope.initialData();
             $state.go('invoices');
+
+            $rootScope.$emit('page.alert', {message:'فاکتور جدید در سیستم ثبت شد', type:"success"});
         });
 
         $rootScope.$on('InvoiceService.search', function (event, data) {

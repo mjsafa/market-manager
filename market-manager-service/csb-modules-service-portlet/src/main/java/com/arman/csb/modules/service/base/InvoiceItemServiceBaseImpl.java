@@ -5,8 +5,8 @@ import com.arman.csb.modules.service.InvoiceItemService;
 import com.arman.csb.modules.service.persistence.CustomerPersistence;
 import com.arman.csb.modules.service.persistence.InvoiceItemPersistence;
 import com.arman.csb.modules.service.persistence.InvoicePersistence;
-import com.arman.csb.modules.service.persistence.PaymentPersistence;
 import com.arman.csb.modules.service.persistence.ScorePersistence;
+import com.arman.csb.modules.service.persistence.UserActivityPersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
@@ -62,18 +62,18 @@ public abstract class InvoiceItemServiceBaseImpl extends BaseServiceImpl
     protected com.arman.csb.modules.service.MyUserLocalService myUserLocalService;
     @BeanReference(type = com.arman.csb.modules.service.MyUserService.class)
     protected com.arman.csb.modules.service.MyUserService myUserService;
-    @BeanReference(type = com.arman.csb.modules.service.PaymentLocalService.class)
-    protected com.arman.csb.modules.service.PaymentLocalService paymentLocalService;
-    @BeanReference(type = com.arman.csb.modules.service.PaymentService.class)
-    protected com.arman.csb.modules.service.PaymentService paymentService;
-    @BeanReference(type = PaymentPersistence.class)
-    protected PaymentPersistence paymentPersistence;
     @BeanReference(type = com.arman.csb.modules.service.ScoreLocalService.class)
     protected com.arman.csb.modules.service.ScoreLocalService scoreLocalService;
     @BeanReference(type = com.arman.csb.modules.service.ScoreService.class)
     protected com.arman.csb.modules.service.ScoreService scoreService;
     @BeanReference(type = ScorePersistence.class)
     protected ScorePersistence scorePersistence;
+    @BeanReference(type = com.arman.csb.modules.service.UserActivityLocalService.class)
+    protected com.arman.csb.modules.service.UserActivityLocalService userActivityLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.UserActivityService.class)
+    protected com.arman.csb.modules.service.UserActivityService userActivityService;
+    @BeanReference(type = UserActivityPersistence.class)
+    protected UserActivityPersistence userActivityPersistence;
     @BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
     protected com.liferay.counter.service.CounterLocalService counterLocalService;
     @BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
@@ -378,62 +378,6 @@ public abstract class InvoiceItemServiceBaseImpl extends BaseServiceImpl
     }
 
     /**
-     * Returns the payment local service.
-     *
-     * @return the payment local service
-     */
-    public com.arman.csb.modules.service.PaymentLocalService getPaymentLocalService() {
-        return paymentLocalService;
-    }
-
-    /**
-     * Sets the payment local service.
-     *
-     * @param paymentLocalService the payment local service
-     */
-    public void setPaymentLocalService(
-        com.arman.csb.modules.service.PaymentLocalService paymentLocalService) {
-        this.paymentLocalService = paymentLocalService;
-    }
-
-    /**
-     * Returns the payment remote service.
-     *
-     * @return the payment remote service
-     */
-    public com.arman.csb.modules.service.PaymentService getPaymentService() {
-        return paymentService;
-    }
-
-    /**
-     * Sets the payment remote service.
-     *
-     * @param paymentService the payment remote service
-     */
-    public void setPaymentService(
-        com.arman.csb.modules.service.PaymentService paymentService) {
-        this.paymentService = paymentService;
-    }
-
-    /**
-     * Returns the payment persistence.
-     *
-     * @return the payment persistence
-     */
-    public PaymentPersistence getPaymentPersistence() {
-        return paymentPersistence;
-    }
-
-    /**
-     * Sets the payment persistence.
-     *
-     * @param paymentPersistence the payment persistence
-     */
-    public void setPaymentPersistence(PaymentPersistence paymentPersistence) {
-        this.paymentPersistence = paymentPersistence;
-    }
-
-    /**
      * Returns the score local service.
      *
      * @return the score local service
@@ -487,6 +431,63 @@ public abstract class InvoiceItemServiceBaseImpl extends BaseServiceImpl
      */
     public void setScorePersistence(ScorePersistence scorePersistence) {
         this.scorePersistence = scorePersistence;
+    }
+
+    /**
+     * Returns the user activity local service.
+     *
+     * @return the user activity local service
+     */
+    public com.arman.csb.modules.service.UserActivityLocalService getUserActivityLocalService() {
+        return userActivityLocalService;
+    }
+
+    /**
+     * Sets the user activity local service.
+     *
+     * @param userActivityLocalService the user activity local service
+     */
+    public void setUserActivityLocalService(
+        com.arman.csb.modules.service.UserActivityLocalService userActivityLocalService) {
+        this.userActivityLocalService = userActivityLocalService;
+    }
+
+    /**
+     * Returns the user activity remote service.
+     *
+     * @return the user activity remote service
+     */
+    public com.arman.csb.modules.service.UserActivityService getUserActivityService() {
+        return userActivityService;
+    }
+
+    /**
+     * Sets the user activity remote service.
+     *
+     * @param userActivityService the user activity remote service
+     */
+    public void setUserActivityService(
+        com.arman.csb.modules.service.UserActivityService userActivityService) {
+        this.userActivityService = userActivityService;
+    }
+
+    /**
+     * Returns the user activity persistence.
+     *
+     * @return the user activity persistence
+     */
+    public UserActivityPersistence getUserActivityPersistence() {
+        return userActivityPersistence;
+    }
+
+    /**
+     * Sets the user activity persistence.
+     *
+     * @param userActivityPersistence the user activity persistence
+     */
+    public void setUserActivityPersistence(
+        UserActivityPersistence userActivityPersistence) {
+        this.userActivityPersistence = userActivityPersistence;
     }
 
     /**

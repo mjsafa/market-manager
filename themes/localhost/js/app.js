@@ -787,7 +787,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
-        // customer details
+        // invoice details
         .state('invoiceDetail', {
             url:"/invoice/:invoiceId",
             templateUrl:"/delegate/resource/views/invoice/invoiceDetail.html",
@@ -817,6 +817,35 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
+        // user activities
+        .state('userActivities', {
+            url:"/user-activities.html",
+            templateUrl:"/delegate/resource/views/user-activity/user-activities.html",
+            data:{pageTitle:'لیست فعالیت ها'},
+            controller:"UserActivitiesController",
+            resolve:{
+                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'MetronicApp',
+                        files:[
+                            '/delegate/resource/assets/global/plugins/morris/morris.css',
+                            '/delegate/resource/assets/admin/pages/css/tasks.css',
+                            '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
+                            '/delegate/resource/assets/admin/pages/scripts/customers.js',
+                            '/delegate/resource/js/controllers/GeneralPageController.js',
+                            '/delegate/resource/assets/global/plugins/morris/morris.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
+                            '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/server/UserActivityService.js',
+                            '/delegate/resource/js/server/CustomerService.js',
+                            '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
+                            '/delegate/resource/js/controllers/user-activity/UserActivitiesController.js'
+                        ]
+                    });
+                }]
+            }
+        })
 
 }]);
 

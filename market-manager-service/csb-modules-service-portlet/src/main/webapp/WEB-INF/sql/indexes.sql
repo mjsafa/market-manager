@@ -30,6 +30,13 @@ create index IX_7D135D26 on CSBModules_Score (uuid_);
 create index IX_33F91342 on CSBModules_Score (uuid_, companyId);
 create unique index IX_1BD18244 on CSBModules_Score (uuid_, groupId);
 
+create index IX_1D9F53B4 on CSBModules_UserActivity (action);
+create index IX_30B0221 on CSBModules_UserActivity (entity);
+create index IX_706F3FC4 on CSBModules_UserActivity (userId);
+create index IX_DDF228EA on CSBModules_UserActivity (uuid_);
+create index IX_FE8004FE on CSBModules_UserActivity (uuid_, companyId);
+create unique index IX_19A1B300 on CSBModules_UserActivity (uuid_, groupId);
+
 create index IX_2F992C29 on CSB_ContentHolder (companyId, name);
 create index IX_C41B4A76 on CSB_ContentHolder (uuid_);
 create index IX_F02EB3F2 on CSB_ContentHolder (uuid_, companyId);
