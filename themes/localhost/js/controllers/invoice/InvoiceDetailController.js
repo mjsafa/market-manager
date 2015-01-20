@@ -27,6 +27,7 @@ MetronicApp.controller('InvoiceDetailController', ['$rootScope', '$scope', 'Invo
         $rootScope.$on('InvoiceService.addInvoiceItem', function (event, data) {
             $scope.doSearch();
             $scope.initialData();
+            $scope.invoice_item_form.$setPristine();
             $rootScope.$emit('page.alert', {message:'اقلام فاکتور جدید در سیستم ثبت شد', type:"success"});
         });
 

@@ -57,6 +57,10 @@
 <!-- BEGIN MAIN CONTENT -->
 <div >
 
+<div id="alert_container" ng-controller="GeneralPageController">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.message}}</alert>
+</div>
+
 <!-- BEGIN DASHBOARD STATS -->
 <div class="row hide">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -384,7 +388,7 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <form class="form-horizontal" ng-submit="submitInvoiceItem()">
+                <form name="invoice_item_form" class="form-horizontal" ng-submit="submitInvoiceItem()">
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-md-3">نام محصول</label>
@@ -393,7 +397,8 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-edit"></i>
                                 </span>
-                                <input ng-model="newItem.productName" type="text" class="form-control" >
+                                <input name="productName" validation="min_len:2|max_len:50|required"
+                                       ng-model="newItem.productName" type="text" class="form-control" >
                             </div>
                         </div>
 
@@ -404,8 +409,8 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-edit"></i>
                                 </span>
-                                <input ng-model="newItem.productCode" type="text" class="form-control"
-                                       style="direction: ltr;">
+                                <input name="productCode" validation="min_len:2|max_len:50|required"
+                                       ng-model="newItem.productCode" type="text" class="form-control" style="direction: ltr;">
                             </div>
                         </div>
 
@@ -416,8 +421,8 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-tag"></i>
                                 </span>
-                                <input ng-model="newItem.number" type="text" class="form-control"
-                                       style="direction: ltr;">
+                                <input name="number" validation="numeric|required"
+                                       ng-model="newItem.number" type="text" class="form-control" style="direction: ltr;">
                             </div>
                         </div>
 
@@ -428,13 +433,13 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-tag"></i>
                                 </span>
-                                <input ng-model="newItem.basePrice" type="text" class="form-control"
-                                       style="direction: ltr;">
+                                <input name="basePrise" validation="numeric|required"
+                                       ng-model="newItem.basePrice" type="text" class="form-control" style="direction: ltr;">
                             </div>
                         </div>
                     </div>
                     <div class="form-actions right">
-                        <button type="submit" class="btn green">ثبت</button>
+                        <button ng-disabled="invoice_item_form.$invalid" type="submit" class="btn green">ثبت</button>
                     </div>
 
                 </form>
