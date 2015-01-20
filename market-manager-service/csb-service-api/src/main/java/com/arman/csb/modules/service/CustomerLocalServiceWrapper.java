@@ -337,7 +337,7 @@ public class CustomerLocalServiceWrapper implements CustomerLocalService,
     }
 
     @Override
-    public com.liferay.portal.kernel.json.JSONObject addCustomer(
+    public com.arman.csb.modules.model.Customer addCustomer(
         java.util.Map<java.lang.String, java.lang.Object> customer,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,

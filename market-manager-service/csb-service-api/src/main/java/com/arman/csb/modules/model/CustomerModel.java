@@ -302,14 +302,14 @@ public interface CustomerModel extends BaseModel<Customer>, StagedGroupedModel {
      *
      * @return the score of this customer
      */
-    public int getScore();
+    public long getScore();
 
     /**
      * Sets the score of this customer.
      *
      * @param score the score of this customer
      */
-    public void setScore(int score);
+    public void setScore(long score);
 
     /**
      * Returns the status of this customer.

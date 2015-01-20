@@ -13,6 +13,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ScoreLocalServiceImpl extends ScoreLocalServiceBaseImpl {
      * Never reference this interface directly. Always use {@link com.arman.csb.modules.service.ScoreLocalServiceUtil} to access the score local service.
      */
 
-    public int sumByCustomerAndType(Long customerId, Integer type, Date fromDate, Date toDate) throws SystemException, PortalException {
+    public long sumByCustomerAndType(Long customerId, Integer type, Date fromDate, Date toDate) throws SystemException, PortalException {
 
         String sql = CustomSQLUtil.get("com.arman.csb.modules.service.ScoreService.sumByCustomerAndType");
 
@@ -55,9 +56,9 @@ public class ScoreLocalServiceImpl extends ScoreLocalServiceBaseImpl {
         qPos.add(toDate == null ? null : "not_null");
         qPos.add(toDate);
 
-        List<BigInteger> result = queryObject.list();
+        List<BigDecimal> result = queryObject.list();
         if (!result.isEmpty()) {
-            return result.get(0).intValue();
+            return result.get(0).longValue();
         } else {
             return 0;
         }
@@ -73,7 +74,7 @@ public class ScoreLocalServiceImpl extends ScoreLocalServiceBaseImpl {
      * @throws SystemException
      * @throws PortalException
      */
-    public int sumByType( Integer type, Date fromDate, Date toDate) throws SystemException, PortalException {
+    public long sumByType( Integer type, Date fromDate, Date toDate) throws SystemException, PortalException {
 
         String sql = CustomSQLUtil.get("com.arman.csb.modules.service.ScoreService.sumByType");
 
@@ -90,13 +91,11 @@ public class ScoreLocalServiceImpl extends ScoreLocalServiceBaseImpl {
         qPos.add(toDate == null ? null : "not_null");
         qPos.add(toDate);
 
-        List<BigInteger> result = queryObject.list();
+        List<BigDecimal> result = queryObject.list();
         if (!result.isEmpty() && result.get(0) != null) {
-            return result.get(0).intValue();
+            return result.get(0).longValue();
         } else {
-            return 0;
+            return 0L;
         }
     }
-
-
 }

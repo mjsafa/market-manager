@@ -29,7 +29,7 @@ public class CustomerSoap implements Serializable {
     private String _nationalCode;
     private String _email;
     private String _card;
-    private int _score;
+    private long _score;
     private int _status;
     private long _customerUserId;
     private long _mentorCustomerId;
@@ -227,11 +227,11 @@ public class CustomerSoap implements Serializable {
         _card = card;
     }
 
-    public int getScore() {
+    public long getScore() {
         return _score;
     }
 
-    public void setScore(int score) {
+    public void setScore(long score) {
         _score = score;
     }
 

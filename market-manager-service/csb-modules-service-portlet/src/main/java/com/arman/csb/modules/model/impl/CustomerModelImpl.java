@@ -68,12 +68,12 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
             { "nationalCode", Types.VARCHAR },
             { "email", Types.VARCHAR },
             { "card", Types.VARCHAR },
-            { "score", Types.INTEGER },
+            { "score", Types.BIGINT },
             { "status", Types.INTEGER },
             { "customerUserId", Types.BIGINT },
             { "mentorCustomerId", Types.BIGINT }
         };
-    public static final String TABLE_SQL_CREATE = "create table CSBModules_Customer (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,firstName VARCHAR(75) null,lastName VARCHAR(75) null,mobile VARCHAR(75) null,nationalCode VARCHAR(75) null,email VARCHAR(75) null,card VARCHAR(75) null,score INTEGER,status INTEGER,customerUserId LONG,mentorCustomerId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table CSBModules_Customer (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,firstName VARCHAR(75) null,lastName VARCHAR(75) null,mobile VARCHAR(75) null,nationalCode VARCHAR(75) null,email VARCHAR(75) null,card VARCHAR(75) null,score LONG,status INTEGER,customerUserId LONG,mentorCustomerId LONG)";
     public static final String TABLE_SQL_DROP = "drop table CSBModules_Customer";
     public static final String ORDER_BY_JPQL = " ORDER BY customer.id ASC";
     public static final String ORDER_BY_SQL = " ORDER BY CSBModules_Customer.id_ ASC";
@@ -122,7 +122,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
     private String _nationalCode;
     private String _email;
     private String _card;
-    private int _score;
+    private long _score;
     private int _status;
     private long _customerUserId;
     private String _customerUserUuid;
@@ -342,7 +342,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
             setCard(card);
         }
 
-        Integer score = (Integer) attributes.get("score");
+        Long score = (Long) attributes.get("score");
 
         if (score != null) {
             setScore(score);
@@ -612,12 +612,12 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
     @JSON
     @Override
-    public int getScore() {
+    public long getScore() {
         return _score;
     }
 
     @Override
-    public void setScore(int score) {
+    public void setScore(long score) {
         _score = score;
     }
 

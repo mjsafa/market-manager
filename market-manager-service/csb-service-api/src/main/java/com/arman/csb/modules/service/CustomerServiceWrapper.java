@@ -120,6 +120,12 @@ public class CustomerServiceWrapper implements CustomerService,
             serviceContext);
     }
 
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getCustomerActivityJSONObject(
+        com.arman.csb.modules.model.Customer customer) {
+        return _customerService.getCustomerActivityJSONObject(customer);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

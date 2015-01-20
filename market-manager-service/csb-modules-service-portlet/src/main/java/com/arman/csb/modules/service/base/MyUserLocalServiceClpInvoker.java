@@ -9,30 +9,30 @@ import java.util.Arrays;
  * @generated
  */
 public class MyUserLocalServiceClpInvoker {
-    private String _methodName54;
-    private String[] _methodParameterTypes54;
-    private String _methodName55;
-    private String[] _methodParameterTypes55;
+    private String _methodName60;
+    private String[] _methodParameterTypes60;
+    private String _methodName61;
+    private String[] _methodParameterTypes61;
 
     public MyUserLocalServiceClpInvoker() {
-        _methodName54 = "getBeanIdentifier";
+        _methodName60 = "getBeanIdentifier";
 
-        _methodParameterTypes54 = new String[] {  };
+        _methodParameterTypes60 = new String[] {  };
 
-        _methodName55 = "setBeanIdentifier";
+        _methodName61 = "setBeanIdentifier";
 
-        _methodParameterTypes55 = new String[] { "java.lang.String" };
+        _methodParameterTypes61 = new String[] { "java.lang.String" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName54.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+        if (_methodName60.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
             return MyUserLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName55.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+        if (_methodName61.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
             MyUserLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;

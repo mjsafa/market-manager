@@ -54,7 +54,7 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
      */
 
 
-    public JSONObject addCustomer(Map<String, Object> customer, ServiceContext serviceContext) throws PortalException, SystemException {
+    public Customer addCustomer(Map<String, Object> customer, ServiceContext serviceContext) throws PortalException, SystemException {
         JSONObject result = JSONFactoryUtil.createJSONObject();
 
         UserGroup customerGroup = UserGroupLocalServiceUtil.fetchUserGroup(serviceContext.getCompanyId(), PortletProps.get("market-manager.userGroup.customer"));
@@ -106,7 +106,7 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
 
         CustomerLocalServiceUtil.addCustomer(newCustomer);
 
-        return result;
+        return newCustomer;
     }
 
     public Customer getById(Long customerId) throws PortalException, SystemException {

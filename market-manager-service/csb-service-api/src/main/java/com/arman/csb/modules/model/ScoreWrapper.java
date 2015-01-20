@@ -104,7 +104,7 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
             setModifiedDate(modifiedDate);
         }
 
-        Integer value = (Integer) attributes.get("value");
+        Long value = (Long) attributes.get("value");
 
         if (value != null) {
             setValue(value);
@@ -337,7 +337,7 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
     * @return the value of this score
     */
     @Override
-    public int getValue() {
+    public long getValue() {
         return _score.getValue();
     }
 
@@ -347,7 +347,7 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
     * @param value the value of this score
     */
     @Override
-    public void setValue(int value) {
+    public void setValue(long value) {
         _score.setValue(value);
     }
 

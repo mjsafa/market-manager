@@ -88,9 +88,16 @@ public class DateUtil extends com.liferay.portal.kernel.util.DateUtil {
         }
     }
 
-    public static final Date getFromDate(String dateFromString, String timePeriodString){
+    public static final Date getFromDate(String dateFromString, String timePeriodString) {
         return getFromDate(dateFromString, timePeriodString, TIME_PERIOD_DEFAULT);
     }
 
-
+    public static final String getString(Date date) {
+        try {
+            DateFormat df = new SimpleDateFormat(MapUtil.DATE_PATTERN);
+            return df.format(date);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

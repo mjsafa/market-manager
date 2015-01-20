@@ -29,7 +29,7 @@ public class ScoreCacheModel implements CacheModel<Score>, Externalizable {
     public String userName;
     public long createDate;
     public long modifiedDate;
-    public int value;
+    public long value;
     public long customerId;
     public long originCustomerId;
     public int type;
@@ -120,7 +120,7 @@ public class ScoreCacheModel implements CacheModel<Score>, Externalizable {
         userName = objectInput.readUTF();
         createDate = objectInput.readLong();
         modifiedDate = objectInput.readLong();
-        value = objectInput.readInt();
+        value = objectInput.readLong();
         customerId = objectInput.readLong();
         originCustomerId = objectInput.readLong();
         type = objectInput.readInt();
@@ -148,7 +148,7 @@ public class ScoreCacheModel implements CacheModel<Score>, Externalizable {
 
         objectOutput.writeLong(createDate);
         objectOutput.writeLong(modifiedDate);
-        objectOutput.writeInt(value);
+        objectOutput.writeLong(value);
         objectOutput.writeLong(customerId);
         objectOutput.writeLong(originCustomerId);
         objectOutput.writeInt(type);

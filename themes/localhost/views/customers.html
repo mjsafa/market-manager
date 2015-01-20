@@ -85,7 +85,7 @@
                     </td>
 
                     <td>
-                        <a class="bold font-green-haze">{{customer.score}}</a>
+                        <a class="bold font-green-haze">{{customer.score|score}}</a>
                     </td>
                 </tr>
             </table>
@@ -472,7 +472,7 @@
 
                         <td>
                             <a  ng-click="openScore('small', customer)"
-                               class="bold font-green-haze">{{customer.score}}</a>
+                               class="bold font-green-haze">{{customer.score|score}}</a>
                         </td>
 
                         <td>

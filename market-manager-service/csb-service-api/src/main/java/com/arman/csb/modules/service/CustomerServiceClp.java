@@ -30,6 +30,8 @@ public class CustomerServiceClp implements CustomerService {
     private String[] _methodParameterTypes10;
     private String _methodName11;
     private String[] _methodParameterTypes11;
+    private String _methodName12;
+    private String[] _methodParameterTypes12;
 
     public CustomerServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -95,6 +97,12 @@ public class CustomerServiceClp implements CustomerService {
 
         _methodParameterTypes11 = new String[] {
                 "long", "boolean", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName12 = "getCustomerActivityJSONObject";
+
+        _methodParameterTypes12 = new String[] {
+                "com.arman.csb.modules.model.Customer"
             };
     }
 
@@ -458,6 +466,29 @@ public class CustomerServiceClp implements CustomerService {
             if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
                 throw (com.liferay.portal.kernel.exception.SystemException) t;
             }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getCustomerActivityJSONObject(
+        com.arman.csb.modules.model.Customer customer) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName12,
+                    _methodParameterTypes12,
+                    new Object[] { ClpSerializer.translateInput(customer) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
 
             if (t instanceof RuntimeException) {
                 throw (RuntimeException) t;

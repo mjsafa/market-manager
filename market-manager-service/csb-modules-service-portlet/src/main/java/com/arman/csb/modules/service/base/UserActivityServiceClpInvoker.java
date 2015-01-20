@@ -9,25 +9,25 @@ import java.util.Arrays;
  * @generated
  */
 public class UserActivityServiceClpInvoker {
-    private String _methodName54;
-    private String[] _methodParameterTypes54;
-    private String _methodName55;
-    private String[] _methodParameterTypes55;
     private String _methodName60;
     private String[] _methodParameterTypes60;
+    private String _methodName61;
+    private String[] _methodParameterTypes61;
+    private String _methodName66;
+    private String[] _methodParameterTypes66;
 
     public UserActivityServiceClpInvoker() {
-        _methodName54 = "getBeanIdentifier";
+        _methodName60 = "getBeanIdentifier";
 
-        _methodParameterTypes54 = new String[] {  };
+        _methodParameterTypes60 = new String[] {  };
 
-        _methodName55 = "setBeanIdentifier";
+        _methodName61 = "setBeanIdentifier";
 
-        _methodParameterTypes55 = new String[] { "java.lang.String" };
+        _methodParameterTypes61 = new String[] { "java.lang.String" };
 
-        _methodName60 = "search";
+        _methodName66 = "search";
 
-        _methodParameterTypes60 = new String[] {
+        _methodParameterTypes66 = new String[] {
                 "java.lang.String", "java.lang.String", "java.lang.String",
                 "java.lang.String", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
@@ -36,20 +36,20 @@ public class UserActivityServiceClpInvoker {
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName54.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+        if (_methodName60.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
             return UserActivityServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName55.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+        if (_methodName61.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
             UserActivityServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName60.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+        if (_methodName66.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
             return UserActivityServiceUtil.search((java.lang.String) arguments[0],
                 (java.lang.String) arguments[1],
                 (java.lang.String) arguments[2],

@@ -9,90 +9,90 @@ import java.util.Arrays;
  * @generated
  */
 public class PaymentServiceClpInvoker {
-    private String _methodName54;
-    private String[] _methodParameterTypes54;
-    private String _methodName55;
-    private String[] _methodParameterTypes55;
     private String _methodName60;
     private String[] _methodParameterTypes60;
     private String _methodName61;
     private String[] _methodParameterTypes61;
-    private String _methodName62;
-    private String[] _methodParameterTypes62;
-    private String _methodName63;
-    private String[] _methodParameterTypes63;
+    private String _methodName66;
+    private String[] _methodParameterTypes66;
+    private String _methodName67;
+    private String[] _methodParameterTypes67;
+    private String _methodName68;
+    private String[] _methodParameterTypes68;
+    private String _methodName69;
+    private String[] _methodParameterTypes69;
 
     public PaymentServiceClpInvoker() {
-        _methodName54 = "getBeanIdentifier";
+        _methodName60 = "getBeanIdentifier";
 
-        _methodParameterTypes54 = new String[] {  };
+        _methodParameterTypes60 = new String[] {  };
 
-        _methodName55 = "setBeanIdentifier";
+        _methodName61 = "setBeanIdentifier";
 
-        _methodParameterTypes55 = new String[] { "java.lang.String" };
+        _methodParameterTypes61 = new String[] { "java.lang.String" };
 
-        _methodName60 = "addPayment";
+        _methodName66 = "addPayment";
 
-        _methodParameterTypes60 = new String[] {
+        _methodParameterTypes66 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName61 = "totalPayedAmount";
+        _methodName67 = "totalPayedAmount";
 
-        _methodParameterTypes61 = new String[] {
+        _methodParameterTypes67 = new String[] {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName62 = "search";
+        _methodName68 = "search";
 
-        _methodParameterTypes62 = new String[] {
+        _methodParameterTypes68 = new String[] {
                 "java.util.Map", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName63 = "getTotalStats";
+        _methodName69 = "getTotalStats";
 
-        _methodParameterTypes63 = new String[] {
+        _methodParameterTypes69 = new String[] {
                 "com.liferay.portal.service.ServiceContext"
             };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName54.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+        if (_methodName60.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
             return PaymentServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName55.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+        if (_methodName61.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
             PaymentServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName60.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+        if (_methodName66.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
             return PaymentServiceUtil.addPayment((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName61.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+        if (_methodName67.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
             return PaymentServiceUtil.totalPayedAmount((java.lang.Long) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName62.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+        if (_methodName68.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
             return PaymentServiceUtil.search((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue(),
                 (com.liferay.portal.service.ServiceContext) arguments[3]);
         }
 
-        if (_methodName63.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+        if (_methodName69.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
             return PaymentServiceUtil.getTotalStats((com.liferay.portal.service.ServiceContext) arguments[0]);
         }
 

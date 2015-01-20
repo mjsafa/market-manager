@@ -36,7 +36,7 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
     public String nationalCode;
     public String email;
     public String card;
-    public int score;
+    public long score;
     public int status;
     public long customerUserId;
     public long mentorCustomerId;
@@ -190,7 +190,7 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
         nationalCode = objectInput.readUTF();
         email = objectInput.readUTF();
         card = objectInput.readUTF();
-        score = objectInput.readInt();
+        score = objectInput.readLong();
         status = objectInput.readInt();
         customerUserId = objectInput.readLong();
         mentorCustomerId = objectInput.readLong();
@@ -261,7 +261,7 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
             objectOutput.writeUTF(card);
         }
 
-        objectOutput.writeInt(score);
+        objectOutput.writeLong(score);
         objectOutput.writeInt(status);
         objectOutput.writeLong(customerUserId);
         objectOutput.writeLong(mentorCustomerId);

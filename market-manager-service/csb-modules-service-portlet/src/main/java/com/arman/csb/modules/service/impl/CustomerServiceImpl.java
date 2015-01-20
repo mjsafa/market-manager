@@ -1,5 +1,6 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.constant.UserActivityConstant;
 import com.arman.csb.constants.ScoreConstants;
 import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.CustomerModel;
@@ -7,9 +8,11 @@ import com.arman.csb.modules.model.impl.CustomerImpl;
 import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.modules.service.PaymentLocalServiceUtil;
 import com.arman.csb.modules.service.ScoreLocalServiceUtil;
+import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.CustomerServiceBaseImpl;
 import com.arman.csb.theme.model.Template;
 import com.arman.csb.theme.service.TemplateLocalServiceUtil;
+import com.arman.csb.util.DateUtil;
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.*;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -97,7 +100,16 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
     public JSONObject addCustomer(Map<String, Object> customer, ServiceContext serviceContext) throws PortalException, SystemException {
-        return CustomerLocalServiceUtil.addCustomer(customer, serviceContext);
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        Customer newCustomer = CustomerLocalServiceUtil.addCustomer(customer, serviceContext);
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_CUSTOMER, UserActivityConstant.ACTION_ADD,
+                UserActivityConstant.IMPORTANCE_MEDIUM, getCustomerActivityJSONObject(newCustomer).toString(), serviceContext);
+
+        result.put("customerId", newCustomer.getId());
+        result.put("firstName", newCustomer.getFirstName());
+        result.put("lastName", newCustomer.getLastName());
+        return result;
     }
 
     public JSONObject getTotal(ServiceContext serviceContext) throws PortalException, SystemException {
@@ -168,7 +180,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -1);
-        int totalWeekScore = ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_INDIRECT, calendar.getTime(), new Date())
+        long totalWeekScore = ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_INDIRECT, calendar.getTime(), new Date())
                 + ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_DIRECT, calendar.getTime(), new Date());
         result.put("totalWeekScore", totalWeekScore);
 
@@ -200,6 +212,10 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
 
         CustomerLocalServiceUtil.updateCustomer(oldCustomer);
         result.put("customerId", (Long)customer.get("id"));
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_CUSTOMER, UserActivityConstant.ACTION_EDIT,
+                        UserActivityConstant.IMPORTANCE_MEDIUM, getCustomerActivityJSONObject(oldCustomer).toString(), serviceContext);
+
         return result;
     }
 
@@ -211,8 +227,23 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
         UserLocalServiceUtil.updateStatus(oldCustomer.getCustomerUserId(),isActive ? WorkflowConstants.STATUS_APPROVED : WorkflowConstants.STATUS_DENIED);
         result.put("customerId", customerId);
         result.put("isActive", isActive);
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_CUSTOMER, UserActivityConstant.ACTION_CHANGE_STATUS,
+                        UserActivityConstant.IMPORTANCE_MEDIUM, getCustomerActivityJSONObject(oldCustomer).toString(), serviceContext);
+
         return result;
     }
 
+
+    public JSONObject getCustomerActivityJSONObject(Customer customer){
+        JSONObject customerJson = JSONFactoryUtil.createJSONObject();
+        customerJson.put("firstName", customer.getFirstName());
+        customerJson.put("lastName", customer.getLastName());
+        customerJson.put("id", customer.getId());
+        customerJson.put("createDate", DateUtil.getString(customer.getCreateDate()));
+        customerJson.put("isActive", customer.getStatus() == WorkflowConstants.STATUS_APPROVED);
+
+        return customerJson;
+    }
 
 }

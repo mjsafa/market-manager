@@ -64,7 +64,7 @@ public class ScoreServiceWrapper implements ScoreService,
 
     @Override
     public com.liferay.portal.kernel.json.JSONObject addScore(
-        java.lang.Long customerId, int value,
+        java.lang.Long customerId, long value,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
@@ -87,6 +87,13 @@ public class ScoreServiceWrapper implements ScoreService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return _scoreService.getTotalStats();
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getScoreActivityJSONObject(
+        com.arman.csb.modules.model.Score score,
+        com.arman.csb.modules.model.Customer customer) {
+        return _scoreService.getScoreActivityJSONObject(score, customer);
     }
 
     /**

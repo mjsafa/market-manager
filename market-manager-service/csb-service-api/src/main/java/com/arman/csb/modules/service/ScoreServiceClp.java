@@ -22,6 +22,8 @@ public class ScoreServiceClp implements ScoreService {
     private String[] _methodParameterTypes6;
     private String _methodName7;
     private String[] _methodParameterTypes7;
+    private String _methodName8;
+    private String[] _methodParameterTypes8;
 
     public ScoreServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -51,7 +53,7 @@ public class ScoreServiceClp implements ScoreService {
         _methodName5 = "addScore";
 
         _methodParameterTypes5 = new String[] {
-                "java.lang.Long", "int",
+                "java.lang.Long", "long",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -65,6 +67,13 @@ public class ScoreServiceClp implements ScoreService {
         _methodName7 = "getTotalStats";
 
         _methodParameterTypes7 = new String[] {  };
+
+        _methodName8 = "getScoreActivityJSONObject";
+
+        _methodParameterTypes8 = new String[] {
+                "com.arman.csb.modules.model.Score",
+                "com.arman.csb.modules.model.Customer"
+            };
     }
 
     @Override
@@ -181,7 +190,7 @@ public class ScoreServiceClp implements ScoreService {
 
     @Override
     public com.liferay.portal.kernel.json.JSONObject addScore(
-        java.lang.Long customerId, int value,
+        java.lang.Long customerId, long value,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
@@ -283,6 +292,34 @@ public class ScoreServiceClp implements ScoreService {
             if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
                 throw (com.liferay.portal.kernel.exception.SystemException) t;
             }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getScoreActivityJSONObject(
+        com.arman.csb.modules.model.Score score,
+        com.arman.csb.modules.model.Customer customer) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName8,
+                    _methodParameterTypes8,
+                    new Object[] {
+                        ClpSerializer.translateInput(score),
+                        
+                    ClpSerializer.translateInput(customer)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
 
             if (t instanceof RuntimeException) {
                 throw (RuntimeException) t;

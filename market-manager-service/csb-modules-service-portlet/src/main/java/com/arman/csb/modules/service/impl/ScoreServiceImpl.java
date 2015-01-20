@@ -1,5 +1,6 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.constant.UserActivityConstant;
 import com.arman.csb.constants.ScoreConstants;
 import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.Score;
@@ -7,7 +8,9 @@ import com.arman.csb.modules.model.impl.CustomerImpl;
 import com.arman.csb.modules.model.impl.ScoreModelImpl;
 import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.modules.service.ScoreLocalServiceUtil;
+import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.ScoreServiceBaseImpl;
+import com.arman.csb.util.DateUtil;
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -26,6 +29,7 @@ import com.liferay.util.dao.orm.CustomSQLUtil;
 import com.liferay.util.portlet.PortletProps;
 import org.apache.commons.lang.StringUtils;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -85,7 +89,7 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
         List<Object[]> records = queryObject.list();
         for (Object[] record : records) {
             JSONObject recordJson = JSONFactoryUtil.createJSONObject();
-            recordJson.put("value", ((BigInteger) record[0]).intValue());
+            recordJson.put("value", ((BigDecimal) record[0]).longValue());
             recordJson.put("date", new SimpleDateFormat("MM-dd").format((Timestamp) record[1]));
 
             result.getJSONArray("records").put(recordJson);
@@ -158,7 +162,7 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
         List<Object[]> records = queryObject.list();
         for (Object[] record : records) {
             JSONObject recordJson = JSONFactoryUtil.createJSONObject();
-            recordJson.put("value", ((BigInteger) record[0]).intValue());
+            recordJson.put("value", ((BigDecimal) record[0]).intValue());
             recordJson.put("date", new SimpleDateFormat("MM-dd").format((Timestamp) record[1]));
 
             result.getJSONArray("records").put(recordJson);
@@ -166,12 +170,12 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
         return result;
     }
 
-    public JSONObject addScore(Long customerId, int value, ServiceContext serviceContext) throws PortalException, SystemException {
+    public JSONObject addScore(Long customerId, long value, ServiceContext serviceContext) throws PortalException, SystemException {
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Integer maxDepth = Integer.valueOf(PortletProps.get("market-manager.config.max-depth-score"));
 
         Customer customer = customerPersistence.fetchByPrimaryKey(customerId);
-        if(customer.getStatus() != WorkflowConstants.STATUS_APPROVED){
+        if (customer.getStatus() != WorkflowConstants.STATUS_APPROVED) {
             throw new PortalException("customer-deactive");
         }
 
@@ -184,6 +188,9 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
         newScore.setGroupId(serviceContext.getScopeGroupId());
         newScore.setCustomerId(customerId);
         ScoreLocalServiceUtil.addScore(newScore);
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_SCORE, UserActivityConstant.ACTION_ADD,
+                UserActivityConstant.IMPORTANCE_HIGH, getScoreActivityJSONObject(newScore, customer).toString(), serviceContext);
 
         customer.setScore(customer.getScore() + value);
         CustomerLocalServiceUtil.updateCustomer(customer);
@@ -212,6 +219,7 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
 
         return result;
     }
+
 
     public JSONArray customerScores(Long customerId, int start, int total, Map<String, Object> filter, ServiceContext serviceContext) throws PortalException, SystemException {
         JSONArray result = JSONFactoryUtil.createJSONArray();
@@ -254,4 +262,16 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
 
         return result;
     }
+
+    public JSONObject getScoreActivityJSONObject(Score score, Customer customer) {
+            JSONObject scoreJson = JSONFactoryUtil.createJSONObject();
+            scoreJson.put("firstName", customer.getFirstName());
+            scoreJson.put("lastName", customer.getLastName());
+            scoreJson.put("id", score.getId());
+            scoreJson.put("amount", score.getValue());
+            scoreJson.put("customerId", customer.getId());
+            scoreJson.put("createDate", DateUtil.getString(score.getCreateDate()));
+
+            return scoreJson;
+        }
 }

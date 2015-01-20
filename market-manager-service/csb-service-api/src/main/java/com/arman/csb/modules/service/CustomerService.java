@@ -105,4 +105,8 @@ public interface CustomerService extends BaseService, InvokableService {
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.liferay.portal.kernel.json.JSONObject getCustomerActivityJSONObject(
+        com.arman.csb.modules.model.Customer customer);
 }

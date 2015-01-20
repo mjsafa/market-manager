@@ -84,7 +84,7 @@ public class ScoreServiceSoap {
     }
 
     public static java.lang.String addScore(java.lang.Long customerId,
-        int value, com.liferay.portal.service.ServiceContext serviceContext)
+        long value, com.liferay.portal.service.ServiceContext serviceContext)
         throws RemoteException {
         try {
             com.liferay.portal.kernel.json.JSONObject returnValue = ScoreServiceUtil.addScore(customerId,
@@ -101,6 +101,24 @@ public class ScoreServiceSoap {
     public static java.lang.String getTotalStats() throws RemoteException {
         try {
             com.liferay.portal.kernel.json.JSONObject returnValue = ScoreServiceUtil.getTotalStats();
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String getScoreActivityJSONObject(
+        com.arman.csb.modules.model.ScoreSoap score,
+        com.arman.csb.modules.model.CustomerSoap customer)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = ScoreServiceUtil.getScoreActivityJSONObject(com.arman.csb.modules.model.impl.ScoreModelImpl.toModel(
+                        score),
+                    com.arman.csb.modules.model.impl.CustomerModelImpl.toModel(
+                        customer));
 
             return returnValue.toString();
         } catch (Exception e) {

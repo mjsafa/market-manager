@@ -14,7 +14,7 @@ create table CSBModules_Customer (
 	nationalCode VARCHAR(75) null,
 	email VARCHAR(75) null,
 	card VARCHAR(75) null,
-	score INTEGER,
+	score LONG,
 	status INTEGER,
 	customerUserId LONG,
 	mentorCustomerId LONG
@@ -74,10 +74,24 @@ create table CSBModules_Score (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	value INTEGER,
+	value LONG,
 	customerId LONG,
 	originCustomerId LONG,
 	type_ INTEGER
+);
+
+create table CSBModules_UserActivity (
+	uuid_ VARCHAR(75) null,
+	id_ LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	entity VARCHAR(75) null,
+	action INTEGER,
+	importance INTEGER,
+	data_ VARCHAR(2000) null
 );
 
 create table CSB_ContentHolder (

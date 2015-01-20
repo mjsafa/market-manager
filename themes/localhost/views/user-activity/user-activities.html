@@ -268,8 +268,8 @@
                         <td>
                             {{activity.createDate}}
                         </td>
-                        <td>
-                            {{ getExplain(activity.entity, activity.data) }}
+                        <td ng-bind-html="getExplain(activity.entity, activity.data, activity.action)">
+
                         </td>
                     </tr>
                 </table>

@@ -38,7 +38,7 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
     private String _nationalCode;
     private String _email;
     private String _card;
-    private int _score;
+    private long _score;
     private int _status;
     private long _customerUserId;
     private String _customerUserUuid;
@@ -197,7 +197,7 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
             setCard(card);
         }
 
-        Integer score = (Integer) attributes.get("score");
+        Long score = (Long) attributes.get("score");
 
         if (score != null) {
             setScore(score);
@@ -563,19 +563,19 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
     }
 
     @Override
-    public int getScore() {
+    public long getScore() {
         return _score;
     }
 
     @Override
-    public void setScore(int score) {
+    public void setScore(long score) {
         _score = score;
 
         if (_customerRemoteModel != null) {
             try {
                 Class<?> clazz = _customerRemoteModel.getClass();
 
-                Method method = clazz.getMethod("setScore", int.class);
+                Method method = clazz.getMethod("setScore", long.class);
 
                 method.invoke(_customerRemoteModel, score);
             } catch (Exception e) {

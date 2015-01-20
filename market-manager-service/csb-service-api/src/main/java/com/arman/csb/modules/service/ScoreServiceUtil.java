@@ -69,7 +69,7 @@ public class ScoreServiceUtil {
     }
 
     public static com.liferay.portal.kernel.json.JSONObject addScore(
-        java.lang.Long customerId, int value,
+        java.lang.Long customerId, long value,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
@@ -91,6 +91,12 @@ public class ScoreServiceUtil {
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return getService().getTotalStats();
+    }
+
+    public static com.liferay.portal.kernel.json.JSONObject getScoreActivityJSONObject(
+        com.arman.csb.modules.model.Score score,
+        com.arman.csb.modules.model.Customer customer) {
+        return getService().getScoreActivityJSONObject(score, customer);
     }
 
     public static void clearService() {

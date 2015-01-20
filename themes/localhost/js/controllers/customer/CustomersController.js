@@ -116,7 +116,7 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
         $scope.scoreModal = scoreModal;
 
         scoreModal.result.then(function (score) {
-            $scope.scoreService.addScore(score.customerId, score.value, {scope:$scope});
+            $scope.scoreService.addScore(score.customerId, score.value * 1000.0, {scope:$scope});
         }, function () {
             //$log.info('Modal dismissed at: ' + newDate());
         });

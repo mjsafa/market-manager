@@ -6,6 +6,7 @@ import com.arman.csb.modules.service.persistence.InvoiceItemPersistence;
 import com.arman.csb.modules.service.persistence.InvoicePersistence;
 import com.arman.csb.modules.service.persistence.PaymentPersistence;
 import com.arman.csb.modules.service.persistence.ScorePersistence;
+import com.arman.csb.modules.service.persistence.UserActivityPersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
@@ -74,6 +75,12 @@ public abstract class MyUserLocalServiceBaseImpl extends BaseLocalServiceImpl
     protected com.arman.csb.modules.service.ScoreService scoreService;
     @BeanReference(type = ScorePersistence.class)
     protected ScorePersistence scorePersistence;
+    @BeanReference(type = com.arman.csb.modules.service.UserActivityLocalService.class)
+    protected com.arman.csb.modules.service.UserActivityLocalService userActivityLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.UserActivityService.class)
+    protected com.arman.csb.modules.service.UserActivityService userActivityService;
+    @BeanReference(type = UserActivityPersistence.class)
+    protected UserActivityPersistence userActivityPersistence;
     @BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
     protected com.liferay.counter.service.CounterLocalService counterLocalService;
     @BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
@@ -487,6 +494,63 @@ public abstract class MyUserLocalServiceBaseImpl extends BaseLocalServiceImpl
      */
     public void setScorePersistence(ScorePersistence scorePersistence) {
         this.scorePersistence = scorePersistence;
+    }
+
+    /**
+     * Returns the user activity local service.
+     *
+     * @return the user activity local service
+     */
+    public com.arman.csb.modules.service.UserActivityLocalService getUserActivityLocalService() {
+        return userActivityLocalService;
+    }
+
+    /**
+     * Sets the user activity local service.
+     *
+     * @param userActivityLocalService the user activity local service
+     */
+    public void setUserActivityLocalService(
+        com.arman.csb.modules.service.UserActivityLocalService userActivityLocalService) {
+        this.userActivityLocalService = userActivityLocalService;
+    }
+
+    /**
+     * Returns the user activity remote service.
+     *
+     * @return the user activity remote service
+     */
+    public com.arman.csb.modules.service.UserActivityService getUserActivityService() {
+        return userActivityService;
+    }
+
+    /**
+     * Sets the user activity remote service.
+     *
+     * @param userActivityService the user activity remote service
+     */
+    public void setUserActivityService(
+        com.arman.csb.modules.service.UserActivityService userActivityService) {
+        this.userActivityService = userActivityService;
+    }
+
+    /**
+     * Returns the user activity persistence.
+     *
+     * @return the user activity persistence
+     */
+    public UserActivityPersistence getUserActivityPersistence() {
+        return userActivityPersistence;
+    }
+
+    /**
+     * Sets the user activity persistence.
+     *
+     * @param userActivityPersistence the user activity persistence
+     */
+    public void setUserActivityPersistence(
+        UserActivityPersistence userActivityPersistence) {
+        this.userActivityPersistence = userActivityPersistence;
     }
 
     /**

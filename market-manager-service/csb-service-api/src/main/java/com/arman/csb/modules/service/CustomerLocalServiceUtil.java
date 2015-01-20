@@ -319,7 +319,7 @@ public class CustomerLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
-    public static com.liferay.portal.kernel.json.JSONObject addCustomer(
+    public static com.arman.csb.modules.model.Customer addCustomer(
         java.util.Map<java.lang.String, java.lang.Object> customer,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,

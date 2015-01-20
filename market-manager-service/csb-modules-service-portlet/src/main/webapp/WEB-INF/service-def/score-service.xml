@@ -20,7 +20,7 @@
 
         <!-- Other fields -->
 
-        <column name="value" type="int"/>
+        <column name="value" type="long"/>
         <column name="customerId" type="long"/>
         <column name="originCustomerId" type="long"/>
         <column name="type" type="int"/>

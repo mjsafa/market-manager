@@ -31,7 +31,7 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
     private String _userName;
     private Date _createDate;
     private Date _modifiedDate;
-    private int _value;
+    private long _value;
     private long _customerId;
     private long _originCustomerId;
     private int _type;
@@ -140,7 +140,7 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
             setModifiedDate(modifiedDate);
         }
 
-        Integer value = (Integer) attributes.get("value");
+        Long value = (Long) attributes.get("value");
 
         if (value != null) {
             setValue(value);
@@ -352,19 +352,19 @@ public class ScoreClp extends BaseModelImpl<Score> implements Score {
     }
 
     @Override
-    public int getValue() {
+    public long getValue() {
         return _value;
     }
 
     @Override
-    public void setValue(int value) {
+    public void setValue(long value) {
         _value = value;
 
         if (_scoreRemoteModel != null) {
             try {
                 Class<?> clazz = _scoreRemoteModel.getClass();
 
-                Method method = clazz.getMethod("setValue", int.class);
+                Method method = clazz.getMethod("setValue", long.class);
 
                 method.invoke(_scoreRemoteModel, value);
             } catch (Exception e) {

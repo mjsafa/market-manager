@@ -9,102 +9,111 @@ import java.util.Arrays;
  * @generated
  */
 public class ScoreServiceClpInvoker {
-    private String _methodName54;
-    private String[] _methodParameterTypes54;
-    private String _methodName55;
-    private String[] _methodParameterTypes55;
     private String _methodName60;
     private String[] _methodParameterTypes60;
     private String _methodName61;
     private String[] _methodParameterTypes61;
-    private String _methodName62;
-    private String[] _methodParameterTypes62;
-    private String _methodName63;
-    private String[] _methodParameterTypes63;
-    private String _methodName64;
-    private String[] _methodParameterTypes64;
+    private String _methodName66;
+    private String[] _methodParameterTypes66;
+    private String _methodName67;
+    private String[] _methodParameterTypes67;
+    private String _methodName68;
+    private String[] _methodParameterTypes68;
+    private String _methodName69;
+    private String[] _methodParameterTypes69;
+    private String _methodName70;
+    private String[] _methodParameterTypes70;
+    private String _methodName71;
+    private String[] _methodParameterTypes71;
 
     public ScoreServiceClpInvoker() {
-        _methodName54 = "getBeanIdentifier";
+        _methodName60 = "getBeanIdentifier";
 
-        _methodParameterTypes54 = new String[] {  };
+        _methodParameterTypes60 = new String[] {  };
 
-        _methodName55 = "setBeanIdentifier";
+        _methodName61 = "setBeanIdentifier";
 
-        _methodParameterTypes55 = new String[] { "java.lang.String" };
+        _methodParameterTypes61 = new String[] { "java.lang.String" };
 
-        _methodName60 = "customerScoresByDate";
+        _methodName66 = "customerScoresByDate";
 
-        _methodParameterTypes60 = new String[] {
+        _methodParameterTypes66 = new String[] {
                 "java.lang.Long", "java.lang.String", "java.lang.String",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName61 = "scoresByDate";
+        _methodName67 = "scoresByDate";
 
-        _methodParameterTypes61 = new String[] {
+        _methodParameterTypes67 = new String[] {
                 "java.lang.String", "java.lang.String", "java.lang.String",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName62 = "addScore";
+        _methodName68 = "addScore";
 
-        _methodParameterTypes62 = new String[] {
-                "java.lang.Long", "int",
+        _methodParameterTypes68 = new String[] {
+                "java.lang.Long", "long",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName63 = "customerScores";
+        _methodName69 = "customerScores";
 
-        _methodParameterTypes63 = new String[] {
+        _methodParameterTypes69 = new String[] {
                 "java.lang.Long", "int", "int", "java.util.Map",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName64 = "getTotalStats";
+        _methodName70 = "getTotalStats";
 
-        _methodParameterTypes64 = new String[] {  };
+        _methodParameterTypes70 = new String[] {  };
+
+        _methodName71 = "getScoreActivityJSONObject";
+
+        _methodParameterTypes71 = new String[] {
+                "com.arman.csb.modules.model.Score",
+                "com.arman.csb.modules.model.Customer"
+            };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName54.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+        if (_methodName60.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
             return ScoreServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName55.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+        if (_methodName61.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
             ScoreServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName60.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+        if (_methodName66.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
             return ScoreServiceUtil.customerScoresByDate((java.lang.Long) arguments[0],
                 (java.lang.String) arguments[1],
                 (java.lang.String) arguments[2],
                 (com.liferay.portal.service.ServiceContext) arguments[3]);
         }
 
-        if (_methodName61.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+        if (_methodName67.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
             return ScoreServiceUtil.scoresByDate((java.lang.String) arguments[0],
                 (java.lang.String) arguments[1],
                 (java.lang.String) arguments[2],
                 (com.liferay.portal.service.ServiceContext) arguments[3]);
         }
 
-        if (_methodName62.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+        if (_methodName68.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
             return ScoreServiceUtil.addScore((java.lang.Long) arguments[0],
-                ((Integer) arguments[1]).intValue(),
+                ((Long) arguments[1]).longValue(),
                 (com.liferay.portal.service.ServiceContext) arguments[2]);
         }
 
-        if (_methodName63.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+        if (_methodName69.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
             return ScoreServiceUtil.customerScores((java.lang.Long) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue(),
@@ -112,9 +121,15 @@ public class ScoreServiceClpInvoker {
                 (com.liferay.portal.service.ServiceContext) arguments[4]);
         }
 
-        if (_methodName64.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+        if (_methodName70.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
             return ScoreServiceUtil.getTotalStats();
+        }
+
+        if (_methodName71.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+            return ScoreServiceUtil.getScoreActivityJSONObject((com.arman.csb.modules.model.Score) arguments[0],
+                (com.arman.csb.modules.model.Customer) arguments[1]);
         }
 
         throw new UnsupportedOperationException();

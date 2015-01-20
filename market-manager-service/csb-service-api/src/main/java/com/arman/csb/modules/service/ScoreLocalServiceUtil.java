@@ -319,7 +319,7 @@ public class ScoreLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
-    public static int sumByCustomerAndType(java.lang.Long customerId,
+    public static long sumByCustomerAndType(java.lang.Long customerId,
         java.lang.Integer type, java.util.Date fromDate, java.util.Date toDate)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
@@ -335,7 +335,7 @@ public class ScoreLocalServiceUtil {
     * @throws SystemException
     * @throws PortalException
     */
-    public static int sumByType(java.lang.Integer type,
+    public static long sumByType(java.lang.Integer type,
         java.util.Date fromDate, java.util.Date toDate)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {

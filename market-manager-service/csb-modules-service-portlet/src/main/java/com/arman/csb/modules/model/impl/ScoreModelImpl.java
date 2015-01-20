@@ -60,12 +60,12 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
             { "userName", Types.VARCHAR },
             { "createDate", Types.TIMESTAMP },
             { "modifiedDate", Types.TIMESTAMP },
-            { "value", Types.INTEGER },
+            { "value", Types.BIGINT },
             { "customerId", Types.BIGINT },
             { "originCustomerId", Types.BIGINT },
             { "type_", Types.INTEGER }
         };
-    public static final String TABLE_SQL_CREATE = "create table CSBModules_Score (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,value INTEGER,customerId LONG,originCustomerId LONG,type_ INTEGER)";
+    public static final String TABLE_SQL_CREATE = "create table CSBModules_Score (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,value LONG,customerId LONG,originCustomerId LONG,type_ INTEGER)";
     public static final String TABLE_SQL_DROP = "drop table CSBModules_Score";
     public static final String ORDER_BY_JPQL = " ORDER BY score.id ASC";
     public static final String ORDER_BY_SQL = " ORDER BY CSBModules_Score.id_ ASC";
@@ -105,7 +105,7 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
     private String _userName;
     private Date _createDate;
     private Date _modifiedDate;
-    private int _value;
+    private long _value;
     private long _customerId;
     private long _originalCustomerId;
     private boolean _setOriginalCustomerId;
@@ -268,7 +268,7 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
             setModifiedDate(modifiedDate);
         }
 
-        Integer value = (Integer) attributes.get("value");
+        Long value = (Long) attributes.get("value");
 
         if (value != null) {
             setValue(value);
@@ -433,12 +433,12 @@ public class ScoreModelImpl extends BaseModelImpl<Score> implements ScoreModel {
 
     @JSON
     @Override
-    public int getValue() {
+    public long getValue() {
         return _value;
     }
 
     @Override
-    public void setValue(int value) {
+    public void setValue(long value) {
         _value = value;
     }
 

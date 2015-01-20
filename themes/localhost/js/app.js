@@ -864,3 +864,11 @@ MetronicApp.config(function ($translateProvider) {
   // load English ('en') table on startup
   $translateProvider.preferredLanguage('fa');
 });
+
+MetronicApp.filter('score', function() {
+  return function(input) {
+    input = input || 0;
+    var out = input / parseFloat(1000);
+    return out;
+  };
+})

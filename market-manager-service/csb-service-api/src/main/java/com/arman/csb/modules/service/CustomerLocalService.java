@@ -288,7 +288,7 @@ public interface CustomerLocalService extends BaseLocalService,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
 
-    public com.liferay.portal.kernel.json.JSONObject addCustomer(
+    public com.arman.csb.modules.model.Customer addCustomer(
         java.util.Map<java.lang.String, java.lang.Object> customer,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,

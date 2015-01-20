@@ -22,7 +22,7 @@ public class ScoreSoap implements Serializable {
     private String _userName;
     private Date _createDate;
     private Date _modifiedDate;
-    private int _value;
+    private long _value;
     private long _customerId;
     private long _originCustomerId;
     private int _type;
@@ -157,11 +157,11 @@ public class ScoreSoap implements Serializable {
         _modifiedDate = modifiedDate;
     }
 
-    public int getValue() {
+    public long getValue() {
         return _value;
     }
 
-    public void setValue(int value) {
+    public void setValue(long value) {
         _value = value;
     }
 

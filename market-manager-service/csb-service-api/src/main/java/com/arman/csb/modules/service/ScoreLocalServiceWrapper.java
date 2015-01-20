@@ -333,7 +333,7 @@ public class ScoreLocalServiceWrapper implements ScoreLocalService,
     }
 
     @Override
-    public int sumByCustomerAndType(java.lang.Long customerId,
+    public long sumByCustomerAndType(java.lang.Long customerId,
         java.lang.Integer type, java.util.Date fromDate, java.util.Date toDate)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
@@ -350,7 +350,7 @@ public class ScoreLocalServiceWrapper implements ScoreLocalService,
     * @throws PortalException
     */
     @Override
-    public int sumByType(java.lang.Integer type, java.util.Date fromDate,
+    public long sumByType(java.lang.Integer type, java.util.Date fromDate,
         java.util.Date toDate)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {

@@ -813,7 +813,7 @@ public class ScoreLocalServiceClp implements ScoreLocalService {
     }
 
     @Override
-    public int sumByCustomerAndType(java.lang.Long customerId,
+    public long sumByCustomerAndType(java.lang.Long customerId,
         java.lang.Integer type, java.util.Date fromDate, java.util.Date toDate)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
@@ -850,11 +850,11 @@ public class ScoreLocalServiceClp implements ScoreLocalService {
             }
         }
 
-        return ((Integer) returnObj).intValue();
+        return ((Long) returnObj).longValue();
     }
 
     @Override
-    public int sumByType(java.lang.Integer type, java.util.Date fromDate,
+    public long sumByType(java.lang.Integer type, java.util.Date fromDate,
         java.util.Date toDate)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
@@ -889,6 +889,6 @@ public class ScoreLocalServiceClp implements ScoreLocalService {
             }
         }
 
-        return ((Integer) returnObj).intValue();
+        return ((Long) returnObj).longValue();
     }
 }

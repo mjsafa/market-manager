@@ -5,6 +5,7 @@ import com.arman.csb.modules.model.InvoiceClp;
 import com.arman.csb.modules.model.InvoiceItemClp;
 import com.arman.csb.modules.model.PaymentClp;
 import com.arman.csb.modules.model.ScoreClp;
+import com.arman.csb.modules.model.UserActivityClp;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -112,6 +113,10 @@ public class ClpSerializer {
             return translateInputScore(oldModel);
         }
 
+        if (oldModelClassName.equals(UserActivityClp.class.getName())) {
+            return translateInputUserActivity(oldModel);
+        }
+
         return oldModel;
     }
 
@@ -177,6 +182,16 @@ public class ClpSerializer {
         return newModel;
     }
 
+    public static Object translateInputUserActivity(BaseModel<?> oldModel) {
+        UserActivityClp oldClpModel = (UserActivityClp) oldModel;
+
+        BaseModel<?> newModel = oldClpModel.getUserActivityRemoteModel();
+
+        newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+        return newModel;
+    }
+
     public static Object translateInput(Object obj) {
         if (obj instanceof BaseModel<?>) {
             return translateInput((BaseModel<?>) obj);
@@ -215,6 +230,11 @@ public class ClpSerializer {
         if (oldModelClassName.equals(
                     "com.arman.csb.modules.model.impl.ScoreImpl")) {
             return translateOutputScore(oldModel);
+        }
+
+        if (oldModelClassName.equals(
+                    "com.arman.csb.modules.model.impl.UserActivityImpl")) {
+            return translateOutputUserActivity(oldModel);
         }
 
         return oldModel;
@@ -313,6 +333,11 @@ public class ClpSerializer {
             return new com.arman.csb.modules.NoSuchScoreException();
         }
 
+        if (className.equals(
+                    "com.arman.csb.modules.NoSuchUserActivityException")) {
+            return new com.arman.csb.modules.NoSuchUserActivityException();
+        }
+
         return throwable;
     }
 
@@ -362,6 +387,16 @@ public class ClpSerializer {
         newModel.setModelAttributes(oldModel.getModelAttributes());
 
         newModel.setScoreRemoteModel(oldModel);
+
+        return newModel;
+    }
+
+    public static Object translateOutputUserActivity(BaseModel<?> oldModel) {
+        UserActivityClp newModel = new UserActivityClp();
+
+        newModel.setModelAttributes(oldModel.getModelAttributes());
+
+        newModel.setUserActivityRemoteModel(oldModel);
 
         return newModel;
     }

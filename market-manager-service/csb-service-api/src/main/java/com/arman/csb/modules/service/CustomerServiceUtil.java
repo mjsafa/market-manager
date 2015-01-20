@@ -120,6 +120,11 @@ public class CustomerServiceUtil {
                    .updateCustomerStatus(customerId, isActive, serviceContext);
     }
 
+    public static com.liferay.portal.kernel.json.JSONObject getCustomerActivityJSONObject(
+        com.arman.csb.modules.model.Customer customer) {
+        return getService().getCustomerActivityJSONObject(customer);
+    }
+
     public static void clearService() {
         _service = null;
     }

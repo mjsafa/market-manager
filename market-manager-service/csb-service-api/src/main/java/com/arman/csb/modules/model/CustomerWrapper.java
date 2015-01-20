@@ -153,7 +153,7 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
             setCard(card);
         }
 
-        Integer score = (Integer) attributes.get("score");
+        Long score = (Long) attributes.get("score");
 
         if (score != null) {
             setScore(score);
@@ -526,7 +526,7 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
     * @return the score of this customer
     */
     @Override
-    public int getScore() {
+    public long getScore() {
         return _customer.getScore();
     }
 
@@ -536,7 +536,7 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
     * @param score the score of this customer
     */
     @Override
-    public void setScore(int score) {
+    public void setScore(long score) {
         _customer.setScore(score);
     }
 

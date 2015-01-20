@@ -197,14 +197,14 @@ public interface ScoreModel extends BaseModel<Score>, StagedGroupedModel {
      *
      * @return the value of this score
      */
-    public int getValue();
+    public long getValue();
 
     /**
      * Sets the value of this score.
      *
      * @param value the value of this score
      */
-    public void setValue(int value);
+    public void setValue(long value);
 
     /**
      * Returns the customer ID of this score.
