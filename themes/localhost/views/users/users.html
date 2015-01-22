@@ -144,7 +144,7 @@
 </div>
 
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="UsersController">
+<div>
 
 
 <!-- BEGIN DASHBOARD STATS -->
@@ -260,12 +260,15 @@
                                                                             <span class="input-group-addon">
                                                                                 <i class="fa fa-user"></i>
                                                                             </span>
-                                                <input ng-model="newUser.firstName" validation="min_len:3|max_len:50|required" name="firstName" type="text" class="form-control">
+                                                <input ng-model="newUser.firstName"
+                                                       validation="min_len:3|max_len:50|required" name="firstName"
+                                                       type="text" class="form-control">
 
                                                                             <span class="input-group-addon">
                                                                                 <i class="fa fa-user"></i>
                                                                             </span>
-                                                <input validation="min_len:3|max_len:50|required" name="lastName" ng-model="newUser.lastName" type="text" class="form-control"/>
+                                                <input validation="min_len:3|max_len:50|required" name="lastName"
+                                                       ng-model="newUser.lastName" type="text" class="form-control"/>
                                             </div>
 
                                         </div>
@@ -278,7 +281,7 @@
                                                                                 <span class="input-group-addon">
                                                                                     <i class="fa fa-mobile"></i>
                                                                                 </span>
-                                                <input ng-model="newUser.mobile"  type="text"
+                                                <input ng-model="newUser.mobile" type="text"
                                                        validation="numeric|exact_len:11|required" name="mobile"
                                                        class="form-control"
                                                        style="direction: ltr;"/>
@@ -292,7 +295,8 @@
                                                                                 <span class="input-group-addon">
                                                                                     <i class="fa fa-envelope"></i>
                                                                                 </span>
-                                                <input validation="email|required" name="email" ng-model="newUser.email" style="direction: ltr;" type="text"
+                                                <input validation="email|required" name="email" ng-model="newUser.email"
+                                                       style="direction: ltr;" type="text"
                                                        class="form-control">
                                             </div>
                                         </div>
@@ -306,8 +310,9 @@
                                                                                 <span class="input-group-addon">
                                                                                     <i class="fa fa-lock"></i>
                                                                                 </span>
-                                                <input validation="min_len:6|max_len:50|required" name="password" ng-model="newUser.password1" style="direction: ltr;"
-                                                       type="password" class="form-control" >
+                                                <input validation="min_len:6|max_len:50|required" name="password"
+                                                       ng-model="newUser.password1" style="direction: ltr;"
+                                                       type="password" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -318,9 +323,10 @@
                                                                                     <i class="fa fa-lock"></i>
                                                                                 </span>
                                                 <input ng-model="newUser.password2" style="direction: ltr;"
-                                                       validation="match:newUser.password1,تکرار رمز عبور,رمز عبور|min_len:6|max_len:50|required" name="passwordConfirm"
+                                                       validation="match:newUser.password1,تکرار رمز عبور,رمز عبور|min_len:6|max_len:50|required"
+                                                       name="passwordConfirm"
                                                        type="password"
-                                                       class="form-control" >
+                                                       class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -329,19 +335,41 @@
 
 
                             </div>
-                            <div class="form-actions right purple">
-                                <button ng-disabled="userForm.$invalid"  type="submit" class="btn green-turquoise">ثبت اطلاعات مشتری</button>
-                            </div>
+
                         </div>
 
                         <div class="tab-pane" id="portlet_tab2">
-                            <button type="button" class="btn btn-success" ng-model="newUser.roles.OPERATOR"
-                                    btn-checkbox>
-                                اپراتور
-                            </button>
+                            <!--<button type="button" class="btn btn-success" ng-model="newUser.roles.OPERATOR"-->
+                            <!--btn-checkbox>-->
+                            <!--اپراتور-->
+                            <!--</button>-->
                             <button type="button" class="btn btn-success" ng-model="newUser.roles.ADMINISTRATOR_USER"
                                     btn-checkbox>
-                                کاربر مدیر
+                                مدیر سطح بالای سیستم
+                            </button>
+
+                            <button type="button" class="btn btn-success" ng-model="newUser.roles.USER_MANAGER"
+                                    btn-checkbox>
+                                مدیریت کاربران
+                            </button>
+                            <button type="button" class="btn btn-success" ng-model="newUser.roles.PAYMENT_MANAGER"
+                                    btn-checkbox>
+                                مدیریت پرداخت ها
+                            </button>
+                            <button type="button" class="btn btn-success" ng-model="newUser.roles.INVOICE_MANAGER"
+                                    btn-checkbox>
+                                مدیریت فاکتور ها
+                            </button>
+
+                            <button type="button" class="btn btn-success" ng-model="newUser.roles.CUSTOMER_MANAGER"
+                                    btn-checkbox>
+                                مدیریت مشتریان
+                            </button>
+                        </div>
+
+                        <div class="form-actions right purple">
+                            <button ng-disabled="userForm.$invalid" type="submit" class="btn green-turquoise">
+                                افزودن کاربر
                             </button>
                         </div>
                     </div>

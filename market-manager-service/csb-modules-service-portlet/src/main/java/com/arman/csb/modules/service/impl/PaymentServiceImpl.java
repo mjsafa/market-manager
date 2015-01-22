@@ -8,6 +8,8 @@ import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.modules.service.PaymentLocalServiceUtil;
 import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.PaymentServiceBaseImpl;
+import com.arman.csb.modules.util.RoleEnum;
+import com.arman.csb.modules.util.RoleUtil;
 import com.arman.csb.util.DateUtil;
 import com.arman.csb.util.MapUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -16,6 +18,7 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
 
 import java.util.Calendar;
@@ -45,6 +48,8 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
      */
 
     public JSONObject addPayment(Map<String, Object> paymentMap, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
+
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Payment newPayment = PaymentLocalServiceUtil.addPayment(MapUtil.getLong(paymentMap, "amount"), MapUtil.getLong(paymentMap, "customerId")
                 , new Date(), WorkflowConstants.STATUS_APPROVED, MapUtil.getLong(paymentMap, "factorId"), MapUtil.getString(paymentMap, "description")
@@ -58,17 +63,21 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
     }
 
     public JSONObject totalPayedAmount(Long customerId, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
+
         JSONObject result = JSONFactoryUtil.createJSONObject();
         result.put("customerTotalAmount", PaymentLocalServiceUtil.totalPayedAmount(customerId));
         return result;
     }
 
     public JSONArray search(Map<String, Object> filter, int first, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
-        JSONArray result = JSONFactoryUtil.createJSONArray();
+        if(!RoleUtil.isSameCustomer(serviceContext.getUserId(), MapUtil.getLong(filter, "customerId")) && !RoleUtil.hasAnyRoles(serviceContext.getUserId(),RoleEnum.PAYMENT_MANAGER.toString())){
+            throw new PrincipalException();
+        }
 
+        JSONArray result = JSONFactoryUtil.createJSONArray();
         List<Payment> payments = PaymentLocalServiceUtil.find(MapUtil.getLong(filter, "customerId"), MapUtil.getDate(filter, "fromDate"), MapUtil.getDate(filter, "toDate")
                 , MapUtil.getLong(filter, "fromAmount"), MapUtil.getLong(filter, "toAmount"), first, maxResult, serviceContext);
-
         for (Payment payment : payments) {
             JSONObject paymentJson = JSONFactoryUtil.createJSONObject();
             paymentJson.put("id", payment.getId());
@@ -97,6 +106,8 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
     }
 
     public JSONObject getTotalStats(ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
+
         JSONObject result = JSONFactoryUtil.createJSONObject();
         long totalPayment = PaymentLocalServiceUtil.totalPaymentAmount(null, null, null);
 
@@ -118,7 +129,6 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
         result.put("totalPayment", totalPayment);
         return result;
     }
-
 
     public JSONObject getPaymentActivityJSONObject(Payment payment, Customer customer) {
         JSONObject paymentJson = JSONFactoryUtil.createJSONObject();

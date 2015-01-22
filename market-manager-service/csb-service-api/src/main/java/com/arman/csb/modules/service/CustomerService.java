@@ -55,7 +55,9 @@ public interface CustomerService extends BaseService, InvokableService {
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.liferay.portal.kernel.json.JSONArray search(
         java.lang.String filter, int start, int maxResult,
-        com.liferay.portal.service.ServiceContext serviceContext);
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
 
     public com.liferay.portal.kernel.json.JSONObject addCustomer(
         java.util.Map<java.lang.String, java.lang.Object> customer,

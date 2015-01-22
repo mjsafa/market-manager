@@ -98,18 +98,24 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
     // Redirect any unmatched url
 
 
-    if(onlineUser.userGroups && onlineUser.userGroups.customer_group){
-        if(!onlineUser.agreed ){
+    if (onlineUser.userGroups && onlineUser.userGroups.customer_group) {
+        if (!onlineUser.agreed) {
             $urlRouterProvider.otherwise("/userAgreement");
-        }else{
+        } else {
             $urlRouterProvider.otherwise("/customerDashboard");
         }
 
-    }else  if(onlineUser.userGroups && onlineUser.userGroups.operator_group){
-        if(onlineUser.roles && onlineUser.roles.ADMINISTRATOR_USER){
+    } else if (onlineUser.userGroups && onlineUser.userGroups.operator_group) {
+        if (onlineUser.roles && onlineUser.roles.ADMINISTRATOR_USER) {
             $urlRouterProvider.otherwise("/adminDashboard");
+        } else if (onlineUser.roles && onlineUser.roles.CUSTOMER_MANAGER) {
+            $urlRouterProvider.otherwise("/customers.html");
+        } else if (onlineUser.roles && onlineUser.roles.PAYMENT_MANAGER) {
+            $urlRouterProvider.otherwise("/payments");
+        } else if (onlineUser.roles && onlineUser.roles.USER_MANAGER) {
+            $urlRouterProvider.otherwise("/users.html");
         }
-    }else{
+    } else {
         window.location.href = '/login';
     }
 
@@ -208,7 +214,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
-         // customer details
+        // customer details
         .state('customerDashboard', {
             url:"/customerDashboard",
             templateUrl:"/delegate/resource/views/customer/customerDashboard.html",
@@ -238,7 +244,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
-                // customers
+        // customers
         .state('payments', {
             url:"/payments",
             templateUrl:"/delegate/resource/views/payment/payments.html",
@@ -271,9 +277,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
 
-
-
-         // customer details
+        // customer details
         .state('adminDashboard', {
             url:"/adminDashboard",
             templateUrl:"/delegate/resource/views/admin/adminDashboard.html",
@@ -365,7 +369,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
-         //User Agreement
+        //User Agreement
         .state('userAgreement', {
             url:"/userAgreement",
             templateUrl:"/delegate/resource/views/users/userAgreement.html",
@@ -856,19 +860,19 @@ MetronicApp.run(["$rootScope", "settings", "$state", "editableOptions", function
 }]);
 
 MetronicApp.config(function ($translateProvider) {
-  $translateProvider.useStaticFilesLoader({
-    prefix: '/delegate/resource/assets/global/plugins/angularjs/plugins/angular-validation/locales/validation/',
-    suffix: '.json'
-  });
+    $translateProvider.useStaticFilesLoader({
+        prefix:'/delegate/resource/assets/global/plugins/angularjs/plugins/angular-validation/locales/validation/',
+        suffix:'.json'
+    });
 
-  // load English ('en') table on startup
-  $translateProvider.preferredLanguage('fa');
+    // load English ('en') table on startup
+    $translateProvider.preferredLanguage('fa');
 });
 
-MetronicApp.filter('score', function() {
-  return function(input) {
-    input = input || 0;
-    var out = input / parseFloat(1000);
-    return out;
-  };
+MetronicApp.filter('score', function () {
+    return function (input) {
+        input = input || 0;
+        var out = input / parseFloat(1000);
+        return out;
+    };
 })

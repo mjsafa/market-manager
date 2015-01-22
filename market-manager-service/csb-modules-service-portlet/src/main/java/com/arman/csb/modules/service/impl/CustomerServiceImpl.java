@@ -10,6 +10,8 @@ import com.arman.csb.modules.service.PaymentLocalServiceUtil;
 import com.arman.csb.modules.service.ScoreLocalServiceUtil;
 import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.CustomerServiceBaseImpl;
+import com.arman.csb.modules.util.RoleEnum;
+import com.arman.csb.modules.util.RoleUtil;
 import com.arman.csb.theme.model.Template;
 import com.arman.csb.theme.service.TemplateLocalServiceUtil;
 import com.arman.csb.util.DateUtil;
@@ -25,6 +27,7 @@ import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
+import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.RoleServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserGroupLocalServiceUtil;
@@ -56,7 +59,9 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
      */
 
 
-    public JSONArray search(String filter, int start, int maxResult, ServiceContext serviceContext) {
+    public JSONArray search(String filter, int start, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
+
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
         SessionFactory sessionFactory = (SessionFactory) PortalBeanLocatorUtil.locate("liferaySessionFactory");
@@ -100,6 +105,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
     public JSONObject addCustomer(Map<String, Object> customer, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Customer newCustomer = CustomerLocalServiceUtil.addCustomer(customer, serviceContext);
 
@@ -113,6 +119,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
     public JSONObject getTotal(ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
         JSONObject result = JSONFactoryUtil.createJSONObject();
         result.put("allTotal", customerPersistence.countAll());
         return result;
@@ -120,6 +127,10 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
 
 
     public JSONObject getById(long customerId, ServiceContext serviceContext) throws PortalException, SystemException {
+        if (!RoleUtil.isSameCustomer(serviceContext.getUserId(), customerId) && !RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString())) {
+            throw new PrincipalException();
+        }
+
         JSONObject result = JSONFactoryUtil.createJSONObject();
 
         Customer customer = customerPersistence.fetchByPrimaryKey(customerId);
@@ -150,6 +161,10 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
     public JSONArray getInvitees(long customerId, ServiceContext serviceContext) throws PortalException, SystemException {
+        if (!RoleUtil.isSameCustomer(serviceContext.getUserId(), customerId) && !RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString())) {
+            throw new PrincipalException();
+        }
+
         JSONArray result = JSONFactoryUtil.createJSONArray();
         List<Customer> invitees = customerPersistence.findByMentor(customerId);
 
@@ -173,6 +188,10 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
 
 
     public JSONObject getStats(long customerId, ServiceContext serviceContext) throws PortalException, SystemException {
+        if (!RoleUtil.isSameCustomer(serviceContext.getUserId(), customerId) && !RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString())) {
+            throw new PrincipalException();
+        }
+
         JSONObject result = JSONFactoryUtil.createJSONObject();
         result.put("totalInvitees", CustomerLocalServiceUtil.countByMentorCustomerId(customerId));
         result.put("totalDirectScore", ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_DIRECT, null, null));
@@ -191,6 +210,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
     public JSONObject getTotalStats(ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -7);
@@ -201,35 +221,39 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
 
 
     public JSONObject updateCustomer(Map<String, Object> customer, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
+
         JSONObject result = JSONFactoryUtil.createJSONObject();
-        Customer oldCustomer = CustomerLocalServiceUtil.getById((Long)customer.get("id"));
+        Customer oldCustomer = CustomerLocalServiceUtil.getById((Long) customer.get("id"));
         oldCustomer.setLastName((String) customer.get("lastName"));
         oldCustomer.setFirstName((String) customer.get("firstName"));
         oldCustomer.setName((String) customer.get("firstName") + " " + (String) customer.get("lastName"));
-        oldCustomer.setCard((String)customer.get("card"));
+        oldCustomer.setCard((String) customer.get("card"));
         oldCustomer.setEmail((String) customer.get("email"));
         oldCustomer.setMobile((String) customer.get("mobile"));
 
         CustomerLocalServiceUtil.updateCustomer(oldCustomer);
-        result.put("customerId", (Long)customer.get("id"));
+        result.put("customerId", (Long) customer.get("id"));
 
         UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_CUSTOMER, UserActivityConstant.ACTION_EDIT,
-                        UserActivityConstant.IMPORTANCE_MEDIUM, getCustomerActivityJSONObject(oldCustomer).toString(), serviceContext);
+                UserActivityConstant.IMPORTANCE_MEDIUM, getCustomerActivityJSONObject(oldCustomer).toString(), serviceContext);
 
         return result;
     }
 
     public JSONObject updateCustomerStatus(long customerId, boolean isActive, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
+
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Customer oldCustomer = CustomerLocalServiceUtil.getById(customerId);
         oldCustomer.setStatus(isActive ? WorkflowConstants.STATUS_APPROVED : WorkflowConstants.STATUS_DENIED);
         CustomerLocalServiceUtil.updateCustomer(oldCustomer);
-        UserLocalServiceUtil.updateStatus(oldCustomer.getCustomerUserId(),isActive ? WorkflowConstants.STATUS_APPROVED : WorkflowConstants.STATUS_DENIED);
+        UserLocalServiceUtil.updateStatus(oldCustomer.getCustomerUserId(), isActive ? WorkflowConstants.STATUS_APPROVED : WorkflowConstants.STATUS_DENIED);
         result.put("customerId", customerId);
         result.put("isActive", isActive);
 
         UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_CUSTOMER, UserActivityConstant.ACTION_CHANGE_STATUS,
-                        UserActivityConstant.IMPORTANCE_MEDIUM, getCustomerActivityJSONObject(oldCustomer).toString(), serviceContext);
+                UserActivityConstant.IMPORTANCE_MEDIUM, getCustomerActivityJSONObject(oldCustomer).toString(), serviceContext);
 
         return result;
     }

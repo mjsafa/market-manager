@@ -7,10 +7,12 @@ package com.arman.csb.modules.util;
  * Time: 3:01 PM
  */
 public enum RoleEnum {
-    USER_ADMINISTRATOR,
-    ADMINISTRATOR,
     ADMINISTRATOR_USER,
+    ADMINISTRATOR,
     CUSTOMER,
     OPERATOR,
-    CUSTOMER_ADMINISTRATOR;
+    CUSTOMER_MANAGER,
+    USER_MANAGER,
+    INVOICE_MANAGER,
+    PAYMENT_MANAGER;
 }

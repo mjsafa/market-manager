@@ -155,7 +155,9 @@ public class CustomerServiceClp implements CustomerService {
     @Override
     public com.liferay.portal.kernel.json.JSONArray search(
         java.lang.String filter, int start, int maxResult,
-        com.liferay.portal.service.ServiceContext serviceContext) {
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
@@ -172,6 +174,14 @@ public class CustomerServiceClp implements CustomerService {
                     });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
 
             if (t instanceof RuntimeException) {
                 throw (RuntimeException) t;

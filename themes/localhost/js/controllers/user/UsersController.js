@@ -11,6 +11,12 @@ MetronicApp.controller('UsersController', ['$rootScope', '$scope', 'UserService'
         $rootScope.$on('UserService.addUser', function (event, data) {
             $rootScope.$emit('page.alert', {message:'کاربر مورد نظر شما با موفقیت ثبت شد', type:"success"});
             $scope.doSearch();
+            $scope.newUser = {roles:{}};
+            $scope.userForm.$setPristine();
+        });
+
+        $rootScope.$on('UserService.updateStatus', function (event, data) {
+            $rootScope.$emit('page.alert', {message:'وضعیت کاربر مورد نظر به درستی تغییر یافت', type:"success"});
         });
     }
 
@@ -37,9 +43,6 @@ MetronicApp.controller('UsersController', ['$rootScope', '$scope', 'UserService'
 
     $scope.submitUser = function () {
         $scope.userService.addUser($scope.newUser);
-        //$state.go('users');
-        $scope.newUser = {roles:{}};
-        //CustomersTools.init();
     }
 
 
@@ -69,10 +72,10 @@ MetronicApp.controller('UsersController', ['$rootScope', '$scope', 'UserService'
         });
     };
 
-    $scope.changeStatus = function(user){
-        if(user.isActive){
+    $scope.changeStatus = function (user) {
+        if (user.isActive) {
             $scope.userService.updateStatus(user.id, false);
-        } else{
+        } else {
             $scope.userService.updateStatus(user.id, true);
         }
     };

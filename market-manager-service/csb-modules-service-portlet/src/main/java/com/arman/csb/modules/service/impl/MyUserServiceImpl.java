@@ -1,9 +1,6 @@
 package com.arman.csb.modules.service.impl;
 
 import com.arman.csb.constant.UserActivityConstant;
-import com.arman.csb.modules.model.Customer;
-import com.arman.csb.modules.model.Payment;
-import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.MyUserServiceBaseImpl;
 import com.arman.csb.modules.util.RoleEnum;
@@ -16,13 +13,11 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
-import com.liferay.portal.kernel.util.OrderByComparatorFactory;
-import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
-import com.liferay.portal.kernel.webdav.Status;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
+import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.*;
 import com.liferay.util.portlet.PortletProps;
 
@@ -52,10 +47,9 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
 
 
     public JSONObject newUser(Map<String, Object> user, ServiceContext serviceContext) throws PortalException, SystemException {
-        RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.USER_ADMINISTRATOR.toString());
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.USER_MANAGER.toString());
 
         JSONObject result = JSONFactoryUtil.createJSONObject();
-
         //prepare an array of role ids
         List<Long> roles = new ArrayList<Long>();
         if (null != user.get("roles")) {
@@ -95,7 +89,7 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
 
 
     public JSONArray findUsers(Map<String, Object> filter, ServiceContext serviceContext) throws PortalException, SystemException {
-        RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.USER_ADMINISTRATOR.toString());
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.USER_MANAGER.toString());
         UserGroup operatorGroup = UserGroupLocalServiceUtil.fetchUserGroup(serviceContext.getCompanyId(), PortletProps.get("market-manager.userGroup.operator"));
 
         LinkedHashMap<String, Object> params = new LinkedHashMap<String, java.lang.Object>();
@@ -124,6 +118,8 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
     }
 
     public JSONObject updateStatus(Long userId, boolean isActive, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.USER_MANAGER.toString());
+
         JSONObject result = JSONFactoryUtil.createJSONObject();
         if (isActive) {
             UserLocalServiceUtil.updateStatus(userId, WorkflowConstants.STATUS_APPROVED);
@@ -138,7 +134,7 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
 
 
     public JSONObject getById(Long userId, ServiceContext serviceContext) throws PortalException, SystemException {
-        RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.USER_ADMINISTRATOR.toString());
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.USER_MANAGER.toString());
 
         JSONObject userJsonObject = JSONFactoryUtil.createJSONObject();
         User user = UserLocalServiceUtil.getUserById(userId);
@@ -165,6 +161,10 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
     }
 
     public JSONObject agreed(Long userId, ServiceContext serviceContext) throws PortalException, SystemException {
+        if(serviceContext.getUserId() != userId){
+            throw new PrincipalException();
+        }
+
         RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER.toString());
         JSONObject result = JSONFactoryUtil.createJSONObject();
         UserLocalServiceUtil.updateAgreedToTermsOfUse(userId, true);

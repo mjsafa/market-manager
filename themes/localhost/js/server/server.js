@@ -292,6 +292,9 @@ MetronicApp.factory("JsonServer", function ($http, $rootScope) {
                         data.exception = data.error.message;
                     }
 
+                    if(data.exception == 'com.liferay.portal.security.auth.PrincipalException'){
+                        $rootScope.$emit('page.alert', {message:'شما به این بخش دسترسی ندارید.', type:"danger"});
+                    }
 
                     if (options.scope) {
                         options.scope.$emit(options.eventName + '.error', data);
