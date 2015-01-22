@@ -1,7 +1,0 @@
-<service-builder package-path="com.arman.csb.theme">
-    <namespace>CSB</namespace>
-    <service-builder-import file="service-def/template-service.xml" />
-    <service-builder-import file="service-def/contentholder-service.xml" />
-    <service-builder-import file="service-def/my-page-service.xml" />
-
-</service-builder>
