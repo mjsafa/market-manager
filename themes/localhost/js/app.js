@@ -11,6 +11,7 @@ var MetronicApp = angular.module("MetronicApp", [
     "xeditable",
     "googlechart",
     "angularCharts",
+    "ui.bootstrap.persian.datepicker",
     'pascalprecht.translate', 'ghiscoding.validation'
 ]);
 

@@ -14,6 +14,11 @@ import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.util.portlet.PortletProps;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.Date;
 import java.util.List;
@@ -99,7 +104,7 @@ public class PaymentLocalServiceImpl extends PaymentLocalServiceBaseImpl {
         return dynamicQuery(query);
     }
 
-    public long totalPaymentAmount(Long customerId, Date fromDate, Date toDate) throws PortalException, SystemException{
+    public long totalPaymentAmount(Long customerId, Date fromDate, Date toDate) throws PortalException, SystemException {
         ClassLoader classLoader = (ClassLoader) PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(), "portletClassLoader");
         DynamicQuery query = DynamicQueryFactoryUtil.forClass(Payment.class, classLoader);
         if (null != customerId && customerId > 0) {
@@ -115,9 +120,34 @@ public class PaymentLocalServiceImpl extends PaymentLocalServiceBaseImpl {
         query.setProjection(ProjectionFactoryUtil.sum("amount"));
         long amount = 0;
         List<Long> result = dynamicQuery(query);
-        if(!result.isEmpty() && null != result.get(0)){
+        if (!result.isEmpty() && null != result.get(0)) {
             return result.get(0);
         }
         return amount;
+    }
+
+    public XSSFWorkbook getExcelDocument(List<Payment> payments) {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("اطلاعات پرداخت ها");
+
+        int rowNum = 0;
+        int scoreToRials = Integer.valueOf(PortletProps.get("market-manager.config.score-to-rials"));
+        for (Payment payment : payments) {
+            XSSFRow row = sheet.createRow(rowNum);
+
+            Cell id = row.createCell(1);
+            id.setCellValue(payment.getId());
+
+            long totalAmount = payment.getAmount() * scoreToRials;
+            Cell amount = row.createCell(2);
+            amount.setCellValue(totalAmount);
+
+            Cell cardNumber = row.createCell(3);
+            cardNumber.setCellValue(payment.getCard());
+
+            rowNum++;
+        }
+
+        return workbook;
     }
 }
