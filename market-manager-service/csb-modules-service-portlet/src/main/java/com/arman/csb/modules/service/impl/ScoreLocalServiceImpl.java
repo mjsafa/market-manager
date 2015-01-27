@@ -1,8 +1,13 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.constant.UserActivityConstant;
+import com.arman.csb.constants.ScoreConstants;
 import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.Score;
 import com.arman.csb.modules.model.impl.CustomerImpl;
+import com.arman.csb.modules.service.CustomerLocalServiceUtil;
+import com.arman.csb.modules.service.ScoreLocalServiceUtil;
+import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.ScoreLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -11,7 +16,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.util.dao.orm.CustomSQLUtil;
+import com.liferay.util.portlet.PortletProps;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -66,15 +74,14 @@ public class ScoreLocalServiceImpl extends ScoreLocalServiceBaseImpl {
 
 
     /**
-     *
-     * @param type direct/indirect/null: if null then sums all scores
+     * @param type     direct/indirect/null: if null then sums all scores
      * @param fromDate
      * @param toDate
      * @return
      * @throws SystemException
      * @throws PortalException
      */
-    public long sumByType( Integer type, Date fromDate, Date toDate) throws SystemException, PortalException {
+    public long sumByType(Integer type, Date fromDate, Date toDate) throws SystemException, PortalException {
 
         String sql = CustomSQLUtil.get("com.arman.csb.modules.service.ScoreService.sumByType");
 
@@ -98,4 +105,51 @@ public class ScoreLocalServiceImpl extends ScoreLocalServiceBaseImpl {
             return 0L;
         }
     }
+
+    public Score addScore(Long customerId, long value, ServiceContext serviceContext) throws PortalException, SystemException {
+        Integer maxDepth = Integer.valueOf(PortletProps.get("market-manager.config.max-depth-score"));
+
+        Customer customer = customerPersistence.fetchByPrimaryKey(customerId);
+        if (customer.getStatus() != WorkflowConstants.STATUS_APPROVED) {
+            throw new PortalException("customer-deactive");
+        }
+        Score newScore = ScoreLocalServiceUtil.createScore(counterLocalService.increment(Score.class.getName()));
+        newScore.setType(ScoreConstants.TYPE_DIRECT);
+        newScore.setCreateDate(new Date());
+        newScore.setValue(value);
+        newScore.setCompanyId(serviceContext.getCompanyId());
+        newScore.setUserId(serviceContext.getUserId());
+        newScore.setGroupId(serviceContext.getScopeGroupId());
+        newScore.setCustomerId(customerId);
+        ScoreLocalServiceUtil.addScore(newScore);
+
+
+        customer.setScore(customer.getScore() + value);
+        CustomerLocalServiceUtil.updateCustomer(customer);
+
+        Customer manager = customer;
+
+        //Add score to Customer Manager chain
+        int i = 1;
+        while (i <= maxDepth && manager.getMentorCustomerId() > 0) {
+            manager = customerPersistence.fetchByPrimaryKey(manager.getMentorCustomerId());
+            newScore = ScoreLocalServiceUtil.createScore(counterLocalService.increment(Score.class.getName()));
+            newScore.setType(ScoreConstants.TYPE_INDIRECT);
+            newScore.setCreateDate(new Date());
+            newScore.setValue(value);
+            newScore.setCompanyId(serviceContext.getCompanyId());
+            newScore.setUserId(serviceContext.getUserId());
+            newScore.setGroupId(serviceContext.getScopeGroupId());
+            newScore.setOriginCustomerId(customerId);
+            newScore.setCustomerId(manager.getId());
+
+            ScoreLocalServiceUtil.addScore(newScore);
+            manager.setScore(manager.getScore() + value);
+            CustomerLocalServiceUtil.updateCustomer(manager);
+            i++;
+        }
+
+        return newScore;
+    }
+
 }
