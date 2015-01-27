@@ -41,10 +41,10 @@ public class InvoiceItemLocalServiceClpInvoker {
     private String[] _methodParameterTypes14;
     private String _methodName15;
     private String[] _methodParameterTypes15;
-    private String _methodName76;
-    private String[] _methodParameterTypes76;
-    private String _methodName77;
-    private String[] _methodParameterTypes77;
+    private String _methodName82;
+    private String[] _methodParameterTypes82;
+    private String _methodName83;
+    private String[] _methodParameterTypes83;
 
     public InvoiceItemLocalServiceClpInvoker() {
         _methodName0 = "addInvoiceItem";
@@ -129,13 +129,13 @@ public class InvoiceItemLocalServiceClpInvoker {
                 "com.arman.csb.modules.model.InvoiceItem"
             };
 
-        _methodName76 = "getBeanIdentifier";
+        _methodName82 = "getBeanIdentifier";
 
-        _methodParameterTypes76 = new String[] {  };
+        _methodParameterTypes82 = new String[] {  };
 
-        _methodName77 = "setBeanIdentifier";
+        _methodName83 = "setBeanIdentifier";
 
-        _methodParameterTypes77 = new String[] { "java.lang.String" };
+        _methodParameterTypes83 = new String[] { "java.lang.String" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -227,13 +227,13 @@ public class InvoiceItemLocalServiceClpInvoker {
             return InvoiceItemLocalServiceUtil.updateInvoiceItem((com.arman.csb.modules.model.InvoiceItem) arguments[0]);
         }
 
-        if (_methodName76.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+        if (_methodName82.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
             return InvoiceItemLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName77.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+        if (_methodName83.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
             InvoiceItemLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;

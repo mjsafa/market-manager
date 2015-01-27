@@ -1133,10 +1133,8 @@ public class InvoiceItemPersistenceImpl extends BasePersistenceImpl<InvoiceItem>
         invoiceItemImpl.setCreateDate(invoiceItem.getCreateDate());
         invoiceItemImpl.setModifiedDate(invoiceItem.getModifiedDate());
         invoiceItemImpl.setInvoiceId(invoiceItem.getInvoiceId());
-        invoiceItemImpl.setProductCode(invoiceItem.getProductCode());
-        invoiceItemImpl.setProductName(invoiceItem.getProductName());
+        invoiceItemImpl.setProductId(invoiceItem.getProductId());
         invoiceItemImpl.setNumber(invoiceItem.getNumber());
-        invoiceItemImpl.setBasePrice(invoiceItem.getBasePrice());
 
         return invoiceItemImpl;
     }

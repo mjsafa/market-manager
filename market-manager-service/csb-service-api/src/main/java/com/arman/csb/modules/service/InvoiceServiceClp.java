@@ -20,6 +20,8 @@ public class InvoiceServiceClp implements InvoiceService {
     private String[] _methodParameterTypes5;
     private String _methodName6;
     private String[] _methodParameterTypes6;
+    private String _methodName7;
+    private String[] _methodParameterTypes7;
 
     public InvoiceServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -47,7 +49,7 @@ public class InvoiceServiceClp implements InvoiceService {
         _methodName5 = "search";
 
         _methodParameterTypes5 = new String[] {
-                "java.lang.String", "int", "int",
+                "java.lang.String", "java.lang.String", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -55,6 +57,12 @@ public class InvoiceServiceClp implements InvoiceService {
 
         _methodParameterTypes6 = new String[] {
                 "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName7 = "updateInvoiceStatus";
+
+        _methodParameterTypes7 = new String[] {
+                "long", "int", "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -182,8 +190,8 @@ public class InvoiceServiceClp implements InvoiceService {
 
     @Override
     public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, int start, int maxResult,
-        com.liferay.portal.service.ServiceContext serviceContext)
+        java.lang.String filter, java.lang.String status, int start,
+        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.json.JSONException {
         Object returnObj = null;
 
@@ -192,6 +200,8 @@ public class InvoiceServiceClp implements InvoiceService {
                     _methodParameterTypes5,
                     new Object[] {
                         ClpSerializer.translateInput(filter),
+                        
+                    ClpSerializer.translateInput(status),
                         
                     start,
                         
@@ -229,6 +239,46 @@ public class InvoiceServiceClp implements InvoiceService {
                     _methodParameterTypes6,
                     new Object[] {
                         invoiceId,
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject updateInvoiceStatus(
+        long invoiceId, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName7,
+                    _methodParameterTypes7,
+                    new Object[] {
+                        invoiceId,
+                        
+                    status,
                         
                     ClpSerializer.translateInput(serviceContext)
                     });

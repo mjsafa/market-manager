@@ -686,7 +686,7 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
     }
 
     @Override
-    public int compareTo(com.arman.csb.modules.model.Customer customer) {
+    public int compareTo(Customer customer) {
         return _customer.compareTo(customer);
     }
 
@@ -696,17 +696,17 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
     }
 
     @Override
-    public com.liferay.portal.model.CacheModel<com.arman.csb.modules.model.Customer> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<Customer> toCacheModel() {
         return _customer.toCacheModel();
     }
 
     @Override
-    public com.arman.csb.modules.model.Customer toEscapedModel() {
+    public Customer toEscapedModel() {
         return new CustomerWrapper(_customer.toEscapedModel());
     }
 
     @Override
-    public com.arman.csb.modules.model.Customer toUnescapedModel() {
+    public Customer toUnescapedModel() {
         return new CustomerWrapper(_customer.toUnescapedModel());
     }
 

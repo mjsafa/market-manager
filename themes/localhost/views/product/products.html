@@ -1,0 +1,292 @@
+<!-- BEGIN PAGE HEADER-->
+
+<div data-ng-include="'/delegate/resource/views/customer/customerSelectPopup.html'">
+</div>
+
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/dashboard.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">داشبورد مدیریت سامانه سپاسه</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-menu-toggle
+                    dropdown-menu-hover data-delay="1000" data-close-others="true">
+                Actions <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a href="#">
+                        <i class="icon-user"></i> New User </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-present"></i> New Event <span class="badge badge-success">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-basket"></i> New order </a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-flag"></i> Pending Orders <span class="badge badge-danger">4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-users"></i> Pending Users <span class="badge badge-warning">12</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h3 class="page-title">
+    سامانه مدیریت سپاسه
+</h3>
+<!-- END PAGE HEADER-->
+
+<div ng-controller="GeneralPageController">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.message}}</alert>
+</div>
+
+<!-- BEGIN MAIN CONTENT -->
+<div>
+
+
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row" style="display: none">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue-madison">
+            <div class="visual">
+                <i class="fa fa-comments"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    1349
+                </div>
+                <div class="desc">
+                    New Feedbacks
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-intense">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    12,5M$
+                </div>
+                <div class="desc">
+                    Total Profit
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    549
+                </div>
+                <div class="desc">
+                    New Orders
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    +89%
+                </div>
+                <div class="desc">
+                    Brand Popularity
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- END DASHBOARD STATS -->
+
+<div class="row">
+
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-green-haze hide"></i>
+                    <span class="caption-subject font-green-haze bold uppercase">جستجو در کالاها</span>
+                    <span class="caption-helper hide">لیست کالاها</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+
+                    </div>
+                </div>
+                <div class="inputs">
+                    <div class="portlet-input input-inline input-medium">
+                        <div class="input-group">
+                            <input ng-enter="doSearch()" type="text" ng-model="query"
+                                   class="form-control input-circle-left" placeholder="جستجو ..."/>
+                                <span class="input-group-btn">
+                                <button ng-click="doSearch()" class="btn btn-circle-right btn-default" type="submit">
+                                    جستجو
+                                </button>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="row number-stats margin-bottom-30">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="stat-right">
+                            <div class="stat-chart">
+                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                <div id="sparkline_bar2"></div>
+                            </div>
+                            <div class="stat-number">
+                                <div class="title">
+                                    تعداد کل
+                                </div>
+                                <div class="number">
+                                    {{products.length}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-light">
+                        <thead>
+                        <tr class="uppercase">
+                            <th>
+                                نام کالا
+                            </th>
+                            <th>
+                                کد کالا
+                            </th>
+                            <th>
+                                قیمت پایه
+                            </th>
+                            <th>
+                                امتیاز تخصیصی
+                            </th>
+                            <th>
+                                تاریخ
+                            </th>
+                            <th>
+                                ویرایش
+                            </th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="product in products">
+                            <td>
+                                <span editable-text="product.name" e-name="name" e-form="productForm"
+                                      onbeforesave="checkString($data, 'نام')">
+                                    {{product.name}}
+                                </span>
+                                <br/>
+                                <span class="validation-name validation text-danger"></span>
+                            </td>
+                            <td>
+                                 <span editable-text="product.code" e-name="code" e-form="productForm"
+                                       onbeforesave="checkString($data, 'کد کالا')">
+                                    {{product.code}}
+                                 </span>
+                                <br/>
+                                <span class="validation-code validation text-danger"></span>
+                            </td>
+                            <td>
+                                 <span editable-text="product.basePrice" e-name="basePrice" e-form="productForm"
+                                       onbeforesave="checkNumeric($data, 'قیمت پایه')">
+                                    {{product.basePrice}}
+                                 </span>
+                                <br/>
+                                <span class="validation-basePrice validation text-danger"></span>
+                            </td>
+                            <td>
+                                 <span editable-text="product.score" e-name="score" e-form="productForm"
+                                       onbeforesave="checkNumeric($data, 'امتیاز تخصیصی')">
+                                    {{product.score}}
+                                 </span>
+                                <br/>
+                                <span class="validation-score validation text-danger"></span>
+                            </td>
+                            <td>
+                                {{product.createDate}}
+                            </td>
+
+                            <td>
+                                <form editable-form name="productForm" onbeforesave="submitProduct($data, product.id)"
+                                      ng-show="productForm.$visible" class="form-buttons form-inline"
+                                      shown="inserted == product">
+
+                                    <button type="submit" ng-disabled="productForm.$invalid" class="btn green">
+                                        ذخیره
+                                    </button>
+                                    <button type="button" ng-disabled="productForm.$waiting"
+                                            ng-click="productForm.$cancel(); doCancel($index, product.id)"
+                                            class="btn btn-warning">
+                                        انصراف
+                                    </button>
+                                </form>
+                                <div class="buttons" ng-show="!productForm.$visible">
+                                    <button class="btn green" ng-click="productForm.$show()">ویرایش</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <button class="btn green" ng-click="addProduct()">افزدون کالا</button>
+                </div>
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+
+</div>
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<script>
+    //Index.init();
+    //Tasks.initDashboardWidget();
+    CustomersTools.init();
+</script>
+<!-- BEGIN MAIN JS & CSS -->

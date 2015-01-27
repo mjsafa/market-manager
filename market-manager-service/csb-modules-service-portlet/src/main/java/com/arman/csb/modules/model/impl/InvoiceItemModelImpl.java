@@ -55,12 +55,10 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
             { "createDate", Types.TIMESTAMP },
             { "modifiedDate", Types.TIMESTAMP },
             { "invoiceId", Types.BIGINT },
-            { "productCode", Types.VARCHAR },
-            { "productName", Types.VARCHAR },
-            { "number_", Types.INTEGER },
-            { "basePrice", Types.BIGINT }
+            { "productId", Types.BIGINT },
+            { "number_", Types.INTEGER }
         };
-    public static final String TABLE_SQL_CREATE = "create table CSBModules_InvoiceItem (uuid_ VARCHAR(75) null,id_ LONG not null primary key,createDate DATE null,modifiedDate DATE null,invoiceId LONG,productCode VARCHAR(75) null,productName VARCHAR(75) null,number_ INTEGER,basePrice LONG)";
+    public static final String TABLE_SQL_CREATE = "create table CSBModules_InvoiceItem (uuid_ VARCHAR(75) null,id_ LONG not null primary key,createDate DATE null,modifiedDate DATE null,invoiceId LONG,productId LONG,number_ INTEGER)";
     public static final String TABLE_SQL_DROP = "drop table CSBModules_InvoiceItem";
     public static final String ORDER_BY_JPQL = " ORDER BY invoiceItem.id ASC";
     public static final String ORDER_BY_SQL = " ORDER BY CSBModules_InvoiceItem.id_ ASC";
@@ -93,10 +91,8 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
     private long _invoiceId;
     private long _originalInvoiceId;
     private boolean _setOriginalInvoiceId;
-    private String _productCode;
-    private String _productName;
+    private long _productId;
     private Short _number;
-    private long _basePrice;
     private long _columnBitmask;
     private InvoiceItem _escapedModel;
 
@@ -121,10 +117,8 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
         model.setCreateDate(soapModel.getCreateDate());
         model.setModifiedDate(soapModel.getModifiedDate());
         model.setInvoiceId(soapModel.getInvoiceId());
-        model.setProductCode(soapModel.getProductCode());
-        model.setProductName(soapModel.getProductName());
+        model.setProductId(soapModel.getProductId());
         model.setNumber(soapModel.getNumber());
-        model.setBasePrice(soapModel.getBasePrice());
 
         return model;
     }
@@ -188,10 +182,8 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
         attributes.put("createDate", getCreateDate());
         attributes.put("modifiedDate", getModifiedDate());
         attributes.put("invoiceId", getInvoiceId());
-        attributes.put("productCode", getProductCode());
-        attributes.put("productName", getProductName());
+        attributes.put("productId", getProductId());
         attributes.put("number", getNumber());
-        attributes.put("basePrice", getBasePrice());
 
         return attributes;
     }
@@ -228,28 +220,16 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
             setInvoiceId(invoiceId);
         }
 
-        String productCode = (String) attributes.get("productCode");
+        Long productId = (Long) attributes.get("productId");
 
-        if (productCode != null) {
-            setProductCode(productCode);
-        }
-
-        String productName = (String) attributes.get("productName");
-
-        if (productName != null) {
-            setProductName(productName);
+        if (productId != null) {
+            setProductId(productId);
         }
 
         Short number = (Short) attributes.get("number");
 
         if (number != null) {
             setNumber(number);
-        }
-
-        Long basePrice = (Long) attributes.get("basePrice");
-
-        if (basePrice != null) {
-            setBasePrice(basePrice);
         }
     }
 
@@ -334,32 +314,13 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
 
     @JSON
     @Override
-    public String getProductCode() {
-        if (_productCode == null) {
-            return StringPool.BLANK;
-        } else {
-            return _productCode;
-        }
+    public long getProductId() {
+        return _productId;
     }
 
     @Override
-    public void setProductCode(String productCode) {
-        _productCode = productCode;
-    }
-
-    @JSON
-    @Override
-    public String getProductName() {
-        if (_productName == null) {
-            return StringPool.BLANK;
-        } else {
-            return _productName;
-        }
-    }
-
-    @Override
-    public void setProductName(String productName) {
-        _productName = productName;
+    public void setProductId(long productId) {
+        _productId = productId;
     }
 
     @JSON
@@ -371,17 +332,6 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
     @Override
     public void setNumber(Short number) {
         _number = number;
-    }
-
-    @JSON
-    @Override
-    public long getBasePrice() {
-        return _basePrice;
-    }
-
-    @Override
-    public void setBasePrice(long basePrice) {
-        _basePrice = basePrice;
     }
 
     public long getColumnBitmask() {
@@ -420,10 +370,8 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
         invoiceItemImpl.setCreateDate(getCreateDate());
         invoiceItemImpl.setModifiedDate(getModifiedDate());
         invoiceItemImpl.setInvoiceId(getInvoiceId());
-        invoiceItemImpl.setProductCode(getProductCode());
-        invoiceItemImpl.setProductName(getProductName());
+        invoiceItemImpl.setProductId(getProductId());
         invoiceItemImpl.setNumber(getNumber());
-        invoiceItemImpl.setBasePrice(getBasePrice());
 
         invoiceItemImpl.resetOriginalValues();
 
@@ -514,32 +462,16 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
 
         invoiceItemCacheModel.invoiceId = getInvoiceId();
 
-        invoiceItemCacheModel.productCode = getProductCode();
-
-        String productCode = invoiceItemCacheModel.productCode;
-
-        if ((productCode != null) && (productCode.length() == 0)) {
-            invoiceItemCacheModel.productCode = null;
-        }
-
-        invoiceItemCacheModel.productName = getProductName();
-
-        String productName = invoiceItemCacheModel.productName;
-
-        if ((productName != null) && (productName.length() == 0)) {
-            invoiceItemCacheModel.productName = null;
-        }
+        invoiceItemCacheModel.productId = getProductId();
 
         invoiceItemCacheModel.number = getNumber();
-
-        invoiceItemCacheModel.basePrice = getBasePrice();
 
         return invoiceItemCacheModel;
     }
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(19);
+        StringBundler sb = new StringBundler(15);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -551,14 +483,10 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
         sb.append(getModifiedDate());
         sb.append(", invoiceId=");
         sb.append(getInvoiceId());
-        sb.append(", productCode=");
-        sb.append(getProductCode());
-        sb.append(", productName=");
-        sb.append(getProductName());
+        sb.append(", productId=");
+        sb.append(getProductId());
         sb.append(", number=");
         sb.append(getNumber());
-        sb.append(", basePrice=");
-        sb.append(getBasePrice());
         sb.append("}");
 
         return sb.toString();
@@ -566,7 +494,7 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(31);
+        StringBundler sb = new StringBundler(25);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.InvoiceItem");
@@ -593,20 +521,12 @@ public class InvoiceItemModelImpl extends BaseModelImpl<InvoiceItem>
         sb.append(getInvoiceId());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>productCode</column-name><column-value><![CDATA[");
-        sb.append(getProductCode());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>productName</column-name><column-value><![CDATA[");
-        sb.append(getProductName());
+            "<column><column-name>productId</column-name><column-value><![CDATA[");
+        sb.append(getProductId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>number</column-name><column-value><![CDATA[");
         sb.append(getNumber());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>basePrice</column-name><column-value><![CDATA[");
-        sb.append(getBasePrice());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

@@ -26,10 +26,8 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
     private Date _createDate;
     private Date _modifiedDate;
     private long _invoiceId;
-    private String _productCode;
-    private String _productName;
+    private long _productId;
     private Short _number;
-    private long _basePrice;
     private BaseModel<?> _invoiceItemRemoteModel;
 
     public InvoiceItemClp() {
@@ -74,10 +72,8 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
         attributes.put("createDate", getCreateDate());
         attributes.put("modifiedDate", getModifiedDate());
         attributes.put("invoiceId", getInvoiceId());
-        attributes.put("productCode", getProductCode());
-        attributes.put("productName", getProductName());
+        attributes.put("productId", getProductId());
         attributes.put("number", getNumber());
-        attributes.put("basePrice", getBasePrice());
 
         return attributes;
     }
@@ -114,28 +110,16 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
             setInvoiceId(invoiceId);
         }
 
-        String productCode = (String) attributes.get("productCode");
+        Long productId = (Long) attributes.get("productId");
 
-        if (productCode != null) {
-            setProductCode(productCode);
-        }
-
-        String productName = (String) attributes.get("productName");
-
-        if (productName != null) {
-            setProductName(productName);
+        if (productId != null) {
+            setProductId(productId);
         }
 
         Short number = (Short) attributes.get("number");
 
         if (number != null) {
             setNumber(number);
-        }
-
-        Long basePrice = (Long) attributes.get("basePrice");
-
-        if (basePrice != null) {
-            setBasePrice(basePrice);
         }
     }
 
@@ -250,43 +234,21 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
     }
 
     @Override
-    public String getProductCode() {
-        return _productCode;
+    public long getProductId() {
+        return _productId;
     }
 
     @Override
-    public void setProductCode(String productCode) {
-        _productCode = productCode;
+    public void setProductId(long productId) {
+        _productId = productId;
 
         if (_invoiceItemRemoteModel != null) {
             try {
                 Class<?> clazz = _invoiceItemRemoteModel.getClass();
 
-                Method method = clazz.getMethod("setProductCode", String.class);
+                Method method = clazz.getMethod("setProductId", long.class);
 
-                method.invoke(_invoiceItemRemoteModel, productCode);
-            } catch (Exception e) {
-                throw new UnsupportedOperationException(e);
-            }
-        }
-    }
-
-    @Override
-    public String getProductName() {
-        return _productName;
-    }
-
-    @Override
-    public void setProductName(String productName) {
-        _productName = productName;
-
-        if (_invoiceItemRemoteModel != null) {
-            try {
-                Class<?> clazz = _invoiceItemRemoteModel.getClass();
-
-                Method method = clazz.getMethod("setProductName", String.class);
-
-                method.invoke(_invoiceItemRemoteModel, productName);
+                method.invoke(_invoiceItemRemoteModel, productId);
             } catch (Exception e) {
                 throw new UnsupportedOperationException(e);
             }
@@ -309,28 +271,6 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
                 Method method = clazz.getMethod("setNumber", Short.class);
 
                 method.invoke(_invoiceItemRemoteModel, number);
-            } catch (Exception e) {
-                throw new UnsupportedOperationException(e);
-            }
-        }
-    }
-
-    @Override
-    public long getBasePrice() {
-        return _basePrice;
-    }
-
-    @Override
-    public void setBasePrice(long basePrice) {
-        _basePrice = basePrice;
-
-        if (_invoiceItemRemoteModel != null) {
-            try {
-                Class<?> clazz = _invoiceItemRemoteModel.getClass();
-
-                Method method = clazz.getMethod("setBasePrice", long.class);
-
-                method.invoke(_invoiceItemRemoteModel, basePrice);
             } catch (Exception e) {
                 throw new UnsupportedOperationException(e);
             }
@@ -409,10 +349,8 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
         clone.setCreateDate(getCreateDate());
         clone.setModifiedDate(getModifiedDate());
         clone.setInvoiceId(getInvoiceId());
-        clone.setProductCode(getProductCode());
-        clone.setProductName(getProductName());
+        clone.setProductId(getProductId());
         clone.setNumber(getNumber());
-        clone.setBasePrice(getBasePrice());
 
         return clone;
     }
@@ -458,7 +396,7 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(19);
+        StringBundler sb = new StringBundler(15);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -470,14 +408,10 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
         sb.append(getModifiedDate());
         sb.append(", invoiceId=");
         sb.append(getInvoiceId());
-        sb.append(", productCode=");
-        sb.append(getProductCode());
-        sb.append(", productName=");
-        sb.append(getProductName());
+        sb.append(", productId=");
+        sb.append(getProductId());
         sb.append(", number=");
         sb.append(getNumber());
-        sb.append(", basePrice=");
-        sb.append(getBasePrice());
         sb.append("}");
 
         return sb.toString();
@@ -485,7 +419,7 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(31);
+        StringBundler sb = new StringBundler(25);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.InvoiceItem");
@@ -512,20 +446,12 @@ public class InvoiceItemClp extends BaseModelImpl<InvoiceItem>
         sb.append(getInvoiceId());
         sb.append("]]></column-value></column>");
         sb.append(
-            "<column><column-name>productCode</column-name><column-value><![CDATA[");
-        sb.append(getProductCode());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>productName</column-name><column-value><![CDATA[");
-        sb.append(getProductName());
+            "<column><column-name>productId</column-name><column-value><![CDATA[");
+        sb.append(getProductId());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>number</column-name><column-value><![CDATA[");
         sb.append(getNumber());
-        sb.append("]]></column-value></column>");
-        sb.append(
-            "<column><column-name>basePrice</column-name><column-value><![CDATA[");
-        sb.append(getBasePrice());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

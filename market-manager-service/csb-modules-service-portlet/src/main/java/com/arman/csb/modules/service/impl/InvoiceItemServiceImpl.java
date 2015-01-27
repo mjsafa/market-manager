@@ -2,10 +2,13 @@ package com.arman.csb.modules.service.impl;
 
 import com.arman.csb.constant.UserActivityConstant;
 import com.arman.csb.modules.model.InvoiceItem;
+import com.arman.csb.modules.model.Product;
 import com.arman.csb.modules.model.impl.InvoiceItemImpl;
 import com.arman.csb.modules.service.InvoiceItemLocalServiceUtil;
+import com.arman.csb.modules.service.ProductLocalServiceUtil;
 import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.InvoiceItemServiceBaseImpl;
+import com.arman.csb.util.MapUtil;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
@@ -68,7 +71,7 @@ public class InvoiceItemServiceImpl extends InvoiceItemServiceBaseImpl {
     }
 
     public JSONArray search(String filter, long invoiceId, int start, int maxResult, ServiceContext serviceContext)
-            throws JSONException {
+            throws PortalException, SystemException {
 
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
@@ -96,18 +99,20 @@ public class InvoiceItemServiceImpl extends InvoiceItemServiceBaseImpl {
     }
 
     private InvoiceItem getInvoiceItemData(InvoiceItem invoiceItemObject, Map<String, Object> invoiceItem, ServiceContext serviceContext) {
-        invoiceItemObject.setProductName(String.valueOf(invoiceItem.get("productName")));
-        invoiceItemObject.setProductCode(String.valueOf(invoiceItem.get("productCode")));
-        invoiceItemObject.setNumber(Short.valueOf(String.valueOf(invoiceItem.get("number"))));
-        invoiceItemObject.setBasePrice(Long.valueOf(String.valueOf(invoiceItem.get("basePrice"))));
-        invoiceItemObject.setInvoiceId(Long.valueOf(String.valueOf(invoiceItem.get("invoiceId"))));
+        invoiceItemObject.setNumber(MapUtil.getShort(invoiceItem, "number"));
+        invoiceItemObject.setProductId(MapUtil.getLong(invoiceItem, "productId"));
+        invoiceItemObject.setInvoiceId(MapUtil.getLong(invoiceItem, "invoiceId"));
 
         return invoiceItemObject;
     }
 
-    private JSONObject getJSONObject(InvoiceItem invoiceItem) throws JSONException {
+    private JSONObject getJSONObject(InvoiceItem invoiceItem) throws PortalException, SystemException {
         JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
         JSONObject result = JSONFactoryUtil.createJSONObject(jsonSerializer.serialize(invoiceItem));
+
+        Product product = ProductLocalServiceUtil.getProduct(invoiceItem.getProductId());
+
+        result.put("product", JSONFactoryUtil.createJSONObject(jsonSerializer.serialize(product)));
 
         return result;
     }

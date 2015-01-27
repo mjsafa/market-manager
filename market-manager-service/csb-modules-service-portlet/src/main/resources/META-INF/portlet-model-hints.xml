@@ -36,6 +36,7 @@
 		<field name="telephone" type="String" />
 		<field name="mobile" type="String" />
 		<field name="typeOfDelivery" type="Short" />
+		<field name="status" type="int" />
 	</model>
 	<model name="com.arman.csb.modules.model.InvoiceItem">
 		<field name="uuid" type="String" />
@@ -43,10 +44,8 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="invoiceId" type="long" />
-		<field name="productCode" type="String" />
-		<field name="productName" type="String" />
+		<field name="productId" type="long" />
 		<field name="number" type="Short" />
-		<field name="basePrice" type="long" />
 	</model>
 	<model name="com.arman.csb.modules.model.Payment">
 		<field name="uuid" type="String" />
@@ -63,6 +62,20 @@
 		<field name="paymentDate" type="Date" />
 		<field name="customerId" type="long" />
 		<field name="factorId" type="long" />
+	</model>
+	<model name="com.arman.csb.modules.model.Product">
+		<field name="uuid" type="String" />
+		<field name="id" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String" />
+		<field name="code" type="String" />
+		<field name="basePrice" type="long" />
+		<field name="score" type="long" />
 	</model>
 	<model name="com.arman.csb.modules.model.Score">
 		<field name="uuid" type="String" />

@@ -69,7 +69,8 @@ public class InvoiceItemServiceUtil {
     public static com.liferay.portal.kernel.json.JSONArray search(
         java.lang.String filter, long invoiceId, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)
-        throws com.liferay.portal.kernel.json.JSONException {
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
         return getService()
                    .search(filter, invoiceId, start, maxResult, serviceContext);
     }

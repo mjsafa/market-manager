@@ -2717,6 +2717,7 @@ public class InvoicePersistenceImpl extends BasePersistenceImpl<Invoice>
         invoiceImpl.setTelephone(invoice.getTelephone());
         invoiceImpl.setMobile(invoice.getMobile());
         invoiceImpl.setTypeOfDelivery(invoice.getTypeOfDelivery());
+        invoiceImpl.setStatus(invoice.getStatus());
 
         return invoiceImpl;
     }

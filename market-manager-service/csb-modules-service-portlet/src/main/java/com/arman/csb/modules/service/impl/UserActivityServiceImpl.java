@@ -91,7 +91,7 @@ public class UserActivityServiceImpl extends UserActivityServiceBaseImpl {
         JSONObject result = JSONFactoryUtil.createJSONObject(jsonSerializer.serialize(activity));
 
         result.remove("data");
-        result.put("data", JSONFactoryUtil.createJSONArray("[" + activity.getData() + "]"));
+        result.put("data", JSONFactoryUtil.createJSONObject(activity.getData()));
 
         return result;
     }

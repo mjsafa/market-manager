@@ -21,6 +21,7 @@
         <column name="telephone" type="String" />
         <column name="mobile" type="String" />
         <column name="typeOfDelivery" type="Short" />
+        <column name="status" type="int"/>
         
         <finder name="UserId" return-type="Collection">
             <finder-column name="userId"></finder-column>
@@ -41,10 +42,8 @@
 
         <!-- Other fields -->
         <column name="invoiceId" type="long" />
-        <column name="productCode" type="String" />
-        <column name="productName" type="String" />
+        <column name="productId" type="long" />
         <column name="number" type="Short" />
-        <column name="basePrice" type="long" />
 
         <finder name="InvoiceId" return-type="collection">
             <finder-column name="invoiceId"></finder-column>

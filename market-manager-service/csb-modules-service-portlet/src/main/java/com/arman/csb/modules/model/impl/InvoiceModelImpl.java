@@ -65,9 +65,10 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
             { "address", Types.VARCHAR },
             { "telephone", Types.VARCHAR },
             { "mobile", Types.VARCHAR },
-            { "typeOfDelivery", Types.INTEGER }
+            { "typeOfDelivery", Types.INTEGER },
+            { "status", Types.INTEGER }
         };
-    public static final String TABLE_SQL_CREATE = "create table CSBModules_Invoice (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,customerId LONG,address VARCHAR(75) null,telephone VARCHAR(75) null,mobile VARCHAR(75) null,typeOfDelivery INTEGER)";
+    public static final String TABLE_SQL_CREATE = "create table CSBModules_Invoice (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,customerId LONG,address VARCHAR(75) null,telephone VARCHAR(75) null,mobile VARCHAR(75) null,typeOfDelivery INTEGER,status INTEGER)";
     public static final String TABLE_SQL_DROP = "drop table CSBModules_Invoice";
     public static final String ORDER_BY_JPQL = " ORDER BY invoice.id ASC";
     public static final String ORDER_BY_SQL = " ORDER BY CSBModules_Invoice.id_ ASC";
@@ -118,6 +119,7 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
     private String _telephone;
     private String _mobile;
     private Short _typeOfDelivery;
+    private int _status;
     private long _columnBitmask;
     private Invoice _escapedModel;
 
@@ -150,6 +152,7 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
         model.setTelephone(soapModel.getTelephone());
         model.setMobile(soapModel.getMobile());
         model.setTypeOfDelivery(soapModel.getTypeOfDelivery());
+        model.setStatus(soapModel.getStatus());
 
         return model;
     }
@@ -221,6 +224,7 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
         attributes.put("telephone", getTelephone());
         attributes.put("mobile", getMobile());
         attributes.put("typeOfDelivery", getTypeOfDelivery());
+        attributes.put("status", getStatus());
 
         return attributes;
     }
@@ -303,6 +307,12 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
 
         if (typeOfDelivery != null) {
             setTypeOfDelivery(typeOfDelivery);
+        }
+
+        Integer status = (Integer) attributes.get("status");
+
+        if (status != null) {
+            setStatus(status);
         }
     }
 
@@ -535,6 +545,17 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
         _typeOfDelivery = typeOfDelivery;
     }
 
+    @JSON
+    @Override
+    public int getStatus() {
+        return _status;
+    }
+
+    @Override
+    public void setStatus(int status) {
+        _status = status;
+    }
+
     @Override
     public StagedModelType getStagedModelType() {
         return new StagedModelType(PortalUtil.getClassNameId(
@@ -585,6 +606,7 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
         invoiceImpl.setTelephone(getTelephone());
         invoiceImpl.setMobile(getMobile());
         invoiceImpl.setTypeOfDelivery(getTypeOfDelivery());
+        invoiceImpl.setStatus(getStatus());
 
         invoiceImpl.resetOriginalValues();
 
@@ -727,12 +749,14 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
 
         invoiceCacheModel.typeOfDelivery = getTypeOfDelivery();
 
+        invoiceCacheModel.status = getStatus();
+
         return invoiceCacheModel;
     }
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(27);
+        StringBundler sb = new StringBundler(29);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -760,6 +784,8 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
         sb.append(getMobile());
         sb.append(", typeOfDelivery=");
         sb.append(getTypeOfDelivery());
+        sb.append(", status=");
+        sb.append(getStatus());
         sb.append("}");
 
         return sb.toString();
@@ -767,7 +793,7 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(43);
+        StringBundler sb = new StringBundler(46);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Invoice");
@@ -824,6 +850,10 @@ public class InvoiceModelImpl extends BaseModelImpl<Invoice>
         sb.append(
             "<column><column-name>typeOfDelivery</column-name><column-value><![CDATA[");
         sb.append(getTypeOfDelivery());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>status</column-name><column-value><![CDATA[");
+        sb.append(getStatus());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

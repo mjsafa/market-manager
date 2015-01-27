@@ -33,7 +33,8 @@ create table CSBModules_Invoice (
 	address VARCHAR(75) null,
 	telephone VARCHAR(75) null,
 	mobile VARCHAR(75) null,
-	typeOfDelivery INTEGER
+	typeOfDelivery INTEGER,
+	status INTEGER
 );
 
 create table CSBModules_InvoiceItem (
@@ -42,10 +43,8 @@ create table CSBModules_InvoiceItem (
 	createDate DATE null,
 	modifiedDate DATE null,
 	invoiceId LONG,
-	productCode VARCHAR(75) null,
-	productName VARCHAR(75) null,
-	number_ INTEGER,
-	basePrice LONG
+	productId LONG,
+	number_ INTEGER
 );
 
 create table CSBModules_Payment (
@@ -63,6 +62,21 @@ create table CSBModules_Payment (
 	paymentDate DATE null,
 	customerId LONG,
 	factorId LONG
+);
+
+create table CSBModules_Product (
+	uuid_ VARCHAR(75) null,
+	id_ LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	name VARCHAR(75) null,
+	code_ VARCHAR(75) null,
+	basePrice LONG,
+	score LONG
 );
 
 create table CSBModules_Score (

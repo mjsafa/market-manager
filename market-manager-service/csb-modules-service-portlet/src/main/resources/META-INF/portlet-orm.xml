@@ -66,6 +66,7 @@
 			<basic name="telephone" />
 			<basic name="mobile" />
 			<basic name="typeOfDelivery" />
+			<basic name="status" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -87,12 +88,10 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="invoiceId" />
-			<basic name="productCode" />
-			<basic name="productName" />
+			<basic name="productId" />
 			<basic name="number">
 				<column name="NUMBER_" />
 			</basic>
-			<basic name="basePrice" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -124,6 +123,36 @@
 			</basic>
 			<basic name="customerId" />
 			<basic name="factorId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.arman.csb.modules.model.impl.ProductModelImpl">
+		<attributes>
+			<id name="id">
+				<column name="ID_" />
+			</id>
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="name" />
+			<basic name="code">
+				<column name="CODE_" />
+			</basic>
+			<basic name="basePrice" />
+			<basic name="score" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -201,6 +230,10 @@
 	</entity>
 	<entity class="com.arman.csb.modules.model.impl.PaymentImpl" name="Payment">
 		<table name="CSBModules_Payment" />
+		<attributes />
+	</entity>
+	<entity class="com.arman.csb.modules.model.impl.ProductImpl" name="Product">
+		<table name="CSBModules_Product" />
 		<attributes />
 	</entity>
 	<entity class="com.arman.csb.modules.model.impl.ScoreImpl" name="Score">

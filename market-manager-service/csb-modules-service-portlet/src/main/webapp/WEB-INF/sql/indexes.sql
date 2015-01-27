@@ -24,6 +24,13 @@ create index IX_59DD21B2 on CSBModules_Payment (uuid_);
 create index IX_E7533F36 on CSBModules_Payment (uuid_, companyId);
 create unique index IX_63EE1B38 on CSBModules_Payment (uuid_, groupId);
 
+create index IX_6EBD7D77 on CSBModules_Product (code_);
+create index IX_CB4401EA on CSBModules_Product (name);
+create index IX_8CC32BA5 on CSBModules_Product (userId);
+create index IX_3170BCE9 on CSBModules_Product (uuid_);
+create index IX_DC2B4B9F on CSBModules_Product (uuid_, companyId);
+create unique index IX_55002DE1 on CSBModules_Product (uuid_, groupId);
+
 create index IX_C84DDD9B on CSBModules_Score (customerId);
 create index IX_955A17DA on CSBModules_Score (customerId, type_);
 create index IX_7D135D26 on CSBModules_Score (uuid_);

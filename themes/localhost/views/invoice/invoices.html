@@ -1,7 +1,7 @@
 <!-- BEGIN PAGE HEADER-->
 
-<div data-ng-include="'/delegate/resource/views/customer/customerSelectPopup.html'" >
-</div>
+<div data-ng-include="'/delegate/resource/views/customer/customerSelectPopup.html'"></div>
+<div data-ng-include="'/delegate/resource/views/product/productSelectPopup.html'"></div>
 
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -60,7 +60,7 @@
 </div>
 
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="InvoicesController">
+<div>
 
 
 <!-- BEGIN DASHBOARD STATS -->
@@ -142,7 +142,7 @@
 <!-- END DASHBOARD STATS -->
 
 <div class="row">
-<div class="col-md-6 col-sm-12">
+<div class="col-md-12 col-sm-12">
     <!-- BEGIN PORTLET-->
     <div class="portlet light ">
         <div class="portlet-title tabbable-line">
@@ -158,7 +158,7 @@
                 </li>
                 <li class="active">
                     <a href="#" data-target="#portlet_tab1" data-toggle="tab">
-اطلاعات کلی
+                        اطلاعات کلی
                     </a>
                 </li>
             </ul>
@@ -169,81 +169,96 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="portlet_tab1">
                         <div class="form-body">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">تلفن همراه</label>
+                            <div class="row">
 
-                                <div class="input-group col-md-9">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-mobile"></i>
-                                </span>
-                                    <input name="mobile" validation="numeric|exact_len:11|required"
-                                           ng-model="newInvoice.mobile" type="text" class="form-control" style="direction: ltr;">
-                                </div>
-                            </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">تلفن همراه</label>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3">تلفن</label>
+                                        <div class="input-group col-md-8">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-mobile"></i>
+                                    </span>
+                                            <input name="mobile" validation="numeric|exact_len:11|required"
+                                                   ng-model="newInvoice.mobile" type="text" class="form-control"
+                                                   style="direction: ltr;">
+                                        </div>
+                                    </div>
 
-                                <div class="input-group col-md-9">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-mobile"></i>
-                                </span>
-                                    <input name="telephone" validation="numeric|exact_len:11|required"
-                                           ng-model="newInvoice.telephone" type="text" class="form-control" style="direction: ltr;">
-                                </div>
-                            </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">تلفن</label>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3">مشتری</label>
+                                        <div class="input-group col-md-8">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-mobile"></i>
+                                    </span>
+                                            <input name="telephone" validation="numeric|exact_len:11|required"
+                                                   ng-model="newInvoice.telephone" type="text" class="form-control"
+                                                   style="direction: ltr;">
+                                        </div>
+                                    </div>
 
-                                <div class="input-group col-md-9">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-users"></i>
-                                </span>
-                                    <input name="customer" validation="required" ng-click="open()" type="text"
-                                           class="form-control input-lg selector" ng-model="newInvoice.customer.name"
-                                           readonly/>
-                                </div>
-                            </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">مشتری</label>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3">مدل حمل</label>
-
-                                <div class="col-md-9">
-                                    <div class="radio-list">
-                                        <label>
-                                            <div class="radio">
-                                                <input type="radio" checked="" value="1"
-                                                       ng-model="newInvoice.typeOfDelivery" name="typeOfDelivery">
-                                            </div>
-                                            پستی
-                                        </label>
-                                        <label>
-                                            <div class="radio">
-                                                <input type="radio" value="2"
-                                                       ng-model="newInvoice.typeOfDelivery" name="typeOfDelivery">
-                                            </div>
-                                            حضوری
-                                        </label>
-                                        <label>
-                                            <div class="radio">
-                                                <input type="radio" value="3"
-                                                       ng-model="newInvoice.typeOfDelivery" name="typeOfDelivery">
-                                            </div>
-                                            پیک
-                                        </label>
+                                        <div class="input-group col-md-8">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-users"></i>
+                                        </span>
+                                            <input name="customer" validation="required" ng-click="open()" type="text"
+                                                   class="form-control input-lg selector"
+                                                   ng-model="newInvoice.customer.name"
+                                                   readonly/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3">آدرس</label>
 
-                                <div class="col-md-9">
-                                    <textarea ng-model="newInvoice.address" class="form-control" rows="3"></textarea>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">مدل حمل</label>
+
+                                        <div class="col-md-8">
+                                            <div class="radio-list">
+                                                <label>
+                                                    <div class="radio">
+                                                        <input type="radio" checked="" value="1"
+                                                               ng-model="newInvoice.typeOfDelivery"
+                                                               name="typeOfDelivery">
+                                                    </div>
+                                                    پستی
+                                                </label>
+                                                <label>
+                                                    <div class="radio">
+                                                        <input type="radio" value="2"
+                                                               ng-model="newInvoice.typeOfDelivery"
+                                                               name="typeOfDelivery">
+                                                    </div>
+                                                    حضوری
+                                                </label>
+                                                <label>
+                                                    <div class="radio">
+                                                        <input type="radio" value="3"
+                                                               ng-model="newInvoice.typeOfDelivery"
+                                                               name="typeOfDelivery">
+                                                    </div>
+                                                    پیک
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">آدرس</label>
+
+                                        <div class="col-md-8">
+                                            <textarea ng-model="newInvoice.address" class="form-control"
+                                                      rows="3"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
 
@@ -252,26 +267,16 @@
 
                         <div class="form-body" ng-repeat="item in newInvoice.invoiceItems">
                             <div class="form-group">
-                                <label class="control-label col-md-3">نام محصول</label>
+                                <label class="control-label col-md-3">کالا</label>
 
                                 <div class="input-group col-md-9">
                                 <span class="input-group-addon">
-                                    <i class="fa fa-edit"></i>
+                                    <i class="fa fa-users"></i>
                                 </span>
-                                    <input name="productName_{{$index}}" validation="min_len:2|max_len:50|required"
-                                           ng-model="item.productName" type="text" class="form-control" >
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3">کد محصول</label>
-
-                                <div class="input-group col-md-9">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-edit"></i>
-                                </span>
-                                    <input name="productCode_{{$index}}" validation="min_len:2|max_len:50|required"
-                                           ng-model="item.productCode" type="text" class="form-control" style="direction: ltr;">
+                                    <input name="customer" validation="required" ng-click="openProductPopup(item)"
+                                           type="text"
+                                           class="form-control input-lg selector" ng-model="item.product.name"
+                                           readonly/>
                                 </div>
                             </div>
 
@@ -282,20 +287,9 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-tag"></i>
                                 </span>
-                                    <input name="number_{{$index}}" validation="numeric|required" ng-model="item.number" type="text" class="form-control"
+                                    <input name="number_{{$index}}" validation="numeric|required" ng-model="item.number"
+                                           type="text" class="form-control"
                                            style="direction: ltr;">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3">قیمت پایه</label>
-
-                                <div class="input-group col-md-9">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-tag"></i>
-                                </span>
-                                    <input name="basePrise_{{$index}}" validation="numeric|required"
-                                           ng-model="item.basePrice" type="text" class="form-control" style="direction: ltr;">
                                 </div>
                             </div>
 
@@ -305,12 +299,12 @@
                         </div>
 
                     </div>
+                    <div class="form-actions right">
+                        <button ng-disabled="invoice_form.$invalid" type="submit" class="btn green">ثبت فاکتور جدید
+                        </button>
+                    </div>
                 </div>
 
-
-                <div class="form-actions right">
-                    <button ng-disabled="invoice_form.$invalid" type="submit" class="btn green">ثبت فاکتور جدید</button>
-                </div>
 
             </form>
         </div>
@@ -318,7 +312,7 @@
     <!-- END PORTLET-->
 </div>
 
-<div class="col-md-6 col-sm-12">
+<div class="col-md-12 col-sm-12">
     <!-- BEGIN PORTLET-->
     <div class="portlet light ">
         <div class="portlet-title">
@@ -333,6 +327,19 @@
                 </div>
             </div>
             <div class="inputs">
+                <div class="portlet-input input-inline input-medium">
+                    <label class="control-label col-md-4">وضعیت</label>
+
+                    <div class="input-group">
+                        <select ng-change="doSearch()" ng-model="selectedStatus" class="form-control input-circle">
+                            <option selected value=""></option>
+                            <option ng-repeat="status in statuses" value="{{status.value}}">
+                                {{status.text}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="portlet-input input-inline input-medium">
                     <div class="input-group">
                         <input ng-enter="doSearch()" type="text" ng-model="query"
@@ -371,16 +378,25 @@
                     <thead>
                     <tr class="uppercase">
                         <th>
-نام مشتری
+                            نام مشتری
                         </th>
                         <th>
-تعداد اقلام
+                            تعداد اقلام
                         </th>
                         <th>
-جمع هزینه ها
+                            جمع هزینه ها
+                        </th>
+                        <th>
+                            جمع امتیازها
+                        </th>
+                        <th>
+                            وضعیت
                         </th>
                         <th>
                             تاریخ
+                        </th>
+                        <th>
+                            تغییر وضعیت
                         </th>
                     </tr>
                     </thead>
@@ -395,7 +411,31 @@
                             {{invoice.totalCost}}
                         </td>
                         <td>
+                            {{invoice.totalScore}}
+                        </td>
+                        <td>
+                            {{ showStatus(invoice.status) }}
+                        </td>
+                        <td>
                             {{invoice.invoiceDate}}
+                        </td>
+                        <td>
+                            <button type="button" ng-click="updateStatus(invoice.id, 4)" ng-if="1 == invoice.status"
+                                    class="btn red">
+                                {{ showStatus(4) }}
+                            </button>
+                            <button type="button" ng-click="updateStatus(invoice.id, 0)" ng-if="1 == invoice.status"
+                                    class="btn green">
+                                {{ showStatus(0) }}
+                            </button>
+                            <button type="button" ng-click="updateStatus(invoice.id, 1)" ng-if="4 == invoice.status"
+                                    class="btn">
+                                {{ showStatus(1) }}
+                            </button>
+                            <button type="button" ng-click="updateStatus(invoice.id, 10001)" ng-if="0 == invoice.status"
+                                    class="btn yellow">
+                                {{ showStatus(10001) }}
+                            </button>
                         </td>
                     </tr>
                 </table>

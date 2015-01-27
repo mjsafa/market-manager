@@ -19,6 +19,9 @@
 	<bean id="com.arman.csb.modules.service.PaymentLocalService" class="com.arman.csb.modules.service.impl.PaymentLocalServiceImpl" />
 	<bean id="com.arman.csb.modules.service.PaymentService" class="com.arman.csb.modules.service.impl.PaymentServiceImpl" />
 	<bean id="com.arman.csb.modules.service.persistence.PaymentPersistence" class="com.arman.csb.modules.service.persistence.PaymentPersistenceImpl" parent="basePersistence" />
+	<bean id="com.arman.csb.modules.service.ProductLocalService" class="com.arman.csb.modules.service.impl.ProductLocalServiceImpl" />
+	<bean id="com.arman.csb.modules.service.ProductService" class="com.arman.csb.modules.service.impl.ProductServiceImpl" />
+	<bean id="com.arman.csb.modules.service.persistence.ProductPersistence" class="com.arman.csb.modules.service.persistence.ProductPersistenceImpl" parent="basePersistence" />
 	<bean id="com.arman.csb.modules.service.ScoreLocalService" class="com.arman.csb.modules.service.impl.ScoreLocalServiceImpl" />
 	<bean id="com.arman.csb.modules.service.ScoreService" class="com.arman.csb.modules.service.impl.ScoreServiceImpl" />
 	<bean id="com.arman.csb.modules.service.persistence.ScorePersistence" class="com.arman.csb.modules.service.persistence.ScorePersistenceImpl" parent="basePersistence" />
