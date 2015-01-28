@@ -108,9 +108,19 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-            	<groupId>org.jsoup</groupId>
-            	<artifactId>jsoup</artifactId>
-            	 <version>${jsoup.version}</version>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -129,18 +139,20 @@
         <liferay.app.server.portal.dir>${tomcat.dir}/webapps/ROOT</liferay.app.server.portal.dir>
 
         <jsoup.version>1.7.2</jsoup.version>
+        <poi.version>3.11</poi.version>
     </properties>
 
     <profiles>
         <profile>
             <id>local</id>
-<!--            <activation>
+            <!--            <activation>
                 <file>
                     <exists>csb-service/csb-service-portlet/src/main/webapp/WEB-INF/service-def/service.xml</exists>
                 </file>
             </activation>-->
             <properties>
-                <liferay.home>G:\Workspace\Marketing\liferay-portal-6.2.0-ce-rc6</liferay.home>
+                <liferay.home>C:\archive\Programming-Utility\Liferay\market-manager\liferay-portal-6.2.0-ce-rc6
+                </liferay.home>
                 <tomcat.version>7.0.42</tomcat.version>
             </properties>
         </profile>
