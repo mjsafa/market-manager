@@ -63,7 +63,7 @@
 
 
 <!-- BEGIN DASHBOARD STATS -->
-<div class="row">
+<div class="row" ng-if="currentCustomerId">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="dashboard-stat blue-madison">
             <div class="visual">
@@ -71,7 +71,82 @@
             </div>
             <div class="details">
                 <div class="number">
-                    {{stats.totalPayment}}
+                    {{customerStats.totalPayedOrPending| score}}
+                </div>
+                <div class="desc">
+                    امتیاز پرداخت شده یا در دست بررسی
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-intense">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    {{customerStats.totalPayable| score}}
+                </div>
+                <div class="desc">
+                    امتیاز قابل برداشت
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    {{customerStats.totalScore| score}}
+                </div>
+                <div class="desc">
+                    میزان کل امتیازات
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    {{customerStats.totalApprovedPayment | score}}
+                </div>
+                <div class="desc">
+                    میزان کل پرداخت ها
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="!currentCustomerId">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue-madison">
+            <div class="visual">
+                <i class="fa fa-comments"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    {{stats.totalPayment | score}}
                     <span class="desc">
                                         (تومان)
                     </span>
@@ -93,7 +168,7 @@
             </div>
             <div class="details">
                 <div class="number">
-                    {{stats.lastWeekPayment}}
+                    {{stats.lastWeekPayment| score}}
                     <span class="desc">
                                         (تومان)
                     </span>
@@ -115,7 +190,7 @@
             </div>
             <div class="details">
                 <div class="number">
-                    {{stats.lastMonthPayment}}
+                    {{stats.lastMonthPayment | score}}
 <span class="desc">
                     (تومان)
 </span>
@@ -136,7 +211,7 @@
             </div>
             <div class="details">
                 <div class="number">
-                    {{stats.lastYearPayment}}
+                    {{stats.lastYearPayment | score}}
                     <span class="desc">
                                         (تومان)
                     </span>
@@ -159,7 +234,7 @@
             <div class="portlet-title tabbable-line">
                 <div class="caption caption-md">
                     <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-white bold uppercase">ثبت پرداخت به مشتری</span>
+                    <span class="caption-subject font-white bold uppercase">ثبت درخواست پرداخت جدید (کارمزد: 1 امتیاز)</span>
                 </div>
                 <ul class="nav nav-tabs">
                     <!--<li>
@@ -175,7 +250,7 @@
                 </ul>
             </div>
             <div class="portlet-body form ">
-                <form  class="form-horizontal" name="formAdd" ng-submit="submitPayment()">
+                <form class="form-horizontal" name="formAdd" ng-submit="submitPayment()">
                     <div class="tab-content">
 
                         <div class="tab-pane active" id="portlet_tab1">
@@ -183,27 +258,29 @@
                                 <div class="row">
                                     <div class="col-md-5 col-sm-12">
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">مبلغ (ریال)</label>
+                                            <label class="control-label col-md-3">امتیاز درخواستی</label>
 
                                             <div class="input-group col-md-9">
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-usd"></i>
                                                 </span>
-                                                <input ng-model="newPayment.amount" name="amount" validation="integer|required" typing-limit="500" type="text" class="form-control"/>
+                                                <input style="direction: ltr;" ng-model="newPayment.amountInput"
+                                                       name="amount" validation="numeric_float:3|min_num:2|required"
+                                                       typing-limit="500" type="text" step="0.001"
+                                                       class="form-control"/>
                                             </div>
                                         </div>
 
 
-                                        <div class="form-group">
+                                        <div ng-if="!currentCustomerId" class="form-group">
                                             <label class="control-label col-md-3">مشتری</label>
 
                                             <div class="input-group col-md-9">
 
-                                                <input validation="required" typing-limit="10"  name="customer" ng-click="open()" type="text" readonly
+                                                <input validation="required" typing-limit="10" name="customer"
+                                                       ng-click="open()" type="text" readonly
                                                        class="form-control selector"
                                                        ng-model="newPayment.customer.name"/>
-
-
                                                 <span class="input-group-btn">
                                                     <button ng-click="open()"
                                                             class="btn green-turquoise"
@@ -212,17 +289,12 @@
                                                     </button>
                                                 </span>
                                             </div>
-
                                         </div>
 
-
-                                    </div>
-
-                                    <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label class="control-label col-md-3">توضیحات</label>
 
-                                            <div class="input-group col-md-8">
+                                            <div class="input-group col-md-9">
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-envelope"></i>
                                                 </span>
@@ -239,9 +311,14 @@
                             </div>
                             <div class="form-actions right purple ">
                                 <div class="col-md-11">
-                                    <button type="submit" ng-disabled="formAdd.$invalid" style="float: right;" class="btn btn-lg green-turquoise">ثبت
+
+                                    <a ng-confirm-message="آیا از درخواست پرداخت {{newPayment.amountInput}} امتیاز با کارمزد 1 امتیاز اطمینان دارید؟"
+                                       ng-confirm-action="submitPayment()"
+                                       ng-disabled="formAdd.$invalid || paymentSubmitted"
+                                       style="float: right;" class="btn btn-lg green-turquoise">
+                                        ثبت
                                         پرداخت
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -263,6 +340,8 @@
         <!-- END PORTLET-->
     </div>
 </div>
+
+
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <!-- BEGIN PORTLET-->
@@ -270,8 +349,7 @@
             <div class="portlet-title">
                 <div class="caption caption-md">
                     <i class="icon-bar-chart font-green-haze hide"></i>
-                    <span class="caption-subject font-green-haze bold uppercase">لیست پرداخت های سیستم</span>
-                    <span class="caption-helper hide">لیست مشتریان</span>
+                    <span class="caption-subject font-green-haze bold uppercase">{{currentCustomerId? 'درخواست های پرداخت شما' : 'درخواست های پرداخت ثبت شده'}}</span>
                 </div>
                 <div class="actions">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
@@ -279,11 +357,34 @@
                     </div>
                 </div>
 
+                <div class="inputs">
+                    <div class="portlet-input input-inline input-medium">
+                        <label class="control-label col-md-4">وضعیت</label>
 
+                        <div class="input-group">
+                            <select ng-change="doSearch()" ng-model="filter.status" class="form-control input-circle">
+                                <option value="undefined"></option>
+                                <option value="0">
+                                    پرداخت های انجام شده
+                                </option>
+                                <option value="1">
+                                    بررسی نشده
+                                </option>
+                                <option value="20">
+                                    در دست اقدام
+                                </option>
+                                <option value="4">
+                                    لغو شده
+                                </option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="portlet-body">
 
-                <div class="col-md-2 col-sm-12">
+                <div ng-if="!currentCustomerId" class="col-md-2 col-sm-12">
                     <div class="form-group">
                         <label class="control-label col-md-5">مشتری:</label>
 
@@ -294,16 +395,14 @@
                             </span>
 
 
-
-
-                                <button ng-if="!filterCustomer.id" ng-click="openCustomerFilter()"
-                                        class="btn blue"
-                                        type="button"><i class="fa fa-search fa-fw"></i>
-                                </button>
-                                <button ng-click="removeCustomerFilter()" ng-if="filterCustomer.id"
-                                        class="btn btn-xs blue btn-circle" type="button">
-                                    &nbsp;&nbsp;<i class="fa fa-close "></i>
-                                </button>
+                            <button ng-if="!filterCustomer.id" ng-click="openCustomerFilter()"
+                                    class="btn blue"
+                                    type="button"><i class="fa fa-search fa-fw"></i>
+                            </button>
+                            <button ng-click="removeCustomerFilter()" ng-if="filterCustomer.id"
+                                    class="btn btn-xs blue btn-circle" type="button">
+                                &nbsp;&nbsp;<i class="fa fa-close "></i>
+                            </button>
 
                         </div>
 
@@ -317,7 +416,8 @@
 
                         <div class="input-group col-md-7">
 
-                            <input ng-enter="doSearch()" ng-model="filter.fromAmount" type="text" class="form-control" empty-to-null/>
+                            <input ng-enter="doSearch()" ng-model="filter.fromAmount" type="text"
+                                   class="form-control" empty-to-null/>
                         </div>
 
                     </div>
@@ -325,7 +425,8 @@
                 <div class="col-md-2 col-sm-12">
                     <div class="form-group">
                         <div class="input-group col-md-12">
-                            <input ng-enter="doSearch()" ng-model="filter.toAmount" type="text" class="form-control" empty-to-null/>
+                            <input ng-enter="doSearch()" ng-model="filter.toAmount" type="text" class="form-control"
+                                   empty-to-null/>
                         </div>
                     </div>
                 </div>
@@ -343,14 +444,24 @@
                     <table class="table table-hover table-light">
                         <thead>
                         <tr class="uppercase">
-                            <th>
+                            <th ng-if="isOperator()">
                                 مشتری
                             </th>
                             <th>
-                                مبلغ
+                                شناسه پرداخت
+                            </th>
+
+                            <th>
+                                امتیاز
                             </th>
                             <th>
                                 توضیحات
+                            </th>
+                            <th>
+                                تاریخ ایجاد
+                            </th>
+                            <th>
+                                تاریخ پرداخت
                             </th>
                             <th>
                                 شماره کارت
@@ -358,21 +469,35 @@
                             <th>
                                 وضعیت
                             </th>
+                            <th ng-if="isCustomer()">
+                                حذف
+                            </th>
+
+                            <th ng-if="checkAnyRoles(['ADMINISTRATOR_USER', 'PAYMENT_MANAGER'])">
+                                رد کردن
+                            </th>
                         </tr>
                         </thead>
                         <tr ng-repeat="payment in payments">
 
-                            <td>
-                                <a href="#/customer/{{payment.customer.id}}" class="primary-link">{{user.firstName}}
-                                    {{payment.customer.name}}
-                                </a>
+                            <td ng-if="isOperator()">
+                                {{payment.customer.name}}
                             </td>
                             <td>
-                                {{payment.amount}}
+                                {{payment.id}}
+                            </td>
+                            <td class="font-blue bold">
+                                {{payment.amount | score}}
                             </td>
 
                             <td style="direction: ltr; text-align: right;">
                                 {{payment.description}}
+                            </td>
+                            <td style="direction: ltr; text-align: right;">
+                                {{payment.createDate | myDate:'jYYYY/jM/jD H:mm'}}
+                            </td>
+                            <td style="direction: ltr; text-align: right;">
+                                {{payment.paymentDate | myDate:'jYYYY/jM/jD H:mm'}}
                             </td>
                             <td style="direction: ltr; text-align: right;">
                                 {{payment.card}}
@@ -380,14 +505,34 @@
 
 
                             <td>
-                                <button type="button" class="btn btn-success" ng-click="changeStatus(payment)"
-                                        ng-model="payment.isActive"
-                                        btn-checkbox>
-                                    {{payment.isActive ? "تایید شده" : "تایید نشده"}}
-
-                                </button>
-
+                                <span ng-if="payment.status == 1" class="label label-bg label-warning">
+                                    بررسی نشده
+                                </span>
+                                <span ng-if="payment.status == 0" class="label label-bg label-success">
+                                    واریز شده
+                                </span>
+                                <span ng-if="payment.status == 20" class="label label-bg label-info">
+                                    در دست بررسی
+                                </span>
+                                <span ng-if="payment.status == 4" class="label label-bg label-danger">
+                                    رد شده
+                                </span>
                             </td>
+                            <td>
+                                <a ng-if="payment.status == 1 && isCustomer()"
+                                   ng-confirm-action="deletePayment(payment)"
+                                   ng-confirm-message="آیا از حذف درخواست پرداخت به میزان {{payment.amount |score}}  امتیاز اطمینان دارید؟">
+                                    <i class="fa fa-close font-red"/>
+                                </a>
+                                <button class="btn btn-lg btn-circle font-red grey-cararra"
+                                        ng-if="payment.status != 4 && checkAnyRoles(['ADMINISTRATOR_USER', 'PAYMENT_MANAGER'])"
+                                        ng-confirm-action="rejectPayment(payment)"
+                                        ng-confirm-message="آیا از عدم پذیرش درخواست پرداخت به میزان {{payment.amount |score}}  امتیاز و کد {{payment.id }}  اطمینان دارید؟">
+                                    <i class="fa fa-trash-o font-red"/>
+                                    عدم پذیرش
+                                </button>
+                            </td>
+
                         </tr>
                     </table>
                 </div>
