@@ -27,6 +27,7 @@
         <column name="nationalCode" type="String"/>
         <column name="email" type="String"/>
         <column name="card" type="String"/>
+        <column name="cardExpireDate" type="Date"/>
         <column name="score" type="long"/>
         <column name="status" type="int"/>
 

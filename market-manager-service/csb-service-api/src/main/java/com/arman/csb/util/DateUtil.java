@@ -100,4 +100,13 @@ public class DateUtil extends com.liferay.portal.kernel.util.DateUtil {
             return null;
         }
     }
+
+
+    public static final Long getTime(Date date) {
+        if(null != date){
+            return date.getTime();
+        }else {
+            return null;
+        }
+    }
 }

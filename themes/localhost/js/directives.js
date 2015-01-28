@@ -38,11 +38,15 @@ MetronicApp.directive('ngSpinnerBar', ['$rootScope',
                 });
 
                 $rootScope.$on('service-call-start', function () {
-                    element.removeClass('hide'); // show spinner bar
+                    //element.removeClass('hide'); // show spinner bar
+                    Metronic.blockUI({
+                        animate: true
+                    });
                 });
 
                 $rootScope.$on('service-call-end', function () {
-                    element.addClass('hide'); // show spinner bar
+                    //element.addClass('hide'); // show spinner bar
+                    Metronic.unblockUI();
                 });
 
             }
@@ -73,7 +77,7 @@ MetronicApp.directive('dropdownMenuHover', function () {
     };
 });
 
-// Handle Dropdown Toggle 
+// Handle Dropdown Toggle
 MetronicApp.directive('dropdownMenuToggle', function () {
     return {
         link:function (scope, elem) {
@@ -110,3 +114,5 @@ MetronicApp.directive('emptyToNull', function () {
         }
     }
 });
+
+

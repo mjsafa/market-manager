@@ -14,6 +14,7 @@ create table CSBModules_Customer (
 	nationalCode VARCHAR(75) null,
 	email VARCHAR(75) null,
 	card VARCHAR(75) null,
+	cardExpireDate DATE null,
 	score LONG,
 	status INTEGER,
 	customerUserId LONG,

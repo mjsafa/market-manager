@@ -1,6 +1,7 @@
 'use strict';
 
-MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal', function ($rootScope, $scope, PaymentService, $state, $modal) {
+MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal' , '$filter', function ($rootScope, $scope, PaymentService, $state, $modal, $filter) {
+    $scope.currentCustomerId = onlineUser.customerId;
 
     if (!$scope.initialized) {    //bind listeners only for the first time
         //server side events
@@ -8,12 +9,50 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
             $scope.payments = data.result;
         });
 
+        $scope.$on('PaymentService.getStats', function (event, data) {
+            $scope.customerStats = data.result;
+        });
+
         $scope.$on('PaymentService.addPayment', function (event, data) {
+            $scope.paymentSubmitted = false;
             $rootScope.$emit('page.alert', {message:'پرداخت مورد نظر شما با موفقیت ثبت شد', type:"success"});
             $scope.doSearch();
             $scope.formAdd.$setPristine();
             initNewPayment();
         });
+
+        $scope.$on('PaymentService.addPayment.error', function (event, data) {
+            $scope.paymentSubmitted = false;
+            if (data.exception.indexOf("minimum-payment-amount") > 0) {
+                $rootScope.$emit('page.alert', {message:'حداقل میزان قابل پرداخت 2 امتیاز می باشد', type:"danger"});
+            }
+            if (data.exception.indexOf("payment-exceed-score") > 0) {
+                $rootScope.$emit('page.alert', {message:'میزان درخواست شما بیش از امتیاز باقیمانده شما می باشد', type:"danger"});
+            }
+
+            if (data.exception.indexOf("customer-not-active") > 0) {
+                $rootScope.$emit('page.alert', {message:'امکان ثبت پرداخت برای مشتری غیر فعال وجود ندارد.', type:"danger"});
+            }
+        });
+
+        $scope.$on('PaymentService.deletePayment', function (event, data) {
+            $rootScope.$emit('page.alert', {message:'پرداخت مورد نظر شما با موفقیت حذف شد', type:"success"});
+            $scope.doSearch();
+        });
+
+        $scope.$on('PaymentService.rejectPayment', function (event, data) {
+            $rootScope.$emit('page.alert', {message:'درخواست پرداخت به میزان ' + $filter('score')(data.result.amount) + ' امتیاز و با شناسه پرداخت ' + data.result.paymentId + ' به حالت عدم پذیرش تغییر یافت', type:"success"});
+            $scope.doSearch();
+        });
+
+
+        $scope.$on('PaymentService.deletePayment.error', function (event, data) {
+            $scope.paymentSubmitted = false;
+            if (data.exception.indexOf("payment-not-pending") > 0) {
+                $rootScope.$emit('page.alert', {message:'تنها پرداخت های بررسی نشده قابل حذف می باشد', type:"danger"});
+            }
+        });
+
 
         $rootScope.$on('PaymentService.getTotalStats', function (event, data) {
             $scope.stats = data.result;
@@ -29,13 +68,33 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
         Metronic.initAjax();
     });
 
+    $scope.deletePayment = function (payment) {
+        PaymentService.deletePayment(payment.id, {scope:$scope});
+    }
+
+    $scope.rejectPayment = function (payment) {
+        PaymentService.rejectPayment(payment.id, {scope:$scope});
+    }
 
     $scope.doSearch = function () {
+        $scope.filter = $scope.filter || {};
+        if ($scope.currentCustomerId) {
+            $scope.filter.customerId = $scope.currentCustomerId;
+        }
+
         PaymentService.search($scope.filter, {scope:$scope});
+        PaymentService.getStats($scope.currentCustomerId, {scope:$scope});
     }
 
     $scope.doSearch();
-    PaymentService.getTotalStats();
+    if ($scope.currentCustomerId) {
+        PaymentService.getStats($scope.currentCustomerId, {scope:$scope});
+    }
+
+
+    if (!$scope.currentCustomerId) {
+        PaymentService.getTotalStats();
+    }
 
 
     function initNewPayment() {
@@ -45,8 +104,15 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
 
     //handle customer entry
     $scope.submitPayment = function () {
-        $scope.newPayment.customerId = $scope.newPayment.customer.id;
+        if ($scope.currentCustomerId) {
+            $scope.newPayment.customerId = $scope.currentCustomerId;
+        } else {
+            $scope.newPayment.customerId = $scope.newPayment.customer.id;
+        }
+
+        $scope.newPayment.amount = $scope.newPayment.amountInput * 1000;
         PaymentService.addPayment($scope.newPayment, {scope:$scope});
+        $scope.paymentSubmitted = true;
     }
 
 
@@ -76,7 +142,7 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
         });
     };
 
-    $scope.removeCustomerFilter = function(){
+    $scope.removeCustomerFilter = function () {
         $scope.filterCustomer = undefined;
         $scope.filter.customerId = undefined;
         $scope.doSearch();

@@ -79,6 +79,107 @@ public class PaymentServiceSoap {
         }
     }
 
+    public static java.lang.String isDownloaded(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = PaymentServiceUtil.isDownloaded(serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String downloadPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = PaymentServiceUtil.downloadPayments(serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String acceptPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = PaymentServiceUtil.acceptPayments(serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String cancelDownloadPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = PaymentServiceUtil.cancelDownloadPayments(serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String rejectPayment(java.lang.Long paymentId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = PaymentServiceUtil.rejectPayment(paymentId,
+                    serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String deletePayment(long paymentId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = PaymentServiceUtil.deletePayment(paymentId,
+                    serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static java.lang.String getStats(long customerId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = PaymentServiceUtil.getStats(customerId,
+                    serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
     public static java.lang.String getPaymentActivityJSONObject(
         com.arman.csb.modules.model.PaymentSoap payment,
         com.arman.csb.modules.model.CustomerSoap customer)

@@ -36,6 +36,7 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
     public String nationalCode;
     public String email;
     public String card;
+    public long cardExpireDate;
     public long score;
     public int status;
     public long customerUserId;
@@ -43,7 +44,7 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(39);
+        StringBundler sb = new StringBundler(41);
 
         sb.append("{uuid=");
         sb.append(uuid);
@@ -75,6 +76,8 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
         sb.append(email);
         sb.append(", card=");
         sb.append(card);
+        sb.append(", cardExpireDate=");
+        sb.append(cardExpireDate);
         sb.append(", score=");
         sb.append(score);
         sb.append(", status=");
@@ -163,6 +166,12 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
             customerImpl.setCard(card);
         }
 
+        if (cardExpireDate == Long.MIN_VALUE) {
+            customerImpl.setCardExpireDate(null);
+        } else {
+            customerImpl.setCardExpireDate(new Date(cardExpireDate));
+        }
+
         customerImpl.setScore(score);
         customerImpl.setStatus(status);
         customerImpl.setCustomerUserId(customerUserId);
@@ -190,6 +199,7 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
         nationalCode = objectInput.readUTF();
         email = objectInput.readUTF();
         card = objectInput.readUTF();
+        cardExpireDate = objectInput.readLong();
         score = objectInput.readLong();
         status = objectInput.readInt();
         customerUserId = objectInput.readLong();
@@ -261,6 +271,7 @@ public class CustomerCacheModel implements CacheModel<Customer>, Externalizable 
             objectOutput.writeUTF(card);
         }
 
+        objectOutput.writeLong(cardExpireDate);
         objectOutput.writeLong(score);
         objectOutput.writeInt(status);
         objectOutput.writeLong(customerUserId);

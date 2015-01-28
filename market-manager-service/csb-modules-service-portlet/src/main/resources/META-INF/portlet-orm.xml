@@ -32,6 +32,9 @@
 			<basic name="nationalCode" />
 			<basic name="email" />
 			<basic name="card" />
+			<basic name="cardExpireDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
 			<basic name="score" />
 			<basic name="status" />
 			<basic name="customerUserId" />

@@ -85,6 +85,23 @@ public class MyUserServiceSoap {
         }
     }
 
+    public static java.lang.String updatePassword(java.lang.Long userId,
+        java.lang.String oldPassword, java.lang.String password1,
+        java.lang.String password2,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = MyUserServiceUtil.updatePassword(userId,
+                    oldPassword, password1, password2, serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
     public static java.lang.String getPaymentActivityJSONObject(
         com.liferay.portal.model.UserSoap user) throws RemoteException {
         try {

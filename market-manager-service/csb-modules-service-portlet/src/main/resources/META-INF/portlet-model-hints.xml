@@ -17,6 +17,7 @@
 		<field name="nationalCode" type="String" />
 		<field name="email" type="String" />
 		<field name="card" type="String" />
+		<field name="cardExpireDate" type="Date" />
 		<field name="score" type="long" />
 		<field name="status" type="int" />
 		<field name="customerUserId" type="long" />

@@ -642,9 +642,7 @@
                         <tr ng-repeat="payment in payments">
 
                             <td>
-                                <a href="#/userDetail/{{user.id}}" class="primary-link">{{user.firstName}}
-                                    {{payment.customer.name}}
-                                </a>
+                                {{payment.customer.name}}
                             </td>
                             <td>
                                 {{payment.amount}}
@@ -659,7 +657,18 @@
 
 
                             <td>
-                                {{payment.isActive ? "تایید شده" : "تایید نشده"}}
+                                <span ng-if="payment.status == 1" class="label label-bg label-warning">
+                                                                    بررسی نشده
+                                </span>
+                                <span ng-if="payment.status == 0" class="label label-bg label-success">
+                                    واریز شده
+                                </span>
+                                <span ng-if="payment.status == 20" class="label label-bg label-blue">
+                                    در دست بررسی
+                                </span>
+                                <span ng-if="payment.status == 4" class="label label-bg label-danger">
+                                    رد شده
+                                </span>
                             </td>
                         </tr>
                     </table>

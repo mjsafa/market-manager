@@ -23,6 +23,20 @@ public class PaymentServiceClpInvoker {
     private String[] _methodParameterTypes69;
     private String _methodName70;
     private String[] _methodParameterTypes70;
+    private String _methodName71;
+    private String[] _methodParameterTypes71;
+    private String _methodName72;
+    private String[] _methodParameterTypes72;
+    private String _methodName73;
+    private String[] _methodParameterTypes73;
+    private String _methodName74;
+    private String[] _methodParameterTypes74;
+    private String _methodName75;
+    private String[] _methodParameterTypes75;
+    private String _methodName76;
+    private String[] _methodParameterTypes76;
+    private String _methodName77;
+    private String[] _methodParameterTypes77;
 
     public PaymentServiceClpInvoker() {
         _methodName60 = "getBeanIdentifier";
@@ -58,9 +72,51 @@ public class PaymentServiceClpInvoker {
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName70 = "getPaymentActivityJSONObject";
+        _methodName70 = "isDownloaded";
 
         _methodParameterTypes70 = new String[] {
+                "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName71 = "downloadPayments";
+
+        _methodParameterTypes71 = new String[] {
+                "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName72 = "acceptPayments";
+
+        _methodParameterTypes72 = new String[] {
+                "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName73 = "cancelDownloadPayments";
+
+        _methodParameterTypes73 = new String[] {
+                "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName74 = "rejectPayment";
+
+        _methodParameterTypes74 = new String[] {
+                "java.lang.Long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName75 = "deletePayment";
+
+        _methodParameterTypes75 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName76 = "getStats";
+
+        _methodParameterTypes76 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName77 = "getPaymentActivityJSONObject";
+
+        _methodParameterTypes77 = new String[] {
                 "com.arman.csb.modules.model.Payment",
                 "com.arman.csb.modules.model.Customer"
             };
@@ -107,6 +163,44 @@ public class PaymentServiceClpInvoker {
 
         if (_methodName70.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+            return PaymentServiceUtil.isDownloaded((com.liferay.portal.service.ServiceContext) arguments[0]);
+        }
+
+        if (_methodName71.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+            return PaymentServiceUtil.downloadPayments((com.liferay.portal.service.ServiceContext) arguments[0]);
+        }
+
+        if (_methodName72.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
+            return PaymentServiceUtil.acceptPayments((com.liferay.portal.service.ServiceContext) arguments[0]);
+        }
+
+        if (_methodName73.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+            return PaymentServiceUtil.cancelDownloadPayments((com.liferay.portal.service.ServiceContext) arguments[0]);
+        }
+
+        if (_methodName74.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
+            return PaymentServiceUtil.rejectPayment((java.lang.Long) arguments[0],
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName75.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
+            return PaymentServiceUtil.deletePayment(((Long) arguments[0]).longValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName76.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+            return PaymentServiceUtil.getStats(((Long) arguments[0]).longValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName77.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
             return PaymentServiceUtil.getPaymentActivityJSONObject((com.arman.csb.modules.model.Payment) arguments[0],
                 (com.arman.csb.modules.model.Customer) arguments[1]);
         }

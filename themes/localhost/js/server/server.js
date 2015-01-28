@@ -223,19 +223,29 @@ MetronicApp.factory("ScoreServiceMock", ['CustomerService', function (CustomerSe
 //Users Service
 MetronicApp.factory("UserService", function (JsonServer, $rootScope) {
     return {
-        addUser:function (user) {
+        addUser:function (user, options) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'new-user', {user:JSON.stringify(user), serviceContext:{}}, {
-                eventName:'UserService.addUser'
+                eventName:'UserService.addUser',
+                scope:options ? options.scope : undefined
             });
         },
-        find:function (query) {
+        updateUser:function (user, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'update-user', {userMap:JSON.stringify(user), serviceContext:{}}, {
+                eventName:'UserService.updateUser',
+                scope:options ? options.scope : undefined
+            });
+        },
+
+        find:function (query, options) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'find-users', {filter:JSON.stringify({query:query}), serviceContext:{}}, {
-                eventName:'UserService.find'
+                eventName:'UserService.find',
+                scope:options ? options.scope : undefined
             });
         },
-        getById:function (userId) {
+        getById:function (userId, options) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'get-by-id', {userId:userId, serviceContext:{}}, {
-                eventName:'UserService.getById'
+                eventName:'UserService.getById',
+                scope:options ? options.scope : undefined
             });
         },
         updateStatus:function (userId, isActive) {
@@ -250,6 +260,12 @@ MetronicApp.factory("UserService", function (JsonServer, $rootScope) {
         },
         getOnlineUser:function () {
             return onlineUser;
+        },
+        updatePassword:function (userId, oldPassword, password1, password2, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'update-password', {userId:userId, oldPassword:oldPassword, password1:password1, password2:password2, serviceContext:{}}, {
+                eventName:'UserService.updatePassword',
+                scope:options ? options.scope : undefined
+            });
         }
     };
 
@@ -278,6 +294,7 @@ MetronicApp.factory("JsonServer", function ($http, $rootScope) {
             $rootScope.$emit('service-call-start', {});
 
             result.success(function (data, status) {
+                data.params = params;
                 if (data.result) {
                     $rootScope.$emit('service-call-end', {});
                     if (options.scope) {
@@ -292,7 +309,7 @@ MetronicApp.factory("JsonServer", function ($http, $rootScope) {
                         data.exception = data.error.message;
                     }
 
-                    if(data.exception == 'com.liferay.portal.security.auth.PrincipalException'){
+                    if (data.exception == 'com.liferay.portal.security.auth.PrincipalException') {
                         $rootScope.$emit('page.alert', {message:'شما به این بخش دسترسی ندارید.', type:"danger"});
                     }
 

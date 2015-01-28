@@ -88,8 +88,9 @@ public class PaymentModelImpl extends BaseModelImpl<Payment>
     public static long CUSTOMERID_COLUMN_BITMASK = 2L;
     public static long FACTORID_COLUMN_BITMASK = 4L;
     public static long GROUPID_COLUMN_BITMASK = 8L;
-    public static long UUID_COLUMN_BITMASK = 16L;
-    public static long ID_COLUMN_BITMASK = 32L;
+    public static long STATUS_COLUMN_BITMASK = 16L;
+    public static long UUID_COLUMN_BITMASK = 32L;
+    public static long ID_COLUMN_BITMASK = 64L;
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
                 "lock.expiration.time.com.arman.csb.modules.model.Payment"));
     private static ClassLoader _classLoader = Payment.class.getClassLoader();
@@ -113,6 +114,8 @@ public class PaymentModelImpl extends BaseModelImpl<Payment>
     private String _card;
     private long _amount;
     private int _status;
+    private int _originalStatus;
+    private boolean _setOriginalStatus;
     private Date _paymentDate;
     private long _customerId;
     private long _originalCustomerId;
@@ -488,7 +491,19 @@ public class PaymentModelImpl extends BaseModelImpl<Payment>
 
     @Override
     public void setStatus(int status) {
+        _columnBitmask |= STATUS_COLUMN_BITMASK;
+
+        if (!_setOriginalStatus) {
+            _setOriginalStatus = true;
+
+            _originalStatus = _status;
+        }
+
         _status = status;
+    }
+
+    public int getOriginalStatus() {
+        return _originalStatus;
     }
 
     @JSON
@@ -657,6 +672,10 @@ public class PaymentModelImpl extends BaseModelImpl<Payment>
         paymentModelImpl._originalCompanyId = paymentModelImpl._companyId;
 
         paymentModelImpl._setOriginalCompanyId = false;
+
+        paymentModelImpl._originalStatus = paymentModelImpl._status;
+
+        paymentModelImpl._setOriginalStatus = false;
 
         paymentModelImpl._originalCustomerId = paymentModelImpl._customerId;
 

@@ -1,11 +1,13 @@
 package com.arman.csb.modules.service.impl;
 
 import com.arman.csb.constant.UserActivityConstant;
+import com.arman.csb.constants.ScoreConstants;
 import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.Payment;
 import com.arman.csb.modules.model.Score;
 import com.arman.csb.modules.service.CustomerLocalServiceUtil;
 import com.arman.csb.modules.service.PaymentLocalServiceUtil;
+import com.arman.csb.modules.service.ScoreLocalServiceUtil;
 import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.PaymentServiceBaseImpl;
 import com.arman.csb.modules.util.RoleEnum;
@@ -20,6 +22,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.util.portlet.PortletProps;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -48,11 +51,19 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
      */
 
     public JSONObject addPayment(Map<String, Object> paymentMap, ServiceContext serviceContext) throws PortalException, SystemException {
-        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
+        RoleUtil.checkAnyRolesOrSameCustomer(serviceContext.getUserId(), MapUtil.getLong(paymentMap, "customerId"), RoleEnum.PAYMENT_MANAGER.toString());
+
+
+        long minimumPaymentRequest = Long.valueOf(PortletProps.get("market-manager.config.minimum-payment-request"));
+        long amount = MapUtil.getLong(paymentMap, "amount");
+        if (amount < minimumPaymentRequest) {
+            throw new PortalException("minimum-payment-amount");
+        }
+
 
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Payment newPayment = PaymentLocalServiceUtil.addPayment(MapUtil.getLong(paymentMap, "amount"), MapUtil.getLong(paymentMap, "customerId")
-                , new Date(), WorkflowConstants.STATUS_APPROVED, MapUtil.getLong(paymentMap, "factorId"), MapUtil.getString(paymentMap, "description")
+                , null, WorkflowConstants.STATUS_PENDING, MapUtil.getLong(paymentMap, "factorId"), MapUtil.getString(paymentMap, "description")
                 , serviceContext);
 
         UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_PAYMENT, UserActivityConstant.ACTION_ADD,
@@ -64,27 +75,29 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
 
     public JSONObject totalPayedAmount(Long customerId, ServiceContext serviceContext) throws PortalException, SystemException {
         RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
-
         JSONObject result = JSONFactoryUtil.createJSONObject();
         result.put("customerTotalAmount", PaymentLocalServiceUtil.totalPayedAmount(customerId));
         return result;
     }
 
     public JSONArray search(Map<String, Object> filter, int first, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
-        if(!RoleUtil.isSameCustomer(serviceContext.getUserId(), MapUtil.getLong(filter, "customerId")) && !RoleUtil.hasAnyRoles(serviceContext.getUserId(),RoleEnum.PAYMENT_MANAGER.toString())){
+        if (!RoleUtil.isSameCustomer(serviceContext.getUserId(), MapUtil.getLong(filter, "customerId")) && !RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString())) {
             throw new PrincipalException();
         }
 
-        JSONArray result = JSONFactoryUtil.createJSONArray();
         List<Payment> payments = PaymentLocalServiceUtil.find(MapUtil.getLong(filter, "customerId"), MapUtil.getDate(filter, "fromDate"), MapUtil.getDate(filter, "toDate")
-                , MapUtil.getLong(filter, "fromAmount"), MapUtil.getLong(filter, "toAmount"), first, maxResult, serviceContext);
+                , MapUtil.getLong(filter, "fromAmount"), MapUtil.getLong(filter, "toAmount"), MapUtil.getInteger(filter, "status", WorkflowConstants.STATUS_ANY), first, maxResult, serviceContext);
+
+        JSONArray result = JSONFactoryUtil.createJSONArray();
         for (Payment payment : payments) {
             JSONObject paymentJson = JSONFactoryUtil.createJSONObject();
             paymentJson.put("id", payment.getId());
             paymentJson.put("customerId", payment.getCustomerId());
-            paymentJson.put("paymentDate", payment.getPaymentDate());
+            if (null != payment.getPaymentDate()) {
+                paymentJson.put("paymentDate", payment.getPaymentDate().getTime());
+            }
             paymentJson.put("amount", payment.getAmount());
-            paymentJson.put("createDate", payment.getCreateDate());
+            paymentJson.put("createDate", payment.getCreateDate().getTime());
             paymentJson.put("description", payment.getDescription());
             paymentJson.put("factorId", payment.getFactorId());
             paymentJson.put("status", payment.getStatus());
@@ -129,6 +142,120 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
         result.put("totalPayment", totalPayment);
         return result;
     }
+
+    public JSONObject isDownloaded(ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        int totalDownloadStatus = paymentPersistence.countByStatus(com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
+        result.put("isDownloaded", totalDownloadStatus <= 0 ? false : true);
+        return result;
+    }
+
+    public JSONObject downloadPayments(ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        List<Payment> payments = paymentLocalService.findByStatus(WorkflowConstants.STATUS_PENDING);
+        for (Payment payment : payments) {
+            PaymentLocalServiceUtil.updateStatus(payment, com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
+        }
+
+        result.put("paymentCount", payments.size());
+        result.put("status", com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
+        result.put("totalAmount", PaymentLocalServiceUtil.calculateMoneyInRials(payments));
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_PAYMENT, UserActivityConstant.ACTION_CHANGE_STATUS,
+                UserActivityConstant.IMPORTANCE_MEDIUM, result.toString(), serviceContext);
+
+        return result;
+    }
+
+
+    public JSONObject acceptPayments(ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        List<Payment> payments = paymentLocalService.findByStatus(com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
+        for (Payment payment : payments) {
+            PaymentLocalServiceUtil.updateStatus(payment, com.arman.csb.constants.WorkflowConstants.STATUS_APPROVED);
+        }
+
+        result.put("paymentCount", payments.size());
+        result.put("status", com.arman.csb.constants.WorkflowConstants.STATUS_APPROVED);
+        result.put("totalAmount", PaymentLocalServiceUtil.calculateMoneyInRials(payments));
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_PAYMENT, UserActivityConstant.ACTION_CHANGE_STATUS,
+                UserActivityConstant.IMPORTANCE_HIGH, result.toString(), serviceContext);
+
+        return result;
+    }
+
+
+    public JSONObject cancelDownloadPayments(ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        List<Payment> payments = paymentLocalService.findByStatus(com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
+        for (Payment payment : payments) {
+            PaymentLocalServiceUtil.updateStatus(payment, com.arman.csb.constants.WorkflowConstants.STATUS_PENDING);
+        }
+
+        result.put("paymentCount", payments.size());
+        result.put("status", com.arman.csb.constants.WorkflowConstants.STATUS_PENDING);
+        result.put("totalAmount", PaymentLocalServiceUtil.calculateMoneyInRials(payments));
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_PAYMENT, UserActivityConstant.ACTION_CHANGE_STATUS,
+                UserActivityConstant.IMPORTANCE_LOW, result.toString(), serviceContext);
+
+        return result;
+    }
+
+    public JSONObject rejectPayment(Long paymentId, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
+
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        Payment payment = PaymentLocalServiceUtil.fetchPayment(paymentId);
+        result.put("previousStatus", payment.getStatus());
+        PaymentLocalServiceUtil.updateStatus(payment, com.arman.csb.constants.WorkflowConstants.STATUS_DENIED);
+        result.put("paymentId", paymentId);
+        result.put("amount", payment.getAmount());
+        result.put("status", WorkflowConstants.STATUS_DENIED);
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_PAYMENT, UserActivityConstant.ACTION_CHANGE_STATUS,
+                UserActivityConstant.IMPORTANCE_HIGH, result.toString(), serviceContext);
+
+        return result;
+    }
+
+    public JSONObject deletePayment(long paymentId, ServiceContext serviceContext) throws PortalException, SystemException {
+        Payment payment = PaymentLocalServiceUtil.fetchPayment(paymentId);
+        RoleUtil.checkAnyRolesOrSameCustomer(serviceContext.getUserId(), payment.getCustomerId());
+
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        PaymentLocalServiceUtil.deletePayment(paymentId);
+
+        result.put("paymentId", paymentId);
+        result.put("amount", payment.getAmount());
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_PAYMENT, UserActivityConstant.ACTION_DELETE,
+                        UserActivityConstant.IMPORTANCE_MEDIUM, result.toString(), serviceContext);
+
+        return result;
+    }
+
+
+    public JSONObject getStats(long customerId, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRolesOrSameCustomer(serviceContext.getUserId(), customerId, RoleEnum.PAYMENT_MANAGER.toString());
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+
+        long totalPayedOrPending = paymentLocalService.sumPayedOrPending(customerId);
+        long totalScore = ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_DIRECT, null, null) + ScoreLocalServiceUtil.sumByCustomerAndType(customerId, ScoreConstants.TYPE_DIRECT, null, null);
+
+        result.put("totalPayedOrPending", totalPayedOrPending);
+        result.put("totalPayable", totalScore - totalPayedOrPending);
+        result.put("totalScore", totalScore - totalPayedOrPending);
+        result.put("totalApprovedPayment", paymentLocalService.totalPaymentAmount(customerId, null, null));
+
+        return result;
+    }
+
 
     public JSONObject getPaymentActivityJSONObject(Payment payment, Customer customer) {
         JSONObject paymentJson = JSONFactoryUtil.createJSONObject();

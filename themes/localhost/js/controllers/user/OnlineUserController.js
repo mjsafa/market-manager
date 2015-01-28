@@ -10,7 +10,7 @@ MetronicApp.controller('OnlineUserController', ['$rootScope', '$scope', 'UserSer
         });
     }
 
-    $scope.checkAnyRoles = function (rolesNames) {
+    $rootScope.checkAnyRoles = function (rolesNames) {
         var hasPermission = false;
         angular.forEach(rolesNames, function (roleName) {
             if ($scope.onlineUser && $scope.onlineUser.roles && $scope.onlineUser.roles[roleName]) {
@@ -20,17 +20,25 @@ MetronicApp.controller('OnlineUserController', ['$rootScope', '$scope', 'UserSer
         return hasPermission;
     }
 
-    $scope.checkAnyGroups = function (userGroupNames) {
+    $rootScope.isCustomer = function () {
+        return ($rootScope.onlineUser.customerId ? true : false);
+    }
+
+    $rootScope.isOperator = function () {
+        return ($rootScope.onlineUser.customerId ? false: true);
+    }
+
+    $rootScope.checkAnyGroups = function (userGroupNames) {
         var hasPermission = false;
         angular.forEach(userGroupNames, function (userGroupName) {
-            if ($scope.onlineUser && $scope.onlineUser.userGroups && $scope.onlineUser.userGroups[userGroupName]) {
+            if ($rootScope.onlineUser && $rootScope.onlineUser.userGroups && $rootScope.onlineUser.userGroups[userGroupName]) {
                 hasPermission = true;
             }
         });
         return hasPermission;
     }
 
-    $scope.onlineUser = onlineUser;
+    $rootScope.onlineUser = onlineUser;
 
     $scope.setAgreed = function () {
         UserService.setAgreed($scope.onlineUser.id);

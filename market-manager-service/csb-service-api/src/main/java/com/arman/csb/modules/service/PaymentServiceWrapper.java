@@ -80,6 +80,63 @@ public class PaymentServiceWrapper implements PaymentService,
     }
 
     @Override
+    public com.liferay.portal.kernel.json.JSONObject isDownloaded(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentService.isDownloaded(serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject downloadPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentService.downloadPayments(serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject acceptPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentService.acceptPayments(serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject cancelDownloadPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentService.cancelDownloadPayments(serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject rejectPayment(
+        java.lang.Long paymentId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentService.rejectPayment(paymentId, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject deletePayment(
+        long paymentId, com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentService.deletePayment(paymentId, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getStats(long customerId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentService.getStats(customerId, serviceContext);
+    }
+
+    @Override
     public com.liferay.portal.kernel.json.JSONObject getPaymentActivityJSONObject(
         com.arman.csb.modules.model.Payment payment,
         com.arman.csb.modules.model.Customer customer) {

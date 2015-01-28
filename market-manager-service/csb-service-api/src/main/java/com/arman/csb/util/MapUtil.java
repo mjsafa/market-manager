@@ -24,6 +24,11 @@ public class MapUtil extends com.liferay.portal.kernel.util.MapUtil {
     public static final String DATE_PATTERN = "yyyy-MM-dd";
 
     public static Date getDate(Map<String, ?> map, String key, Date defaultValue) {
+        long value = getLong(map, key, 0);
+        if(value > 0){
+            return new Date(value);
+        }
+
         if (null != map.get(key)) {
             try {
                 String dateString = getString(map, key, null);

@@ -53,6 +53,7 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
         attributes.put("nationalCode", getNationalCode());
         attributes.put("email", getEmail());
         attributes.put("card", getCard());
+        attributes.put("cardExpireDate", getCardExpireDate());
         attributes.put("score", getScore());
         attributes.put("status", getStatus());
         attributes.put("customerUserId", getCustomerUserId());
@@ -151,6 +152,12 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
 
         if (card != null) {
             setCard(card);
+        }
+
+        Date cardExpireDate = (Date) attributes.get("cardExpireDate");
+
+        if (cardExpireDate != null) {
+            setCardExpireDate(cardExpireDate);
         }
 
         Long score = (Long) attributes.get("score");
@@ -518,6 +525,26 @@ public class CustomerWrapper implements Customer, ModelWrapper<Customer> {
     @Override
     public void setCard(java.lang.String card) {
         _customer.setCard(card);
+    }
+
+    /**
+    * Returns the card expire date of this customer.
+    *
+    * @return the card expire date of this customer
+    */
+    @Override
+    public java.util.Date getCardExpireDate() {
+        return _customer.getCardExpireDate();
+    }
+
+    /**
+    * Sets the card expire date of this customer.
+    *
+    * @param cardExpireDate the card expire date of this customer
+    */
+    @Override
+    public void setCardExpireDate(java.util.Date cardExpireDate) {
+        _customer.setCardExpireDate(cardExpireDate);
     }
 
     /**

@@ -1,7 +1,7 @@
 'use strict';
 
-MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal', 'UserService', 'PaymentService',
-    function ($rootScope, $scope, CustomerService, ScoreService, $stateParams, $state, $modal, UserService, PaymentService) {
+MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal', 'UserService', 'PaymentService','$filter',
+    function ($rootScope, $scope, CustomerService, ScoreService, $stateParams, $state, $modal, UserService, PaymentService,$filter) {
 
         if (!$scope.initialized) {    //bind listeners only for the first time
             //server side events
@@ -28,7 +28,7 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
                     ]
                 }
                 angular.forEach(data.result.records, function (record) {
-                    $scope.scoreChartData.data.push({"x":record.date, "y":[record.value]});
+                    $scope.scoreChartData.data.push({"x":$filter('myDate')(record.date, 'jYYYY/jM/jD'), "y":[$filter('score')(record.value)]});
                 });
             });
 

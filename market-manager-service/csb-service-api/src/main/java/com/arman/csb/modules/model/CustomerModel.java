@@ -298,6 +298,20 @@ public interface CustomerModel extends BaseModel<Customer>, StagedGroupedModel {
     public void setCard(String card);
 
     /**
+     * Returns the card expire date of this customer.
+     *
+     * @return the card expire date of this customer
+     */
+    public Date getCardExpireDate();
+
+    /**
+     * Sets the card expire date of this customer.
+     *
+     * @param cardExpireDate the card expire date of this customer
+     */
+    public void setCardExpireDate(Date cardExpireDate);
+
+    /**
      * Returns the score of this customer.
      *
      * @return the score of this customer

@@ -46,7 +46,7 @@ public class CustomerServiceClpInvoker {
         _methodName66 = "search";
 
         _methodParameterTypes66 = new String[] {
-                "java.lang.String", "int", "int",
+                "java.lang.String", "long", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -122,9 +122,10 @@ public class CustomerServiceClpInvoker {
         if (_methodName66.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
             return CustomerServiceUtil.search((java.lang.String) arguments[0],
-                ((Integer) arguments[1]).intValue(),
+                ((Long) arguments[1]).longValue(),
                 ((Integer) arguments[2]).intValue(),
-                (com.liferay.portal.service.ServiceContext) arguments[3]);
+                ((Integer) arguments[3]).intValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[4]);
         }
 
         if (_methodName67.equals(name) &&

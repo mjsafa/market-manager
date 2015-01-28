@@ -65,6 +65,8 @@ public class CustomerLocalServiceClpInvoker {
     private String[] _methodParameterTypes90;
     private String _methodName91;
     private String[] _methodParameterTypes91;
+    private String _methodName92;
+    private String[] _methodParameterTypes92;
 
     public CustomerLocalServiceClpInvoker() {
         _methodName0 = "addCustomer";
@@ -187,19 +189,23 @@ public class CustomerLocalServiceClpInvoker {
 
         _methodParameterTypes88 = new String[] { "java.lang.Long" };
 
-        _methodName89 = "countByMentorCustomerId";
+        _methodName89 = "findByMentorCustomerId";
 
         _methodParameterTypes89 = new String[] { "java.lang.Long" };
 
-        _methodName90 = "count";
+        _methodName90 = "countByMentorCustomerId";
 
-        _methodParameterTypes90 = new String[] {
+        _methodParameterTypes90 = new String[] { "java.lang.Long" };
+
+        _methodName91 = "count";
+
+        _methodParameterTypes91 = new String[] {
                 "java.util.Date", "java.util.Date"
             };
 
-        _methodName91 = "updateCustomer";
+        _methodName92 = "updateCustomer";
 
-        _methodParameterTypes91 = new String[] {
+        _methodParameterTypes92 = new String[] {
                 "com.arman.csb.modules.model.Customer",
                 "com.liferay.portal.service.ServiceContext"
             };
@@ -348,17 +354,22 @@ public class CustomerLocalServiceClpInvoker {
 
         if (_methodName89.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
-            return CustomerLocalServiceUtil.countByMentorCustomerId((java.lang.Long) arguments[0]);
+            return CustomerLocalServiceUtil.findByMentorCustomerId((java.lang.Long) arguments[0]);
         }
 
         if (_methodName90.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes90, parameterTypes)) {
-            return CustomerLocalServiceUtil.count((java.util.Date) arguments[0],
-                (java.util.Date) arguments[1]);
+            return CustomerLocalServiceUtil.countByMentorCustomerId((java.lang.Long) arguments[0]);
         }
 
         if (_methodName91.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes91, parameterTypes)) {
+            return CustomerLocalServiceUtil.count((java.util.Date) arguments[0],
+                (java.util.Date) arguments[1]);
+        }
+
+        if (_methodName92.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
             return CustomerLocalServiceUtil.updateCustomer((com.arman.csb.modules.model.Customer) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }

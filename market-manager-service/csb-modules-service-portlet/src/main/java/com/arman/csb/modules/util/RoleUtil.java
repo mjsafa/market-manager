@@ -8,7 +8,8 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.service.UserServiceUtil;
+import com.liferay.portal.service.UserLocalServiceUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public abstract class RoleUtil {
     public static boolean hasAnyRoles(long userId, String... roleNames) throws PrincipalException {
         List<Role> userRoles = null;
         try {
-            userRoles = UserServiceUtil.getUserById(userId).getRoles();
+            userRoles = UserLocalServiceUtil.getUserById(userId).getRoles();
 
             List<String> roleNameList = new ArrayList<String>(ListUtil.fromArray(roleNames));
             roleNameList.add(RoleEnum.ADMINISTRATOR_USER.toString());
@@ -97,6 +98,28 @@ public abstract class RoleUtil {
         }
 
         return false;
+    }
+
+    public static void checkAnyRolesOrSameCustomer(long userId, long customerId, String... roleNames) throws PrincipalException {
+        if(!isSameCustomer(userId, customerId)){
+            checkAnyRoles(userId, roleNames);
+        }
+    }
+
+    public static void checkAnyRolesOrMentorCustomer(long userId, long customerId, String... roleNames) throws PrincipalException {
+        if(hasAnyRoles(userId, roleNames)){
+            return;
+        }
+
+        try {
+            Customer userCustomer =  CustomerLocalServiceUtil.findByUserId(userId);
+            Customer customer = CustomerLocalServiceUtil.fetchCustomer(customerId);
+            if(customer.getMentorCustomerId() != userCustomer.getId()){
+                throw new PrincipalException();
+            }
+        } catch (Exception e) {
+            throw new PrincipalException();
+        }
     }
 
 

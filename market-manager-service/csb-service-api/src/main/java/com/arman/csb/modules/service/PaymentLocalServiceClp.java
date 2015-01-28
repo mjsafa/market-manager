@@ -60,6 +60,24 @@ public class PaymentLocalServiceClp implements PaymentLocalService {
     private String[] _methodParameterTypes25;
     private String _methodName26;
     private String[] _methodParameterTypes26;
+    private String _methodName27;
+    private String[] _methodParameterTypes27;
+    private String _methodName28;
+    private String[] _methodParameterTypes28;
+    private String _methodName29;
+    private String[] _methodParameterTypes29;
+    private String _methodName30;
+    private String[] _methodParameterTypes30;
+    private String _methodName31;
+    private String[] _methodParameterTypes31;
+    private String _methodName32;
+    private String[] _methodParameterTypes32;
+    private String _methodName33;
+    private String[] _methodParameterTypes33;
+    private String _methodName34;
+    private String[] _methodParameterTypes34;
+    private String _methodName35;
+    private String[] _methodParameterTypes35;
 
     public PaymentLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -186,7 +204,7 @@ public class PaymentLocalServiceClp implements PaymentLocalService {
 
         _methodParameterTypes25 = new String[] {
                 "java.lang.Long", "java.util.Date", "java.util.Date", "long",
-                "long", "int", "int",
+                "long", "int", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -195,6 +213,48 @@ public class PaymentLocalServiceClp implements PaymentLocalService {
         _methodParameterTypes26 = new String[] {
                 "java.lang.Long", "java.util.Date", "java.util.Date"
             };
+
+        _methodName27 = "findByStatus";
+
+        _methodParameterTypes27 = new String[] { "int" };
+
+        _methodName28 = "updateStatus";
+
+        _methodParameterTypes28 = new String[] {
+                "com.arman.csb.modules.model.Payment", "int"
+            };
+
+        _methodName29 = "deletePayment";
+
+        _methodParameterTypes29 = new String[] { "java.lang.Long" };
+
+        _methodName30 = "sumPayedOrPending";
+
+        _methodParameterTypes30 = new String[] { "java.lang.Long" };
+
+        _methodName31 = "getExcelDocument";
+
+        _methodParameterTypes31 = new String[] { "java.util.List" };
+
+        _methodName32 = "calculateMoneyInRials";
+
+        _methodParameterTypes32 = new String[] {
+                "com.arman.csb.modules.model.Payment"
+            };
+
+        _methodName33 = "calculateMoneyInRials";
+
+        _methodParameterTypes33 = new String[] { "java.util.List" };
+
+        _methodName34 = "subtractCommissionScore";
+
+        _methodParameterTypes34 = new String[] {
+                "com.arman.csb.modules.model.Payment"
+            };
+
+        _methodName35 = "subtractCommissionScore";
+
+        _methodParameterTypes35 = new String[] { "java.util.List" };
     }
 
     @Override
@@ -913,8 +973,9 @@ public class PaymentLocalServiceClp implements PaymentLocalService {
     @Override
     public java.util.List<com.arman.csb.modules.model.Payment> find(
         java.lang.Long customerId, java.util.Date fromDate,
-        java.util.Date toDate, long amountFrom, long amountTo, int first,
-        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
+        java.util.Date toDate, long amountFrom, long amountTo, int status,
+        int first, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
@@ -932,6 +993,8 @@ public class PaymentLocalServiceClp implements PaymentLocalService {
                     amountFrom,
                         
                     amountTo,
+                        
+                    status,
                         
                     first,
                         
@@ -998,5 +1061,242 @@ public class PaymentLocalServiceClp implements PaymentLocalService {
         }
 
         return ((Long) returnObj).longValue();
+    }
+
+    @Override
+    public java.util.List<com.arman.csb.modules.model.Payment> findByStatus(
+        int status)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName27,
+                    _methodParameterTypes27, new Object[] { status });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<com.arman.csb.modules.model.Payment>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.arman.csb.modules.model.Payment updateStatus(
+        com.arman.csb.modules.model.Payment payment, int status)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName28,
+                    _methodParameterTypes28,
+                    new Object[] { ClpSerializer.translateInput(payment), status });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.arman.csb.modules.model.Payment) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.arman.csb.modules.model.Payment deletePayment(
+        java.lang.Long paymentId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName29,
+                    _methodParameterTypes29,
+                    new Object[] { ClpSerializer.translateInput(paymentId) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.arman.csb.modules.model.Payment) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public long sumPayedOrPending(java.lang.Long customerId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName30,
+                    _methodParameterTypes30,
+                    new Object[] { ClpSerializer.translateInput(customerId) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return ((Long) returnObj).longValue();
+    }
+
+    @Override
+    public org.apache.poi.xssf.usermodel.XSSFWorkbook getExcelDocument(
+        java.util.List<com.arman.csb.modules.model.Payment> payments) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName31,
+                    _methodParameterTypes31,
+                    new Object[] { ClpSerializer.translateInput(payments) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (org.apache.poi.xssf.usermodel.XSSFWorkbook) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public long calculateMoneyInRials(
+        com.arman.csb.modules.model.Payment payment) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName32,
+                    _methodParameterTypes32,
+                    new Object[] { ClpSerializer.translateInput(payment) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return ((Long) returnObj).longValue();
+    }
+
+    @Override
+    public long calculateMoneyInRials(
+        java.util.List<com.arman.csb.modules.model.Payment> payments) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName33,
+                    _methodParameterTypes33,
+                    new Object[] { ClpSerializer.translateInput(payments) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return ((Long) returnObj).longValue();
+    }
+
+    @Override
+    public void subtractCommissionScore(
+        com.arman.csb.modules.model.Payment payment) {
+        try {
+            _invokableLocalService.invokeMethod(_methodName34,
+                _methodParameterTypes34,
+                new Object[] { ClpSerializer.translateInput(payment) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+    }
+
+    @Override
+    public void subtractCommissionScore(
+        java.util.List<com.arman.csb.modules.model.Payment> payments) {
+        try {
+            _invokableLocalService.invokeMethod(_methodName35,
+                _methodParameterTypes35,
+                new Object[] { ClpSerializer.translateInput(payments) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
     }
 }

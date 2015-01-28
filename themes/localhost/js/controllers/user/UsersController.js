@@ -28,11 +28,11 @@ MetronicApp.controller('UsersController', ['$rootScope', '$scope', 'UserService'
 
 
     $scope.userService = UserService;
-    $scope.userService.find('');
+    $scope.userService.find('',  {scope: $scope});
 
 
     $scope.doSearch = function () {
-        $scope.userService.find($scope.query);
+        $scope.userService.find($scope.query , {scope: $scope});
     }
 
 

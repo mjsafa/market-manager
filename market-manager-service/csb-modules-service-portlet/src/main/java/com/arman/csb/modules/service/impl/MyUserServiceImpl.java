@@ -1,11 +1,13 @@
 package com.arman.csb.modules.service.impl;
 
 import com.arman.csb.constant.UserActivityConstant;
+import com.arman.csb.modules.service.MyUserLocalServiceUtil;
 import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.MyUserServiceBaseImpl;
 import com.arman.csb.modules.util.RoleEnum;
 import com.arman.csb.modules.util.RoleUtil;
 import com.arman.csb.util.DateUtil;
+import com.arman.csb.util.MapUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -19,8 +21,12 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.*;
+import com.liferay.portal.service.impl.UserLocalServiceImpl;
 import com.liferay.util.portlet.PortletProps;
+import org.apache.commons.lang.StringUtils;
+import org.apache.poi.util.StringUtil;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.*;
 
@@ -134,7 +140,9 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
 
 
     public JSONObject getById(Long userId, ServiceContext serviceContext) throws PortalException, SystemException {
-        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.USER_MANAGER.toString());
+        if (userId != serviceContext.getUserId()) {
+            RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.USER_MANAGER.toString());
+        }
 
         JSONObject userJsonObject = JSONFactoryUtil.createJSONObject();
         User user = UserLocalServiceUtil.getUserById(userId);
@@ -145,23 +153,56 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
         userJsonObject.put("mobile", user.getMiddleName());
 
         //load userRoles that are present in RoleEnum
-        JSONObject roles = JSONFactoryUtil.createJSONObject();
+        JSONArray roles = JSONFactoryUtil.createJSONArray();
         List<Role> userRoles = RoleLocalServiceUtil.getRoles(user.getRoleIds());
         for (Role userRole : userRoles) {
             try {
                 if (null != RoleEnum.valueOf(userRole.getName())) {
-                    roles.put(userRole.getName(), true);
+                    roles.put(userRole.getName());
                 }
-            } catch (Exception e) {
-            }
+            } catch (Exception e) {}
         }
         userJsonObject.put("roles", roles);
 
         return userJsonObject;
     }
 
+    public JSONObject updateUser(Map<String, Object> userMap, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.USER_MANAGER.toString());
+
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        long userId = MapUtil.getLong(userMap, "id");
+        User user = UserLocalServiceUtil.fetchUser(userId);
+
+        MyUserLocalServiceUtil.updateUserRoles(userId, (List<String>) userMap.get("roles"), serviceContext);
+
+        if (!StringUtils.isEmpty(MapUtil.getString(userMap, "firstName"))) {
+            user.setFirstName(MapUtil.getString(userMap, "firstName"));
+        }
+        if (!StringUtils.isEmpty(MapUtil.getString(userMap, "lastName"))) {
+            user.setLastName(MapUtil.getString(userMap, "lastName"));
+        }
+
+        if (!StringUtils.isEmpty(MapUtil.getString(userMap, "mobile"))) {
+            user.getExpandoBridge().setAttribute("mobile", MapUtil.getString(userMap, "mobile"));
+            user.setMiddleName( MapUtil.getString(userMap, "mobile"));
+        }
+
+        user.setModifiedDate(new Date());
+        userPersistence.update(user);
+
+        result.put("name", user.getFirstName() + " " + user.getLastName());
+        result.put("id", user.getUserId());
+        result.put("date", new Date().getTime());
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_USER, UserActivityConstant.ACTION_EDIT,
+                UserActivityConstant.IMPORTANCE_MEDIUM, result.toString(), serviceContext);
+
+        return result;
+    }
+
     public JSONObject agreed(Long userId, ServiceContext serviceContext) throws PortalException, SystemException {
-        if(serviceContext.getUserId() != userId){
+        if (serviceContext.getUserId() != userId) {
             throw new PrincipalException();
         }
 
@@ -170,6 +211,26 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
         UserLocalServiceUtil.updateAgreedToTermsOfUse(userId, true);
         return result;
     }
+
+
+    public JSONObject updatePassword(Long userId, String oldPassword, String password1, String password2, ServiceContext serviceContext) throws PortalException, SystemException {
+        if (serviceContext.getUserId() != userId) {
+            RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.USER_MANAGER.toString());
+        }
+
+        User user = UserLocalServiceUtil.fetchUser(userId);
+        long authUserId = UserLocalServiceUtil.authenticateForBasic(serviceContext.getCompanyId(), "emailAddress", user.getEmailAddress(), oldPassword);
+        if (authUserId != userId) {
+            throw new PortalException("wrong-current-password");
+        }
+
+        UserLocalServiceUtil.updatePassword(userId, password1, password2, false);
+
+        JSONObject result = JSONFactoryUtil.createJSONObject();
+        result.put("userId", userId);
+        return result;
+    }
+
 
     public JSONObject getPaymentActivityJSONObject(User user) {
         JSONObject userJson = JSONFactoryUtil.createJSONObject();

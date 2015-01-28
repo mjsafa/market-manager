@@ -47,7 +47,7 @@ public class CustomerServiceClp implements CustomerService {
         _methodName3 = "search";
 
         _methodParameterTypes3 = new String[] {
-                "java.lang.String", "int", "int",
+                "java.lang.String", "long", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -154,8 +154,8 @@ public class CustomerServiceClp implements CustomerService {
 
     @Override
     public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, int start, int maxResult,
-        com.liferay.portal.service.ServiceContext serviceContext)
+        java.lang.String filter, long mentorCustomerId, int start,
+        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
@@ -165,6 +165,8 @@ public class CustomerServiceClp implements CustomerService {
                     _methodParameterTypes3,
                     new Object[] {
                         ClpSerializer.translateInput(filter),
+                        
+                    mentorCustomerId,
                         
                     start,
                         

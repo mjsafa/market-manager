@@ -31,6 +31,7 @@
 		<property name="nationalCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="email" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="card" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="cardExpireDate" type="org.hibernate.type.TimestampType" />
 		<property name="score" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="customerUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />

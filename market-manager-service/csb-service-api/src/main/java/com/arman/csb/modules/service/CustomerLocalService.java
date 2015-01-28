@@ -305,6 +305,11 @@ public interface CustomerLocalService extends BaseLocalService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
+    public java.util.List<com.arman.csb.modules.model.Customer> findByMentorCustomerId(
+        java.lang.Long mentorCustomerId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
     public int countByMentorCustomerId(java.lang.Long customerId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;

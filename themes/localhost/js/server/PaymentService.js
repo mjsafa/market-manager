@@ -1,15 +1,15 @@
 MetronicApp.factory("PaymentService", function (JsonServer) {
     return{
         search:function (filter, options) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'search', {filter:JSON.stringify(filter) ? filter : {customerId:0}, first:0, maxResult:30, serviceContext:{}}, {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'search', {filter:filter ? filter : {customerId:0}, first:0, maxResult:30, serviceContext:{}}, {
                 eventName:'PaymentService.search',
                 scope:options ? options.scope : undefined
             });
         },
-        addPayment:function (payment , options) {
+        addPayment:function (payment, options) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'add-payment', {paymentMap:JSON.stringify(payment), serviceContext:{}}, {
                 eventName:'PaymentService.addPayment',
-               scope:options ? options.scope : undefined
+                scope:options ? options.scope : undefined
             });
         },
         updateCustomer:function (customer) {
@@ -46,6 +46,69 @@ MetronicApp.factory("PaymentService", function (JsonServer) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'update-customer-status', {customerId:customerId, isActive:isActive, serviceContext:{}},
                 {eventName:'CustomerService.updateStatus'}
             );
+        },
+
+        isDownloaded:function (options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'is-downloaded', { serviceContext:{}},
+                {
+                    eventName:'PaymentService.isDownloaded',
+                    scope:options ? options.scope : undefined
+                }
+            );
+        },
+
+        downloadPayments:function (options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'download-payments', { serviceContext:{}},
+                {
+                    eventName:'PaymentService.downloadPayments',
+                    scope:options ? options.scope : undefined
+                }
+            );
+        },
+        cancelDownloadPayments:function (options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'cancel-download-payments', { serviceContext:{}},
+                {
+                    eventName:'PaymentService.cancelDownloadPayments',
+                    scope:options ? options.scope : undefined
+                }
+            );
+        },
+
+        acceptPayments:function (options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'accept-payments', {serviceContext:{}},
+                {
+                    eventName:'PaymentService.acceptPayments',
+                    scope:options ? options.scope : undefined
+                }
+            );
+        },
+
+        deletePayment:function (paymentId, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'delete-payment', {paymentId:paymentId, serviceContext:{}},
+                {
+                    eventName:'PaymentService.deletePayment',
+                    scope:options ? options.scope : undefined
+                }
+            );
+        },
+
+        getStats:function (customerId, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'get-stats', {customerId:customerId, serviceContext:{}},
+                {
+                    eventName:'PaymentService.getStats',
+                    scope:options ? options.scope : undefined
+                }
+            );
+        },
+
+        rejectPayment:function (paymentId, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'reject-payment', {paymentId:paymentId, serviceContext:{}},
+                {
+                    eventName:'PaymentService.rejectPayment',
+                    scope:options ? options.scope : undefined
+                }
+            );
         }
+
     };
 });

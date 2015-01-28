@@ -649,6 +649,139 @@ public interface PaymentPersistence extends BasePersistence<Payment> {
         throws com.liferay.portal.kernel.exception.SystemException;
 
     /**
+    * Returns all the payments where status = &#63;.
+    *
+    * @param status the status
+    * @return the matching payments
+    * @throws SystemException if a system exception occurred
+    */
+    public java.util.List<com.arman.csb.modules.model.Payment> findByStatus(
+        int status) throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns a range of all the payments where status = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.PaymentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param status the status
+    * @param start the lower bound of the range of payments
+    * @param end the upper bound of the range of payments (not inclusive)
+    * @return the range of matching payments
+    * @throws SystemException if a system exception occurred
+    */
+    public java.util.List<com.arman.csb.modules.model.Payment> findByStatus(
+        int status, int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns an ordered range of all the payments where status = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.PaymentModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param status the status
+    * @param start the lower bound of the range of payments
+    * @param end the upper bound of the range of payments (not inclusive)
+    * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+    * @return the ordered range of matching payments
+    * @throws SystemException if a system exception occurred
+    */
+    public java.util.List<com.arman.csb.modules.model.Payment> findByStatus(
+        int status, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the first payment in the ordered set where status = &#63;.
+    *
+    * @param status the status
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching payment
+    * @throws com.arman.csb.modules.NoSuchPaymentException if a matching payment could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.arman.csb.modules.model.Payment findByStatus_First(int status,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.arman.csb.modules.NoSuchPaymentException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the first payment in the ordered set where status = &#63;.
+    *
+    * @param status the status
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching payment, or <code>null</code> if a matching payment could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.arman.csb.modules.model.Payment fetchByStatus_First(int status,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the last payment in the ordered set where status = &#63;.
+    *
+    * @param status the status
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching payment
+    * @throws com.arman.csb.modules.NoSuchPaymentException if a matching payment could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.arman.csb.modules.model.Payment findByStatus_Last(int status,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.arman.csb.modules.NoSuchPaymentException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the last payment in the ordered set where status = &#63;.
+    *
+    * @param status the status
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching payment, or <code>null</code> if a matching payment could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.arman.csb.modules.model.Payment fetchByStatus_Last(int status,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the payments before and after the current payment in the ordered set where status = &#63;.
+    *
+    * @param id the primary key of the current payment
+    * @param status the status
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the previous, current, and next payment
+    * @throws com.arman.csb.modules.NoSuchPaymentException if a payment with the primary key could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.arman.csb.modules.model.Payment[] findByStatus_PrevAndNext(
+        long id, int status,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.arman.csb.modules.NoSuchPaymentException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Removes all the payments where status = &#63; from the database.
+    *
+    * @param status the status
+    * @throws SystemException if a system exception occurred
+    */
+    public void removeByStatus(int status)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the number of payments where status = &#63;.
+    *
+    * @param status the status
+    * @return the number of matching payments
+    * @throws SystemException if a system exception occurred
+    */
+    public int countByStatus(int status)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
     * Caches the payment in the entity cache if it is enabled.
     *
     * @param payment the payment

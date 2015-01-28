@@ -57,6 +57,8 @@ public class ScoreLocalServiceClpInvoker {
     private String[] _methodParameterTypes86;
     private String _methodName87;
     private String[] _methodParameterTypes87;
+    private String _methodName88;
+    private String[] _methodParameterTypes88;
 
     public ScoreLocalServiceClpInvoker() {
         _methodName0 = "addScore";
@@ -176,6 +178,13 @@ public class ScoreLocalServiceClpInvoker {
 
         _methodParameterTypes87 = new String[] {
                 "java.lang.Integer", "java.util.Date", "java.util.Date"
+            };
+
+        _methodName88 = "addScore";
+
+        _methodParameterTypes88 = new String[] {
+                "java.lang.Long", "long",
+                "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -315,6 +324,13 @@ public class ScoreLocalServiceClpInvoker {
                 Arrays.deepEquals(_methodParameterTypes87, parameterTypes)) {
             return ScoreLocalServiceUtil.sumByType((java.lang.Integer) arguments[0],
                 (java.util.Date) arguments[1], (java.util.Date) arguments[2]);
+        }
+
+        if (_methodName88.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
+            return ScoreLocalServiceUtil.addScore((java.lang.Long) arguments[0],
+                ((Long) arguments[1]).longValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[2]);
         }
 
         throw new UnsupportedOperationException();

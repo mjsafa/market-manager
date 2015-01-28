@@ -78,6 +78,44 @@ public interface PaymentService extends BaseService, InvokableService {
             com.liferay.portal.kernel.exception.SystemException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.liferay.portal.kernel.json.JSONObject isDownloaded(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.liferay.portal.kernel.json.JSONObject downloadPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.liferay.portal.kernel.json.JSONObject acceptPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.liferay.portal.kernel.json.JSONObject cancelDownloadPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.liferay.portal.kernel.json.JSONObject rejectPayment(
+        java.lang.Long paymentId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.liferay.portal.kernel.json.JSONObject deletePayment(
+        long paymentId, com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.liferay.portal.kernel.json.JSONObject getStats(long customerId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.liferay.portal.kernel.json.JSONObject getPaymentActivityJSONObject(
         com.arman.csb.modules.model.Payment payment,
         com.arman.csb.modules.model.Customer customer);

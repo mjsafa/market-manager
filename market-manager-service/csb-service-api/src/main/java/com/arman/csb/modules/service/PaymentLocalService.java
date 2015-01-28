@@ -301,8 +301,9 @@ public interface PaymentLocalService extends BaseLocalService,
 
     public java.util.List<com.arman.csb.modules.model.Payment> find(
         java.lang.Long customerId, java.util.Date fromDate,
-        java.util.Date toDate, long amountFrom, long amountTo, int first,
-        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
+        java.util.Date toDate, long amountFrom, long amountTo, int status,
+        int first, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
@@ -310,4 +311,39 @@ public interface PaymentLocalService extends BaseLocalService,
         java.util.Date fromDate, java.util.Date toDate)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
+
+    public java.util.List<com.arman.csb.modules.model.Payment> findByStatus(
+        int status)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.arman.csb.modules.model.Payment updateStatus(
+        com.arman.csb.modules.model.Payment payment, int status)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.arman.csb.modules.model.Payment deletePayment(
+        java.lang.Long paymentId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public long sumPayedOrPending(java.lang.Long customerId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public org.apache.poi.xssf.usermodel.XSSFWorkbook getExcelDocument(
+        java.util.List<com.arman.csb.modules.model.Payment> payments);
+
+    public long calculateMoneyInRials(
+        com.arman.csb.modules.model.Payment payment);
+
+    public long calculateMoneyInRials(
+        java.util.List<com.arman.csb.modules.model.Payment> payments);
+
+    public void subtractCommissionScore(
+        com.arman.csb.modules.model.Payment payment);
+
+    public void subtractCommissionScore(
+        java.util.List<com.arman.csb.modules.model.Payment> payments);
 }

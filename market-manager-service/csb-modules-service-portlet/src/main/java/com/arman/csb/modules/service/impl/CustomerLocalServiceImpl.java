@@ -23,10 +23,7 @@ import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
-import com.liferay.portal.service.RoleServiceUtil;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.UserGroupLocalServiceUtil;
-import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.service.*;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.util.portlet.PortletProps;
 
@@ -59,9 +56,9 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
 
         UserGroup customerGroup = UserGroupLocalServiceUtil.fetchUserGroup(serviceContext.getCompanyId(), PortletProps.get("market-manager.userGroup.customer"));
 
-        int maxDepth = Integer.valueOf(PortletProps.get("market-manager.config.max-depth-score"));
+        int maxInviteeNumber = Integer.valueOf(PortletProps.get("market-manager.config.max-invitees"));
         int inviteeCount = customerPersistence.countByMentor(MapUtil.getLong(customer, "mentorCustomerId"));
-        if(inviteeCount >= maxDepth){
+        if (inviteeCount >= maxInviteeNumber) {
             throw new PortalException("customer-maximum-invitee-exceed");
         }
 
@@ -70,7 +67,7 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
         calendar.setTime(new Date());
 
         List<Long> roles = new ArrayList<Long>();
-        roles.add(RoleServiceUtil.getRole(serviceContext.getCompanyId(), "CUSTOMER").getRoleId());
+        roles.add(RoleLocalServiceUtil.getRole(serviceContext.getCompanyId(), "CUSTOMER").getRoleId());
 
         User user = UserLocalServiceUtil.addUser(serviceContext.getUserId(), serviceContext.getCompanyId(),
                 false, (String) customer.get("password1"), (String) customer.get("password2"), false,
@@ -91,6 +88,7 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
         newCustomer.setStatus(WorkflowConstants.STATUS_APPROVED);
         newCustomer.setMobile((String) customer.get("mobile"));
         newCustomer.setNationalCode((String) customer.get("nationalCode"));
+        newCustomer.setCardExpireDate(MapUtil.getDate(customer, "expireDate"));
         newCustomer.setScore(0);
 
         if (null != customer.get("mentorCustomerId")) {
@@ -120,6 +118,11 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
             return null;
         }
     }
+
+    public List<Customer> findByMentorCustomerId(Long mentorCustomerId) throws SystemException, PortalException {
+        return customerPersistence.findByMentor(mentorCustomerId);
+    }
+
 
     public int countByMentorCustomerId(Long customerId) throws SystemException, PortalException {
         return customerPersistence.countByMentor(customerId);

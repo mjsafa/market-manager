@@ -81,12 +81,32 @@ public class MyUserServiceWrapper implements MyUserService,
     }
 
     @Override
+    public com.liferay.portal.kernel.json.JSONObject updateUser(
+        java.util.Map<java.lang.String, java.lang.Object> userMap,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _myUserService.updateUser(userMap, serviceContext);
+    }
+
+    @Override
     public com.liferay.portal.kernel.json.JSONObject agreed(
         java.lang.Long userId,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return _myUserService.agreed(userId, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject updatePassword(
+        java.lang.Long userId, java.lang.String oldPassword,
+        java.lang.String password1, java.lang.String password2,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _myUserService.updatePassword(userId, oldPassword, password1,
+            password2, serviceContext);
     }
 
     @Override

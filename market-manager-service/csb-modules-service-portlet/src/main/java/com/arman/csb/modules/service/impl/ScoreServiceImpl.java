@@ -90,7 +90,7 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
         for (Object[] record : records) {
             JSONObject recordJson = JSONFactoryUtil.createJSONObject();
             recordJson.put("value", ((BigDecimal) record[0]).longValue());
-            recordJson.put("date", new SimpleDateFormat("MM-dd").format((Timestamp) record[1]));
+            recordJson.put("date", ((Timestamp) record[1]).getTime());
 
             result.getJSONArray("records").put(recordJson);
         }
@@ -172,50 +172,13 @@ public class ScoreServiceImpl extends ScoreServiceBaseImpl {
 
     public JSONObject addScore(Long customerId, long value, ServiceContext serviceContext) throws PortalException, SystemException {
         JSONObject result = JSONFactoryUtil.createJSONObject();
-        Integer maxDepth = Integer.valueOf(PortletProps.get("market-manager.config.max-depth-score"));
 
         Customer customer = customerPersistence.fetchByPrimaryKey(customerId);
-        if (customer.getStatus() != WorkflowConstants.STATUS_APPROVED) {
-            throw new PortalException("customer-deactive");
-        }
 
-        Score newScore = ScoreLocalServiceUtil.createScore(counterLocalService.increment(Score.class.getName()));
-        newScore.setType(ScoreConstants.TYPE_DIRECT);
-        newScore.setCreateDate(new Date());
-        newScore.setValue(value);
-        newScore.setCompanyId(serviceContext.getCompanyId());
-        newScore.setUserId(serviceContext.getUserId());
-        newScore.setGroupId(serviceContext.getScopeGroupId());
-        newScore.setCustomerId(customerId);
-        ScoreLocalServiceUtil.addScore(newScore);
+        Score newScore = ScoreLocalServiceUtil.addScore(customerId, value, serviceContext);
 
         UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_SCORE, UserActivityConstant.ACTION_ADD,
                 UserActivityConstant.IMPORTANCE_HIGH, getScoreActivityJSONObject(newScore, customer).toString(), serviceContext);
-
-        customer.setScore(customer.getScore() + value);
-        CustomerLocalServiceUtil.updateCustomer(customer);
-
-        Customer manager = customer;
-
-        //Add score to Customer Manager chain
-        int i = 1;
-        while (i <= maxDepth && manager.getMentorCustomerId() > 0) {
-            manager = customerPersistence.fetchByPrimaryKey(manager.getMentorCustomerId());
-            newScore = ScoreLocalServiceUtil.createScore(counterLocalService.increment(Score.class.getName()));
-            newScore.setType(ScoreConstants.TYPE_INDIRECT);
-            newScore.setCreateDate(new Date());
-            newScore.setValue(value);
-            newScore.setCompanyId(serviceContext.getCompanyId());
-            newScore.setUserId(serviceContext.getUserId());
-            newScore.setGroupId(serviceContext.getScopeGroupId());
-            newScore.setOriginCustomerId(customerId);
-            newScore.setCustomerId(manager.getId());
-
-            ScoreLocalServiceUtil.addScore(newScore);
-            manager.setScore(manager.getScore() + value);
-            CustomerLocalServiceUtil.updateCustomer(manager);
-            i++;
-        }
 
         return result;
     }

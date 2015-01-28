@@ -341,6 +341,13 @@ public class CustomerLocalServiceUtil {
         return getService().findByUserId(userId);
     }
 
+    public static java.util.List<com.arman.csb.modules.model.Customer> findByMentorCustomerId(
+        java.lang.Long mentorCustomerId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByMentorCustomerId(mentorCustomerId);
+    }
+
     public static int countByMentorCustomerId(java.lang.Long customerId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {

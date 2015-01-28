@@ -52,11 +52,13 @@ public class CustomerServiceUtil {
     }
 
     public static com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, int start, int maxResult,
-        com.liferay.portal.service.ServiceContext serviceContext)
+        java.lang.String filter, long mentorCustomerId, int start,
+        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
-        return getService().search(filter, start, maxResult, serviceContext);
+        return getService()
+                   .search(filter, mentorCustomerId, start, maxResult,
+            serviceContext);
     }
 
     public static com.liferay.portal.kernel.json.JSONObject addCustomer(

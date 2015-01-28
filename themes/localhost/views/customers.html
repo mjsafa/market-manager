@@ -1,4 +1,3 @@
-
 <script type="text/ng-template" id="scoreModal.html">
     <div class="modal-header">
         <h3 class="modal-title font-green-haze bold ">ثبت امتیاز - {{customer.name}}</h3>
@@ -107,7 +106,7 @@
             <a href="#">لیست مشتری های سیستم</a>
         </li>
     </ul>
-    <div class="page-toolbar">
+    <div class="page-toolbar hide">
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-menu-toggle
                     dropdown-menu-hover data-delay="1000" data-close-others="true">
@@ -143,9 +142,14 @@
         </div>
     </div>
 </div>
-<h3 class="page-title">
+<h3 ng-if="isOperator()" class="page-title">
     لیست مشتری های سیستم
 </h3>
+
+<h3 ng-if="isCustomer()" class="page-title">
+    لیست کاربران شما
+</h3>
+
 <!-- END PAGE HEADER-->
 
 <div id="alert_container" ng-controller="GeneralPageController">
@@ -153,7 +157,7 @@
 </div>
 
 <!-- BEGIN MAIN CONTENT -->
-<div >
+<div>
 
 
 <!-- BEGIN DASHBOARD STATS -->
@@ -248,7 +252,7 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <form name="customer_form" class="form-horizontal" ng-submit="submitCustomer()">
+            <form name="customer_form" class="form-horizontal">
                 <div class="form-body">
                     <div class="form-group">
                         <label class="control-label col-md-3">نام</label>
@@ -257,7 +261,8 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                            <input name="firstName" validation="min_len:3|max_len:50|required" ng-model="newCustomer.firstName" type="text" class="form-control">
+                            <input name="firstName" validation="min_len:3|max_len:50|required"
+                                   ng-model="newCustomer.firstName" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -267,7 +272,8 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-user"></i>
                             </span>
-                            <input name="lastName" validation="min_len:3|max_len:50|required" ng-model="newCustomer.lastName" type="text" class="form-control">
+                            <input name="lastName" validation="min_len:3|max_len:50|required"
+                                   ng-model="newCustomer.lastName" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -277,7 +283,8 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-mobile"></i>
                                 </span>
-                            <input name="mobile" validation="numeric|exact_len:11|required" ng-model="newCustomer.mobile"  type="text" class="form-control"
+                            <input name="mobile" validation="numeric|exact_len:11|required"
+                                   ng-model="newCustomer.mobile" type="text" class="form-control"
                                    style="direction: ltr;">
                         </div>
                     </div>
@@ -289,9 +296,35 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-credit-card"></i>
                                 </span>
-                            <input name="cardNumber" validation="numeric|exact_len:16|required" ng-model="newCustomer.card" type="text" class="form-control"
+                            <input name="cardNumber" validation="numeric|exact_len:16|required"
+                                   ng-model="newCustomer.card" type="text" class="form-control"
                                    style="direction: ltr;">
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">تاریخ انقضای کارت</label>
+
+                        <div class="input-group col-md-9">
+                            <span class="input-group-addon">
+                                <i class="fa fa-credit-card"></i>
+                            </span>
+                            <input ng-click="openExpireDate($event)"
+                                   readonly type="text" class="form-control selector"
+                                   datepicker-popup-persian="dd-MMMM-yyyy"
+                                   ng-model="newCustomer.expireDate" is-open="expireIsOpen"
+                                   datepicker-options="dateOptions" close-text="بستن"
+                                   datepicker-mode="'year'"
+                                   min-mode="'month'"
+                                   year-range="dateOptions.yearRange"
+                                   min-date="dateOptions.minDate"
+                                   clear-text="پاک کردن"
+                                   current-text="تاریخ امروز"/>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default"
+                                    ng-click="openExpireDate($event)"><i
+                                    class="glyphicon glyphicon-calendar"></i></button>
+                            </span></div>
                     </div>
 
                     <div class="form-group">
@@ -301,7 +334,8 @@
                                                         <span class="input-group-addon">
                                                             <i class="fa fa-user"></i>
                                                         </span>
-                            <input name="nationalCode" validation="numeric|exact_len:10|required" ng-model="newCustomer.nationalCode"  type="text"
+                            <input name="nationalCode" validation="numeric|exact_len:10|required"
+                                   ng-model="newCustomer.nationalCode" type="text"
                                    class="form-control"
                                    style="direction: ltr;">
                         </div>
@@ -314,18 +348,20 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                            <input name="email" validation="email|required" ng-model="newCustomer.email" style="direction: ltr;" type="text"
+                            <input name="email" validation="email|required" ng-model="newCustomer.email"
+                                   style="direction: ltr;" type="text"
                                    class="form-control">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div ng-if="!currentCustomerId" class="form-group">
                         <label class="control-label col-md-3">مشتری معرف</label>
 
                         <div class="input-group col-md-9">
                                 <span class="input-group-addon">
                                     <i class="fa fa-users"></i>
                                 </span>
-                            <input name="mentorCustomer" readonly="true" validation="required" ng-click="open()" type="text" class="form-control selector"
+                            <input name="mentorCustomer" readonly="true" validation="required" ng-click="open()"
+                                   type="text" class="form-control selector"
                                    ng-model="newCustomer.mentorCustomer.name"/>
                         </div>
                     </div>
@@ -337,7 +373,8 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-lock"></i>
                             </span>
-                            <input name="password1" validation="min_len:6|max_len:50|required" ng-model="newCustomer.password1" style="direction: ltr;" type="password"
+                            <input name="password1" validation="min_len:6|max_len:50|required"
+                                   ng-model="newCustomer.password1" style="direction: ltr;" type="password"
                                    class="form-control">
                         </div>
                     </div>
@@ -349,14 +386,19 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-lock"></i>
                             </span>
-                            <input validation="match:newCustomer.password1,تکرار رمز عبور,رمز عبور|min_len:6|max_len:50|required" name="password" ng-model="newCustomer.password2" style="direction: ltr;" type="password"
+                            <input validation="match:newCustomer.password1,تکرار رمز عبور,رمز عبور|min_len:6|max_len:50|required"
+                                   name="password" ng-model="newCustomer.password2" style="direction: ltr;"
+                                   type="password"
                                    class="form-control">
                         </div>
                     </div>
 
                 </div>
                 <div class="form-actions right">
-                    <button ng-disabled="customer_form.$invalid" type="submit" class="btn green">ثبت اطلاعات مشتری</button>
+                    <button ng-disabled="customer_form.$invalid" ng-confirm-action="submitCustomer()"
+                            ng-confirm-message="آیا از ثبت مشتری با نام {{newCustomer.firstName}} {{newCustomer.lastName}}  اطمینان دارید؟"
+                            class="btn green">ثبت اطلاعات مشتری
+                    </button>
                 </div>
 
             </form>
@@ -435,7 +477,7 @@
                     <thead>
                     <tr class="uppercase">
                         <th>
-                            تصویر
+                           شماره کاربری
                         </th>
                         <th>
                             نام
@@ -456,8 +498,8 @@
                     </tr>
                     </thead>
                     <tr ng-repeat="customer in customers">
-                        <td class="fit">
-                            <img class="user-pic" src="/delegate/resource/assets/admin/layout/img/avatar4.jpg">
+                        <td >
+                            {{customer.id}}
                         </td>
                         <td>
                             <a href="#/customer/{{customer.id}}" class="primary-link">{{customer.name}}</a>
@@ -471,14 +513,16 @@
                         </td>
 
                         <td>
-                            <a  ng-click="openScore('small', customer)"
+                            <a ng-click="openScore('small', customer)"
                                class="bold font-green-haze">{{customer.score|score}}</a>
                         </td>
 
                         <td>
-                            <button type="button" class="btn btn-success" ng-click="changeStatus(customer)"
+                            <button type="button" class="btn {{customer.isActive ? 'green' : 'gray'}}"
+                                    ng-confirm-action="changeStatus(customer)"
+                                    ng-confirm-message="آیا از {{customer.isActive ? 'غیر فعال' : 'فعال'}} ساختن مشتری با نام {{customer.firstName}} {{customer.lastName}} اطمینان دارید؟"
                                     ng-model="customer.isActive"
-                                    btn-checkbox>
+                                    >
                                 {{customer.isActive ? "فعال" : "غیر فعال"}}
 
                             </button>

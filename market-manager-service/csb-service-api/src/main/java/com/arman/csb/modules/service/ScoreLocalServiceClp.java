@@ -56,6 +56,8 @@ public class ScoreLocalServiceClp implements ScoreLocalService {
     private String[] _methodParameterTypes23;
     private String _methodName24;
     private String[] _methodParameterTypes24;
+    private String _methodName25;
+    private String[] _methodParameterTypes25;
 
     public ScoreLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -177,6 +179,13 @@ public class ScoreLocalServiceClp implements ScoreLocalService {
 
         _methodParameterTypes24 = new String[] {
                 "java.lang.Integer", "java.util.Date", "java.util.Date"
+            };
+
+        _methodName25 = "addScore";
+
+        _methodParameterTypes25 = new String[] {
+                "java.lang.Long", "long",
+                "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -890,5 +899,45 @@ public class ScoreLocalServiceClp implements ScoreLocalService {
         }
 
         return ((Long) returnObj).longValue();
+    }
+
+    @Override
+    public com.arman.csb.modules.model.Score addScore(
+        java.lang.Long customerId, long value,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName25,
+                    _methodParameterTypes25,
+                    new Object[] {
+                        ClpSerializer.translateInput(customerId),
+                        
+                    value,
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.arman.csb.modules.model.Score) ClpSerializer.translateOutput(returnObj);
     }
 }

@@ -68,12 +68,13 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
             { "nationalCode", Types.VARCHAR },
             { "email", Types.VARCHAR },
             { "card", Types.VARCHAR },
+            { "cardExpireDate", Types.TIMESTAMP },
             { "score", Types.BIGINT },
             { "status", Types.INTEGER },
             { "customerUserId", Types.BIGINT },
             { "mentorCustomerId", Types.BIGINT }
         };
-    public static final String TABLE_SQL_CREATE = "create table CSBModules_Customer (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,firstName VARCHAR(75) null,lastName VARCHAR(75) null,mobile VARCHAR(75) null,nationalCode VARCHAR(75) null,email VARCHAR(75) null,card VARCHAR(75) null,score LONG,status INTEGER,customerUserId LONG,mentorCustomerId LONG)";
+    public static final String TABLE_SQL_CREATE = "create table CSBModules_Customer (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,firstName VARCHAR(75) null,lastName VARCHAR(75) null,mobile VARCHAR(75) null,nationalCode VARCHAR(75) null,email VARCHAR(75) null,card VARCHAR(75) null,cardExpireDate DATE null,score LONG,status INTEGER,customerUserId LONG,mentorCustomerId LONG)";
     public static final String TABLE_SQL_DROP = "drop table CSBModules_Customer";
     public static final String ORDER_BY_JPQL = " ORDER BY customer.id ASC";
     public static final String ORDER_BY_SQL = " ORDER BY CSBModules_Customer.id_ ASC";
@@ -122,6 +123,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
     private String _nationalCode;
     private String _email;
     private String _card;
+    private Date _cardExpireDate;
     private long _score;
     private int _status;
     private long _customerUserId;
@@ -165,6 +167,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         model.setNationalCode(soapModel.getNationalCode());
         model.setEmail(soapModel.getEmail());
         model.setCard(soapModel.getCard());
+        model.setCardExpireDate(soapModel.getCardExpireDate());
         model.setScore(soapModel.getScore());
         model.setStatus(soapModel.getStatus());
         model.setCustomerUserId(soapModel.getCustomerUserId());
@@ -242,6 +245,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         attributes.put("nationalCode", getNationalCode());
         attributes.put("email", getEmail());
         attributes.put("card", getCard());
+        attributes.put("cardExpireDate", getCardExpireDate());
         attributes.put("score", getScore());
         attributes.put("status", getStatus());
         attributes.put("customerUserId", getCustomerUserId());
@@ -340,6 +344,12 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
         if (card != null) {
             setCard(card);
+        }
+
+        Date cardExpireDate = (Date) attributes.get("cardExpireDate");
+
+        if (cardExpireDate != null) {
+            setCardExpireDate(cardExpireDate);
         }
 
         Long score = (Long) attributes.get("score");
@@ -612,6 +622,17 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
     @JSON
     @Override
+    public Date getCardExpireDate() {
+        return _cardExpireDate;
+    }
+
+    @Override
+    public void setCardExpireDate(Date cardExpireDate) {
+        _cardExpireDate = cardExpireDate;
+    }
+
+    @JSON
+    @Override
     public long getScore() {
         return _score;
     }
@@ -741,6 +762,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         customerImpl.setNationalCode(getNationalCode());
         customerImpl.setEmail(getEmail());
         customerImpl.setCard(getCard());
+        customerImpl.setCardExpireDate(getCardExpireDate());
         customerImpl.setScore(getScore());
         customerImpl.setStatus(getStatus());
         customerImpl.setCustomerUserId(getCustomerUserId());
@@ -915,6 +937,14 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
             customerCacheModel.card = null;
         }
 
+        Date cardExpireDate = getCardExpireDate();
+
+        if (cardExpireDate != null) {
+            customerCacheModel.cardExpireDate = cardExpireDate.getTime();
+        } else {
+            customerCacheModel.cardExpireDate = Long.MIN_VALUE;
+        }
+
         customerCacheModel.score = getScore();
 
         customerCacheModel.status = getStatus();
@@ -928,7 +958,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(39);
+        StringBundler sb = new StringBundler(41);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -960,6 +990,8 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         sb.append(getEmail());
         sb.append(", card=");
         sb.append(getCard());
+        sb.append(", cardExpireDate=");
+        sb.append(getCardExpireDate());
         sb.append(", score=");
         sb.append(getScore());
         sb.append(", status=");
@@ -975,7 +1007,7 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(61);
+        StringBundler sb = new StringBundler(64);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Customer");
@@ -1040,6 +1072,10 @@ public class CustomerModelImpl extends BaseModelImpl<Customer>
         sb.append(
             "<column><column-name>card</column-name><column-value><![CDATA[");
         sb.append(getCard());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>cardExpireDate</column-name><column-value><![CDATA[");
+        sb.append(getCardExpireDate());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>score</column-name><column-value><![CDATA[");

@@ -46,10 +46,11 @@
             SELECT  distinct Customer.*  FROM CSBModules_Customer AS Customer
 
             WHERE
-                (Customer.name like '##KEYWORD##') OR
-                (Customer.nationalCode like '##KEYWORD##') OR
-                (Customer.mobile like '##KEYWORD##') OR
-                (Customer.email like '##KEYWORD##')
+                (? IS NULL OR Customer.mentorCustomerId = ?) AND
+                ((Customer.name like '##KEYWORD##') OR
+                    (Customer.nationalCode like '##KEYWORD##') OR
+                    (Customer.mobile like '##KEYWORD##') OR
+                    (Customer.email like '##KEYWORD##'))
             ORDER BY Customer.createDate DESC
 
         ]]>

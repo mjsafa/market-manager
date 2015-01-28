@@ -1,13 +1,17 @@
 MetronicApp.factory("CustomerService", function (JsonServer) {
     return{
-        search:function (filter, options) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'search', {filter:filter ? filter : '', start:0, maxResult:30, serviceContext:{}}, {
+        search:function (filter , mentorCustomerId, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'search', {filter: filter ? filter : '', mentorCustomerId : mentorCustomerId ? mentorCustomerId : 0,
+                    start:0, maxResult:30, serviceContext:{}}, {
                 eventName:'CustomerService.search',
                 scope:options ? options.scope : undefined
             });
         },
         addCustomer:function (customer, options) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'add-customer', {customer:JSON.stringify(customer), serviceContext:{}}, {
+            var _customer = {};
+            angular.copy(customer, _customer);
+            _customer.expireDate = _customer.expireDate.getTime();
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'add-customer', {customer:JSON.stringify(_customer), serviceContext:{}}, {
                 eventName:'CustomerService.addCustomer',
                 scope:options ? options.scope : undefined
             });

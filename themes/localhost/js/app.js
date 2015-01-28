@@ -1,3 +1,18 @@
+angular.module("template/datepicker/popup.html", []).run(["$templateCache", function ($templateCache) {
+    $templateCache.put("template/datepicker/popup.html",
+            '<ul class="dropdown-menu" ng-style="{display: (isOpen && \'block\') || \'none\', top: position.top+\'px\'}" ng-keydown="keydown($event)">\n' +
+            '	<li ng-transclude></li>\n' +
+            '	<li ng-if="showButtonBar" style="padding:10px 9px 2px">\n' +
+            '	 <span class="btn-group">\n' +
+            '	 <button type="button" class="btn btn-sm btn-info" ng-click="select(\'today\')">{{ getText(\'current\') }}</button>\n' +
+            '	 <button type="button" class="btn btn-sm btn-danger" ng-click="select(null)">{{ getText(\'clear\') }}</button>\n' +
+            '	 </span>\n' +
+            '	 <button type="button" class="btn btn-sm btn-success pull-right" ng-click="close()">{{ getText(\'close\') }}</button>\n' +
+            '	</li>\n' +
+            '</ul>\n')
+}]);
+
+
 /***
  Metronic AngularJS App Main Script
  ***/
@@ -6,12 +21,14 @@
 var MetronicApp = angular.module("MetronicApp", [
     "ui.router",
     "ui.bootstrap",
+    "checklist-model",
     "oc.lazyLoad",
     "ngSanitize",
     "xeditable",
     "googlechart",
     "angularCharts",
     "ui.bootstrap.persian.datepicker",
+    "angularMoment",
     'pascalprecht.translate', 'ghiscoding.validation'
 ]);
 
@@ -21,6 +38,10 @@ MetronicApp.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
         cssFilesInsertBefore:'ng_load_plugins_before' // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
     });
 }]);
+
+MetronicApp.constant('angularMomentConfig', {
+    //timezone: 'Asia/Tehran' // optional
+});
 
 /* Setup global settings */
 MetronicApp.factory('settings', ['$rootScope', function ($rootScope) {
@@ -176,7 +197,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
                             '/delegate/resource/js/controllers/customer/CustomersController.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
-                            '/delegate/resource/js/controllers/customer/CustomerScoreController.js'
+                            '/delegate/resource/js/controllers/customer/CustomerScoreController.js',
+                            '/delegate/resource/js/viewDirectives.js'
                         ]
                     });
                 }]
@@ -245,7 +267,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
-        // customers
+        // PAYMENTS
         .state('payments', {
             url:"/payments",
             templateUrl:"/delegate/resource/views/payment/payments.html",
@@ -270,6 +292,39 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/js/server/PaymentService.js',
 
                             '/delegate/resource/js/controllers/payment/PaymentsController.js',
+                            '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
+                            '/delegate/resource/js/viewDirectives.js'
+                        ]
+                    });
+                }]
+            }
+        })
+
+        // PAYMENTS
+        .state('paymentDownload', {
+            url:"/paymentDownload",
+            templateUrl:"/delegate/resource/views/payment/paymentDownload.html",
+            data:{pageTitle:'بخش پرداخت ها'},
+            controller:"PaymentDownloadController",
+            resolve:{
+                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'MetronicApp',
+                        files:[
+                            '/delegate/resource/assets/global/plugins/morris/morris.css',
+                            '/delegate/resource/assets/admin/pages/css/tasks.css',
+                            '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
+                            '/delegate/resource/assets/admin/pages/scripts/customers.js',
+                            '/delegate/resource/js/controllers/GeneralPageController.js',
+                            '/delegate/resource/assets/global/plugins/morris/morris.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
+                            '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/server/CustomerService.js',
+                            '/delegate/resource/js/server/ScoreService.js',
+                            '/delegate/resource/js/server/PaymentService.js',
+
+                            '/delegate/resource/js/controllers/payment/PaymentDownloadController.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js'
                         ]
                     });
@@ -330,6 +385,37 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
                             '/delegate/resource/js/server/server.js',
                             '/delegate/resource/js/controllers/user/UsersController.js',
+                            '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
+                            '/delegate/resource/js/controllers/customer/CustomerScoreController.js',
+                            '/delegate/resource/js/controllers/GeneralPageController.js'
+                        ]
+                    });
+                }]
+            }
+        })
+
+        .state('changePassword', {
+            url:"/changePassword",
+            templateUrl:"/delegate/resource/views/users/changePassword.html",
+            data:{pageTitle:'تغییر رمز عبور'},
+            controller:"UserDetailController",
+            resolve:{
+                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name:'MetronicApp',
+                        files:[
+                            '/delegate/resource/assets/global/plugins/morris/morris.css',
+                            '/delegate/resource/assets/admin/pages/css/tasks.css',
+                            '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
+                            '/delegate/resource/assets/admin/pages/scripts/customers.js',
+
+                            '/delegate/resource/assets/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js',
+
+                            '/delegate/resource/assets/global/plugins/morris/morris.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
+                            '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/js/server/server.js',
+                            '/delegate/resource/js/controllers/user/UserDetailController.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
                             '/delegate/resource/js/controllers/customer/CustomerScoreController.js',
                             '/delegate/resource/js/controllers/GeneralPageController.js'
@@ -440,7 +526,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                         {
                             name:'angularFileUpload',
                             files:[
-                                '/delegate/resource/assets/global/plugins/angular/delegate/resource/js/plugins/angular-file-upload/angular-file-upload.min.js'
+                                '/delegate/resource/js/plugins/angular-file-upload/angular-file-upload.min.js'
                             ]
                         },
                         {
@@ -877,3 +963,13 @@ MetronicApp.filter('score', function () {
         return out;
     };
 })
+
+
+
+MetronicApp.filter('myDate', function ($filter) {
+    return function (input, format) {
+        return $filter('amDateFormat')(input, format);
+    };
+})
+
+

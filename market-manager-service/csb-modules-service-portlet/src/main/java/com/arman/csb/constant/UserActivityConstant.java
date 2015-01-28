@@ -16,6 +16,7 @@ public class UserActivityConstant {
     public static Short ACTION_EDIT = 2;
     public static Short ACTION_DELETE = 3;
     public static Short ACTION_CHANGE_STATUS = 4;
+    public static Short ACTION_DOWNLOAD = 5;
 
     public static Short IMPORTANCE_HIGH = 1;
     public static Short IMPORTANCE_MEDIUM = 2;

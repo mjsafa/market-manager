@@ -39,7 +39,8 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
         {value:1, text:'افزودن'},
         {value:2, text:'ویرایش'},
         {value:3, text:'حذف'},
-        {value:4, text:'تغییر وضعیت'}
+        {value:4, text:'تغییر وضعیت'},
+        {value:5, text:'دانلود'}
     ];
 
     $scope.getName = function (input, data, param) {
@@ -161,23 +162,57 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
                     + '</span>'
                     + '  تغییر یافت'
                     ;
+            } else if (action == 2) {
+                return 'کاربر با نام  '
+                    + '<strong>'
+                    + data.name
+                    + '</strong>'
+                    + ' ویرایش شد.'
+                    ;
+
             }
         }
 
         if (entity == "Payment") {
-            return 'مبلغ '
-                + '<strong>' + data.amount + '</strong>'
-                + ' تومان در وجه مشتری با نام '
-                + '<strong>'
-                + data.firstName + ' ' + data.lastName
-                + '</strong>'
-                + ' به شماره کارت  '
-                + '<strong>'
-                + data.cardNumber
-                + '</strong>'
-                + ' واریز شد. ';
+            if (action == 1) {
+                return 'درخواست برداشت به میزان ' +
+                    $filter('score')(data.amount) +
+                    'امتیاز برای مشتری با نام ' +
+                    +data.firstName + ' ' + data.lastName +
+                    ' ثبت شد. '
+            } else if (action == 3) {
+                return 'درخواست برداشت به میزان ' +
+                    $filter('score')(data.amount) +
+                    ' حذف شد.'
+            } else if (action == 4) {
+                if (data.status == 4) {
+                    return 'درخواست برداشت به میزان ' +
+                        $filter('score')(data.amount) +
+                        ' رد شد. '
+
+                } else if (data.status == 0) {
+                    return 'لیست درخواست های در دست بررسی به تعداد ' +
+                        data.paymentCount +
+                        ' و ارزش ' +
+                        data.totalAmount +
+                        ' ریال، تایید شد.';
+                } else if (data.status == 20) {
+                    return 'لیست درخواست های بررسی نشده به تعداد ' +
+                        data.paymentCount +
+                        ' و ارزش ' +
+                        data.totalAmount +
+                        ' ریال ، پس از دانلود فایل، به حالت در دست بررسی تغییر یافت.';
+                }
+                else if (data.status == 1) {
+                    return 'کاربر از انجام عملیات روی لیست درخواست های دریافت شده صرف نظر کرد.';
+                }
+            } else if (action == 5) {
+                return 'فایل درخواست های کاربران برای ارائه به بانک دانلود شد.';
+            }
         }
     }
 
     $scope.initialized = true;
-}]);
+}
+])
+;

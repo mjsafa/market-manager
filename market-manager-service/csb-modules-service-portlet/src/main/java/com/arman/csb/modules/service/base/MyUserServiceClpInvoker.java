@@ -25,6 +25,10 @@ public class MyUserServiceClpInvoker {
     private String[] _methodParameterTypes68;
     private String _methodName69;
     private String[] _methodParameterTypes69;
+    private String _methodName70;
+    private String[] _methodParameterTypes70;
+    private String _methodName71;
+    private String[] _methodParameterTypes71;
 
     public MyUserServiceClpInvoker() {
         _methodName60 = "getBeanIdentifier";
@@ -60,15 +64,28 @@ public class MyUserServiceClpInvoker {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName68 = "agreed";
+        _methodName68 = "updateUser";
 
         _methodParameterTypes68 = new String[] {
+                "java.util.Map", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName69 = "agreed";
+
+        _methodParameterTypes69 = new String[] {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName69 = "getPaymentActivityJSONObject";
+        _methodName70 = "updatePassword";
 
-        _methodParameterTypes69 = new String[] { "com.liferay.portal.model.User" };
+        _methodParameterTypes70 = new String[] {
+                "java.lang.Long", "java.lang.String", "java.lang.String",
+                "java.lang.String", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName71 = "getPaymentActivityJSONObject";
+
+        _methodParameterTypes71 = new String[] { "com.liferay.portal.model.User" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -112,12 +129,27 @@ public class MyUserServiceClpInvoker {
 
         if (_methodName68.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
-            return MyUserServiceUtil.agreed((java.lang.Long) arguments[0],
+            return MyUserServiceUtil.updateUser((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
         if (_methodName69.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+            return MyUserServiceUtil.agreed((java.lang.Long) arguments[0],
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName70.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+            return MyUserServiceUtil.updatePassword((java.lang.Long) arguments[0],
+                (java.lang.String) arguments[1],
+                (java.lang.String) arguments[2],
+                (java.lang.String) arguments[3],
+                (com.liferay.portal.service.ServiceContext) arguments[4]);
+        }
+
+        if (_methodName71.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
             return MyUserServiceUtil.getPaymentActivityJSONObject((com.liferay.portal.model.User) arguments[0]);
         }
 

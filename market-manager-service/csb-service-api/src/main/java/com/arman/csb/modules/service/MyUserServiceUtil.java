@@ -83,12 +83,31 @@ public class MyUserServiceUtil {
         return getService().getById(userId, serviceContext);
     }
 
+    public static com.liferay.portal.kernel.json.JSONObject updateUser(
+        java.util.Map<java.lang.String, java.lang.Object> userMap,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().updateUser(userMap, serviceContext);
+    }
+
     public static com.liferay.portal.kernel.json.JSONObject agreed(
         java.lang.Long userId,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return getService().agreed(userId, serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONObject updatePassword(
+        java.lang.Long userId, java.lang.String oldPassword,
+        java.lang.String password1, java.lang.String password2,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService()
+                   .updatePassword(userId, oldPassword, password1, password2,
+            serviceContext);
     }
 
     public static com.liferay.portal.kernel.json.JSONObject getPaymentActivityJSONObject(

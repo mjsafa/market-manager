@@ -15,6 +15,7 @@ import com.arman.csb.modules.util.RoleUtil;
 import com.arman.csb.theme.model.Template;
 import com.arman.csb.theme.service.TemplateLocalServiceUtil;
 import com.arman.csb.util.DateUtil;
+import com.arman.csb.util.MapUtil;
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.*;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -59,30 +60,25 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
      */
 
 
-    public JSONArray search(String filter, int start, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
-        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
+    public JSONArray search(String filter, long mentorCustomerId, int start, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
+        if(!RoleUtil.isSameCustomer(serviceContext.getUserId(), mentorCustomerId)){
+            RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
+        }
 
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
         SessionFactory sessionFactory = (SessionFactory) PortalBeanLocatorUtil.locate("liferaySessionFactory");
-
         Session session = customerPersistence.openSession();
-        //session = sessionFactory.openSession();
-
         String sql = CustomSQLUtil.get("com.arman.csb.modules.service.CustomerService.search");
         sql = sql.replaceAll("##KEYWORD##", "%" + filter + "%");
-
         SQLQuery queryObject = session.createSQLQuery(sql);
         queryObject.setCacheable(false);
         queryObject.addEntity(CustomerImpl.TABLE_NAME, CustomerImpl.class);
-
-        //queryObject.addScalar("commentCount", Type.INTEGER);
-
         QueryPos qPos = QueryPos.getInstance(queryObject);
 
-        for (int i = 1; i <= 4; i++) {
-            //qPos.add(filter);
-        }
+        //set mentor customer id or 0 is that is null
+        qPos.add(mentorCustomerId <= 0 ?  null : mentorCustomerId);
+        qPos.add(mentorCustomerId);
 
         queryObject.setFirstResult(start);
         queryObject.setMaxResults(maxResult);
@@ -105,7 +101,8 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
     public JSONObject addCustomer(Map<String, Object> customer, ServiceContext serviceContext) throws PortalException, SystemException {
-        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
+        RoleUtil.checkAnyRolesOrSameCustomer(serviceContext.getUserId(), MapUtil.getLong(customer, "mentorCustomerId"), RoleEnum.CUSTOMER_MANAGER.toString());
+
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Customer newCustomer = CustomerLocalServiceUtil.addCustomer(customer, serviceContext);
 
@@ -242,7 +239,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
     public JSONObject updateCustomerStatus(long customerId, boolean isActive, ServiceContext serviceContext) throws PortalException, SystemException {
-        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
+        RoleUtil.checkAnyRolesOrMentorCustomer(serviceContext.getUserId(), customerId, RoleEnum.CUSTOMER_MANAGER.toString());
 
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Customer oldCustomer = CustomerLocalServiceUtil.getById(customerId);
@@ -251,6 +248,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
         UserLocalServiceUtil.updateStatus(oldCustomer.getCustomerUserId(), isActive ? WorkflowConstants.STATUS_APPROVED : WorkflowConstants.STATUS_DENIED);
         result.put("customerId", customerId);
         result.put("isActive", isActive);
+        result.put("name", oldCustomer.getFirstName() + " " + oldCustomer.getLastName());
 
         UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_CUSTOMER, UserActivityConstant.ACTION_CHANGE_STATUS,
                 UserActivityConstant.IMPORTANCE_MEDIUM, getCustomerActivityJSONObject(oldCustomer).toString(), serviceContext);

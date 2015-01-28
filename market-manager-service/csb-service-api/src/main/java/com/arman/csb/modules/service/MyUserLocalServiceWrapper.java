@@ -44,6 +44,23 @@ public class MyUserLocalServiceWrapper implements MyUserLocalService,
         return _myUserLocalService.invokeMethod(name, parameterTypes, arguments);
     }
 
+    @Override
+    public void updateUserRoles(java.lang.Long userId,
+        java.util.List<java.lang.String> userRoles,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        _myUserLocalService.updateUserRoles(userId, userRoles, serviceContext);
+    }
+
+    @Override
+    public java.util.List<com.liferay.portal.model.Role> getOperatorRoles(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _myUserLocalService.getOperatorRoles(serviceContext);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

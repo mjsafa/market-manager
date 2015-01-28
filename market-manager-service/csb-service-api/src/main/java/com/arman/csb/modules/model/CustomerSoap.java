@@ -29,6 +29,7 @@ public class CustomerSoap implements Serializable {
     private String _nationalCode;
     private String _email;
     private String _card;
+    private Date _cardExpireDate;
     private long _score;
     private int _status;
     private long _customerUserId;
@@ -55,6 +56,7 @@ public class CustomerSoap implements Serializable {
         soapModel.setNationalCode(model.getNationalCode());
         soapModel.setEmail(model.getEmail());
         soapModel.setCard(model.getCard());
+        soapModel.setCardExpireDate(model.getCardExpireDate());
         soapModel.setScore(model.getScore());
         soapModel.setStatus(model.getStatus());
         soapModel.setCustomerUserId(model.getCustomerUserId());
@@ -225,6 +227,14 @@ public class CustomerSoap implements Serializable {
 
     public void setCard(String card) {
         _card = card;
+    }
+
+    public Date getCardExpireDate() {
+        return _cardExpireDate;
+    }
+
+    public void setCardExpireDate(Date cardExpireDate) {
+        _cardExpireDate = cardExpireDate;
     }
 
     public long getScore() {

@@ -2490,6 +2490,7 @@ public class CustomerPersistenceImpl extends BasePersistenceImpl<Customer>
         customerImpl.setNationalCode(customer.getNationalCode());
         customerImpl.setEmail(customer.getEmail());
         customerImpl.setCard(customer.getCard());
+        customerImpl.setCardExpireDate(customer.getCardExpireDate());
         customerImpl.setScore(customer.getScore());
         customerImpl.setStatus(customer.getStatus());
         customerImpl.setCustomerUserId(customer.getCustomerUserId());

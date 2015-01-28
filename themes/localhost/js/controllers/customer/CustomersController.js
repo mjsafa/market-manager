@@ -7,7 +7,8 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
     });
 
     if (!$scope.initialized) {
-        $scope.customers = CustomerService.search('', {scope:$scope});
+        $scope.currentCustomerId = onlineUser.customerId;
+        $scope.customers = CustomerService.search('', $scope.currentCustomerId, {scope:$scope});
 
         $scope.$on('CustomerService.search', function (event, data) {
             $scope.customers = data.result;
@@ -26,16 +27,26 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
             if (data.exception == "com.liferay.portal.DuplicateUserScreenNameException") {
                 $rootScope.$emit('page.alert', {message:'آدرس ایمیل وارد شده تکراری می باشد', type:"danger"});
             } else if (data.exception == "com.liferay.portal.kernel.exception.PortalException: customer-maximum-invitee-exceed") {
-                $rootScope.$emit('page.alert', {message:'حد اکثر تعداد معرفی توسط این مشتری تمام شده است', type:"danger"});
+                $rootScope.$emit('page.alert', {message:'هر مشتری حداکثر می تواند 12 نفر را در سیستم ثبت نماید', type:"danger"});
             }
         });
 
         $scope.$on('CustomerService.updateStatus', function (event, data) {
             if (data.result.isActive) {
-                $rootScope.$emit('page.alert', {message:'مشتری مورد نظر شما فعال شد', type:"success"});
+                $rootScope.$emit('page.alert', {message:'مشتری با نام '+ data.result.name + ' فعال شد.', type:"success"});
             } else {
-                $rootScope.$emit('page.alert', {message:'مشتری مورد نظر غیر فعال شد', type:"success"});
+                $rootScope.$emit('page.alert', {message:'مشتری با نام '+ data.result.name + ' غیر فعال شد.', type:"success"});
             }
+            angular.forEach($scope.customers, function (customer) {
+                if (customer.id == data.result.customerId) {
+                    customer.isActive = data.result.isActive;
+                }
+            });
+        });
+
+
+        $scope.$on('CustomerService.updateStatus.error', function (event, data) {
+            //$scope.customer.isActive = $scope.customer.isActive ? false : true;
         });
 
         $scope.$on('ScoreService.addScore', function (event, data) {
@@ -55,7 +66,7 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
     $scope.scoreService = ScoreService;
 
     $scope.doSearch = function () {
-        $scope.customerService.search($scope.query, {scope:$scope});
+        $scope.customerService.search($scope.query, $scope.currentCustomerId, {scope:$scope});
     }
 
 
@@ -66,10 +77,12 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
     };
 
     $scope.submitCustomer = function () {
-        if ($scope.newCustomer.mentorCustomer) {
+        if ($scope.newCustomer.mentorCustomer && $scope.newCustomer.mentorCustomer.id) {
             $scope.newCustomer.mentorCustomerId = $scope.newCustomer.mentorCustomer.id;
+        } else if ($scope.currentCustomerId) {
+            $scope.newCustomer.mentorCustomerId = $scope.currentCustomerId;
         }
-        $scope.customerService.addCustomer($scope.newCustomer, {scope: $scope});
+        $scope.customerService.addCustomer($scope.newCustomer, {scope:$scope});
     }
 
 
@@ -137,6 +150,17 @@ MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'Customer
         } else {
             $scope.customerService.updateStatus(customer.id, true, {scope:$scope});
         }
+    };
+
+    $scope.openExpireDate = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.expireIsOpen = true;
+    };
+
+    $scope.dateOptions = {
+        minDate:new Date(),
+        yearRange:6
     };
 
     $scope.totalScore = calculateScore();

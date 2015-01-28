@@ -24,6 +24,10 @@ public class MyUserServiceClp implements MyUserService {
     private String[] _methodParameterTypes7;
     private String _methodName8;
     private String[] _methodParameterTypes8;
+    private String _methodName9;
+    private String[] _methodParameterTypes9;
+    private String _methodName10;
+    private String[] _methodParameterTypes10;
 
     public MyUserServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -61,15 +65,28 @@ public class MyUserServiceClp implements MyUserService {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName7 = "agreed";
+        _methodName7 = "updateUser";
 
         _methodParameterTypes7 = new String[] {
+                "java.util.Map", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName8 = "agreed";
+
+        _methodParameterTypes8 = new String[] {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName8 = "getPaymentActivityJSONObject";
+        _methodName9 = "updatePassword";
 
-        _methodParameterTypes8 = new String[] { "com.liferay.portal.model.User" };
+        _methodParameterTypes9 = new String[] {
+                "java.lang.Long", "java.lang.String", "java.lang.String",
+                "java.lang.String", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName10 = "getPaymentActivityJSONObject";
+
+        _methodParameterTypes10 = new String[] { "com.liferay.portal.model.User" };
     }
 
     @Override
@@ -273,8 +290,8 @@ public class MyUserServiceClp implements MyUserService {
     }
 
     @Override
-    public com.liferay.portal.kernel.json.JSONObject agreed(
-        java.lang.Long userId,
+    public com.liferay.portal.kernel.json.JSONObject updateUser(
+        java.util.Map<java.lang.String, java.lang.Object> userMap,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
@@ -284,7 +301,90 @@ public class MyUserServiceClp implements MyUserService {
             returnObj = _invokableService.invokeMethod(_methodName7,
                     _methodParameterTypes7,
                     new Object[] {
+                        ClpSerializer.translateInput(userMap),
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject agreed(
+        java.lang.Long userId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName8,
+                    _methodParameterTypes8,
+                    new Object[] {
                         ClpSerializer.translateInput(userId),
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject updatePassword(
+        java.lang.Long userId, java.lang.String oldPassword,
+        java.lang.String password1, java.lang.String password2,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName9,
+                    _methodParameterTypes9,
+                    new Object[] {
+                        ClpSerializer.translateInput(userId),
+                        
+                    ClpSerializer.translateInput(oldPassword),
+                        
+                    ClpSerializer.translateInput(password1),
+                        
+                    ClpSerializer.translateInput(password2),
                         
                     ClpSerializer.translateInput(serviceContext)
                     });
@@ -316,8 +416,8 @@ public class MyUserServiceClp implements MyUserService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableService.invokeMethod(_methodName8,
-                    _methodParameterTypes8,
+            returnObj = _invokableService.invokeMethod(_methodName10,
+                    _methodParameterTypes10,
                     new Object[] { ClpSerializer.translateInput(user) });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);

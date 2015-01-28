@@ -17,7 +17,7 @@ MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settin
 
         $timeout(function () {
             $scope.alerts.splice( $scope.alerts.length - 1 , 1 );;
-        }, 6000);
+        }, 12000);
     });
 
     $scope.closeAlert = function (index) {

@@ -51,6 +51,21 @@ public class MyUserLocalServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static void updateUserRoles(java.lang.Long userId,
+        java.util.List<java.lang.String> userRoles,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        getService().updateUserRoles(userId, userRoles, serviceContext);
+    }
+
+    public static java.util.List<com.liferay.portal.model.Role> getOperatorRoles(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().getOperatorRoles(serviceContext);
+    }
+
     public static void clearService() {
         _service = null;
     }

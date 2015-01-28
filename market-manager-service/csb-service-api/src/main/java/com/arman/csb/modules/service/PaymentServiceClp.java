@@ -22,6 +22,20 @@ public class PaymentServiceClp implements PaymentService {
     private String[] _methodParameterTypes6;
     private String _methodName7;
     private String[] _methodParameterTypes7;
+    private String _methodName8;
+    private String[] _methodParameterTypes8;
+    private String _methodName9;
+    private String[] _methodParameterTypes9;
+    private String _methodName10;
+    private String[] _methodParameterTypes10;
+    private String _methodName11;
+    private String[] _methodParameterTypes11;
+    private String _methodName12;
+    private String[] _methodParameterTypes12;
+    private String _methodName13;
+    private String[] _methodParameterTypes13;
+    private String _methodName14;
+    private String[] _methodParameterTypes14;
 
     public PaymentServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -59,9 +73,51 @@ public class PaymentServiceClp implements PaymentService {
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName7 = "getPaymentActivityJSONObject";
+        _methodName7 = "isDownloaded";
 
         _methodParameterTypes7 = new String[] {
+                "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName8 = "downloadPayments";
+
+        _methodParameterTypes8 = new String[] {
+                "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName9 = "acceptPayments";
+
+        _methodParameterTypes9 = new String[] {
+                "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName10 = "cancelDownloadPayments";
+
+        _methodParameterTypes10 = new String[] {
+                "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName11 = "rejectPayment";
+
+        _methodParameterTypes11 = new String[] {
+                "java.lang.Long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName12 = "deletePayment";
+
+        _methodParameterTypes12 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName13 = "getStats";
+
+        _methodParameterTypes13 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName14 = "getPaymentActivityJSONObject";
+
+        _methodParameterTypes14 = new String[] {
                 "com.arman.csb.modules.model.Payment",
                 "com.arman.csb.modules.model.Customer"
             };
@@ -265,14 +321,258 @@ public class PaymentServiceClp implements PaymentService {
     }
 
     @Override
+    public com.liferay.portal.kernel.json.JSONObject isDownloaded(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName7,
+                    _methodParameterTypes7,
+                    new Object[] { ClpSerializer.translateInput(serviceContext) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject downloadPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName8,
+                    _methodParameterTypes8,
+                    new Object[] { ClpSerializer.translateInput(serviceContext) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject acceptPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName9,
+                    _methodParameterTypes9,
+                    new Object[] { ClpSerializer.translateInput(serviceContext) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject cancelDownloadPayments(
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName10,
+                    _methodParameterTypes10,
+                    new Object[] { ClpSerializer.translateInput(serviceContext) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject rejectPayment(
+        java.lang.Long paymentId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName11,
+                    _methodParameterTypes11,
+                    new Object[] {
+                        ClpSerializer.translateInput(paymentId),
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject deletePayment(
+        long paymentId, com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName12,
+                    _methodParameterTypes12,
+                    new Object[] {
+                        paymentId,
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject getStats(long customerId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName13,
+                    _methodParameterTypes13,
+                    new Object[] {
+                        customerId,
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
     public com.liferay.portal.kernel.json.JSONObject getPaymentActivityJSONObject(
         com.arman.csb.modules.model.Payment payment,
         com.arman.csb.modules.model.Customer customer) {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableService.invokeMethod(_methodName7,
-                    _methodParameterTypes7,
+            returnObj = _invokableService.invokeMethod(_methodName14,
+                    _methodParameterTypes14,
                     new Object[] {
                         ClpSerializer.translateInput(payment),
                         

@@ -38,4 +38,20 @@
         <servlet-name>JSON Web Service Servlet</servlet-name>
         <url-pattern>/api/jsonws/*</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>payment</servlet-name>
+        <servlet-class>com.liferay.portal.kernel.servlet.PortalDelegateServlet</servlet-class>
+        <init-param>
+            <param-name>servlet-class</param-name>
+            <param-value>com.arman.csb.modules.servlet.PaymentServlet</param-value>
+        </init-param>
+        <init-param>
+            <param-name>sub-context</param-name>
+            <param-value>payment</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
 </web-app>

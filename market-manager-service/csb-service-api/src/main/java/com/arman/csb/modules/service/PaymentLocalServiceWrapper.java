@@ -354,12 +354,13 @@ public class PaymentLocalServiceWrapper implements PaymentLocalService,
     @Override
     public java.util.List<com.arman.csb.modules.model.Payment> find(
         java.lang.Long customerId, java.util.Date fromDate,
-        java.util.Date toDate, long amountFrom, long amountTo, int first,
-        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
+        java.util.Date toDate, long amountFrom, long amountTo, int status,
+        int first, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return _paymentLocalService.find(customerId, fromDate, toDate,
-            amountFrom, amountTo, first, maxResult, serviceContext);
+            amountFrom, amountTo, status, first, maxResult, serviceContext);
     }
 
     @Override
@@ -369,6 +370,67 @@ public class PaymentLocalServiceWrapper implements PaymentLocalService,
             com.liferay.portal.kernel.exception.SystemException {
         return _paymentLocalService.totalPaymentAmount(customerId, fromDate,
             toDate);
+    }
+
+    @Override
+    public java.util.List<com.arman.csb.modules.model.Payment> findByStatus(
+        int status)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentLocalService.findByStatus(status);
+    }
+
+    @Override
+    public com.arman.csb.modules.model.Payment updateStatus(
+        com.arman.csb.modules.model.Payment payment, int status)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentLocalService.updateStatus(payment, status);
+    }
+
+    @Override
+    public com.arman.csb.modules.model.Payment deletePayment(
+        java.lang.Long paymentId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentLocalService.deletePayment(paymentId);
+    }
+
+    @Override
+    public long sumPayedOrPending(java.lang.Long customerId)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentLocalService.sumPayedOrPending(customerId);
+    }
+
+    @Override
+    public org.apache.poi.xssf.usermodel.XSSFWorkbook getExcelDocument(
+        java.util.List<com.arman.csb.modules.model.Payment> payments) {
+        return _paymentLocalService.getExcelDocument(payments);
+    }
+
+    @Override
+    public long calculateMoneyInRials(
+        com.arman.csb.modules.model.Payment payment) {
+        return _paymentLocalService.calculateMoneyInRials(payment);
+    }
+
+    @Override
+    public long calculateMoneyInRials(
+        java.util.List<com.arman.csb.modules.model.Payment> payments) {
+        return _paymentLocalService.calculateMoneyInRials(payments);
+    }
+
+    @Override
+    public void subtractCommissionScore(
+        com.arman.csb.modules.model.Payment payment) {
+        _paymentLocalService.subtractCommissionScore(payment);
+    }
+
+    @Override
+    public void subtractCommissionScore(
+        java.util.List<com.arman.csb.modules.model.Payment> payments) {
+        _paymentLocalService.subtractCommissionScore(payments);
     }
 
     /**

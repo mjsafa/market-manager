@@ -6,14 +6,14 @@ MetronicApp.controller('CustomerSelectController', ['$rootScope', '$scope', 'Cus
             $scope.customers = data.result;
         });
 
-        CustomerService.search('',{scope: $scope});
+        CustomerService.search('', 0,{scope: $scope});
     }
 
 
     $scope.customerService = CustomerService;
 
     $scope.doSearch = function () {
-        $scope.customerService.search($scope.query, {scope: $scope});
+        $scope.customerService.search($scope.query, 0, {scope: $scope});
     }
 
     $scope.ok = function (item) {

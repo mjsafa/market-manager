@@ -38,6 +38,7 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
     private String _nationalCode;
     private String _email;
     private String _card;
+    private Date _cardExpireDate;
     private long _score;
     private int _status;
     private long _customerUserId;
@@ -97,6 +98,7 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
         attributes.put("nationalCode", getNationalCode());
         attributes.put("email", getEmail());
         attributes.put("card", getCard());
+        attributes.put("cardExpireDate", getCardExpireDate());
         attributes.put("score", getScore());
         attributes.put("status", getStatus());
         attributes.put("customerUserId", getCustomerUserId());
@@ -195,6 +197,12 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
 
         if (card != null) {
             setCard(card);
+        }
+
+        Date cardExpireDate = (Date) attributes.get("cardExpireDate");
+
+        if (cardExpireDate != null) {
+            setCardExpireDate(cardExpireDate);
         }
 
         Long score = (Long) attributes.get("score");
@@ -563,6 +571,28 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
     }
 
     @Override
+    public Date getCardExpireDate() {
+        return _cardExpireDate;
+    }
+
+    @Override
+    public void setCardExpireDate(Date cardExpireDate) {
+        _cardExpireDate = cardExpireDate;
+
+        if (_customerRemoteModel != null) {
+            try {
+                Class<?> clazz = _customerRemoteModel.getClass();
+
+                Method method = clazz.getMethod("setCardExpireDate", Date.class);
+
+                method.invoke(_customerRemoteModel, cardExpireDate);
+            } catch (Exception e) {
+                throw new UnsupportedOperationException(e);
+            }
+        }
+    }
+
+    @Override
     public long getScore() {
         return _score;
     }
@@ -750,6 +780,7 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
         clone.setNationalCode(getNationalCode());
         clone.setEmail(getEmail());
         clone.setCard(getCard());
+        clone.setCardExpireDate(getCardExpireDate());
         clone.setScore(getScore());
         clone.setStatus(getStatus());
         clone.setCustomerUserId(getCustomerUserId());
@@ -799,7 +830,7 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(39);
+        StringBundler sb = new StringBundler(41);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -831,6 +862,8 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
         sb.append(getEmail());
         sb.append(", card=");
         sb.append(getCard());
+        sb.append(", cardExpireDate=");
+        sb.append(getCardExpireDate());
         sb.append(", score=");
         sb.append(getScore());
         sb.append(", status=");
@@ -846,7 +879,7 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(61);
+        StringBundler sb = new StringBundler(64);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Customer");
@@ -911,6 +944,10 @@ public class CustomerClp extends BaseModelImpl<Customer> implements Customer {
         sb.append(
             "<column><column-name>card</column-name><column-value><![CDATA[");
         sb.append(getCard());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>cardExpireDate</column-name><column-value><![CDATA[");
+        sb.append(getCardExpireDate());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>score</column-name><column-value><![CDATA[");
