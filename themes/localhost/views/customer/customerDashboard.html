@@ -63,7 +63,7 @@
             </div>
             <div class="details">
                 <div class="number">
-                    {{stats.totalCustomerPayment}}
+                    {{stats.totalCustomerPayment | score}}
                     <span style="line-height: 25px" class="desc">
                         (ریال)
                     </span>
@@ -267,18 +267,18 @@
 
             <div class="col-md-9 col-sm-12">
 
-                    <label class="control-label col-md-3">بازه مبلغ:</label>
+                <label class="control-label col-md-3">بازه مبلغ:</label>
 
-                    <div class="input-icon col-md-4">
-                        <i class="fa fa-arrow-circle-down"></i>
-                        <input ng-enter="doSearchPayment()" ng-model="filter.fromAmount" type="text"
-                               class="form-control" empty-to-null/>
-                    </div>
-                    <div class="input-icon col-md-4">
-                        <i class="fa fa-arrow-circle-up"></i>
-                        <input ng-enter="doSearchPayment()" ng-model="filter.toAmount" type="text" class="form-control"
-                               empty-to-null/>
-                    </div>
+                <div class="input-icon col-md-4">
+                    <i class="fa fa-arrow-circle-down"></i>
+                    <input ng-enter="doSearchPayment()" ng-model="filter.fromAmount" type="text"
+                           class="form-control" empty-to-null/>
+                </div>
+                <div class="input-icon col-md-4">
+                    <i class="fa fa-arrow-circle-up"></i>
+                    <input ng-enter="doSearchPayment()" ng-model="filter.toAmount" type="text" class="form-control"
+                           empty-to-null/>
+                </div>
             </div>
 
             <div class="col-md-3 col-sm-12">
@@ -315,9 +315,7 @@
                     <tr ng-repeat="payment in payments">
 
                         <td>
-                            <a href="#/userDetail/{{user.id}}" class="primary-link">{{user.firstName}}
-                                {{payment.customer.name}}
-                            </a>
+                            {{payment.customer.name}}
                         </td>
                         <td>
                             {{payment.amount}}
@@ -332,7 +330,21 @@
 
 
                         <td>
-                            {{payment.isActive ? "تایید شده" : "تایید نشده"}}
+                            <span ng-if="payment.status == 1" class="label label-bg label-warning">
+                                                                بررسی نشده
+                            </span>
+                            <span ng-if="payment.status == 0"
+                                  class="label label-bg label-success">
+                                واریز شده
+                            </span>
+                            <span ng-if="payment.status == 20"
+                                  class="label label-bg label-blue">
+                                در دست بررسی
+                            </span>
+                            <span ng-if="payment.status == 4"
+                                  class="label label-bg label-danger">
+                                رد شده
+                            </span>
                         </td>
                     </tr>
                 </table>

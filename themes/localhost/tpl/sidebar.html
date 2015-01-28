@@ -35,10 +35,25 @@
             </a>
         </li>
 
+        <li class="start" ng-if="checkAnyGroups(['customer_group'])">
+            <a href="#/customerDashboard">
+                <i class="icon-user"></i>
+                <span class="title">صفحه اصلی مشتری</span>
+            </a>
+        </li>
+
+
         <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER', 'CUSTOMER_MANAGER'])">
             <a href="#/customers.html">
                 <i class="icon-user"></i>
                 <span class="title">مدیریت مشتری ها</span>
+            </a>
+        </li>
+
+        <li class="start" ng-if="isCustomer()">
+            <a href="#/customers.html">
+                <i class="icon-user"></i>
+                <span class="title">مدیریت کاربران شما</span>
             </a>
         </li>
 
@@ -57,17 +72,28 @@
             </a>
         </li>
 
-        <li class="start" ng-if="checkAnyGroups(['customer_group'])">
-            <a href="#/customerDashboard">
-                <i class="icon-user"></i>
-                <span class="title">صفحه اصلی مشتری</span>
-            </a>
-        </li>
-        <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER', 'PAYMENT_MANAGER'])">
+        <li class="start"
+            ng-if="checkAnyRoles(['ADMINISTRATOR_USER', 'PAYMENT_MANAGER']) || checkAnyGroups(['customer_group'])">
             <a href="#/payments">
                 <i class="icon-wallet"></i>
                 <span class="title">مدیریت پرداخت ها</span>
             </a>
+
+            <ul class="sub-menu">
+                <li>
+                    <a href="#/payments" ng-if="checkAnyRoles(['ADMINISTRATOR_USER', 'PAYMENT_MANAGER'])">
+                        مدیریت کلیه پرداخت ها
+                    </a>
+                    <a href="#/payments" ng-if="checkAnyGroups(['customer_group'])">
+                        درخواست پرداخت
+                    </a>
+                </li>
+                <li ng-if="checkAnyRoles(['ADMINISTRATOR_USER', 'PAYMENT_MANAGER'])">
+                    <a href="#/paymentDownload">
+                        دریافت فایل بانک
+                    </a>
+                </li>
+            </ul>
         </li>
 
         <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER'])">

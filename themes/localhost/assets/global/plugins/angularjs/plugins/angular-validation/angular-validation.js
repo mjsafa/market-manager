@@ -304,6 +304,17 @@
                   type: "condition_num"
                 };
                 break;
+
+
+                case "numeric_float" :
+                                validators[i] = {
+                                  pattern: "^\\d*\\.?\\d{0," + params[1] + "}$",
+                                  message: "INVALID_FLOAT_NUMBER",
+                                    params: [params[1]],
+                                  type: "regex"
+                                };
+                                break;
+
               case "numeric" :
                 validators[i] = {
                   pattern: "^\\d*\\.?\\d+$",

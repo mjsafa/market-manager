@@ -7,10 +7,10 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#">Dashboard</a>
+            <a href="#">مشاهده اطلاعات کاربر</a>
         </li>
     </ul>
-    <div class="page-toolbar">
+    <div class="page-toolbar hide">
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-menu-toggle
                     dropdown-menu-hover data-delay="1000" data-close-others="true">
@@ -47,105 +47,111 @@
     </div>
 </div>
 <h3 class="page-title">
-    Dashboard
+    {{user.firstName}} {{user.lastName}}
 </h3>
 <!-- END PAGE HEADER-->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="UserDetailController">
+<div>
 
-    <!-- BEGIN DASHBOARD STATS -->
-    <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="dashboard-stat blue-madison">
-                <div class="visual">
-                    <i class="fa fa-comments"></i>
-                </div>
-                <div class="details">
-                    <div class="number">
-                        1349
-                    </div>
-                    <div class="desc">
-                        New Feedbacks
-                    </div>
-                </div>
-                <a class="more" href="#">
-                    View more <i class="m-icon-swapright m-icon-white"></i>
-                </a>
+<div id="alert_container" ng-controller="GeneralPageController">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.message}}</alert>
+</div>
+
+
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row hide">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue-madison">
+            <div class="visual">
+                <i class="fa fa-comments"></i>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="dashboard-stat red-intense">
-                <div class="visual">
-                    <i class="fa fa-bar-chart-o"></i>
+            <div class="details">
+                <div class="number">
+                    1349
                 </div>
-                <div class="details">
-                    <div class="number">
-                        12,5M$
-                    </div>
-                    <div class="desc">
-                        Total Profit
-                    </div>
+                <div class="desc">
+                    New Feedbacks
                 </div>
-                <a class="more" href="#">
-                    View more <i class="m-icon-swapright m-icon-white"></i>
-                </a>
             </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="dashboard-stat green-haze">
-                <div class="visual">
-                    <i class="fa fa-shopping-cart"></i>
-                </div>
-                <div class="details">
-                    <div class="number">
-                        549
-                    </div>
-                    <div class="desc">
-                        New Orders
-                    </div>
-                </div>
-                <a class="more" href="#">
-                    View more <i class="m-icon-swapright m-icon-white"></i>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="dashboard-stat purple-plum">
-                <div class="visual">
-                    <i class="fa fa-globe"></i>
-                </div>
-                <div class="details">
-                    <div class="number">
-                        +89%
-                    </div>
-                    <div class="desc">
-                        Brand Popularity
-                    </div>
-                </div>
-                <a class="more" href="#">
-                    View more <i class="m-icon-swapright m-icon-white"></i>
-                </a>
-            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
         </div>
     </div>
-    <!-- END DASHBOARD STATS -->
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <!-- BEGIN PORTLET-->
-            <div class="portlet light bg-inverse">
-                <div class="portlet-title">
-                    <div class="caption caption-md">
-                        <i class="icon-bar-chart font-green-haze hide"></i>
-                        <span class="caption-subject font-green-haze bold uppercase">صفحه اختصاصی کاربر</span>
-                    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat red-intense">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    12,5M$
                 </div>
-                <div class="portlet-body form">
+                <div class="desc">
+                    Total Profit
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    549
+                </div>
+                <div class="desc">
+                    New Orders
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple-plum">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    +89%
+                </div>
+                <div class="desc">
+                    Brand Popularity
+                </div>
+            </div>
+            <a class="more" href="#">
+                View more <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- END DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet light bg-inverse">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-green-haze hide"></i>
+                    <span class="caption-subject font-green-haze bold uppercase">
+                        مشاهده و ویرایش اطلاعات کاربر
 
+                    </span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+
+                <form editable-form name="userEditForm" onaftersave="updateUser()">
                     <div class="form-horizontal" role="form">
                         <div class="form-body">
-                            <h3 class="margin-bottom-20">مشاهده اطلاعات کاربر - {{user.firstName}}
-                                {{user.lastName}}</h3>
-
                             <div class="row">
                                 <!--/span-->
                                 <div class="col-md-6">
@@ -163,28 +169,76 @@
 
                                         <div class="col-md-9">
                                             <p class="form-control-static">
-                                                {{user.mobile}}
+                                                <span href="#" e-name="mobile"
+                                                      e-validation="numeric|exact_len:11|required"
+                                                      editable-text="user.mobile">{{user.mobile}}</span>
+                                            </p>
+                                            <br/>
+                                            <span class="text-danger validation validation-mobile"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">نام</label>
+
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">
+                                                <span href="#" e-name="firstName" e-validation="min_len:3|required"
+                                                      editable-text="user.firstName">{{user.firstName}}</span>
+                                            </p>
+                                            <br/>
+                                            <span class="text-danger validation validation-firstName"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">نام خانوادگی</label>
+
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">
+                                                <span href="#" editable-text="user.lastName">{{user.lastName}}</span>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
-                            <h3 class="margin-bottom-20">دسترسی های کاربر</h3>
 
-                            <div class="row">
+                            <span ng-if="userEditForm.$visible || user.roles.length"  class="caption-subject font-green-haze bold uppercase">
+                                سطح دسترسی های کاربر
+                            </span>
+                            <div ng-if="userEditForm.$visible || user.roles.length" class="row roles-row">
                                 <!--/span-->
-                                <div class="col-md-6">
+                                <div style="margin-right: 20px" class="col-md-12">
+                                    <div style="padding: 20px" href="#" editable-checklist="user.roles" e-name="roles"
+                                         e-ng-options="s.value as s.text for s in roleConstants" class="tiles">
 
-                                    <button type="button" class="btn btn-success"
-                                            ng-model="user.roles.USER_ADMINISTRATOR"
-                                            btn-checkbox>
-                                        مدیریت کاربران
-                                    </button>
-                                    <button type="button" class="btn btn-success"
-                                            ng-model="user.roles.CUSTOMER_ADMIN"
-                                            btn-checkbox>
-                                        مدیریت مشتریان
-                                    </button>
+                                        <div ng-repeat="role in userRoles()"
+                                             class="tile selected bg-green-turquoise">
+
+                                            <div class="corner">
+                                            </div>
+                                            <div class="check">
+                                            </div>
+                                            <div class="tile-body">
+                                                <br/>
+                                                <h5 style="line-height: 20px">{{role.text}}</h5>
+                                            </div>
+                                            <div class="tile-object">
+                                                <div class="name">
+                                                    <i class="fa fa-lock"></i>
+                                                </div>
+                                                <div class="number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{role.text}}
+                                    </div>
                                 </div>
                             </div>
 
@@ -193,12 +247,32 @@
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn green"><i class="fa fa-pencil"></i>
+                                                <button type="button" class="btn btn-default"
+                                                        ng-click="userEditForm.$show()"
+                                                        ng-show="!userEditForm.$visible">
+                                                    ویرایش اطلاعات
+                                                </button>
+
+
+                                                <span ng-show="userEditForm.$visible">
+                                                    <button type="submit" class="btn btn-primary"
+                                                            ng-disabled="userEditForm.$waiting || userEditForm.$invalid">
+                                                        ذخیره
+                                                    </button>
+                                                    <button type="button" class="btn btn-default"
+                                                            ng-disabled="userEditForm.$waiting"
+                                                            ng-click="userEditForm.$cancel()">
+                                                        انصراف
+                                                    </button>
+                                                  </span>
+
+                                                <!--<button ng-click="updateUser()" type="submit" class="btn green"><i
+                                                        class="fa fa-pencil"></i>
                                                     ذخیره تغییرات
                                                 </button>
                                                 <button ng-click="goUserList()" type="button" class="btn default">
                                                     مشاهده لیست کاربران سیستم
-                                                </button>
+                                                </button>-->
                                             </div>
                                         </div>
                                     </div>
@@ -209,28 +283,29 @@
                         </div>
 
                     </div>
-                </div>
-                <!-- END PORTLET-->
+                </form>
             </div>
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 col-sm-12">
-
-
-        </div>
-        <div class="col-md-6 col-sm-12">
-            <!-- BEGIN PORTLET-->
             <!-- END PORTLET-->
         </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+
 
     </div>
-    <!-- END MAIN CONTENT -->
-    <!-- BEGIN MAIN JS & CSS -->
-    <script>
-        //Index.init();
-        //Tasks.initDashboardWidget();
-    </script>
-    <!-- BEGIN MAIN JS & CSS -->
+    <div class="col-md-6 col-sm-12">
+        <!-- BEGIN PORTLET-->
+        <!-- END PORTLET-->
+    </div>
+
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<script>
+    //Index.init();
+    //Tasks.initDashboardWidget();
+</script>
+<!-- BEGIN MAIN JS & CSS -->
