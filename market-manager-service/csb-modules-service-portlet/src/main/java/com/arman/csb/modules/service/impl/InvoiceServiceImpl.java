@@ -4,6 +4,7 @@ import com.arman.csb.constant.UserActivityConstant;
 import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.Invoice;
 import com.arman.csb.modules.model.InvoiceItem;
+import com.arman.csb.modules.model.Product;
 import com.arman.csb.modules.model.impl.CustomerImpl;
 import com.arman.csb.modules.model.impl.InvoiceImpl;
 import com.arman.csb.modules.service.*;
@@ -168,6 +169,19 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         }
 
         InvoiceLocalServiceUtil.updateInvoice(invoice);
+
+        if(WorkflowConstants.STATUS_APPROVED == status) {
+            List<InvoiceItem> items = InvoiceItemLocalServiceUtil.getInvoiceItemsByInvoiceId(invoice.getId());
+
+            long totalScore = 0;
+            for (InvoiceItem item : items) {
+                Product product = ProductLocalServiceUtil.getProduct(item.getProductId());
+
+                totalScore += item.getNumber() * product.getScore();
+            }
+
+            ScoreLocalServiceUtil.addScore(invoice.getCustomerId(), totalScore, serviceContext);
+        }
 
         JSONObject result = getJSONObject(invoice);
         result.put("oldStatus" ,oldStatus);

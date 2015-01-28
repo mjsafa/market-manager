@@ -294,7 +294,7 @@ public interface ScoreLocalService extends BaseLocalService,
             com.liferay.portal.kernel.exception.SystemException;
 
     /**
-    * @param type direct/indirect/null: if null then sums all scores
+    * @param type     direct/indirect/null: if null then sums all scores
     * @param fromDate
     * @param toDate
     * @return
@@ -303,6 +303,12 @@ public interface ScoreLocalService extends BaseLocalService,
     */
     public long sumByType(java.lang.Integer type, java.util.Date fromDate,
         java.util.Date toDate)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.arman.csb.modules.model.Score addScore(
+        java.lang.Long customerId, long value,
+        com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 }

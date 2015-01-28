@@ -354,6 +354,11 @@ public class PaymentLocalServiceUtil {
         return getService().totalPaymentAmount(customerId, fromDate, toDate);
     }
 
+    public static org.apache.poi.xssf.usermodel.XSSFWorkbook getExcelDocument(
+        java.util.List<com.arman.csb.modules.model.Payment> payments) {
+        return getService().getExcelDocument(payments);
+    }
+
     public static void clearService() {
         _service = null;
     }

@@ -1,6 +1,10 @@
 package com.arman.csb.modules.service.impl;
 
+import com.arman.csb.modules.model.InvoiceItem;
 import com.arman.csb.modules.service.base.InvoiceItemLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.SystemException;
+
+import java.util.List;
 
 /**
  * The implementation of the invoice item local service.
@@ -22,4 +26,9 @@ public class InvoiceItemLocalServiceImpl extends InvoiceItemLocalServiceBaseImpl
      *
      * Never reference this interface directly. Always use {@link com.arman.csb.modules.service.InvoiceItemLocalServiceUtil} to access the invoice item local service.
      */
+
+    public List<InvoiceItem> getInvoiceItemsByInvoiceId(long invoiceId) throws SystemException {
+        return invoiceItemPersistence.findByInvoiceId(invoiceId);
+    }
+
 }

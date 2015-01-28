@@ -342,7 +342,7 @@ public class ScoreLocalServiceWrapper implements ScoreLocalService,
     }
 
     /**
-    * @param type direct/indirect/null: if null then sums all scores
+    * @param type     direct/indirect/null: if null then sums all scores
     * @param fromDate
     * @param toDate
     * @return
@@ -355,6 +355,15 @@ public class ScoreLocalServiceWrapper implements ScoreLocalService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return _scoreLocalService.sumByType(type, fromDate, toDate);
+    }
+
+    @Override
+    public com.arman.csb.modules.model.Score addScore(
+        java.lang.Long customerId, long value,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _scoreLocalService.addScore(customerId, value, serviceContext);
     }
 
     /**

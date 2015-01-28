@@ -61,6 +61,8 @@ public class PaymentLocalServiceClpInvoker {
     private String[] _methodParameterTypes94;
     private String _methodName95;
     private String[] _methodParameterTypes95;
+    private String _methodName96;
+    private String[] _methodParameterTypes96;
 
     public PaymentLocalServiceClpInvoker() {
         _methodName0 = "addPayment";
@@ -194,6 +196,10 @@ public class PaymentLocalServiceClpInvoker {
         _methodParameterTypes95 = new String[] {
                 "java.lang.Long", "java.util.Date", "java.util.Date"
             };
+
+        _methodName96 = "getExcelDocument";
+
+        _methodParameterTypes96 = new String[] { "java.util.List" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -350,6 +356,11 @@ public class PaymentLocalServiceClpInvoker {
                 Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
             return PaymentLocalServiceUtil.totalPaymentAmount((java.lang.Long) arguments[0],
                 (java.util.Date) arguments[1], (java.util.Date) arguments[2]);
+        }
+
+        if (_methodName96.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+            return PaymentLocalServiceUtil.getExcelDocument((java.util.List<com.arman.csb.modules.model.Payment>) arguments[0]);
         }
 
         throw new UnsupportedOperationException();

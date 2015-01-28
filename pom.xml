@@ -151,8 +151,7 @@
                 </file>
             </activation>-->
             <properties>
-                <liferay.home>C:\archive\Programming-Utility\Liferay\market-manager\liferay-portal-6.2.0-ce-rc6
-                </liferay.home>
+                <liferay.home>G:\Workspace\Marketing\liferay-portal-6.2.0-ce-rc6</liferay.home>
                 <tomcat.version>7.0.42</tomcat.version>
             </properties>
         </profile>

@@ -94,9 +94,20 @@ public class InvoiceItemPersistenceImpl extends BasePersistenceImpl<InvoiceItem>
     private static final String _FINDER_COLUMN_UUID_UUID_1 = "invoiceItem.uuid IS NULL";
     private static final String _FINDER_COLUMN_UUID_UUID_2 = "invoiceItem.uuid = ?";
     private static final String _FINDER_COLUMN_UUID_UUID_3 = "(invoiceItem.uuid IS NULL OR invoiceItem.uuid = '')";
-    public static final FinderPath FINDER_PATH_FETCH_BY_INVOICEID = new FinderPath(InvoiceItemModelImpl.ENTITY_CACHE_ENABLED,
+    public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_INVOICEID =
+        new FinderPath(InvoiceItemModelImpl.ENTITY_CACHE_ENABLED,
             InvoiceItemModelImpl.FINDER_CACHE_ENABLED, InvoiceItemImpl.class,
-            FINDER_CLASS_NAME_ENTITY, "fetchByInvoiceId",
+            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByInvoiceId",
+            new String[] {
+                Long.class.getName(),
+                
+            Integer.class.getName(), Integer.class.getName(),
+                OrderByComparator.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_INVOICEID =
+        new FinderPath(InvoiceItemModelImpl.ENTITY_CACHE_ENABLED,
+            InvoiceItemModelImpl.FINDER_CACHE_ENABLED, InvoiceItemImpl.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByInvoiceId",
             new String[] { Long.class.getName() },
             InvoiceItemModelImpl.INVOICEID_COLUMN_BITMASK);
     public static final FinderPath FINDER_PATH_COUNT_BY_INVOICEID = new FinderPath(InvoiceItemModelImpl.ENTITY_CACHE_ENABLED,
@@ -623,85 +634,103 @@ public class InvoiceItemPersistenceImpl extends BasePersistenceImpl<InvoiceItem>
     }
 
     /**
-     * Returns the invoice item where invoiceId = &#63; or throws a {@link com.arman.csb.modules.NoSuchInvoiceItemException} if it could not be found.
+     * Returns all the invoice items where invoiceId = &#63;.
      *
      * @param invoiceId the invoice ID
-     * @return the matching invoice item
-     * @throws com.arman.csb.modules.NoSuchInvoiceItemException if a matching invoice item could not be found
+     * @return the matching invoice items
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public InvoiceItem findByInvoiceId(long invoiceId)
-        throws NoSuchInvoiceItemException, SystemException {
-        InvoiceItem invoiceItem = fetchByInvoiceId(invoiceId);
-
-        if (invoiceItem == null) {
-            StringBundler msg = new StringBundler(4);
-
-            msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-            msg.append("invoiceId=");
-            msg.append(invoiceId);
-
-            msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-            if (_log.isWarnEnabled()) {
-                _log.warn(msg.toString());
-            }
-
-            throw new NoSuchInvoiceItemException(msg.toString());
-        }
-
-        return invoiceItem;
-    }
-
-    /**
-     * Returns the invoice item where invoiceId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-     *
-     * @param invoiceId the invoice ID
-     * @return the matching invoice item, or <code>null</code> if a matching invoice item could not be found
-     * @throws SystemException if a system exception occurred
-     */
-    @Override
-    public InvoiceItem fetchByInvoiceId(long invoiceId)
+    public List<InvoiceItem> findByInvoiceId(long invoiceId)
         throws SystemException {
-        return fetchByInvoiceId(invoiceId, true);
+        return findByInvoiceId(invoiceId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+            null);
     }
 
     /**
-     * Returns the invoice item where invoiceId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+     * Returns a range of all the invoice items where invoiceId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.InvoiceItemModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
      *
      * @param invoiceId the invoice ID
-     * @param retrieveFromCache whether to use the finder cache
-     * @return the matching invoice item, or <code>null</code> if a matching invoice item could not be found
+     * @param start the lower bound of the range of invoice items
+     * @param end the upper bound of the range of invoice items (not inclusive)
+     * @return the range of matching invoice items
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public InvoiceItem fetchByInvoiceId(long invoiceId,
-        boolean retrieveFromCache) throws SystemException {
-        Object[] finderArgs = new Object[] { invoiceId };
+    public List<InvoiceItem> findByInvoiceId(long invoiceId, int start, int end)
+        throws SystemException {
+        return findByInvoiceId(invoiceId, start, end, null);
+    }
 
-        Object result = null;
+    /**
+     * Returns an ordered range of all the invoice items where invoiceId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.InvoiceItemModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param invoiceId the invoice ID
+     * @param start the lower bound of the range of invoice items
+     * @param end the upper bound of the range of invoice items (not inclusive)
+     * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+     * @return the ordered range of matching invoice items
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<InvoiceItem> findByInvoiceId(long invoiceId, int start,
+        int end, OrderByComparator orderByComparator) throws SystemException {
+        boolean pagination = true;
+        FinderPath finderPath = null;
+        Object[] finderArgs = null;
 
-        if (retrieveFromCache) {
-            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_INVOICEID,
-                    finderArgs, this);
+        if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+                (orderByComparator == null)) {
+            pagination = false;
+            finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_INVOICEID;
+            finderArgs = new Object[] { invoiceId };
+        } else {
+            finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_INVOICEID;
+            finderArgs = new Object[] { invoiceId, start, end, orderByComparator };
         }
 
-        if (result instanceof InvoiceItem) {
-            InvoiceItem invoiceItem = (InvoiceItem) result;
+        List<InvoiceItem> list = (List<InvoiceItem>) FinderCacheUtil.getResult(finderPath,
+                finderArgs, this);
 
-            if ((invoiceId != invoiceItem.getInvoiceId())) {
-                result = null;
+        if ((list != null) && !list.isEmpty()) {
+            for (InvoiceItem invoiceItem : list) {
+                if ((invoiceId != invoiceItem.getInvoiceId())) {
+                    list = null;
+
+                    break;
+                }
             }
         }
 
-        if (result == null) {
-            StringBundler query = new StringBundler(3);
+        if (list == null) {
+            StringBundler query = null;
+
+            if (orderByComparator != null) {
+                query = new StringBundler(3 +
+                        (orderByComparator.getOrderByFields().length * 3));
+            } else {
+                query = new StringBundler(3);
+            }
 
             query.append(_SQL_SELECT_INVOICEITEM_WHERE);
 
             query.append(_FINDER_COLUMN_INVOICEID_INVOICEID_2);
+
+            if (orderByComparator != null) {
+                appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+                    orderByComparator);
+            } else
+             if (pagination) {
+                query.append(InvoiceItemModelImpl.ORDER_BY_JPQL);
+            }
 
             String sql = query.toString();
 
@@ -716,33 +745,23 @@ public class InvoiceItemPersistenceImpl extends BasePersistenceImpl<InvoiceItem>
 
                 qPos.add(invoiceId);
 
-                List<InvoiceItem> list = q.list();
+                if (!pagination) {
+                    list = (List<InvoiceItem>) QueryUtil.list(q, getDialect(),
+                            start, end, false);
 
-                if (list.isEmpty()) {
-                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_INVOICEID,
-                        finderArgs, list);
+                    Collections.sort(list);
+
+                    list = new UnmodifiableList<InvoiceItem>(list);
                 } else {
-                    if ((list.size() > 1) && _log.isWarnEnabled()) {
-                        _log.warn(
-                            "InvoiceItemPersistenceImpl.fetchByInvoiceId(long, boolean) with parameters (" +
-                            StringUtil.merge(finderArgs) +
-                            ") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
-                    }
-
-                    InvoiceItem invoiceItem = list.get(0);
-
-                    result = invoiceItem;
-
-                    cacheResult(invoiceItem);
-
-                    if ((invoiceItem.getInvoiceId() != invoiceId)) {
-                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_INVOICEID,
-                            finderArgs, invoiceItem);
-                    }
+                    list = (List<InvoiceItem>) QueryUtil.list(q, getDialect(),
+                            start, end);
                 }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, list);
             } catch (Exception e) {
-                FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_INVOICEID,
-                    finderArgs);
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
 
                 throw processException(e);
             } finally {
@@ -750,26 +769,268 @@ public class InvoiceItemPersistenceImpl extends BasePersistenceImpl<InvoiceItem>
             }
         }
 
-        if (result instanceof List<?>) {
+        return list;
+    }
+
+    /**
+     * Returns the first invoice item in the ordered set where invoiceId = &#63;.
+     *
+     * @param invoiceId the invoice ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching invoice item
+     * @throws com.arman.csb.modules.NoSuchInvoiceItemException if a matching invoice item could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public InvoiceItem findByInvoiceId_First(long invoiceId,
+        OrderByComparator orderByComparator)
+        throws NoSuchInvoiceItemException, SystemException {
+        InvoiceItem invoiceItem = fetchByInvoiceId_First(invoiceId,
+                orderByComparator);
+
+        if (invoiceItem != null) {
+            return invoiceItem;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("invoiceId=");
+        msg.append(invoiceId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchInvoiceItemException(msg.toString());
+    }
+
+    /**
+     * Returns the first invoice item in the ordered set where invoiceId = &#63;.
+     *
+     * @param invoiceId the invoice ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching invoice item, or <code>null</code> if a matching invoice item could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public InvoiceItem fetchByInvoiceId_First(long invoiceId,
+        OrderByComparator orderByComparator) throws SystemException {
+        List<InvoiceItem> list = findByInvoiceId(invoiceId, 0, 1,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the last invoice item in the ordered set where invoiceId = &#63;.
+     *
+     * @param invoiceId the invoice ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching invoice item
+     * @throws com.arman.csb.modules.NoSuchInvoiceItemException if a matching invoice item could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public InvoiceItem findByInvoiceId_Last(long invoiceId,
+        OrderByComparator orderByComparator)
+        throws NoSuchInvoiceItemException, SystemException {
+        InvoiceItem invoiceItem = fetchByInvoiceId_Last(invoiceId,
+                orderByComparator);
+
+        if (invoiceItem != null) {
+            return invoiceItem;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("invoiceId=");
+        msg.append(invoiceId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchInvoiceItemException(msg.toString());
+    }
+
+    /**
+     * Returns the last invoice item in the ordered set where invoiceId = &#63;.
+     *
+     * @param invoiceId the invoice ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching invoice item, or <code>null</code> if a matching invoice item could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public InvoiceItem fetchByInvoiceId_Last(long invoiceId,
+        OrderByComparator orderByComparator) throws SystemException {
+        int count = countByInvoiceId(invoiceId);
+
+        if (count == 0) {
             return null;
+        }
+
+        List<InvoiceItem> list = findByInvoiceId(invoiceId, count - 1, count,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the invoice items before and after the current invoice item in the ordered set where invoiceId = &#63;.
+     *
+     * @param id the primary key of the current invoice item
+     * @param invoiceId the invoice ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the previous, current, and next invoice item
+     * @throws com.arman.csb.modules.NoSuchInvoiceItemException if a invoice item with the primary key could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public InvoiceItem[] findByInvoiceId_PrevAndNext(long id, long invoiceId,
+        OrderByComparator orderByComparator)
+        throws NoSuchInvoiceItemException, SystemException {
+        InvoiceItem invoiceItem = findByPrimaryKey(id);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            InvoiceItem[] array = new InvoiceItemImpl[3];
+
+            array[0] = getByInvoiceId_PrevAndNext(session, invoiceItem,
+                    invoiceId, orderByComparator, true);
+
+            array[1] = invoiceItem;
+
+            array[2] = getByInvoiceId_PrevAndNext(session, invoiceItem,
+                    invoiceId, orderByComparator, false);
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    protected InvoiceItem getByInvoiceId_PrevAndNext(Session session,
+        InvoiceItem invoiceItem, long invoiceId,
+        OrderByComparator orderByComparator, boolean previous) {
+        StringBundler query = null;
+
+        if (orderByComparator != null) {
+            query = new StringBundler(6 +
+                    (orderByComparator.getOrderByFields().length * 6));
         } else {
-            return (InvoiceItem) result;
+            query = new StringBundler(3);
+        }
+
+        query.append(_SQL_SELECT_INVOICEITEM_WHERE);
+
+        query.append(_FINDER_COLUMN_INVOICEID_INVOICEID_2);
+
+        if (orderByComparator != null) {
+            String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+            if (orderByConditionFields.length > 0) {
+                query.append(WHERE_AND);
+            }
+
+            for (int i = 0; i < orderByConditionFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByConditionFields[i]);
+
+                if ((i + 1) < orderByConditionFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN_HAS_NEXT);
+                    } else {
+                        query.append(WHERE_LESSER_THAN_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN);
+                    } else {
+                        query.append(WHERE_LESSER_THAN);
+                    }
+                }
+            }
+
+            query.append(ORDER_BY_CLAUSE);
+
+            String[] orderByFields = orderByComparator.getOrderByFields();
+
+            for (int i = 0; i < orderByFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByFields[i]);
+
+                if ((i + 1) < orderByFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC_HAS_NEXT);
+                    } else {
+                        query.append(ORDER_BY_DESC_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC);
+                    } else {
+                        query.append(ORDER_BY_DESC);
+                    }
+                }
+            }
+        } else {
+            query.append(InvoiceItemModelImpl.ORDER_BY_JPQL);
+        }
+
+        String sql = query.toString();
+
+        Query q = session.createQuery(sql);
+
+        q.setFirstResult(0);
+        q.setMaxResults(2);
+
+        QueryPos qPos = QueryPos.getInstance(q);
+
+        qPos.add(invoiceId);
+
+        if (orderByComparator != null) {
+            Object[] values = orderByComparator.getOrderByConditionValues(invoiceItem);
+
+            for (Object value : values) {
+                qPos.add(value);
+            }
+        }
+
+        List<InvoiceItem> list = q.list();
+
+        if (list.size() == 2) {
+            return list.get(1);
+        } else {
+            return null;
         }
     }
 
     /**
-     * Removes the invoice item where invoiceId = &#63; from the database.
+     * Removes all the invoice items where invoiceId = &#63; from the database.
      *
      * @param invoiceId the invoice ID
-     * @return the invoice item that was removed
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public InvoiceItem removeByInvoiceId(long invoiceId)
-        throws NoSuchInvoiceItemException, SystemException {
-        InvoiceItem invoiceItem = findByInvoiceId(invoiceId);
-
-        return remove(invoiceItem);
+    public void removeByInvoiceId(long invoiceId) throws SystemException {
+        for (InvoiceItem invoiceItem : findByInvoiceId(invoiceId,
+                QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+            remove(invoiceItem);
+        }
     }
 
     /**
@@ -833,9 +1094,6 @@ public class InvoiceItemPersistenceImpl extends BasePersistenceImpl<InvoiceItem>
         EntityCacheUtil.putResult(InvoiceItemModelImpl.ENTITY_CACHE_ENABLED,
             InvoiceItemImpl.class, invoiceItem.getPrimaryKey(), invoiceItem);
 
-        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_INVOICEID,
-            new Object[] { invoiceItem.getInvoiceId() }, invoiceItem);
-
         invoiceItem.resetOriginalValues();
     }
 
@@ -891,8 +1149,6 @@ public class InvoiceItemPersistenceImpl extends BasePersistenceImpl<InvoiceItem>
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-        clearUniqueFindersCache(invoiceItem);
     }
 
     @Override
@@ -903,48 +1159,6 @@ public class InvoiceItemPersistenceImpl extends BasePersistenceImpl<InvoiceItem>
         for (InvoiceItem invoiceItem : invoiceItems) {
             EntityCacheUtil.removeResult(InvoiceItemModelImpl.ENTITY_CACHE_ENABLED,
                 InvoiceItemImpl.class, invoiceItem.getPrimaryKey());
-
-            clearUniqueFindersCache(invoiceItem);
-        }
-    }
-
-    protected void cacheUniqueFindersCache(InvoiceItem invoiceItem) {
-        if (invoiceItem.isNew()) {
-            Object[] args = new Object[] { invoiceItem.getInvoiceId() };
-
-            FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_INVOICEID, args,
-                Long.valueOf(1));
-            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_INVOICEID, args,
-                invoiceItem);
-        } else {
-            InvoiceItemModelImpl invoiceItemModelImpl = (InvoiceItemModelImpl) invoiceItem;
-
-            if ((invoiceItemModelImpl.getColumnBitmask() &
-                    FINDER_PATH_FETCH_BY_INVOICEID.getColumnBitmask()) != 0) {
-                Object[] args = new Object[] { invoiceItem.getInvoiceId() };
-
-                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_INVOICEID, args,
-                    Long.valueOf(1));
-                FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_INVOICEID, args,
-                    invoiceItem);
-            }
-        }
-    }
-
-    protected void clearUniqueFindersCache(InvoiceItem invoiceItem) {
-        InvoiceItemModelImpl invoiceItemModelImpl = (InvoiceItemModelImpl) invoiceItem;
-
-        Object[] args = new Object[] { invoiceItem.getInvoiceId() };
-
-        FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_INVOICEID, args);
-        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_INVOICEID, args);
-
-        if ((invoiceItemModelImpl.getColumnBitmask() &
-                FINDER_PATH_FETCH_BY_INVOICEID.getColumnBitmask()) != 0) {
-            args = new Object[] { invoiceItemModelImpl.getOriginalInvoiceId() };
-
-            FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_INVOICEID, args);
-            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_INVOICEID, args);
         }
     }
 
@@ -1107,13 +1321,29 @@ public class InvoiceItemPersistenceImpl extends BasePersistenceImpl<InvoiceItem>
                 FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID,
                     args);
             }
+
+            if ((invoiceItemModelImpl.getColumnBitmask() &
+                    FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_INVOICEID.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] {
+                        invoiceItemModelImpl.getOriginalInvoiceId()
+                    };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_INVOICEID,
+                    args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_INVOICEID,
+                    args);
+
+                args = new Object[] { invoiceItemModelImpl.getInvoiceId() };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_INVOICEID,
+                    args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_INVOICEID,
+                    args);
+            }
         }
 
         EntityCacheUtil.putResult(InvoiceItemModelImpl.ENTITY_CACHE_ENABLED,
             InvoiceItemImpl.class, invoiceItem.getPrimaryKey(), invoiceItem);
-
-        clearUniqueFindersCache(invoiceItem);
-        cacheUniqueFindersCache(invoiceItem);
 
         return invoiceItem;
     }

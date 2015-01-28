@@ -310,4 +310,8 @@ public interface PaymentLocalService extends BaseLocalService,
         java.util.Date fromDate, java.util.Date toDate)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public org.apache.poi.xssf.usermodel.XSSFWorkbook getExcelDocument(
+        java.util.List<com.arman.csb.modules.model.Payment> payments);
 }

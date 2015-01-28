@@ -45,6 +45,8 @@ public class InvoiceItemLocalServiceClpInvoker {
     private String[] _methodParameterTypes82;
     private String _methodName83;
     private String[] _methodParameterTypes83;
+    private String _methodName88;
+    private String[] _methodParameterTypes88;
 
     public InvoiceItemLocalServiceClpInvoker() {
         _methodName0 = "addInvoiceItem";
@@ -136,6 +138,10 @@ public class InvoiceItemLocalServiceClpInvoker {
         _methodName83 = "setBeanIdentifier";
 
         _methodParameterTypes83 = new String[] { "java.lang.String" };
+
+        _methodName88 = "getInvoiceItemsByInvoiceId";
+
+        _methodParameterTypes88 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -237,6 +243,11 @@ public class InvoiceItemLocalServiceClpInvoker {
             InvoiceItemLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
+        }
+
+        if (_methodName88.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
+            return InvoiceItemLocalServiceUtil.getInvoiceItemsByInvoiceId(((Long) arguments[0]).longValue());
         }
 
         throw new UnsupportedOperationException();

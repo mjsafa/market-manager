@@ -26,6 +26,8 @@ MetronicApp.controller('ProductsController', ['$rootScope', '$scope', 'ProductSe
     }
 
     $scope.submitProduct = function (product, id) {
+        product.score = product.score*1000;
+
         if(null != id) {
             product.id = id
             ProductService.updateProduct(product, {scope: $scope});

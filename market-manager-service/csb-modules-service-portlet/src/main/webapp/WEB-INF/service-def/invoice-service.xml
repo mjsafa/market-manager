@@ -45,7 +45,7 @@
         <column name="productId" type="long" />
         <column name="number" type="Short" />
 
-        <finder name="InvoiceId" return-type="collection">
+        <finder name="InvoiceId" return-type="Collection">
             <finder-column name="invoiceId"></finder-column>
         </finder>
         

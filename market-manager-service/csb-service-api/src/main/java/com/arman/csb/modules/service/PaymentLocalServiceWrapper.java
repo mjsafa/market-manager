@@ -371,6 +371,12 @@ public class PaymentLocalServiceWrapper implements PaymentLocalService,
             toDate);
     }
 
+    @Override
+    public org.apache.poi.xssf.usermodel.XSSFWorkbook getExcelDocument(
+        java.util.List<com.arman.csb.modules.model.Payment> payments) {
+        return _paymentLocalService.getExcelDocument(payments);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */
