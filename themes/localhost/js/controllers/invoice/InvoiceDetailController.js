@@ -2,6 +2,7 @@ MetronicApp.controller('InvoiceDetailController', ['$rootScope', '$scope', 'Invo
     $scope.newItem = {};
 
     $scope.invoiceId = $stateParams.invoiceId;
+    $scope.currentCustomerId = onlineUser.customerId;
     InvoiceService.getById($scope.invoiceId, {scope: $scope});
     InvoiceService.searchItems('', $scope.invoiceId, {scope: $scope});
 

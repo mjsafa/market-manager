@@ -243,7 +243,7 @@
                             <td>
                                  <span editable-text="product.score" e-name="score" e-form="productForm"
                                        onbeforesave="checkNumeric($data, 'امتیاز تخصیصی')">
-                                    {{product.score}}
+                                    {{product.score|score}}
                                  </span>
                                 <br/>
                                 <span class="validation-score validation text-danger"></span>

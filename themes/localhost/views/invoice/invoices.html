@@ -198,7 +198,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" ng-if="!currentCustomerId">
                                         <label class="control-label col-md-3">مشتری</label>
 
                                         <div class="input-group col-md-8">
@@ -265,35 +265,43 @@
                     <div class="tab-pane" id="portlet_tab2">
                         <button type="button" ng-click="addItem()" class="btn green">جدید</button>
 
+
                         <div class="form-body" ng-repeat="item in newInvoice.invoiceItems">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">کالا</label>
 
-                                <div class="input-group col-md-9">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-users"></i>
-                                </span>
-                                    <input name="customer" validation="required" ng-click="openProductPopup(item)"
-                                           type="text"
-                                           class="form-control input-lg selector" ng-model="item.product.name"
-                                           readonly/>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">کالا</label>
+
+                                        <div class="input-group col-md-8">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-users"></i>
+                                    </span>
+                                            <input name="customer" validation="required" ng-click="openProductPopup(item)"
+                                                   type="text"
+                                                   class="form-control input-lg selector" ng-model="item.product.name"
+                                                   readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">تعداد</label>
+
+                                        <div class="input-group col-md-8">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-tag"></i>
+                                            </span>
+                                            <input name="number_{{$index}}" validation="numeric|required" ng-model="item.number"
+                                                   type="text" class="form-control"
+                                                   style="direction: ltr;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-mod-4">
+                                    <button type="button" ng-click="deleteItem($index)" class="btn green">حذف</button>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3">تعداد</label>
-
-                                <div class="input-group col-md-9">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-tag"></i>
-                                </span>
-                                    <input name="number_{{$index}}" validation="numeric|required" ng-model="item.number"
-                                           type="text" class="form-control"
-                                           style="direction: ltr;">
-                                </div>
-                            </div>
-
-                            <button type="button" ng-click="deleteItem($index)" class="btn green">حذف</button>
 
                             <hr>
                         </div>
@@ -395,7 +403,7 @@
                         <th>
                             تاریخ
                         </th>
-                        <th>
+                        <th ng-if="!currentCustomerId">
                             تغییر وضعیت
                         </th>
                     </tr>
@@ -411,7 +419,7 @@
                             {{invoice.totalCost}}
                         </td>
                         <td>
-                            {{invoice.totalScore}}
+                            {{invoice.totalScore|score}}
                         </td>
                         <td>
                             {{ showStatus(invoice.status) }}
@@ -419,7 +427,7 @@
                         <td>
                             {{invoice.invoiceDate}}
                         </td>
-                        <td>
+                        <td ng-if="!currentCustomerId">
                             <button type="button" ng-click="updateStatus(invoice.id, 4)" ng-if="1 == invoice.status"
                                     class="btn red">
                                 {{ showStatus(4) }}

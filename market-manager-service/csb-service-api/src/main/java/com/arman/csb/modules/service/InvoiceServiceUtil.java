@@ -68,11 +68,13 @@ public class InvoiceServiceUtil {
     }
 
     public static com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, java.lang.String status, int start,
-        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
+        java.lang.String filter, java.lang.String status, long customerId,
+        int start, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.json.JSONException {
         return getService()
-                   .search(filter, status, start, maxResult, serviceContext);
+                   .search(filter, status, customerId, start, maxResult,
+            serviceContext);
     }
 
     public static com.liferay.portal.kernel.json.JSONObject getById(

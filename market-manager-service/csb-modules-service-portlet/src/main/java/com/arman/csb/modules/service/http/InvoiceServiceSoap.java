@@ -51,12 +51,12 @@ public class InvoiceServiceSoap {
     private static Log _log = LogFactoryUtil.getLog(InvoiceServiceSoap.class);
 
     public static java.lang.String search(java.lang.String filter,
-        java.lang.String status, int start, int maxResult,
+        java.lang.String status, long customerId, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws RemoteException {
         try {
             com.liferay.portal.kernel.json.JSONArray returnValue = InvoiceServiceUtil.search(filter,
-                    status, start, maxResult, serviceContext);
+                    status, customerId, start, maxResult, serviceContext);
 
             return returnValue.toString();
         } catch (Exception e) {

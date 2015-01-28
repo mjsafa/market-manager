@@ -48,7 +48,7 @@ public class InvoiceServiceClpInvoker {
         _methodName74 = "search";
 
         _methodParameterTypes74 = new String[] {
-                "java.lang.String", "java.lang.String", "int", "int",
+                "java.lang.String", "java.lang.String", "long", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -95,9 +95,10 @@ public class InvoiceServiceClpInvoker {
                 Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
             return InvoiceServiceUtil.search((java.lang.String) arguments[0],
                 (java.lang.String) arguments[1],
-                ((Integer) arguments[2]).intValue(),
+                ((Long) arguments[2]).longValue(),
                 ((Integer) arguments[3]).intValue(),
-                (com.liferay.portal.service.ServiceContext) arguments[4]);
+                ((Integer) arguments[4]).intValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[5]);
         }
 
         if (_methodName75.equals(name) &&

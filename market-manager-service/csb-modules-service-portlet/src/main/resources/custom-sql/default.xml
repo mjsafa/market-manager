@@ -139,7 +139,8 @@
                     (invoice.mobile like '##KEYWORD##')
                 ) AND
                 (
-                    (? OR invoice.status = ?)
+                    (? OR invoice.status = ?) AND
+                    (? OR invoice.customerId = ?)
                 )
             ORDER BY invoice.createDate DESC
         ]]>

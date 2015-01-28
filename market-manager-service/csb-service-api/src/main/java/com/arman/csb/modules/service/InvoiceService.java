@@ -66,8 +66,9 @@ public interface InvoiceService extends BaseService, InvokableService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, java.lang.String status, int start,
-        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
+        java.lang.String filter, java.lang.String status, long customerId,
+        int start, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.json.JSONException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

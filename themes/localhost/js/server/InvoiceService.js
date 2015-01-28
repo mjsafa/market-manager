@@ -1,7 +1,7 @@
 MetronicApp.factory("InvoiceService", function (JsonServer) {
    return {
-       search:function (filter, status, options) {
-           var result = JsonServer.postByUrl('/csb-modules-service-portlet.invoice', 'search', {filter:filter, status:status, start:0, maxResult:30, serviceContext:{}}, {
+       search:function (filter, status, customerId, options) {
+           var result = JsonServer.postByUrl('/csb-modules-service-portlet.invoice', 'search', {filter:filter, status:status, customerId:customerId, start:0, maxResult:30, serviceContext:{}}, {
                eventName:'InvoiceService.search',
                scope:options ? options.scope : undefined
            });

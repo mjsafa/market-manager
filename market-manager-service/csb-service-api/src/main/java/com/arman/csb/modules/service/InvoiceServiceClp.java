@@ -49,7 +49,7 @@ public class InvoiceServiceClp implements InvoiceService {
         _methodName5 = "search";
 
         _methodParameterTypes5 = new String[] {
-                "java.lang.String", "java.lang.String", "int", "int",
+                "java.lang.String", "java.lang.String", "long", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -190,8 +190,9 @@ public class InvoiceServiceClp implements InvoiceService {
 
     @Override
     public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, java.lang.String status, int start,
-        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
+        java.lang.String filter, java.lang.String status, long customerId,
+        int start, int maxResult,
+        com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.json.JSONException {
         Object returnObj = null;
 
@@ -202,6 +203,8 @@ public class InvoiceServiceClp implements InvoiceService {
                         ClpSerializer.translateInput(filter),
                         
                     ClpSerializer.translateInput(status),
+                        
+                    customerId,
                         
                     start,
                         

@@ -210,7 +210,7 @@
                                         <p class="form-control-static">
                                             <a href="#/customer/{{invoice.customer.id}}">{{invoice.customer.name}}</a>
                                         </p>
-                                        <button ng-click="open()" type="button" class="btn default">
+                                        <button ng-click="open()" type="button" class="btn default" ng-if="!currentCustomerId">
                                             انتخاب
                                         </button>
                                     </div>
@@ -240,7 +240,7 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-9">
-                                            <button ng-click="submitInvoice()" ng-disabled="invoiceForm.$invalid" type="button" class="btn green"><i class="fa fa-pencil"></i>
+                                            <button ng-if="1 == invoice.status" ng-click="submitInvoice()" ng-disabled="invoiceForm.$invalid" type="button" class="btn green"><i class="fa fa-pencil"></i>
                                                 ذخیره تغییرات
                                             </button>
                                             <button ng-click="goInvoiceList()" type="button" class="btn default">
@@ -345,7 +345,7 @@
                             <th>
                                 تاریخ
                             </th>
-                            <th>
+                            <th ng-if="1 == invoice.status">
                                 عملیات
                             </th>
                         </tr>
@@ -366,7 +366,7 @@
                             <td>
                                 {{item.createDate}}
                             </td>
-                            <td>
+                            <td ng-if="1 == invoice.status">
                                 <button type="button" ng-click="deleteItem(item.id)" class="btn red">حذف</button>
                             </td>
                         </tr>
@@ -377,7 +377,7 @@
         <!-- END PORTLET-->
     </div>
 
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-6 col-sm-12" ng-if="1 == invoice.status">
         <!-- BEGIN PORTLET-->
         <div class="portlet light ">
             <div class="portlet-title">

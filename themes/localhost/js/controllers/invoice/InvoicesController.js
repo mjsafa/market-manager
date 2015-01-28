@@ -3,7 +3,9 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
     $rootScope.settings.layout.pageSidebarClosed = false;
 
     $scope.invoiceService = InvoiceService;
-    $scope.invoiceService.search('', '', {scope: $scope});
+    $scope.currentCustomerId = onlineUser.customerId;
+    $scope.searchCustomerId = $scope.currentCustomerId ? $scope.currentCustomerId:0;
+    $scope.invoiceService.search('', '', $scope.searchCustomerId, {scope: $scope});
 
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
@@ -65,6 +67,10 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
             $scope.newInvoice.customerId = $scope.newInvoice.customer.id;
         }
 
+        if($scope.currentCustomerId) {
+            $scope.newInvoice.customerId = $scope.currentCustomerId;
+        }
+
         angular.forEach($scope.newInvoice.invoiceItems, function (item) {
             item.productId = item.product.id;
         });
@@ -122,7 +128,7 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
     };
 
     $scope.doSearch = function () {
-        $scope.invoiceService.search($scope.query || '', $scope.selectedStatus || '', {scope: $scope});
+        $scope.invoiceService.search($scope.query || '', $scope.selectedStatus || '', $scope.searchCustomerId, {scope: $scope});
     }
 
     $scope.updateStatus = function(invoiceId ,newStatus) {

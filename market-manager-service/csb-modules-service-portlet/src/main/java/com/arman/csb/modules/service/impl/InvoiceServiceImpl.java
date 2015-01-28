@@ -97,7 +97,7 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         return getJSONObject(updateInvoice);
     }
 
-    public JSONArray search(String filter, String status, int start, int maxResult, ServiceContext serviceContext) throws JSONException {
+    public JSONArray search(String filter, String status, long customerId, int start, int maxResult, ServiceContext serviceContext) throws JSONException {
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
         Session session = invoicePersistence.openSession();
@@ -118,6 +118,13 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
             qPos.add(false);
             qPos.add(Integer.valueOf(status));
         }
+
+        if(0 == customerId) {
+            qPos.add(true);
+        } else {
+            qPos.add(false);
+        }
+        qPos.add(customerId);
 
         List<Object[]> objects = queryObject.list();
 
