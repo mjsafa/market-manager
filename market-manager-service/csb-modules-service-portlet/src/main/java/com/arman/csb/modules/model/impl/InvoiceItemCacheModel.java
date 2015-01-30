@@ -27,14 +27,12 @@ public class InvoiceItemCacheModel implements CacheModel<InvoiceItem>,
     public long createDate;
     public long modifiedDate;
     public long invoiceId;
-    public String productCode;
-    public String productName;
+    public long productId;
     public Short number;
-    public long basePrice;
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(19);
+        StringBundler sb = new StringBundler(15);
 
         sb.append("{uuid=");
         sb.append(uuid);
@@ -46,14 +44,10 @@ public class InvoiceItemCacheModel implements CacheModel<InvoiceItem>,
         sb.append(modifiedDate);
         sb.append(", invoiceId=");
         sb.append(invoiceId);
-        sb.append(", productCode=");
-        sb.append(productCode);
-        sb.append(", productName=");
-        sb.append(productName);
+        sb.append(", productId=");
+        sb.append(productId);
         sb.append(", number=");
         sb.append(number);
-        sb.append(", basePrice=");
-        sb.append(basePrice);
         sb.append("}");
 
         return sb.toString();
@@ -84,21 +78,8 @@ public class InvoiceItemCacheModel implements CacheModel<InvoiceItem>,
         }
 
         invoiceItemImpl.setInvoiceId(invoiceId);
-
-        if (productCode == null) {
-            invoiceItemImpl.setProductCode(StringPool.BLANK);
-        } else {
-            invoiceItemImpl.setProductCode(productCode);
-        }
-
-        if (productName == null) {
-            invoiceItemImpl.setProductName(StringPool.BLANK);
-        } else {
-            invoiceItemImpl.setProductName(productName);
-        }
-
+        invoiceItemImpl.setProductId(productId);
         invoiceItemImpl.setNumber(number);
-        invoiceItemImpl.setBasePrice(basePrice);
 
         invoiceItemImpl.resetOriginalValues();
 
@@ -112,10 +93,8 @@ public class InvoiceItemCacheModel implements CacheModel<InvoiceItem>,
         createDate = objectInput.readLong();
         modifiedDate = objectInput.readLong();
         invoiceId = objectInput.readLong();
-        productCode = objectInput.readUTF();
-        productName = objectInput.readUTF();
+        productId = objectInput.readLong();
         number = objectInput.readShort();
-        basePrice = objectInput.readLong();
     }
 
     @Override
@@ -131,20 +110,7 @@ public class InvoiceItemCacheModel implements CacheModel<InvoiceItem>,
         objectOutput.writeLong(createDate);
         objectOutput.writeLong(modifiedDate);
         objectOutput.writeLong(invoiceId);
-
-        if (productCode == null) {
-            objectOutput.writeUTF(StringPool.BLANK);
-        } else {
-            objectOutput.writeUTF(productCode);
-        }
-
-        if (productName == null) {
-            objectOutput.writeUTF(StringPool.BLANK);
-        } else {
-            objectOutput.writeUTF(productName);
-        }
-
+        objectOutput.writeLong(productId);
         objectOutput.writeShort(number);
-        objectOutput.writeLong(basePrice);
     }
 }

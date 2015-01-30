@@ -5,6 +5,7 @@ import com.arman.csb.modules.service.persistence.CustomerPersistence;
 import com.arman.csb.modules.service.persistence.InvoiceItemPersistence;
 import com.arman.csb.modules.service.persistence.InvoicePersistence;
 import com.arman.csb.modules.service.persistence.PaymentPersistence;
+import com.arman.csb.modules.service.persistence.ProductPersistence;
 import com.arman.csb.modules.service.persistence.ScorePersistence;
 import com.arman.csb.modules.service.persistence.UserActivityPersistence;
 
@@ -73,6 +74,12 @@ public abstract class MyDDLRecordLocalServiceBaseImpl
     protected com.arman.csb.modules.service.PaymentService paymentService;
     @BeanReference(type = PaymentPersistence.class)
     protected PaymentPersistence paymentPersistence;
+    @BeanReference(type = com.arman.csb.modules.service.ProductLocalService.class)
+    protected com.arman.csb.modules.service.ProductLocalService productLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.ProductService.class)
+    protected com.arman.csb.modules.service.ProductService productService;
+    @BeanReference(type = ProductPersistence.class)
+    protected ProductPersistence productPersistence;
     @BeanReference(type = com.arman.csb.modules.service.ScoreLocalService.class)
     protected com.arman.csb.modules.service.ScoreLocalService scoreLocalService;
     @BeanReference(type = com.arman.csb.modules.service.ScoreService.class)
@@ -454,6 +461,62 @@ public abstract class MyDDLRecordLocalServiceBaseImpl
      */
     public void setPaymentPersistence(PaymentPersistence paymentPersistence) {
         this.paymentPersistence = paymentPersistence;
+    }
+
+    /**
+     * Returns the product local service.
+     *
+     * @return the product local service
+     */
+    public com.arman.csb.modules.service.ProductLocalService getProductLocalService() {
+        return productLocalService;
+    }
+
+    /**
+     * Sets the product local service.
+     *
+     * @param productLocalService the product local service
+     */
+    public void setProductLocalService(
+        com.arman.csb.modules.service.ProductLocalService productLocalService) {
+        this.productLocalService = productLocalService;
+    }
+
+    /**
+     * Returns the product remote service.
+     *
+     * @return the product remote service
+     */
+    public com.arman.csb.modules.service.ProductService getProductService() {
+        return productService;
+    }
+
+    /**
+     * Sets the product remote service.
+     *
+     * @param productService the product remote service
+     */
+    public void setProductService(
+        com.arman.csb.modules.service.ProductService productService) {
+        this.productService = productService;
+    }
+
+    /**
+     * Returns the product persistence.
+     *
+     * @return the product persistence
+     */
+    public ProductPersistence getProductPersistence() {
+        return productPersistence;
+    }
+
+    /**
+     * Sets the product persistence.
+     *
+     * @param productPersistence the product persistence
+     */
+    public void setProductPersistence(ProductPersistence productPersistence) {
+        this.productPersistence = productPersistence;
     }
 
     /**

@@ -109,15 +109,15 @@ Change Quick Sidebar Width
     background-color: #d0d0d0 !important;
 }
 
-.btn-success.check-btn .check-icon{
-    display:none;
+.btn-success.check-btn .check-icon {
+    display: none;
 }
 
 .btn-success.active, .btn-success.active:hover, .btn-success.active:focus {
     background-color: #00C84F !important;
 }
 
-.btn-success.active .check-icon{
+.btn-success.active .check-icon {
     display: inline;
 }
 
@@ -154,7 +154,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: tahoma;
 }
 
-.label{
+.label {
     font-family: tahoma;
     font-size: 12px;
 }
@@ -175,25 +175,30 @@ input.ng-valid.ng-dirty, select.ng-valid.ng-dirty, textarea.ng-valid.ng-dirty {
     border-color: #2ecc71;
 }
 
-.form-control[readonly].form-control.selector{
+.form-control[readonly].form-control.selector {
     cursor: pointer;
     background-color: white;
 }
 
-
-
-.green-turquoise.btn.disabled, .green-turquoise.btn.disabled:hover, .green-turquoise.btn.disabled:focus, .green-turquoise.btn.disabled:active, .green-turquoise.btn.disabled.active, .green-turquoise.btn[disabled], .green-turquoise.btn[disabled]:hover, .green-turquoise.btn[disabled]:focus, .green-turquoise.btn[disabled]:active, .green-turquoise.btn[disabled].active, fieldset[disabled] .green-turquoise.btn, fieldset[disabled] .green-turquoise.btn:hover, fieldset[disabled] .green-turquoise.btn:focus, fieldset[disabled] .green-turquoise.btn:active, fieldset[disabled] .green-turquoise.btn.active, .green.btn.disabled, .green.btn.disabled:hover, .green.btn.disabled:focus, .green.btn.disabled:active, .green.btn.disabled.active, .green.btn[disabled], .green.btn[disabled]:hover, .green.btn[disabled]:focus, .green.btn[disabled]:active, .green.btn[disabled].active, fieldset[disabled] .green.btn, fieldset[disabled] .green.btn:hover, fieldset[disabled] .green.btn:focus, fieldset[disabled] .green.btn:active, fieldset[disabled] .green.btn.active{
-     background-color: #ccc;
+.green-turquoise.btn.disabled, .green-turquoise.btn.disabled:hover, .green-turquoise.btn.disabled:focus, .green-turquoise.btn.disabled:active, .green-turquoise.btn.disabled.active, .green-turquoise.btn[disabled], .green-turquoise.btn[disabled]:hover, .green-turquoise.btn[disabled]:focus, .green-turquoise.btn[disabled]:active, .green-turquoise.btn[disabled].active, fieldset[disabled] .green-turquoise.btn, fieldset[disabled] .green-turquoise.btn:hover, fieldset[disabled] .green-turquoise.btn:focus, fieldset[disabled] .green-turquoise.btn:active, fieldset[disabled] .green-turquoise.btn.active, .green.btn.disabled, .green.btn.disabled:hover, .green.btn.disabled:focus, .green.btn.disabled:active, .green.btn.disabled.active, .green.btn[disabled], .green.btn[disabled]:hover, .green.btn[disabled]:focus, .green.btn[disabled]:active, .green.btn[disabled].active, fieldset[disabled] .green.btn, fieldset[disabled] .green.btn:hover, fieldset[disabled] .green.btn:focus, fieldset[disabled] .green.btn:active, fieldset[disabled] .green.btn.active {
+    background-color: #ccc;
 }
 
-.dropdown-menu.ng-valid-date-disabled{
+.dropdown-menu.ng-valid-date-disabled {
     right: 120px !important;
 }
 
 .editable-checklist label {
-  padding: 20px;
+    padding: 20px;
 }
 
-.roles-row .tiles .tile{
+.roles-row .tiles .tile {
     cursor: default !important;
+}
+
+.btn-lg {
+    padding: 10px 26px;
+    font-size: 15px;
+    line-height: 1.33;
+    vertical-align: middle;
 }

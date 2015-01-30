@@ -120,19 +120,29 @@
     <sql id="com.arman.csb.modules.service.InvoiceService.search">
         <![CDATA[
             SELECT
-                customer.name, invoice.createDate, itemData.numberOfItem, itemData.totalCost, invoice.id_
+                customer.name, invoice.createDate, itemData.numberOfItem, itemData.totalCost, itemData.totalScore,
+                invoice.status, invoice.id_
             FROM CSBModules_Invoice AS invoice
             INNER JOIN
                 CSBModules_Customer as customer
             ON invoice.customerid = customer.id_
             LEFT OUTER JOIN
-                (SELECT item.invoiceId, COUNT(item.id_) AS numberOfItem, SUM(item.number_ * item.basePrice) AS totalCost
-                FROM CSBModules_InvoiceItem AS item GROUP BY item.invoiceId)
+                (SELECT item.invoiceId, COUNT(item.id_) AS numberOfItem, SUM(item.number_ * product.basePrice) AS totalCost,
+                    SUM(item.number_ * product.score) AS totalScore
+                FROM CSBModules_InvoiceItem AS item
+                INNER JOIN CSBModules_Product as product ON product.id_ = item.productId
+                GROUP BY item.invoiceId)
             AS itemData ON itemData.invoiceId = invoice.id_
             WHERE
-                (invoice.address like '##KEYWORD##') OR
-                (invoice.telephone like '##KEYWORD##') OR
-                (invoice.mobile like '##KEYWORD##')
+                (
+                    (invoice.address like '##KEYWORD##') OR
+                    (invoice.telephone like '##KEYWORD##') OR
+                    (invoice.mobile like '##KEYWORD##')
+                ) AND
+                (
+                    (? OR invoice.status = ?) AND
+                    (? OR invoice.customerId = ?)
+                )
             ORDER BY invoice.createDate DESC
         ]]>
     </sql>
@@ -154,10 +164,13 @@
             SELECT
                 *
             FROM CSBModules_InvoiceItem AS item
+            INNER JOIN
+                CSBModules_Product as product
+            On product.id_ = item.productId
             WHERE
                 (
-                    (item.productName like '##KEYWORD##') OR
-                    (item.productCode like '##KEYWORD##')
+                    (product.name like '##KEYWORD##') OR
+                    (product.code_ like '##KEYWORD##')
                 ) AND
                 (item.invoiceId = ?)
             ORDER BY item.createDate DESC
@@ -181,6 +194,21 @@
                 )
 
             ORDER BY activity.createDate DESC
+        ]]>
+    </sql>
+
+    <sql id="com.arman.csb.modules.service.Product.search">
+        <![CDATA[
+            SELECT
+                *
+            FROM CSBModules_Product AS product
+            WHERE
+                (
+                    (product.name like '##KEYWORD##') OR
+                    (product.code_ like '##KEYWORD##') OR
+                    (product.userName like '##KEYWORD##')
+                )
+            ORDER BY product.createDate DESC
         ]]>
     </sql>
 

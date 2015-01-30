@@ -117,34 +117,18 @@ public interface InvoiceItemModel extends BaseModel<InvoiceItem> {
     public void setInvoiceId(long invoiceId);
 
     /**
-     * Returns the product code of this invoice item.
+     * Returns the product ID of this invoice item.
      *
-     * @return the product code of this invoice item
+     * @return the product ID of this invoice item
      */
-    @AutoEscape
-    public String getProductCode();
+    public long getProductId();
 
     /**
-     * Sets the product code of this invoice item.
+     * Sets the product ID of this invoice item.
      *
-     * @param productCode the product code of this invoice item
+     * @param productId the product ID of this invoice item
      */
-    public void setProductCode(String productCode);
-
-    /**
-     * Returns the product name of this invoice item.
-     *
-     * @return the product name of this invoice item
-     */
-    @AutoEscape
-    public String getProductName();
-
-    /**
-     * Sets the product name of this invoice item.
-     *
-     * @param productName the product name of this invoice item
-     */
-    public void setProductName(String productName);
+    public void setProductId(long productId);
 
     /**
      * Returns the number of this invoice item.
@@ -159,20 +143,6 @@ public interface InvoiceItemModel extends BaseModel<InvoiceItem> {
      * @param number the number of this invoice item
      */
     public void setNumber(Short number);
-
-    /**
-     * Returns the base price of this invoice item.
-     *
-     * @return the base price of this invoice item
-     */
-    public long getBasePrice();
-
-    /**
-     * Sets the base price of this invoice item.
-     *
-     * @param basePrice the base price of this invoice item
-     */
-    public void setBasePrice(long basePrice);
 
     @Override
     public boolean isNew();

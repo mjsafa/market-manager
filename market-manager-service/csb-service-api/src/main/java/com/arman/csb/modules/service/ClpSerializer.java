@@ -4,6 +4,7 @@ import com.arman.csb.modules.model.CustomerClp;
 import com.arman.csb.modules.model.InvoiceClp;
 import com.arman.csb.modules.model.InvoiceItemClp;
 import com.arman.csb.modules.model.PaymentClp;
+import com.arman.csb.modules.model.ProductClp;
 import com.arman.csb.modules.model.ScoreClp;
 import com.arman.csb.modules.model.UserActivityClp;
 
@@ -109,6 +110,10 @@ public class ClpSerializer {
             return translateInputPayment(oldModel);
         }
 
+        if (oldModelClassName.equals(ProductClp.class.getName())) {
+            return translateInputProduct(oldModel);
+        }
+
         if (oldModelClassName.equals(ScoreClp.class.getName())) {
             return translateInputScore(oldModel);
         }
@@ -172,6 +177,16 @@ public class ClpSerializer {
         return newModel;
     }
 
+    public static Object translateInputProduct(BaseModel<?> oldModel) {
+        ProductClp oldClpModel = (ProductClp) oldModel;
+
+        BaseModel<?> newModel = oldClpModel.getProductRemoteModel();
+
+        newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+        return newModel;
+    }
+
     public static Object translateInputScore(BaseModel<?> oldModel) {
         ScoreClp oldClpModel = (ScoreClp) oldModel;
 
@@ -225,6 +240,11 @@ public class ClpSerializer {
         if (oldModelClassName.equals(
                     "com.arman.csb.modules.model.impl.PaymentImpl")) {
             return translateOutputPayment(oldModel);
+        }
+
+        if (oldModelClassName.equals(
+                    "com.arman.csb.modules.model.impl.ProductImpl")) {
+            return translateOutputProduct(oldModel);
         }
 
         if (oldModelClassName.equals(
@@ -329,6 +349,10 @@ public class ClpSerializer {
             return new com.arman.csb.modules.NoSuchPaymentException();
         }
 
+        if (className.equals("com.arman.csb.modules.NoSuchProductException")) {
+            return new com.arman.csb.modules.NoSuchProductException();
+        }
+
         if (className.equals("com.arman.csb.modules.NoSuchScoreException")) {
             return new com.arman.csb.modules.NoSuchScoreException();
         }
@@ -377,6 +401,16 @@ public class ClpSerializer {
         newModel.setModelAttributes(oldModel.getModelAttributes());
 
         newModel.setPaymentRemoteModel(oldModel);
+
+        return newModel;
+    }
+
+    public static Object translateOutputProduct(BaseModel<?> oldModel) {
+        ProductClp newModel = new ProductClp();
+
+        newModel.setModelAttributes(oldModel.getModelAttributes());
+
+        newModel.setProductRemoteModel(oldModel);
 
         return newModel;
     }

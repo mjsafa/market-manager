@@ -34,10 +34,11 @@ public class InvoiceCacheModel implements CacheModel<Invoice>, Externalizable {
     public String telephone;
     public String mobile;
     public Short typeOfDelivery;
+    public int status;
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(27);
+        StringBundler sb = new StringBundler(29);
 
         sb.append("{uuid=");
         sb.append(uuid);
@@ -65,6 +66,8 @@ public class InvoiceCacheModel implements CacheModel<Invoice>, Externalizable {
         sb.append(mobile);
         sb.append(", typeOfDelivery=");
         sb.append(typeOfDelivery);
+        sb.append(", status=");
+        sb.append(status);
         sb.append("}");
 
         return sb.toString();
@@ -124,6 +127,7 @@ public class InvoiceCacheModel implements CacheModel<Invoice>, Externalizable {
         }
 
         invoiceImpl.setTypeOfDelivery(typeOfDelivery);
+        invoiceImpl.setStatus(status);
 
         invoiceImpl.resetOriginalValues();
 
@@ -145,6 +149,7 @@ public class InvoiceCacheModel implements CacheModel<Invoice>, Externalizable {
         telephone = objectInput.readUTF();
         mobile = objectInput.readUTF();
         typeOfDelivery = objectInput.readShort();
+        status = objectInput.readInt();
     }
 
     @Override
@@ -190,5 +195,6 @@ public class InvoiceCacheModel implements CacheModel<Invoice>, Externalizable {
         }
 
         objectOutput.writeShort(typeOfDelivery);
+        objectOutput.writeInt(status);
     }
 }

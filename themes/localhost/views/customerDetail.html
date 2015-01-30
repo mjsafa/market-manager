@@ -102,9 +102,15 @@
     اطلاعات مشتری -
     {{customer.name}}
 </h3>
+
+
+<div id="alert_container" ng-controller="GeneralPageController">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.message}}</alert>
+</div>
+
 <!-- END PAGE HEADER-->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="CustomerDetailController">
+<div >
 
 <!-- BEGIN DASHBOARD STATS -->
 <div class="row">

@@ -271,6 +271,13 @@ public class InvoiceItemLocalServiceWrapper implements InvoiceItemLocalService,
             arguments);
     }
 
+    @Override
+    public java.util.List<com.arman.csb.modules.model.InvoiceItem> getInvoiceItemsByInvoiceId(
+        long invoiceId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _invoiceItemLocalService.getInvoiceItemsByInvoiceId(invoiceId);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

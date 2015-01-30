@@ -49,12 +49,12 @@ public class UserActivityLocalServiceClpInvoker {
     private String[] _methodParameterTypes18;
     private String _methodName19;
     private String[] _methodParameterTypes19;
-    private String _methodName80;
-    private String[] _methodParameterTypes80;
-    private String _methodName81;
-    private String[] _methodParameterTypes81;
     private String _methodName86;
     private String[] _methodParameterTypes86;
+    private String _methodName87;
+    private String[] _methodParameterTypes87;
+    private String _methodName92;
+    private String[] _methodParameterTypes92;
 
     public UserActivityLocalServiceClpInvoker() {
         _methodName0 = "addUserActivity";
@@ -155,17 +155,17 @@ public class UserActivityLocalServiceClpInvoker {
                 "com.arman.csb.modules.model.UserActivity"
             };
 
-        _methodName80 = "getBeanIdentifier";
+        _methodName86 = "getBeanIdentifier";
 
-        _methodParameterTypes80 = new String[] {  };
+        _methodParameterTypes86 = new String[] {  };
 
-        _methodName81 = "setBeanIdentifier";
+        _methodName87 = "setBeanIdentifier";
 
-        _methodParameterTypes81 = new String[] { "java.lang.String" };
+        _methodParameterTypes87 = new String[] { "java.lang.String" };
 
-        _methodName86 = "addUserActivity";
+        _methodName92 = "addUserActivity";
 
-        _methodParameterTypes86 = new String[] {
+        _methodParameterTypes92 = new String[] {
                 "java.lang.String", "java.lang.Short", "java.lang.Short",
                 "java.lang.String", "com.liferay.portal.service.ServiceContext"
             };
@@ -284,20 +284,20 @@ public class UserActivityLocalServiceClpInvoker {
             return UserActivityLocalServiceUtil.updateUserActivity((com.arman.csb.modules.model.UserActivity) arguments[0]);
         }
 
-        if (_methodName80.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
+        if (_methodName86.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes86, parameterTypes)) {
             return UserActivityLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName81.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
+        if (_methodName87.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes87, parameterTypes)) {
             UserActivityLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName86.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes86, parameterTypes)) {
+        if (_methodName92.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
             return UserActivityLocalServiceUtil.addUserActivity((java.lang.String) arguments[0],
                 (java.lang.Short) arguments[1], (java.lang.Short) arguments[2],
                 (java.lang.String) arguments[3],

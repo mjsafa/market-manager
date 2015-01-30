@@ -9,41 +9,41 @@ import java.util.Arrays;
  * @generated
  */
 public class InvoiceItemServiceClpInvoker {
-    private String _methodName60;
-    private String[] _methodParameterTypes60;
-    private String _methodName61;
-    private String[] _methodParameterTypes61;
     private String _methodName66;
     private String[] _methodParameterTypes66;
     private String _methodName67;
     private String[] _methodParameterTypes67;
-    private String _methodName68;
-    private String[] _methodParameterTypes68;
+    private String _methodName72;
+    private String[] _methodParameterTypes72;
+    private String _methodName73;
+    private String[] _methodParameterTypes73;
+    private String _methodName74;
+    private String[] _methodParameterTypes74;
 
     public InvoiceItemServiceClpInvoker() {
-        _methodName60 = "getBeanIdentifier";
+        _methodName66 = "getBeanIdentifier";
 
-        _methodParameterTypes60 = new String[] {  };
+        _methodParameterTypes66 = new String[] {  };
 
-        _methodName61 = "setBeanIdentifier";
+        _methodName67 = "setBeanIdentifier";
 
-        _methodParameterTypes61 = new String[] { "java.lang.String" };
+        _methodParameterTypes67 = new String[] { "java.lang.String" };
 
-        _methodName66 = "addInvoiceItem";
+        _methodName72 = "addInvoiceItem";
 
-        _methodParameterTypes66 = new String[] {
+        _methodParameterTypes72 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName67 = "deleteInvoiceItem";
+        _methodName73 = "deleteInvoiceItem";
 
-        _methodParameterTypes67 = new String[] {
+        _methodParameterTypes73 = new String[] {
                 "long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName68 = "search";
+        _methodName74 = "search";
 
-        _methodParameterTypes68 = new String[] {
+        _methodParameterTypes74 = new String[] {
                 "java.lang.String", "long", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
@@ -51,32 +51,32 @@ public class InvoiceItemServiceClpInvoker {
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName60.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+        if (_methodName66.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
             return InvoiceItemServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName61.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+        if (_methodName67.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
             InvoiceItemServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName66.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+        if (_methodName72.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
             return InvoiceItemServiceUtil.addInvoiceItem((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName67.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+        if (_methodName73.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
             return InvoiceItemServiceUtil.deleteInvoiceItem(((Long) arguments[0]).longValue(),
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName68.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+        if (_methodName74.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
             return InvoiceItemServiceUtil.search((java.lang.String) arguments[0],
                 ((Long) arguments[1]).longValue(),
                 ((Integer) arguments[2]).intValue(),

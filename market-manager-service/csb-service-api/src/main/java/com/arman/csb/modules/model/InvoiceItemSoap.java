@@ -19,10 +19,8 @@ public class InvoiceItemSoap implements Serializable {
     private Date _createDate;
     private Date _modifiedDate;
     private long _invoiceId;
-    private String _productCode;
-    private String _productName;
+    private long _productId;
     private Short _number;
-    private long _basePrice;
 
     public InvoiceItemSoap() {
     }
@@ -35,10 +33,8 @@ public class InvoiceItemSoap implements Serializable {
         soapModel.setCreateDate(model.getCreateDate());
         soapModel.setModifiedDate(model.getModifiedDate());
         soapModel.setInvoiceId(model.getInvoiceId());
-        soapModel.setProductCode(model.getProductCode());
-        soapModel.setProductName(model.getProductName());
+        soapModel.setProductId(model.getProductId());
         soapModel.setNumber(model.getNumber());
-        soapModel.setBasePrice(model.getBasePrice());
 
         return soapModel;
     }
@@ -127,20 +123,12 @@ public class InvoiceItemSoap implements Serializable {
         _invoiceId = invoiceId;
     }
 
-    public String getProductCode() {
-        return _productCode;
+    public long getProductId() {
+        return _productId;
     }
 
-    public void setProductCode(String productCode) {
-        _productCode = productCode;
-    }
-
-    public String getProductName() {
-        return _productName;
-    }
-
-    public void setProductName(String productName) {
-        _productName = productName;
+    public void setProductId(long productId) {
+        _productId = productId;
     }
 
     public Short getNumber() {
@@ -149,13 +137,5 @@ public class InvoiceItemSoap implements Serializable {
 
     public void setNumber(Short number) {
         _number = number;
-    }
-
-    public long getBasePrice() {
-        return _basePrice;
-    }
-
-    public void setBasePrice(long basePrice) {
-        _basePrice = basePrice;
     }
 }

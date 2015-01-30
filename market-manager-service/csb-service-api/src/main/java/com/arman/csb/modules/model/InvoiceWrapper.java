@@ -51,6 +51,7 @@ public class InvoiceWrapper implements Invoice, ModelWrapper<Invoice> {
         attributes.put("telephone", getTelephone());
         attributes.put("mobile", getMobile());
         attributes.put("typeOfDelivery", getTypeOfDelivery());
+        attributes.put("status", getStatus());
 
         return attributes;
     }
@@ -133,6 +134,12 @@ public class InvoiceWrapper implements Invoice, ModelWrapper<Invoice> {
 
         if (typeOfDelivery != null) {
             setTypeOfDelivery(typeOfDelivery);
+        }
+
+        Integer status = (Integer) attributes.get("status");
+
+        if (status != null) {
+            setStatus(status);
         }
     }
 
@@ -438,6 +445,26 @@ public class InvoiceWrapper implements Invoice, ModelWrapper<Invoice> {
         _invoice.setTypeOfDelivery(typeOfDelivery);
     }
 
+    /**
+    * Returns the status of this invoice.
+    *
+    * @return the status of this invoice
+    */
+    @Override
+    public int getStatus() {
+        return _invoice.getStatus();
+    }
+
+    /**
+    * Sets the status of this invoice.
+    *
+    * @param status the status of this invoice
+    */
+    @Override
+    public void setStatus(int status) {
+        _invoice.setStatus(status);
+    }
+
     @Override
     public boolean isNew() {
         return _invoice.isNew();
@@ -502,7 +529,7 @@ public class InvoiceWrapper implements Invoice, ModelWrapper<Invoice> {
     }
 
     @Override
-    public int compareTo(com.arman.csb.modules.model.Invoice invoice) {
+    public int compareTo(Invoice invoice) {
         return _invoice.compareTo(invoice);
     }
 
@@ -512,17 +539,17 @@ public class InvoiceWrapper implements Invoice, ModelWrapper<Invoice> {
     }
 
     @Override
-    public com.liferay.portal.model.CacheModel<com.arman.csb.modules.model.Invoice> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<Invoice> toCacheModel() {
         return _invoice.toCacheModel();
     }
 
     @Override
-    public com.arman.csb.modules.model.Invoice toEscapedModel() {
+    public Invoice toEscapedModel() {
         return new InvoiceWrapper(_invoice.toEscapedModel());
     }
 
     @Override
-    public com.arman.csb.modules.model.Invoice toUnescapedModel() {
+    public Invoice toUnescapedModel() {
         return new InvoiceWrapper(_invoice.toUnescapedModel());
     }
 

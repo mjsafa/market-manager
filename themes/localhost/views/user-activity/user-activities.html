@@ -265,8 +265,8 @@
                         <td>
                             {{activity.userName}}
                         </td>
-                        <td>
-                            {{activity.createDate}}
+                        <td style="direction: ltr; text-align: right; min-width: 170px;">
+                            {{activity.createDate | myDate:'jYYYY/jM/jD - H:mm'}}
                         </td>
                         <td ng-bind-html="getExplain(activity.entity, activity.data, activity.action)">
 

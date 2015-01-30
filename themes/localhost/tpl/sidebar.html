@@ -72,6 +72,13 @@
             </a>
         </li>
 
+        <li class="start" ng-if="isCustomer()">
+            <a href="#/invoices.html">
+                <i class="icon-basket"></i>
+                <span class="title">بخش فاکتورها</span>
+            </a>
+        </li>
+
         <li class="start"
             ng-if="checkAnyRoles(['ADMINISTRATOR_USER', 'PAYMENT_MANAGER']) || checkAnyGroups(['customer_group'])">
             <a href="#/payments">
@@ -95,13 +102,19 @@
                 </li>
             </ul>
         </li>
-
+        <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER'])">
+                   <a href="#/products.html">
+                       <i class="icon-diamond"></i>
+                       <span class="title">مدیریت محصولات</span>
+                   </a>
+               </li>
         <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER'])">
             <a href="#/user-activities.html">
                 <i class="icon-list"></i>
                 <span class="title">فعالیت کاربران</span>
             </a>
         </li>
+
 
     </ul>
     <!-- END SIDEBAR MENU -->

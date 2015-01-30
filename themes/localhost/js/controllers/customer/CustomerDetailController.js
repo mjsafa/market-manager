@@ -1,7 +1,7 @@
 'use strict';
 
-MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal', 'UserService', 'PaymentService','$filter',
-    function ($rootScope, $scope, CustomerService, ScoreService, $stateParams, $state, $modal, UserService, PaymentService,$filter) {
+MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal', 'UserService', 'PaymentService', '$filter',
+    function ($rootScope, $scope, CustomerService, ScoreService, $stateParams, $state, $modal, UserService, PaymentService, $filter) {
 
         if (!$scope.initialized) {    //bind listeners only for the first time
             //server side events
@@ -42,6 +42,12 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
 
             $scope.$on('PaymentService.search', function (event, data) {
                 $scope.payments = data.result;
+            });
+
+
+            $scope.$on('CustomerService.updateCustomer', function (event, data) {
+                $rootScope.$emit('page.alert', {message:'اطلاعات مشتری ویرایش شد', type:"success"});
+                CustomerService.getById($scope.customerId);
             });
 
         }
@@ -103,7 +109,7 @@ MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'Cus
         };
 
         $scope.updateCustomer = function () {
-            CustomerService.updateCustomer($scope.customer);
+            CustomerService.updateCustomer($scope.customer, {scope: $scope});
         }
 
         $scope.scoreChartConfig = {

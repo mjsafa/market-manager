@@ -4,15 +4,19 @@ import com.arman.csb.constant.UserActivityConstant;
 import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.Invoice;
 import com.arman.csb.modules.model.InvoiceItem;
+import com.arman.csb.modules.model.Product;
 import com.arman.csb.modules.model.impl.CustomerImpl;
 import com.arman.csb.modules.model.impl.InvoiceImpl;
 import com.arman.csb.modules.service.*;
 import com.arman.csb.modules.service.base.InvoiceServiceBaseImpl;
+import com.arman.csb.util.MapUtil;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.*;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -56,6 +60,7 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         newInvoice.setUserName(onlineUser.getFullName());
         newInvoice.setCreateDate(new Date());
         newInvoice.setModifiedDate(new Date());
+        newInvoice.setStatus(WorkflowConstants.STATUS_PENDING);
 
         newInvoice = getInvoiceData(newInvoice, invoice, serviceContext);
 
@@ -92,7 +97,7 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         return getJSONObject(updateInvoice);
     }
 
-    public JSONArray search(String filter, int start, int maxResult, ServiceContext serviceContext) throws JSONException {
+    public JSONArray search(String filter, String status, long customerId, int start, int maxResult, ServiceContext serviceContext) throws JSONException {
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
         Session session = invoicePersistence.openSession();
@@ -105,20 +110,39 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         queryObject.setFirstResult(start);
         queryObject.setMaxResults(maxResult);
 
+        QueryPos qPos = QueryPos.getInstance(queryObject);
+        if(status.equals("")) {
+            qPos.add(true);
+            qPos.add(1);
+        } else {
+            qPos.add(false);
+            qPos.add(Integer.valueOf(status));
+        }
+
+        if(0 == customerId) {
+            qPos.add(true);
+        } else {
+            qPos.add(false);
+        }
+        qPos.add(customerId);
+
         List<Object[]> objects = queryObject.list();
 
         for (Object[] data : objects) {
             JSONObject json = JSONFactoryUtil.createJSONObject();
             json.put("customerName", (String)data[0]);
-            json.put("invoiceDate", (Date)data[1]);
+            json.put("invoiceDate", ((Date)data[1]).getTime());
 
             data[2] = null==data[2] ? 0 : data[2];
             data[3] = null==data[3] ? 0 : data[3];
+            data[4] = null==data[4] ? 0 : data[4];
 
             json.put("itemNumber", Long.valueOf(String.valueOf(data[2])) );
             json.put("totalCost", Long.valueOf(String.valueOf(data[3])));
+            json.put("totalScore", Long.valueOf(String.valueOf(data[4])));
 
-            json.put("id", Long.valueOf(String.valueOf(data[4])));
+            json.put("status", Long.valueOf(String.valueOf(data[5])));
+            json.put("id", Long.valueOf(String.valueOf(data[6])));
 
             result.put(json);
         }
@@ -132,12 +156,56 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         return getJSONObject(invoice);
     }
 
+    public JSONObject updateInvoiceStatus(long invoiceId, int status, ServiceContext serviceContext) throws SystemException, PortalException {
+        Invoice invoice = InvoiceLocalServiceUtil.getInvoice(invoiceId);
+        int oldStatus = invoice.getStatus();
+
+        invoice.setStatus(status);
+
+        if(WorkflowConstants.STATUS_PENDING == status && WorkflowConstants.STATUS_DENIED != oldStatus) {
+            throw new PortalException("ACCESS DENIED");
+        }
+        if(WorkflowConstants.STATUS_DENIED == status && WorkflowConstants.STATUS_PENDING != oldStatus) {
+            throw new PortalException("ACCESS DENIED");
+        }
+        if(WorkflowConstants.STATUS_APPROVED == status && WorkflowConstants.STATUS_PENDING != oldStatus) {
+            throw new PortalException("ACCESS DENIED");
+        }
+        if(WorkflowConstants.TYPE_COMPLETE == status && WorkflowConstants.STATUS_APPROVED != oldStatus) {
+            throw new PortalException("ACCESS DENIED");
+        }
+
+        InvoiceLocalServiceUtil.updateInvoice(invoice);
+
+        if(WorkflowConstants.STATUS_APPROVED == status) {
+            List<InvoiceItem> items = InvoiceItemLocalServiceUtil.getInvoiceItemsByInvoiceId(invoice.getId());
+
+            long totalScore = 0;
+            for (InvoiceItem item : items) {
+                Product product = ProductLocalServiceUtil.getProduct(item.getProductId());
+
+                totalScore += item.getNumber() * product.getScore();
+            }
+
+            ScoreLocalServiceUtil.addScore(invoice.getCustomerId(), totalScore, serviceContext);
+        }
+
+        JSONObject result = getJSONObject(invoice);
+        result.put("oldStatus" ,oldStatus);
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_INVOICE,
+                UserActivityConstant.ACTION_CHANGE_STATUS, UserActivityConstant.IMPORTANCE_HIGH,
+                result.toString(), serviceContext);
+
+        return result;
+    }
+
     private Invoice getInvoiceData(Invoice invoiceObject, Map<String, Object> invoice, ServiceContext serviceContext) {
-        invoiceObject.setCustomerId(Long.valueOf(String.valueOf(invoice.get("customerId"))));
-        invoiceObject.setAddress(String.valueOf(invoice.get("address")));
-        invoiceObject.setTelephone(String.valueOf(invoice.get("telephone")));
-        invoiceObject.setMobile(String.valueOf(invoice.get("mobile")));
-        invoiceObject.setTypeOfDelivery(Short.valueOf(String.valueOf(invoice.get("typeOfDelivery"))));
+        invoiceObject.setCustomerId(MapUtil.getLong(invoice, "customerId"));
+        invoiceObject.setAddress(MapUtil.getString(invoice, "address"));
+        invoiceObject.setTelephone(MapUtil.getString(invoice, "telephone"));
+        invoiceObject.setMobile(MapUtil.getString(invoice, "mobile"));
+        invoiceObject.setTypeOfDelivery(MapUtil.getShort(invoice, "typeOfDelivery"));
 
         return invoiceObject;
     }
@@ -155,7 +223,7 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         long totalCost = 0;
         for (int i=0 ; i<items.length() ; i++) {
             JSONObject item = items.getJSONObject(i);
-            totalCost += item.getLong("basePrice") * item.getInt("number");
+            totalCost += item.getJSONObject("product").getLong("basePrice") * item.getInt("number");
         }
 
         Customer customer = CustomerLocalServiceUtil.getCustomer(invoice.getCustomerId());

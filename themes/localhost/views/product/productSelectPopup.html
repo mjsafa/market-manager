@@ -1,0 +1,60 @@
+<script type="text/ng-template" id="productModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">انتخاب کالا</h3>
+
+
+    </div>
+    <div class="modal-body">
+        <div class="input-group">
+            <input ng-enter="doSearch()" type="text" ng-model="query"
+                   class="form-control input-circle-left" placeholder="جستجو ..."/>
+               <span class="input-group-btn">
+               <button ng-click="doSearch()" class="btn btn-circle-right btn-default"
+                       type="submit">
+                   جستجو
+               </button>
+               </span>
+        </div>
+
+        <div class="table-scrollable table-scrollable-borderless slimScrollDiv"
+             style="height: 350px; overflow: auto; width: auto;">
+            <table class="table table-hover table-light">
+                <thead>
+                <tr class="uppercase">
+                    <th>
+                        نام کالا
+                    </th>
+                    <th>
+کد کالا
+                    </th>
+                    <th>
+قیمت پایه
+                    </th>
+                    <th>
+میزان امتیاز
+                    </th>
+                </tr>
+                </thead>
+                <tr ng-click="ok(product)" ng-repeat="product in products">
+                    <td>
+                        <a href="javascript:;" class="primary-link">{{product.name}}</a>
+                    </td>
+                    <td>
+                        {{product.code}}
+                    </td>
+
+                    <td>
+                        {{product.basePrice}}
+                    </td>
+
+                    <td>
+                        {{product.score|score}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">انصراف</button>
+    </div>
+</script>

@@ -7,10 +7,6 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
     if (!$scope.initialized) {
         $scope.$on('UserActivityService.search', function (event, data) {
             $scope.activities = data.result;
-
-            angular.forEach($scope.activities, function (activity) {
-                activity.data = activity.data[0];
-            });
         });
     }
     ;
@@ -32,7 +28,8 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
         {value:'Customer', text:'مشتری'},
         {value:'Score', text:'امتیاز'},
         {value:'User', text:'کاربران'},
-        {value:'Payment', text:'پرداخت'}
+        {value:'Payment', text:'پرداخت'},
+        {value:'Product', text:'کالا'}
     ];
 
     $scope.actions = [
@@ -93,14 +90,17 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
             return "customer/" + data.customerId;
         }
 
+        if (entity == "Product") {
+            return "products.html";
+        }
 
     }
 
     $scope.getExplain = function (entity, data, action) {
         if (entity == "InvoiceItem") {
-            return "نام جنس: " + data.productName
-                + " - کد جنس: " + data.productCode
-                + " - قیمت پایه: " + data.basePrice
+            return "نام جنس: " + data.product.name
+                + " - کد جنس: " + data.product.code
+                + " - قیمت پایه: " + data.product.basePrice
                 + " - تعداد: " + data.number;
         }
 
@@ -119,6 +119,14 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
                     + data.firstName + ' ' + data.lastName
                     + '</strong>'
                     + ' به سامانه افزوده شد.'
+                    ;
+            }
+            if (action == 2) {
+                return 'مشتری با نام  '
+                    + '<strong>'
+                    + data.firstName + ' ' + data.lastName
+                    + '</strong>'
+                    + ' ویرایش شد.'
                     ;
             } else if (action == 4) {
                 return 'وضعیت مشتری با نام  '
@@ -210,6 +218,16 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
                 return 'فایل درخواست های کاربران برای ارائه به بانک دانلود شد.';
             }
         }
+
+        if (entity == "Product") {
+            return "اطلاعات تا لحظه ثبت: "
+                + " نام کالا: " + data.name
+                + " - کد کالا: " + data.code
+                + " - قیمت پایه: " + data.basePrice
+                + "- میزان امتیاز: " + data.score;
+            ;
+        }
+
     }
 
     $scope.initialized = true;

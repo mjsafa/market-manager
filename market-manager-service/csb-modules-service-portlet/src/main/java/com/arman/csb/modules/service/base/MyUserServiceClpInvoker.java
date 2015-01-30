@@ -9,138 +9,138 @@ import java.util.Arrays;
  * @generated
  */
 public class MyUserServiceClpInvoker {
-    private String _methodName60;
-    private String[] _methodParameterTypes60;
-    private String _methodName61;
-    private String[] _methodParameterTypes61;
-    private String _methodName64;
-    private String[] _methodParameterTypes64;
-    private String _methodName65;
-    private String[] _methodParameterTypes65;
     private String _methodName66;
     private String[] _methodParameterTypes66;
     private String _methodName67;
     private String[] _methodParameterTypes67;
-    private String _methodName68;
-    private String[] _methodParameterTypes68;
-    private String _methodName69;
-    private String[] _methodParameterTypes69;
     private String _methodName70;
     private String[] _methodParameterTypes70;
     private String _methodName71;
     private String[] _methodParameterTypes71;
+    private String _methodName72;
+    private String[] _methodParameterTypes72;
+    private String _methodName73;
+    private String[] _methodParameterTypes73;
+    private String _methodName74;
+    private String[] _methodParameterTypes74;
+    private String _methodName75;
+    private String[] _methodParameterTypes75;
+    private String _methodName76;
+    private String[] _methodParameterTypes76;
+    private String _methodName77;
+    private String[] _methodParameterTypes77;
 
     public MyUserServiceClpInvoker() {
-        _methodName60 = "getBeanIdentifier";
+        _methodName66 = "getBeanIdentifier";
 
-        _methodParameterTypes60 = new String[] {  };
+        _methodParameterTypes66 = new String[] {  };
 
-        _methodName61 = "setBeanIdentifier";
+        _methodName67 = "setBeanIdentifier";
 
-        _methodParameterTypes61 = new String[] { "java.lang.String" };
+        _methodParameterTypes67 = new String[] { "java.lang.String" };
 
-        _methodName64 = "newUser";
+        _methodName70 = "newUser";
 
-        _methodParameterTypes64 = new String[] {
+        _methodParameterTypes70 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName65 = "findUsers";
+        _methodName71 = "findUsers";
 
-        _methodParameterTypes65 = new String[] {
+        _methodParameterTypes71 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName66 = "updateStatus";
+        _methodName72 = "updateStatus";
 
-        _methodParameterTypes66 = new String[] {
+        _methodParameterTypes72 = new String[] {
                 "java.lang.Long", "boolean",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName67 = "getById";
+        _methodName73 = "getById";
 
-        _methodParameterTypes67 = new String[] {
+        _methodParameterTypes73 = new String[] {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName68 = "updateUser";
+        _methodName74 = "updateUser";
 
-        _methodParameterTypes68 = new String[] {
+        _methodParameterTypes74 = new String[] {
                 "java.util.Map", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName69 = "agreed";
+        _methodName75 = "agreed";
 
-        _methodParameterTypes69 = new String[] {
+        _methodParameterTypes75 = new String[] {
                 "java.lang.Long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName70 = "updatePassword";
+        _methodName76 = "updatePassword";
 
-        _methodParameterTypes70 = new String[] {
+        _methodParameterTypes76 = new String[] {
                 "java.lang.Long", "java.lang.String", "java.lang.String",
                 "java.lang.String", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName71 = "getPaymentActivityJSONObject";
+        _methodName77 = "getPaymentActivityJSONObject";
 
-        _methodParameterTypes71 = new String[] { "com.liferay.portal.model.User" };
+        _methodParameterTypes77 = new String[] { "com.liferay.portal.model.User" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName60.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+        if (_methodName66.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
             return MyUserServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName61.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+        if (_methodName67.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
             MyUserServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName64.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+        if (_methodName70.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
             return MyUserServiceUtil.newUser((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName65.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+        if (_methodName71.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
             return MyUserServiceUtil.findUsers((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName66.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+        if (_methodName72.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
             return MyUserServiceUtil.updateStatus((java.lang.Long) arguments[0],
                 ((Boolean) arguments[1]).booleanValue(),
                 (com.liferay.portal.service.ServiceContext) arguments[2]);
         }
 
-        if (_methodName67.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+        if (_methodName73.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
             return MyUserServiceUtil.getById((java.lang.Long) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName68.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+        if (_methodName74.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
             return MyUserServiceUtil.updateUser((java.util.Map<java.lang.String, java.lang.Object>) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName69.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+        if (_methodName75.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
             return MyUserServiceUtil.agreed((java.lang.Long) arguments[0],
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
         }
 
-        if (_methodName70.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+        if (_methodName76.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
             return MyUserServiceUtil.updatePassword((java.lang.Long) arguments[0],
                 (java.lang.String) arguments[1],
                 (java.lang.String) arguments[2],
@@ -148,8 +148,8 @@ public class MyUserServiceClpInvoker {
                 (com.liferay.portal.service.ServiceContext) arguments[4]);
         }
 
-        if (_methodName71.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+        if (_methodName77.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
             return MyUserServiceUtil.getPaymentActivityJSONObject((com.liferay.portal.model.User) arguments[0]);
         }
 

@@ -43,10 +43,8 @@ public class InvoiceItemWrapper implements InvoiceItem,
         attributes.put("createDate", getCreateDate());
         attributes.put("modifiedDate", getModifiedDate());
         attributes.put("invoiceId", getInvoiceId());
-        attributes.put("productCode", getProductCode());
-        attributes.put("productName", getProductName());
+        attributes.put("productId", getProductId());
         attributes.put("number", getNumber());
-        attributes.put("basePrice", getBasePrice());
 
         return attributes;
     }
@@ -83,28 +81,16 @@ public class InvoiceItemWrapper implements InvoiceItem,
             setInvoiceId(invoiceId);
         }
 
-        String productCode = (String) attributes.get("productCode");
+        Long productId = (Long) attributes.get("productId");
 
-        if (productCode != null) {
-            setProductCode(productCode);
-        }
-
-        String productName = (String) attributes.get("productName");
-
-        if (productName != null) {
-            setProductName(productName);
+        if (productId != null) {
+            setProductId(productId);
         }
 
         Short number = (Short) attributes.get("number");
 
         if (number != null) {
             setNumber(number);
-        }
-
-        Long basePrice = (Long) attributes.get("basePrice");
-
-        if (basePrice != null) {
-            setBasePrice(basePrice);
         }
     }
 
@@ -229,43 +215,23 @@ public class InvoiceItemWrapper implements InvoiceItem,
     }
 
     /**
-    * Returns the product code of this invoice item.
+    * Returns the product ID of this invoice item.
     *
-    * @return the product code of this invoice item
+    * @return the product ID of this invoice item
     */
     @Override
-    public java.lang.String getProductCode() {
-        return _invoiceItem.getProductCode();
+    public long getProductId() {
+        return _invoiceItem.getProductId();
     }
 
     /**
-    * Sets the product code of this invoice item.
+    * Sets the product ID of this invoice item.
     *
-    * @param productCode the product code of this invoice item
+    * @param productId the product ID of this invoice item
     */
     @Override
-    public void setProductCode(java.lang.String productCode) {
-        _invoiceItem.setProductCode(productCode);
-    }
-
-    /**
-    * Returns the product name of this invoice item.
-    *
-    * @return the product name of this invoice item
-    */
-    @Override
-    public java.lang.String getProductName() {
-        return _invoiceItem.getProductName();
-    }
-
-    /**
-    * Sets the product name of this invoice item.
-    *
-    * @param productName the product name of this invoice item
-    */
-    @Override
-    public void setProductName(java.lang.String productName) {
-        _invoiceItem.setProductName(productName);
+    public void setProductId(long productId) {
+        _invoiceItem.setProductId(productId);
     }
 
     /**
@@ -286,26 +252,6 @@ public class InvoiceItemWrapper implements InvoiceItem,
     @Override
     public void setNumber(java.lang.Short number) {
         _invoiceItem.setNumber(number);
-    }
-
-    /**
-    * Returns the base price of this invoice item.
-    *
-    * @return the base price of this invoice item
-    */
-    @Override
-    public long getBasePrice() {
-        return _invoiceItem.getBasePrice();
-    }
-
-    /**
-    * Sets the base price of this invoice item.
-    *
-    * @param basePrice the base price of this invoice item
-    */
-    @Override
-    public void setBasePrice(long basePrice) {
-        _invoiceItem.setBasePrice(basePrice);
     }
 
     @Override
@@ -372,7 +318,7 @@ public class InvoiceItemWrapper implements InvoiceItem,
     }
 
     @Override
-    public int compareTo(com.arman.csb.modules.model.InvoiceItem invoiceItem) {
+    public int compareTo(InvoiceItem invoiceItem) {
         return _invoiceItem.compareTo(invoiceItem);
     }
 
@@ -382,17 +328,17 @@ public class InvoiceItemWrapper implements InvoiceItem,
     }
 
     @Override
-    public com.liferay.portal.model.CacheModel<com.arman.csb.modules.model.InvoiceItem> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<InvoiceItem> toCacheModel() {
         return _invoiceItem.toCacheModel();
     }
 
     @Override
-    public com.arman.csb.modules.model.InvoiceItem toEscapedModel() {
+    public InvoiceItem toEscapedModel() {
         return new InvoiceItemWrapper(_invoiceItem.toEscapedModel());
     }
 
     @Override
-    public com.arman.csb.modules.model.InvoiceItem toUnescapedModel() {
+    public InvoiceItem toUnescapedModel() {
         return new InvoiceItemWrapper(_invoiceItem.toUnescapedModel());
     }
 

@@ -265,6 +265,20 @@ public interface InvoiceModel extends BaseModel<Invoice>, StagedGroupedModel {
      */
     public void setTypeOfDelivery(Short typeOfDelivery);
 
+    /**
+     * Returns the status of this invoice.
+     *
+     * @return the status of this invoice
+     */
+    public int getStatus();
+
+    /**
+     * Sets the status of this invoice.
+     *
+     * @param status the status of this invoice
+     */
+    public void setStatus(int status);
+
     @Override
     public boolean isNew();
 

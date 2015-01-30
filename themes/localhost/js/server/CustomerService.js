@@ -16,9 +16,10 @@ MetronicApp.factory("CustomerService", function (JsonServer) {
                 scope:options ? options.scope : undefined
             });
         },
-        updateCustomer:function (customer) {
+        updateCustomer:function (customer, options) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.customer', 'update-customer', {customer:JSON.stringify(customer), serviceContext:{}}, {
-                eventName:'CustomerService.updateCustomer'
+                eventName:'CustomerService.updateCustomer' ,
+                scope:options ? options.scope : undefined
             });
         },
         total:function () {
