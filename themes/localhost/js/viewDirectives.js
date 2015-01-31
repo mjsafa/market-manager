@@ -30,7 +30,7 @@ MetronicApp.directive('ngConfirmAction', ['$modal',
 
                     //*This doesn't works
                     var modalHtml = '<div class="modal-body">' + message + '</div>';
-                    modalHtml += '<div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">'+ confirmButton  + '</button><button class="btn btn-warning" ng-click="cancel()">'+ cancelButton  + '</button></div>';
+                    modalHtml += '<div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">' + confirmButton + '</button><button class="btn btn-warning" ng-click="cancel()">' + cancelButton + '</button></div>';
 
                     var modalInstance = $modal.open({
                         template:modalHtml,
@@ -53,3 +53,63 @@ MetronicApp.directive('ngConfirmAction', ['$modal',
         }
     }
 ]);
+
+
+MetronicApp.directive('scoreInput', function () {
+    return {
+        require:'ngModel',
+        link:function (scope, element, attrs, ngModelController) {
+            ngModelController.$parsers.push(function (data) {
+                //convert data from view format to model format
+                return data * 1000; //converted
+            });
+
+            ngModelController.$formatters.push(function (data) {
+                //convert data from model format to view format
+                var out = data / parseFloat(1000);
+                return out; //converted
+            });
+        }
+    }
+});
+
+
+MetronicApp.directive('cardInput', function () {
+    return {
+        require:'ngModel',
+        link:function (scope, element, attrs, ngModelController) {
+            if (!ngModelController) return;
+
+            ngModelController.$parsers.push(function (data) {
+                //convert data from view format to model format
+                var out = data
+                if(data.length >= 19){
+                    data = data.substr(0, 19);
+                }
+
+                if(data){
+                    data = data.split("-").join("").split("_").join("");
+                    out = data.match(new RegExp('.{1,4}', 'g')).join("-");
+                }
+
+                if (ngModelController.$viewValue !== out) {
+                    ngModelController.$setViewValue(out);
+                    ngModelController.$render();
+                }
+
+                return data;
+            });
+
+            ngModelController.$formatters.unshift(function (data) {
+                //convert data from model format to view format
+                var out = data;
+                if (data) {
+                    out = data.match(new RegExp('.{1,4}', 'g')).join("-");
+                }
+
+                return out; //converted
+            });
+
+        }
+    }
+});

@@ -38,6 +38,7 @@
     "INVALID_TIME":             "Must be a valid time format (hh:mm) OR (hh:mm:ss). ",
 
     "INVALID_FLOAT_NUMBER": "تنها مقادیر عددی با حد اکثر :param رقم اعشار پذیرفته است",
+    "INVALID_CREDIT_CARD": "شماره کارت وارد شده نا معتبر است." ,
 
     "AREA1":            "TextArea: Alphanumeric + Minimum(15) + Required",
     "CHANGE_LANGUAGE":  "Change language.",

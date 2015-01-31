@@ -318,7 +318,7 @@ public class InvoiceItemWrapper implements InvoiceItem,
     }
 
     @Override
-    public int compareTo(InvoiceItem invoiceItem) {
+    public int compareTo(com.arman.csb.modules.model.InvoiceItem invoiceItem) {
         return _invoiceItem.compareTo(invoiceItem);
     }
 
@@ -328,17 +328,17 @@ public class InvoiceItemWrapper implements InvoiceItem,
     }
 
     @Override
-    public com.liferay.portal.model.CacheModel<InvoiceItem> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<com.arman.csb.modules.model.InvoiceItem> toCacheModel() {
         return _invoiceItem.toCacheModel();
     }
 
     @Override
-    public InvoiceItem toEscapedModel() {
+    public com.arman.csb.modules.model.InvoiceItem toEscapedModel() {
         return new InvoiceItemWrapper(_invoiceItem.toEscapedModel());
     }
 
     @Override
-    public InvoiceItem toUnescapedModel() {
+    public com.arman.csb.modules.model.InvoiceItem toUnescapedModel() {
         return new InvoiceItemWrapper(_invoiceItem.toUnescapedModel());
     }
 

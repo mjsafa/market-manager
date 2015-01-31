@@ -322,11 +322,6 @@ public interface PaymentLocalService extends BaseLocalService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
-    public com.arman.csb.modules.model.Payment deletePayment(
-        java.lang.Long paymentId)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException;
-
     public long sumPayedOrPending(java.lang.Long customerId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;

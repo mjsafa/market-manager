@@ -20,6 +20,10 @@ MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settin
         }, 12000);
     });
 
+    $rootScope.$on('page.logout', function (event, data) {
+        $window.location.href = '/login';
+    });
+
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
     };

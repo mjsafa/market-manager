@@ -202,3 +202,9 @@ input.ng-valid.ng-dirty, select.ng-valid.ng-dirty, textarea.ng-valid.ng-dirty {
     line-height: 1.33;
     vertical-align: middle;
 }
+
+.popover {
+    font-family: tahoma;
+    font-size: 12px;
+    line-height: 21px;
+}

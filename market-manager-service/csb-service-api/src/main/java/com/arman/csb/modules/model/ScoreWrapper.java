@@ -475,7 +475,7 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
     }
 
     @Override
-    public int compareTo(Score score) {
+    public int compareTo(com.arman.csb.modules.model.Score score) {
         return _score.compareTo(score);
     }
 
@@ -485,17 +485,17 @@ public class ScoreWrapper implements Score, ModelWrapper<Score> {
     }
 
     @Override
-    public com.liferay.portal.model.CacheModel<Score> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<com.arman.csb.modules.model.Score> toCacheModel() {
         return _score.toCacheModel();
     }
 
     @Override
-    public Score toEscapedModel() {
+    public com.arman.csb.modules.model.Score toEscapedModel() {
         return new ScoreWrapper(_score.toEscapedModel());
     }
 
     @Override
-    public Score toUnescapedModel() {
+    public com.arman.csb.modules.model.Score toUnescapedModel() {
         return new ScoreWrapper(_score.toUnescapedModel());
     }
 

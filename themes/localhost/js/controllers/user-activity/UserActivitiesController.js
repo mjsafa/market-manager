@@ -185,9 +185,9 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
             if (action == 1) {
                 return 'درخواست برداشت به میزان ' +
                     $filter('score')(data.amount) +
-                    'امتیاز برای مشتری با نام ' +
-                    +data.firstName + ' ' + data.lastName +
-                    ' ثبت شد. '
+                    'امتیاز برای مشتری با نام "' +
+                    data.firstName + ' ' + data.lastName +
+                    '" ثبت شد. '
             } else if (action == 3) {
                 return 'درخواست برداشت به میزان ' +
                     $filter('score')(data.amount) +

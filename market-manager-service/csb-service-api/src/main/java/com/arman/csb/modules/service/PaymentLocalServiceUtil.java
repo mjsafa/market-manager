@@ -369,13 +369,6 @@ public class PaymentLocalServiceUtil {
         return getService().updateStatus(payment, status);
     }
 
-    public static com.arman.csb.modules.model.Payment deletePayment(
-        java.lang.Long paymentId)
-        throws com.liferay.portal.kernel.exception.PortalException,
-            com.liferay.portal.kernel.exception.SystemException {
-        return getService().deletePayment(paymentId);
-    }
-
     public static long sumPayedOrPending(java.lang.Long customerId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {

@@ -296,10 +296,12 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-credit-card"></i>
                                 </span>
-                            <input name="cardNumber" validation="numeric|exact_len:16|required"
+                            <input card-input name="cardNumber" validation="card|required"
                                    ng-model="newCustomer.card" type="text" class="form-control"
                                    style="direction: ltr;">
                         </div>
+
+                        {{newCustomer.card}}
                     </div>
 
                     <div class="form-group">
@@ -492,7 +494,7 @@
                             امتیاز
                         </th>
 
-                        <th>
+                        <th ng-if="!isCustomer()">
                             وضعیت
                         </th>
                     </tr>
@@ -513,11 +515,15 @@
                         </td>
 
                         <td>
-                            <a ng-click="openScore('small', customer)"
+                            <a ng-if="!isCustomer()" ng-click="openScore('small', customer)"
                                class="bold font-green-haze">{{customer.score|score}}</a>
+
+                            <span ng-if="isCustomer()">
+                                {{customer.score|score}}
+                            </span>
                         </td>
 
-                        <td>
+                        <td ng-if="!isCustomer()">
                             <button type="button" class="btn {{customer.isActive ? 'green' : 'gray'}}"
                                     ng-confirm-action="changeStatus(customer)"
                                     ng-confirm-message="آیا از {{customer.isActive ? 'غیر فعال' : 'فعال'}} ساختن مشتری با نام {{customer.firstName}} {{customer.lastName}} اطمینان دارید؟"

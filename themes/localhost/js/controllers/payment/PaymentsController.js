@@ -50,6 +50,7 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
             $scope.paymentSubmitted = false;
             if (data.exception.indexOf("payment-not-pending") > 0) {
                 $rootScope.$emit('page.alert', {message:'تنها پرداخت های بررسی نشده قابل حذف می باشد', type:"danger"});
+                $scope.doSearch();
             }
         });
 

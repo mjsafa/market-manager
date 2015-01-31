@@ -239,7 +239,7 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
     }
 
     public JSONObject updateCustomerStatus(long customerId, boolean isActive, ServiceContext serviceContext) throws PortalException, SystemException {
-        RoleUtil.checkAnyRolesOrMentorCustomer(serviceContext.getUserId(), customerId, RoleEnum.CUSTOMER_MANAGER.toString());
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.CUSTOMER_MANAGER.toString());
 
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Customer oldCustomer = CustomerLocalServiceUtil.getById(customerId);

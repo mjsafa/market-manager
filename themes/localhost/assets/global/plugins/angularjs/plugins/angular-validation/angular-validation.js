@@ -307,13 +307,22 @@
 
 
                 case "numeric_float" :
-                                validators[i] = {
-                                  pattern: "^\\d*\\.?\\d{0," + params[1] + "}$",
-                                  message: "INVALID_FLOAT_NUMBER",
-                                    params: [params[1]],
-                                  type: "regex"
-                                };
-                                break;
+                    validators[i] = {
+                      pattern: "^\\d*\\.?\\d{0," + params[1] + "}$",
+                      message: "INVALID_FLOAT_NUMBER",
+                        params: [params[1]],
+                      type: "regex"
+                    };
+                    break;
+
+                case "card" :
+                    validators[i] = {
+                      pattern: "\\d{4}-\\d{4}-\\d{4}-\\d{4}$",
+                      message: "INVALID_CREDIT_CARD",
+                      type: "regex"
+                    };
+                    break;
+
 
               case "numeric" :
                 validators[i] = {

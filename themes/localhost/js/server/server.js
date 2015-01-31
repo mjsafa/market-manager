@@ -311,7 +311,10 @@ MetronicApp.factory("JsonServer", function ($http, $rootScope) {
 
                     if (data.exception == 'com.liferay.portal.security.auth.PrincipalException') {
                         $rootScope.$emit('page.alert', {message:'شما به این بخش دسترسی ندارید.', type:"danger"});
+                    } else if (data.exception == 'java.lang.SecurityException: Authenticated access required') {
+                        $rootScope.$emit('page.logout');
                     }
+
 
                     if (options.scope) {
                         options.scope.$emit(options.eventName + '.error', data);

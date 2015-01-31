@@ -1,6 +1,6 @@
 angular.module("template/datepicker/popup.html", []).run(["$templateCache", function ($templateCache) {
     $templateCache.put("template/datepicker/popup.html",
-            '<ul class="dropdown-menu" ng-style="{display: (isOpen && \'block\') || \'none\', top: position.top+\'px\'}" ng-keydown="keydown($event)">\n' +
+        '<ul class="dropdown-menu" ng-style="{display: (isOpen && \'block\') || \'none\', top: position.top+\'px\'}" ng-keydown="keydown($event)">\n' +
             '	<li ng-transclude></li>\n' +
             '	<li ng-if="showButtonBar" style="padding:10px 9px 2px">\n' +
             '	 <span class="btn-group">\n' +
@@ -325,7 +325,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/js/server/PaymentService.js',
 
                             '/delegate/resource/js/controllers/payment/PaymentDownloadController.js',
-                            '/delegate/resource/js/controllers/customer/CustomerSelectController.js'
+                            '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
+                            '/delegate/resource/js/viewDirectives.js'
                         ]
                     });
                 }]
@@ -999,7 +1000,6 @@ MetronicApp.filter('score', function () {
         return out;
     };
 })
-
 
 
 MetronicApp.filter('myDate', function ($filter) {

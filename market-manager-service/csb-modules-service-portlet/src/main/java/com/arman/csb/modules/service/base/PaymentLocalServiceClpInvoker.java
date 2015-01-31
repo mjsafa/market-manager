@@ -225,7 +225,7 @@ public class PaymentLocalServiceClpInvoker {
 
         _methodName98 = "deletePayment";
 
-        _methodParameterTypes98 = new String[] { "java.lang.Long" };
+        _methodParameterTypes98 = new String[] { "long" };
 
         _methodName99 = "sumPayedOrPending";
 
@@ -426,7 +426,7 @@ public class PaymentLocalServiceClpInvoker {
 
         if (_methodName98.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
-            return PaymentLocalServiceUtil.deletePayment((java.lang.Long) arguments[0]);
+            return PaymentLocalServiceUtil.deletePayment(((Long) arguments[0]).longValue());
         }
 
         if (_methodName99.equals(name) &&

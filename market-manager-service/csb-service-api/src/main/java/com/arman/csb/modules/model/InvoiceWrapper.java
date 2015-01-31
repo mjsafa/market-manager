@@ -529,7 +529,7 @@ public class InvoiceWrapper implements Invoice, ModelWrapper<Invoice> {
     }
 
     @Override
-    public int compareTo(Invoice invoice) {
+    public int compareTo(com.arman.csb.modules.model.Invoice invoice) {
         return _invoice.compareTo(invoice);
     }
 
@@ -539,17 +539,17 @@ public class InvoiceWrapper implements Invoice, ModelWrapper<Invoice> {
     }
 
     @Override
-    public com.liferay.portal.model.CacheModel<Invoice> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<com.arman.csb.modules.model.Invoice> toCacheModel() {
         return _invoice.toCacheModel();
     }
 
     @Override
-    public Invoice toEscapedModel() {
+    public com.arman.csb.modules.model.Invoice toEscapedModel() {
         return new InvoiceWrapper(_invoice.toEscapedModel());
     }
 
     @Override
-    public Invoice toUnescapedModel() {
+    public com.arman.csb.modules.model.Invoice toUnescapedModel() {
         return new InvoiceWrapper(_invoice.toUnescapedModel());
     }
 

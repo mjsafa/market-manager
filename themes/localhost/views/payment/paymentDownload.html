@@ -175,7 +175,10 @@
                 </ul>
             </div>
             <div class="portlet-body form ">
-                <a ng-if="isDownloaded == 2" href="#" ng-click="downloadPayments()" class="btn btn-lg green">
+                <a ng-if="isDownloaded == 2" href="#" class="btn btn-lg green"
+                   ng-confirm-action="downloadPayments()"
+                   ng-confirm-message="آیا از دریافت فایل اکسل برای ارسال به بانک اطمینان دارید؟"
+                        >
                     <i class="fa fa-file-excel-o"></i>
                     دریافت فایل اکسل
                 </a>
@@ -183,11 +186,21 @@
                     <i class="fa fa-file-excel-o"></i>
                     دریافت مجدد فایل اکسل
                 </a>
-                <a ng-if="isDownloaded == 1" href="#" ng-click="acceptPayments()" class="btn btn-lg green-jungle">
+                <a ng-if="isDownloaded == 1" href="#"
+                   ng-confirm-action="acceptPayments()"
+                   ng-confirm-message="آیا از تایید تمامی درخواست های موجود در فایل اکسل دریافت شده اطمینان دارید؟"
+                   popover="در صورت تایید درخواست های پرداخت موجود در فایل اکسل، تمامی آن ها به صورت واریز شده در نظر گرفته خواهد شد و از حساب کاربر کسر می گردد."
+                   popover-trigger="hover" popover-placement="top"
+                   class="btn btn-lg green-jungle">
                     <i class="fa fa-check"></i>
                     تایید پرداخت های دریافت شده
                 </a>
-                <a ng-if="isDownloaded == 1" href="#" ng-click="cancelDownloadPayments()" class="btn btn-lg yellow">
+                <a ng-if="isDownloaded == 1" href="#"
+                   ng-confirm-action="cancelDownloadPayments()"
+                   ng-confirm-message="آیا از انصراف از انجام عملیات بر روی پرداخت های موجود در فایل دریافت شده اطمینان دارید؟"
+                   popover="در صورت انصراف از انجام عملیات، پرداخت های موجود در فایل اکسل بدون تغییرات به حالت بررسی نشده بازگردانده می شوند."
+                   popover-trigger="hover" popover-placement="top"
+                   class="btn btn-lg yellow">
                     <i class="fa fa-close"></i>
                     انصراف
                 </a>
@@ -245,11 +258,11 @@
                 <div class="col-md-3 col-sm-12">
 
                     <div class="form-group">
-                        <label class="control-label col-md-5">بازه مبلغ</label>
+                        <label class="control-label col-md-5">بازه امتیاز</label>
 
                         <div class="input-group col-md-7">
 
-                            <input ng-enter="doSearch()" ng-model="filter.fromAmount" type="text" class="form-control"
+                            <input ng-enter="doSearch()" score-input ng-model="filter.fromAmount" type="text" class="form-control"
                                    empty-to-null/>
                         </div>
 
@@ -258,7 +271,7 @@
                 <div class="col-md-2 col-sm-12">
                     <div class="form-group">
                         <div class="input-group col-md-12">
-                            <input ng-enter="doSearch()" ng-model="filter.toAmount" type="text" class="form-control"
+                            <input ng-enter="doSearch()" score-input ng-model="filter.toAmount" type="text" class="form-control"
                                    empty-to-null/>
                         </div>
                     </div>
@@ -285,7 +298,7 @@
                             </th>
 
                             <th>
-                                مبلغ
+                                امتیاز
                             </th>
                             <th>
                                 توضیحات

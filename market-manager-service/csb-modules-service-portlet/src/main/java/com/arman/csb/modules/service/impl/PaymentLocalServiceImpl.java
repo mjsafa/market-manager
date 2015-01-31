@@ -163,10 +163,10 @@ public class PaymentLocalServiceImpl extends PaymentLocalServiceBaseImpl {
         return paymentPersistence.update(payment);
     }
 
-    public Payment deletePayment(Long paymentId) throws PortalException, SystemException {
+    public Payment deletePayment(long paymentId) throws PortalException, SystemException {
         Payment payment = fetchPayment(paymentId);
         if (payment.getStatus() != WorkflowConstants.STATUS_PENDING) {
-            throw new SystemException("payment-not-pending");
+            throw new PortalException("payment-not-pending");
         }
         return paymentPersistence.remove(payment.getId());
     }
@@ -198,7 +198,7 @@ public class PaymentLocalServiceImpl extends PaymentLocalServiceBaseImpl {
         idHeader.setCellValue("شناسه درخواست");
 
         Cell amountHeader = header.createCell(1);
-        amountHeader.setCellValue("مبلغ پرداختی");
+        amountHeader.setCellValue("مبلغ پرداختی (ریال)");
 
         Cell cardNumberHeader = header.createCell(2);
         cardNumberHeader.setCellValue("شماره کارت");
