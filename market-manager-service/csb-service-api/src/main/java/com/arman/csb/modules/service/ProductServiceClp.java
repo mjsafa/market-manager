@@ -20,6 +20,8 @@ public class ProductServiceClp implements ProductService {
     private String[] _methodParameterTypes5;
     private String _methodName6;
     private String[] _methodParameterTypes6;
+    private String _methodName7;
+    private String[] _methodParameterTypes7;
 
     public ProductServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -47,7 +49,7 @@ public class ProductServiceClp implements ProductService {
         _methodName5 = "search";
 
         _methodParameterTypes5 = new String[] {
-                "java.lang.String", "int", "int",
+                "java.lang.String", "int", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -55,6 +57,12 @@ public class ProductServiceClp implements ProductService {
 
         _methodParameterTypes6 = new String[] {
                 "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName7 = "updateProductStatus";
+
+        _methodParameterTypes7 = new String[] {
+                "long", "int", "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -182,7 +190,7 @@ public class ProductServiceClp implements ProductService {
 
     @Override
     public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, int start, int maxResult,
+        java.lang.String filter, int status, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.json.JSONException {
         Object returnObj = null;
@@ -192,6 +200,8 @@ public class ProductServiceClp implements ProductService {
                     _methodParameterTypes5,
                     new Object[] {
                         ClpSerializer.translateInput(filter),
+                        
+                    status,
                         
                     start,
                         
@@ -229,6 +239,46 @@ public class ProductServiceClp implements ProductService {
                     _methodParameterTypes6,
                     new Object[] {
                         productId,
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject updateProductStatus(
+        long productId, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName7,
+                    _methodParameterTypes7,
+                    new Object[] {
+                        productId,
+                        
+                    status,
                         
                     ClpSerializer.translateInput(serviceContext)
                     });

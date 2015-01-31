@@ -104,6 +104,7 @@
 		<property name="code" type="com.liferay.portal.dao.orm.hibernate.StringType" column="code_" />
 		<property name="basePrice" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="score" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
 	<class name="com.arman.csb.modules.model.impl.ScoreImpl" table="CSBModules_Score">
 		<cache usage="read-write" />

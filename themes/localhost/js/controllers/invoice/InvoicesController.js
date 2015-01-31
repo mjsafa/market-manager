@@ -1,4 +1,4 @@
-MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceService', '$state', '$modal', function ($rootScope, $scope, InvoiceService, $state, $modal) {
+MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceService', 'CustomerService', '$state', '$modal', function ($rootScope, $scope, InvoiceService, CustomerService, $state, $modal) {
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
@@ -22,11 +22,20 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
 
         $scope.$on('InvoiceService.search', function (event, data) {
             $scope.invoices = data.result;
+
+            if($scope.currentCustomerId) {
+                CustomerService.getById($scope.currentCustomerId);
+            }
         });
 
         $scope.$on('InvoiceService.updateInvoiceStatus', function (event, data) {
             $scope.doSearch();
             $rootScope.$emit('page.alert', {message:'بروز رسانی وضعیت فاکتور به درستی انجام شد.', type:"success"});
+        });
+
+        $rootScope.$on('CustomerService.getById', function (event, data) {
+            $scope.currentCustomer = data.result;
+            $scope.newInvoice.mobile = $scope.currentCustomer.mobile;
         });
     }
 

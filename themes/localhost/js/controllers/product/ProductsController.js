@@ -2,7 +2,7 @@ MetronicApp.controller('ProductsController', ['$rootScope', '$scope', 'ProductSe
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
-    ProductService.search('', {scope: $scope});
+    ProductService.search('', -1, {scope: $scope});
 
     $scope.$on('$viewContentLoaded', function () {
         Metronic.initAjax();
@@ -26,7 +26,33 @@ MetronicApp.controller('ProductsController', ['$rootScope', '$scope', 'ProductSe
                 product.score = $filter('score')(product.score);
             });
         });
+
+        $scope.$on('ProductService.updateProductStatus', function (event, data) {
+            $scope.doSearch();
+            $rootScope.$emit('page.alert', {message:'بروز رسانی وضعیت کالا به درستی انجام شد.', type:"success"});
+        });
     }
+
+    $scope.statuses = [
+        {value:21, text:'فعال'},
+        {value:5, text:'غیر فعال'}
+    ];
+
+    $scope.getName = function (input, data, param) {
+        var result = '';
+
+        angular.forEach(data, function (object) {
+            if (object.value == input) {
+                result = object[param];
+            }
+        });
+
+        return result;
+    };
+
+    $scope.showStatus = function (input) {
+        return $scope.getName(input, $scope.statuses, 'text');
+    };
 
     $scope.submitProduct = function (product, id) {
         product.score = product.score*1000;
@@ -51,7 +77,7 @@ MetronicApp.controller('ProductsController', ['$rootScope', '$scope', 'ProductSe
     };
 
     $scope.doSearch = function () {
-        ProductService.search($scope.query || '', {scope: $scope});
+        ProductService.search($scope.query || '', -1, {scope: $scope});
     }
 
     $scope.doCancel = function (index ,id) {
@@ -71,6 +97,10 @@ MetronicApp.controller('ProductsController', ['$rootScope', '$scope', 'ProductSe
         if(!pattern.test(data)) {
             return name + " باید یک عدد مثبت باشد. ";
         }
+    }
+
+    $scope.updateStatus = function(productId ,newStatus) {
+        ProductService.updateProductStatus(productId, newStatus, {scope: $scope});
     }
 
     $scope.initialized = true;

@@ -3261,6 +3261,7 @@ public class ProductPersistenceImpl extends BasePersistenceImpl<Product>
         productImpl.setCode(product.getCode());
         productImpl.setBasePrice(product.getBasePrice());
         productImpl.setScore(product.getScore());
+        productImpl.setStatus(product.getStatus());
 
         return productImpl;
     }

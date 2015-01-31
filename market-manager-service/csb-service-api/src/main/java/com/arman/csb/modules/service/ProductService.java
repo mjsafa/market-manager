@@ -66,12 +66,18 @@ public interface ProductService extends BaseService, InvokableService {
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, int start, int maxResult,
+        java.lang.String filter, int status, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.json.JSONException;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public com.liferay.portal.kernel.json.JSONObject getById(long productId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public com.liferay.portal.kernel.json.JSONObject updateProductStatus(
+        long productId, int status,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;

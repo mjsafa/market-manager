@@ -26,6 +26,7 @@ public class ProductSoap implements Serializable {
     private String _code;
     private long _basePrice;
     private long _score;
+    private int _status;
 
     public ProductSoap() {
     }
@@ -45,6 +46,7 @@ public class ProductSoap implements Serializable {
         soapModel.setCode(model.getCode());
         soapModel.setBasePrice(model.getBasePrice());
         soapModel.setScore(model.getScore());
+        soapModel.setStatus(model.getStatus());
 
         return soapModel;
     }
@@ -187,5 +189,13 @@ public class ProductSoap implements Serializable {
 
     public void setScore(long score) {
         _score = score;
+    }
+
+    public int getStatus() {
+        return _status;
+    }
+
+    public void setStatus(int status) {
+        _status = status;
     }
 }

@@ -77,7 +77,8 @@ create table CSBModules_Product (
 	name VARCHAR(75) null,
 	code_ VARCHAR(75) null,
 	basePrice LONG,
-	score LONG
+	score LONG,
+	status INTEGER
 );
 
 create table CSBModules_Score (

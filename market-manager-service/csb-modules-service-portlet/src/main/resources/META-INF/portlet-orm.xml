@@ -156,6 +156,7 @@
 			</basic>
 			<basic name="basePrice" />
 			<basic name="score" />
+			<basic name="status" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />

@@ -35,6 +35,7 @@ public class ProductClp extends BaseModelImpl<Product> implements Product {
     private String _code;
     private long _basePrice;
     private long _score;
+    private int _status;
     private BaseModel<?> _productRemoteModel;
 
     public ProductClp() {
@@ -86,6 +87,7 @@ public class ProductClp extends BaseModelImpl<Product> implements Product {
         attributes.put("code", getCode());
         attributes.put("basePrice", getBasePrice());
         attributes.put("score", getScore());
+        attributes.put("status", getStatus());
 
         return attributes;
     }
@@ -162,6 +164,12 @@ public class ProductClp extends BaseModelImpl<Product> implements Product {
 
         if (score != null) {
             setScore(score);
+        }
+
+        Integer status = (Integer) attributes.get("status");
+
+        if (status != null) {
+            setStatus(status);
         }
     }
 
@@ -440,6 +448,28 @@ public class ProductClp extends BaseModelImpl<Product> implements Product {
     }
 
     @Override
+    public int getStatus() {
+        return _status;
+    }
+
+    @Override
+    public void setStatus(int status) {
+        _status = status;
+
+        if (_productRemoteModel != null) {
+            try {
+                Class<?> clazz = _productRemoteModel.getClass();
+
+                Method method = clazz.getMethod("setStatus", int.class);
+
+                method.invoke(_productRemoteModel, status);
+            } catch (Exception e) {
+                throw new UnsupportedOperationException(e);
+            }
+        }
+    }
+
+    @Override
     public StagedModelType getStagedModelType() {
         return new StagedModelType(PortalUtil.getClassNameId(
                 Product.class.getName()));
@@ -524,6 +554,7 @@ public class ProductClp extends BaseModelImpl<Product> implements Product {
         clone.setCode(getCode());
         clone.setBasePrice(getBasePrice());
         clone.setScore(getScore());
+        clone.setStatus(getStatus());
 
         return clone;
     }
@@ -569,7 +600,7 @@ public class ProductClp extends BaseModelImpl<Product> implements Product {
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(25);
+        StringBundler sb = new StringBundler(27);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -595,6 +626,8 @@ public class ProductClp extends BaseModelImpl<Product> implements Product {
         sb.append(getBasePrice());
         sb.append(", score=");
         sb.append(getScore());
+        sb.append(", status=");
+        sb.append(getStatus());
         sb.append("}");
 
         return sb.toString();
@@ -602,7 +635,7 @@ public class ProductClp extends BaseModelImpl<Product> implements Product {
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(40);
+        StringBundler sb = new StringBundler(43);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Product");
@@ -655,6 +688,10 @@ public class ProductClp extends BaseModelImpl<Product> implements Product {
         sb.append(
             "<column><column-name>score</column-name><column-value><![CDATA[");
         sb.append(getScore());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>status</column-name><column-value><![CDATA[");
+        sb.append(getStatus());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

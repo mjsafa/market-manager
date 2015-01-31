@@ -208,7 +208,13 @@
                                 امتیاز تخصیصی
                             </th>
                             <th>
+                                وضعیت
+                            </th>
+                            <th>
                                 تاریخ
+                            </th>
+                            <th>
+                                تغییر وضعیت
                             </th>
                             <th>
                                 ویرایش
@@ -248,11 +254,28 @@
                                 <br/>
                                 <span class="validation-score validation text-danger"></span>
                             </td>
+                            <td>
+                                {{ showStatus(product.status) }}
+                            </td>
                             <td style="direction: ltr; text-align: right; min-width: 170px;">
                                 {{product.createDate | myDate:'jYYYY/jM/jD - H:mm'}}
                             </td>
-
                             <td>
+                                <button type="button" ng-confirm-action="updateStatus(product.id, 5)"
+                                        ng-if="21 == product.status"
+                                        ng-confirm-message="آیا از تغییر وضعیت کالا با نام {{product.name}} به غیر فعال اطمینان دارید؟"
+                                        class="btn red">
+                                    {{ showStatus(5) }}
+                                </button>
+                                <button type="button" ng-confirm-action="updateStatus(product.id, 21)"
+                                        ng-if="5 == product.status"
+                                        ng-confirm-message="آیا از تغییر وضعیت کالا با نام {{product.name}} به فعال اطمینان دارید؟"
+                                        class="btn green">
+                                    {{ showStatus(21) }}
+                                </button>
+                            </td>
+
+                            <td style="min-width: 150px;">
                                 <form editable-form name="productForm" onbeforesave="submitProduct($data, product.id)"
                                       ng-show="productForm.$visible" class="form-buttons form-inline"
                                       shown="inserted == product">
