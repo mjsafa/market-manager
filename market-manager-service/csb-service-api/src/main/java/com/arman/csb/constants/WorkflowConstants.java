@@ -8,5 +8,5 @@ package com.arman.csb.constants;
  */
 public class WorkflowConstants extends com.liferay.portal.kernel.workflow.WorkflowConstants{
     public static final int STATUS_DOWNLOADED = 20;
-
+    public static final int STATUS_ACTIVE = 21;
 }

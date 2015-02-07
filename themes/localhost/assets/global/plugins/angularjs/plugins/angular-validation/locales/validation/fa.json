@@ -30,7 +30,7 @@
     "INVALID_MAX_NUM":          "Needs to be a numeric value, equal to, or lower than :param. ",
     "INVALID_MIN_CHAR":         "حد اقل طول این فیلد :param حرف است. ",
     "INVALID_MIN_NUM":          "تنها اعداد بزرگتر یا مساوی :param پذیرفته است. ",
-    "INVALID_NUMERIC":          "باید یک عدد مثبت باشد. ",
+    "INVALID_NUMERIC":          "تنها مقادیر عددی پذیرفته است. ",
     "INVALID_NUMERIC_SIGNED":   "Must be a positive or negative number. ",
     "INVALID_PATTERN":          "Must be following this format: :param. ",
     "INVALID_REQUIRED":         "ورود این فیلد الزامی است. ",

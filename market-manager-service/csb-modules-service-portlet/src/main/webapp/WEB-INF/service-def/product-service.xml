@@ -20,6 +20,7 @@
         <column name="code" type="String" />
         <column name="basePrice" type="long" />
         <column name="score" type="long" />
+        <column name="status" type="int"/>
 
         <finder name="UserId" return-type="Collection">
             <finder-column name="userId"></finder-column>

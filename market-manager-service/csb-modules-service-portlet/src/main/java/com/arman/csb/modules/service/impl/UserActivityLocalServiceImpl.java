@@ -3,12 +3,15 @@ package com.arman.csb.modules.service.impl;
 import com.arman.csb.modules.model.UserActivity;
 import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.UserActivityLocalServiceBaseImpl;
+import com.liferay.portal.kernel.captcha.CaptchaUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.servlet.PortalSessionContext;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
+import javax.portlet.PortletSessionUtil;
 import java.util.Date;
 
 /**
@@ -38,7 +41,7 @@ public class UserActivityLocalServiceImpl
         UserActivity activity = UserActivityLocalServiceUtil.createUserActivity(counterLocalService.increment(UserActivity.class.getName()));
 
         activity.setUserId(onlineUser.getUserId());
-        activity.setUserName(onlineUser.getFullName());
+        activity.setUserName(onlineUser.getFirstName() + " " + onlineUser.getLastName());
         activity.setCompanyId(serviceContext.getCompanyId());
         activity.setGroupId(serviceContext.getScopeGroupId());
         activity.setCreateDate(new Date());

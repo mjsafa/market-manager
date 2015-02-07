@@ -250,6 +250,20 @@ public interface ProductModel extends BaseModel<Product>, StagedGroupedModel {
      */
     public void setScore(long score);
 
+    /**
+     * Returns the status of this product.
+     *
+     * @return the status of this product
+     */
+    public int getStatus();
+
+    /**
+     * Sets the status of this product.
+     *
+     * @param status the status of this product
+     */
+    public void setStatus(int status);
+
     @Override
     public boolean isNew();
 

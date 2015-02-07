@@ -40,6 +40,15 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
         {value:5, text:'دانلود'}
     ];
 
+    $scope.statuses = [
+        {value:21, text:'فعال'},
+        {value:5, text:'غیر فعال'},
+        {value:1, text:'در دست بررسی'},
+        {value:0, text:'تایید شده'},
+        {value:10001, text:'بسته شده'},
+        {value:4, text:'رد شده'}
+    ];
+
     $scope.getName = function (input, data, param) {
         var result = 'none';
 
@@ -66,6 +75,10 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
 
     $scope.showAction = function (input) {
         return $scope.getName(input, $scope.actions, 'text');
+    };
+
+    $scope.showStatus = function (input) {
+        return $scope.getName(input, $scope.statuses, 'text');
     };
 
     $scope.getLinkURL = function (entity, data) {
@@ -102,14 +115,21 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
                 + " - کد جنس: " + data.product.code
                 + " - قیمت پایه: " + data.product.basePrice
                 + " - تعداد: " + data.number;
+
         }
 
         if (entity == "Invoice") {
-            return "اطلاعات تا لحظه ثبت: "
-                + "تعداد اقلام : " + data.itemNumber
-                + " - جمع کل هزینه: " + data.totalCost
-                + " - مشتری : " + data.customerName;
-            ;
+            if(4 == action) {
+                return " تغییر وضیت فاکتور از  "
+                       + "\"" + $scope.showStatus(data.oldStatus) + "\""
+                       + " به "
+                       + "\"" + $scope.showStatus(data.status) + "\"";
+            } else {
+                return "اطلاعات تا لحظه ثبت: "
+                    + "تعداد اقلام : " + data.itemNumber
+                    + " - جمع کل هزینه: " + data.totalCost
+                    + " - مشتری : " + data.customerName;
+            }
         }
 
         if (entity == "Customer") {
@@ -220,12 +240,20 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
         }
 
         if (entity == "Product") {
-            return "اطلاعات تا لحظه ثبت: "
-                + " نام کالا: " + data.name
-                + " - کد کالا: " + data.code
-                + " - قیمت پایه: " + data.basePrice
-                + "- میزان امتیاز: " + data.score;
-            ;
+            if(4 == action) {
+                return "تغییر وضیت کالا با نام "
+                    + "\"" + data.name + "\""
+                    + " از "
+                    + "\"" + $scope.showStatus(data.oldStatus) + "\""
+                    + " به "
+                    + "\"" + $scope.showStatus(data.status) + "\"";
+            } else {
+                return "اطلاعات تا لحظه ثبت: "
+                    + " نام کالا: " + data.name
+                    + " - کد کالا: " + data.code
+                    + " - قیمت پایه: " + data.basePrice
+                    + "- میزان امتیاز: " + data.score;
+            }
         }
 
     }

@@ -19,7 +19,7 @@
 <portlet:defineObjects/>
 
 <portlet:actionURL var="loginURL">
-    <portlet:param name="struts_action" value="/login/login"/>
+    <portlet:param name="struts_action" value="/portal/forgot"/>
 </portlet:actionURL>
 
 <button><%= loginURL%>

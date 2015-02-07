@@ -207,6 +207,9 @@
                     (product.name like '##KEYWORD##') OR
                     (product.code_ like '##KEYWORD##') OR
                     (product.userName like '##KEYWORD##')
+                ) AND
+                (
+                    (? OR product.status = ?)
                 )
             ORDER BY product.createDate DESC
         ]]>

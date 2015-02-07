@@ -21,6 +21,8 @@ public class ProductServiceClpInvoker {
     private String[] _methodParameterTypes74;
     private String _methodName75;
     private String[] _methodParameterTypes75;
+    private String _methodName76;
+    private String[] _methodParameterTypes76;
 
     public ProductServiceClpInvoker() {
         _methodName66 = "getBeanIdentifier";
@@ -46,7 +48,7 @@ public class ProductServiceClpInvoker {
         _methodName74 = "search";
 
         _methodParameterTypes74 = new String[] {
-                "java.lang.String", "int", "int",
+                "java.lang.String", "int", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -54,6 +56,12 @@ public class ProductServiceClpInvoker {
 
         _methodParameterTypes75 = new String[] {
                 "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName76 = "updateProductStatus";
+
+        _methodParameterTypes76 = new String[] {
+                "long", "int", "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -88,13 +96,21 @@ public class ProductServiceClpInvoker {
             return ProductServiceUtil.search((java.lang.String) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue(),
-                (com.liferay.portal.service.ServiceContext) arguments[3]);
+                ((Integer) arguments[3]).intValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[4]);
         }
 
         if (_methodName75.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
             return ProductServiceUtil.getById(((Long) arguments[0]).longValue(),
                 (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName76.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+            return ProductServiceUtil.updateProductStatus(((Long) arguments[0]).longValue(),
+                ((Integer) arguments[1]).intValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[2]);
         }
 
         throw new UnsupportedOperationException();

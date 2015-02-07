@@ -64,10 +64,12 @@ public class ProductServiceWrapper implements ProductService,
 
     @Override
     public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, int start, int maxResult,
+        java.lang.String filter, int status, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)
-        throws com.liferay.portal.kernel.json.JSONException {
-        return _productService.search(filter, start, maxResult, serviceContext);
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _productService.search(filter, status, start, maxResult,
+            serviceContext);
     }
 
     @Override
@@ -76,6 +78,16 @@ public class ProductServiceWrapper implements ProductService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return _productService.getById(productId, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONObject updateProductStatus(
+        long productId, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _productService.updateProductStatus(productId, status,
+            serviceContext);
     }
 
     /**

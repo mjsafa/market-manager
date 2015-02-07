@@ -9,6 +9,8 @@ import com.arman.csb.modules.model.impl.CustomerImpl;
 import com.arman.csb.modules.model.impl.InvoiceImpl;
 import com.arman.csb.modules.service.*;
 import com.arman.csb.modules.service.base.InvoiceServiceBaseImpl;
+import com.arman.csb.modules.util.RoleEnum;
+import com.arman.csb.modules.util.RoleUtil;
 import com.arman.csb.util.MapUtil;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -64,10 +66,13 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
 
         newInvoice = getInvoiceData(newInvoice, invoice, serviceContext);
 
+        //SECURITY CHECKS
+        RoleUtil.checkAnyRolesOrSameCustomer(serviceContext.getUserId(), newInvoice.getCustomerId(), RoleEnum.INVOICE_MANAGER.toString());
+
         InvoiceLocalServiceUtil.addInvoice(newInvoice);
 
         List<Map<String, Object>> items = (List) invoice.get("invoiceItems");
-        JSONArray invoiceItems = JSONFactoryUtil.createJSONArray();;
+        JSONArray invoiceItems = JSONFactoryUtil.createJSONArray();
         for (Map<String, Object> item : items) {
             item.put("invoiceId", newInvoice.getId());
             JSONObject itemObject = InvoiceItemServiceUtil.addInvoiceItem(item, serviceContext);
@@ -87,6 +92,7 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         updateInvoice.setModifiedDate(new Date());
 
         updateInvoice = getInvoiceData(updateInvoice, invoice, serviceContext);
+        RoleUtil.checkAnyRolesOrSameCustomer(serviceContext.getUserId(), updateInvoice.getCustomerId(), RoleEnum.INVOICE_MANAGER.toString());
 
         InvoiceLocalServiceUtil.updateInvoice(updateInvoice);
 
@@ -97,7 +103,8 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         return getJSONObject(updateInvoice);
     }
 
-    public JSONArray search(String filter, String status, long customerId, int start, int maxResult, ServiceContext serviceContext) throws JSONException {
+    public JSONArray search(String filter, String status, long customerId, int start, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRolesOrSameCustomer(serviceContext.getUserId(), customerId, RoleEnum.INVOICE_MANAGER.toString());
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
         Session session = invoicePersistence.openSession();
@@ -153,10 +160,12 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
     public JSONObject getById(long invoiceId,ServiceContext serviceContext) throws PortalException, SystemException {
         Invoice invoice = InvoiceLocalServiceUtil.getInvoice(invoiceId);
 
+        RoleUtil.checkAnyRolesOrSameCustomer(serviceContext.getUserId(), invoice.getCustomerId(), RoleEnum.INVOICE_MANAGER.toString());
         return getJSONObject(invoice);
     }
 
     public JSONObject updateInvoiceStatus(long invoiceId, int status, ServiceContext serviceContext) throws SystemException, PortalException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.INVOICE_MANAGER.toString());
         Invoice invoice = InvoiceLocalServiceUtil.getInvoice(invoiceId);
         int oldStatus = invoice.getStatus();
 

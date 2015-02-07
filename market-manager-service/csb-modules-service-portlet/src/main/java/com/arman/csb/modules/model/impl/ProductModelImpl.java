@@ -64,9 +64,10 @@ public class ProductModelImpl extends BaseModelImpl<Product>
             { "name", Types.VARCHAR },
             { "code_", Types.VARCHAR },
             { "basePrice", Types.BIGINT },
-            { "score", Types.BIGINT }
+            { "score", Types.BIGINT },
+            { "status", Types.INTEGER }
         };
-    public static final String TABLE_SQL_CREATE = "create table CSBModules_Product (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,code_ VARCHAR(75) null,basePrice LONG,score LONG)";
+    public static final String TABLE_SQL_CREATE = "create table CSBModules_Product (uuid_ VARCHAR(75) null,id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,code_ VARCHAR(75) null,basePrice LONG,score LONG,status INTEGER)";
     public static final String TABLE_SQL_DROP = "drop table CSBModules_Product";
     public static final String ORDER_BY_JPQL = " ORDER BY product.id ASC";
     public static final String ORDER_BY_SQL = " ORDER BY CSBModules_Product.id_ ASC";
@@ -117,6 +118,7 @@ public class ProductModelImpl extends BaseModelImpl<Product>
     private String _originalCode;
     private long _basePrice;
     private long _score;
+    private int _status;
     private long _columnBitmask;
     private Product _escapedModel;
 
@@ -148,6 +150,7 @@ public class ProductModelImpl extends BaseModelImpl<Product>
         model.setCode(soapModel.getCode());
         model.setBasePrice(soapModel.getBasePrice());
         model.setScore(soapModel.getScore());
+        model.setStatus(soapModel.getStatus());
 
         return model;
     }
@@ -218,6 +221,7 @@ public class ProductModelImpl extends BaseModelImpl<Product>
         attributes.put("code", getCode());
         attributes.put("basePrice", getBasePrice());
         attributes.put("score", getScore());
+        attributes.put("status", getStatus());
 
         return attributes;
     }
@@ -294,6 +298,12 @@ public class ProductModelImpl extends BaseModelImpl<Product>
 
         if (score != null) {
             setScore(score);
+        }
+
+        Integer status = (Integer) attributes.get("status");
+
+        if (status != null) {
+            setStatus(status);
         }
     }
 
@@ -519,6 +529,17 @@ public class ProductModelImpl extends BaseModelImpl<Product>
         _score = score;
     }
 
+    @JSON
+    @Override
+    public int getStatus() {
+        return _status;
+    }
+
+    @Override
+    public void setStatus(int status) {
+        _status = status;
+    }
+
     @Override
     public StagedModelType getStagedModelType() {
         return new StagedModelType(PortalUtil.getClassNameId(
@@ -568,6 +589,7 @@ public class ProductModelImpl extends BaseModelImpl<Product>
         productImpl.setCode(getCode());
         productImpl.setBasePrice(getBasePrice());
         productImpl.setScore(getScore());
+        productImpl.setStatus(getStatus());
 
         productImpl.resetOriginalValues();
 
@@ -702,12 +724,14 @@ public class ProductModelImpl extends BaseModelImpl<Product>
 
         productCacheModel.score = getScore();
 
+        productCacheModel.status = getStatus();
+
         return productCacheModel;
     }
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(25);
+        StringBundler sb = new StringBundler(27);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -733,6 +757,8 @@ public class ProductModelImpl extends BaseModelImpl<Product>
         sb.append(getBasePrice());
         sb.append(", score=");
         sb.append(getScore());
+        sb.append(", status=");
+        sb.append(getStatus());
         sb.append("}");
 
         return sb.toString();
@@ -740,7 +766,7 @@ public class ProductModelImpl extends BaseModelImpl<Product>
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(40);
+        StringBundler sb = new StringBundler(43);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Product");
@@ -793,6 +819,10 @@ public class ProductModelImpl extends BaseModelImpl<Product>
         sb.append(
             "<column><column-name>score</column-name><column-value><![CDATA[");
         sb.append(getScore());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>status</column-name><column-value><![CDATA[");
+        sb.append(getStatus());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

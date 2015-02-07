@@ -134,6 +134,7 @@ angular.module('ui.bootstrap.persian.datepicker', ['ui.bootstrap.dateparser', 'u
   };
 
   this.createDateObject = function(date, format) {
+      //console.log(persianDateFilter(date, format));
     var model = ngModelCtrl.$modelValue ? new Date(ngModelCtrl.$modelValue) : null;
     return {
       date: date,
@@ -462,14 +463,15 @@ angular.module('ui.bootstrap.persian.datepicker', ['ui.bootstrap.dateparser', 'u
       ctrl._refreshView = function() {
         var years = new Array(range);
 
+          //console.log(PersianDateService.getFullYear(ctrl.activeDate));
         //for ( var i = 0, start = getStartingYear(ctrl.activeDate.getFullYear()); i < range; i++ ) {
 		for ( var i = 0, start = getStartingYear(PersianDateService.getFullYear(ctrl.activeDate)); i < range; i++ ) {
 		
           //years[i] = angular.extend(ctrl.createDateObject(new Date(start + i, 0, 1), ctrl.formatYear), {
 		  years[i] = angular.extend(ctrl.createDateObject(PersianDateService.persian_to_gregorian_Date(start + i, 0, 1), ctrl.formatYear), {
-		  
             uid: scope.uniqueId + '-' + i
-          });
+        });
+
         }
 
         scope.title = [years[0].label, years[range - 1].label].join(' - ');

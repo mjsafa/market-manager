@@ -1,12 +1,15 @@
 package com.arman.csb.modules.service.impl;
 
 import com.arman.csb.constant.UserActivityConstant;
+import com.arman.csb.constants.WorkflowConstants;
 import com.arman.csb.modules.model.Product;
 import com.arman.csb.modules.model.impl.ProductImpl;
 import com.arman.csb.modules.service.ProductLocalServiceUtil;
 import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.ProductServiceBaseImpl;
+import com.arman.csb.modules.util.RoleUtil;
 import com.arman.csb.util.MapUtil;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -43,6 +46,7 @@ public class ProductServiceImpl extends ProductServiceBaseImpl {
      */
 
     public JSONObject addProduct(Map<String, Object> product, ServiceContext serviceContext) throws SystemException, PortalException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId());
 
         User onlineUser = UserLocalServiceUtil.getUser(serviceContext.getUserId());
 
@@ -52,6 +56,7 @@ public class ProductServiceImpl extends ProductServiceBaseImpl {
         newProduct.setUserId(onlineUser.getUserId());
         newProduct.setCompanyId(serviceContext.getCompanyId());
         newProduct.setGroupId(serviceContext.getScopeGroupId());
+        newProduct.setStatus(WorkflowConstants.STATUS_ACTIVE);
         newProduct.setCreateDate(new Date());
         newProduct.setModifiedDate(new Date());
 
@@ -66,6 +71,8 @@ public class ProductServiceImpl extends ProductServiceBaseImpl {
     }
 
     public JSONObject updateProduct(Map<String, Object> product, ServiceContext serviceContext) throws SystemException, PortalException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId());
+
         long productId = MapUtil.getLong(product, "id");
         Product updateProduct = ProductLocalServiceUtil.getProduct(productId);
 
@@ -81,21 +88,29 @@ public class ProductServiceImpl extends ProductServiceBaseImpl {
         return getJSONObject(updateProduct);
     }
 
-    public JSONArray search(String filter, int start, int maxResult, ServiceContext serviceContext)
-            throws JSONException {
-
+    public JSONArray search(String filter, int status, int start, int maxResult, ServiceContext serviceContext)
+            throws PortalException, SystemException {
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
         Session session = productPersistence.openSession();
 
         String sql = CustomSQLUtil.get("com.arman.csb.modules.service.Product.search");
-        sql = sql.replaceAll("##KEYWORD##","%" + filter + "%");
+        sql = sql.replaceAll("##KEYWORD##", "%" + filter + "%");
 
         SQLQuery queryObject = session.createSQLQuery(sql);
 
         queryObject.addEntity(ProductImpl.TABLE_NAME, ProductImpl.class);
         queryObject.setFirstResult(start);
         queryObject.setMaxResults(maxResult);
+
+        QueryPos qPos = QueryPos.getInstance(queryObject);
+        if(-1 == status) {
+            qPos.add(true);
+        } else {
+            qPos.add(false);
+        }
+
+        qPos.add(status);
 
         List<Product> products = queryObject.list();
 
@@ -107,9 +122,30 @@ public class ProductServiceImpl extends ProductServiceBaseImpl {
     }
 
     public JSONObject getById(long productId, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId());
         Product product = ProductLocalServiceUtil.getProduct(productId);
 
         return getJSONObject(product);
+    }
+
+    public JSONObject updateProductStatus(long productId, int status, ServiceContext serviceContext) throws SystemException, PortalException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId());
+
+        Product product = ProductLocalServiceUtil.getProduct(productId);
+        int oldStatus = product.getStatus();
+
+        product.setStatus(status);
+
+        ProductLocalServiceUtil.updateProduct(product);
+
+        JSONObject result = getJSONObject(product);
+        result.put("oldStatus", oldStatus);
+
+        UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_PRODUCT,
+                UserActivityConstant.ACTION_CHANGE_STATUS, UserActivityConstant.IMPORTANCE_HIGH,
+                result.toString(), serviceContext);
+
+        return result;
     }
 
     private Product getProductData(Product productObject, Map<String, Object> product, ServiceContext serviceContext) {

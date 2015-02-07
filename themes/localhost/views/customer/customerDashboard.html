@@ -218,9 +218,9 @@
                     </tr>
                     </thead>
                     <tr ng-repeat="invitee in customer.invitees">
-                        <td class="fit">
-                            <img class="user-pic"
-                                 src="/delegate/resource/assets/admin/layout/img/avatar4.jpg">
+
+                        <td>
+                            <i class="icon icon-user font-grey-cascade" style="font-size: 15px;"></i>
                         </td>
                         <td>
                             <a href="#/customer/{{invitee.id}}" class="primary-link">{{invitee.name}}</a>
@@ -318,7 +318,7 @@
                             {{payment.customer.name}}
                         </td>
                         <td>
-                            {{payment.amount}}
+                            {{payment.amount | score}}
                         </td>
 
                         <td style="direction: ltr; text-align: right;">
@@ -338,12 +338,12 @@
                                 واریز شده
                             </span>
                             <span ng-if="payment.status == 20"
-                                  class="label label-bg label-blue">
+                                  class="label label-bg label-blue bg-yellow">
                                 در دست بررسی
                             </span>
                             <span ng-if="payment.status == 4"
                                   class="label label-bg label-danger">
-                                رد شده
+                                مرجوع شده
                             </span>
                         </td>
                     </tr>

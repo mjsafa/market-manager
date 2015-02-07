@@ -33,10 +33,11 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
     public String code;
     public long basePrice;
     public long score;
+    public int status;
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(25);
+        StringBundler sb = new StringBundler(27);
 
         sb.append("{uuid=");
         sb.append(uuid);
@@ -62,6 +63,8 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
         sb.append(basePrice);
         sb.append(", score=");
         sb.append(score);
+        sb.append(", status=");
+        sb.append(status);
         sb.append("}");
 
         return sb.toString();
@@ -114,6 +117,7 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
 
         productImpl.setBasePrice(basePrice);
         productImpl.setScore(score);
+        productImpl.setStatus(status);
 
         productImpl.resetOriginalValues();
 
@@ -134,6 +138,7 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
         code = objectInput.readUTF();
         basePrice = objectInput.readLong();
         score = objectInput.readLong();
+        status = objectInput.readInt();
     }
 
     @Override
@@ -173,5 +178,6 @@ public class ProductCacheModel implements CacheModel<Product>, Externalizable {
 
         objectOutput.writeLong(basePrice);
         objectOutput.writeLong(score);
+        objectOutput.writeInt(status);
     }
 }

@@ -318,10 +318,18 @@
 
                     </div>
 
-                    <div class="form-actions right">
+                    <div class="form-actions right" ng-if="currentCustomerId">
                         <button ng-disabled="invoice_form.$invalid"
                                 ng-confirm-action="submitInvoice()"
                                 ng-confirm-message="آیا از افزودن فاکتور با تعداد {{newInvoice.invoiceItems.length}} قلم کالا و ارزش {{calculateTotalScore()|score}} امتیاز موافقید؟"
+                                class="btn green">ثبت فاکتور جدید
+                        </button>
+                    </div>
+
+                    <div class="form-actions right" ng-if="!currentCustomerId">
+                        <button ng-disabled="invoice_form.$invalid"
+                                ng-confirm-action="submitInvoice()"
+                                ng-confirm-message=" آیا از افزودن فاکتور با تعداد {{newInvoice.invoiceItems.length}} قلم کالا و ارزش {{calculateTotalScore()|score}} امتیاز  برای کاربر {{newInvoice.customer.name}} موافقید؟ "
                                 class="btn green">ثبت فاکتور جدید
                         </button>
                     </div>

@@ -1,7 +1,7 @@
 MetronicApp.factory("ProductService", function (JsonServer) {
     return {
-        search:function (filter, options) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.product', 'search', {filter:filter, start:0, maxResult:30, serviceContext:{}}, {
+        search:function (filter, status, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.product', 'search', {filter:filter, status:status, start:0, maxResult:30, serviceContext:{}}, {
                 eventName:'ProductService.search',
                 scope:options ? options.scope : undefined
             });
@@ -23,6 +23,13 @@ MetronicApp.factory("ProductService", function (JsonServer) {
                 eventName:'ProductService.updateProduct',
                 scope:options ? options.scope : undefined
             });
+        },
+        updateProductStatus:function (productId, status, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.product', 'update-product-status', {productId:productId, status:status, serviceContext:{}}, {
+                eventName:'ProductService.updateProductStatus',
+                scope:options ? options.scope : undefined
+            });
         }
+
     }
 });

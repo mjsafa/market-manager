@@ -9,5 +9,11 @@
             com.arman.csb.login.LoginAction
         </struts-action-impl>
     </struts-action>
+    <struts-action>
+        <struts-action-path>/portal/forgot</struts-action-path>
+        <struts-action-impl>
+            com.arman.csb.login.ForgotPasswordAction
+        </struts-action-impl>
+    </struts-action>
 
 </hook>

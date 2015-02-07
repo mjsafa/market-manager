@@ -968,7 +968,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/js/server/ProductService.js',
                             '/delegate/resource/js/server/CustomerService.js',
                             '/delegate/resource/js/controllers/customer/CustomerSelectController.js',
-                            '/delegate/resource/js/controllers/product/ProductsController.js'
+                            '/delegate/resource/js/controllers/product/ProductsController.js',
+                            '/delegate/resource/js/viewDirectives.js'
                         ]
                     });
                 }]

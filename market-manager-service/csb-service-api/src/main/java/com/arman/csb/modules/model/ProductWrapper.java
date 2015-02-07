@@ -50,6 +50,7 @@ public class ProductWrapper implements Product, ModelWrapper<Product> {
         attributes.put("code", getCode());
         attributes.put("basePrice", getBasePrice());
         attributes.put("score", getScore());
+        attributes.put("status", getStatus());
 
         return attributes;
     }
@@ -126,6 +127,12 @@ public class ProductWrapper implements Product, ModelWrapper<Product> {
 
         if (score != null) {
             setScore(score);
+        }
+
+        Integer status = (Integer) attributes.get("status");
+
+        if (status != null) {
+            setStatus(status);
         }
     }
 
@@ -409,6 +416,26 @@ public class ProductWrapper implements Product, ModelWrapper<Product> {
     @Override
     public void setScore(long score) {
         _product.setScore(score);
+    }
+
+    /**
+    * Returns the status of this product.
+    *
+    * @return the status of this product
+    */
+    @Override
+    public int getStatus() {
+        return _product.getStatus();
+    }
+
+    /**
+    * Sets the status of this product.
+    *
+    * @param status the status of this product
+    */
+    @Override
+    public void setStatus(int status) {
+        _product.setStatus(status);
     }
 
     @Override

@@ -7,12 +7,12 @@ MetronicApp.controller('ProductSelectController', ['$rootScope', '$scope', 'Prod
             $scope.products = data.result;
         });
 
-        ProductService.search('',{scope: $scope});
+        ProductService.search('', 21, {scope: $scope});
     }
 
 
     $scope.doSearch = function () {
-        ProductService.search($scope.query || '', {scope: $scope});
+        ProductService.search($scope.query || '', 21, {scope: $scope});
     }
 
     $scope.ok = function (item) {
