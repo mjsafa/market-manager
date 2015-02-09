@@ -56,6 +56,7 @@
 		<property name="mobile" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="typeOfDelivery" type="com.liferay.portal.dao.orm.hibernate.ShortType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="explain" type="com.liferay.portal.dao.orm.hibernate.StringType" column="explain_" />
 	</class>
 	<class name="com.arman.csb.modules.model.impl.InvoiceItemImpl" table="CSBModules_InvoiceItem">
 		<cache usage="read-write" />

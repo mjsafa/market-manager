@@ -25,10 +25,7 @@ import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.service.impl.UserLocalServiceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The implementation of the invoice remote service.
@@ -216,12 +213,21 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         invoiceObject.setMobile(MapUtil.getString(invoice, "mobile"));
         invoiceObject.setTypeOfDelivery(MapUtil.getShort(invoice, "typeOfDelivery"));
 
+        Map<String, Object> explain = (Map<String, Object>) invoice.get("explain");
+        JSONObject tempObject = JSONFactoryUtil.createJSONObject();
+        tempObject.put("invoiceExplain", String.valueOf(explain.get("invoiceExplain")));
+
+        invoiceObject.setExplain(tempObject.toString());
+
         return invoiceObject;
     }
 
     private JSONObject getJSONObject(Invoice invoice) throws JSONException {
         JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
         JSONObject result = JSONFactoryUtil.createJSONObject(jsonSerializer.serialize(invoice));
+
+        result.remove("explain");
+        result.put("explain", JSONFactoryUtil.createJSONObject(invoice.getExplain()));
 
         return result;
     }

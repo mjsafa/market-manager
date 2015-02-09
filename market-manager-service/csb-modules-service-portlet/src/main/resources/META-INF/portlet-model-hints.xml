@@ -38,6 +38,9 @@
 		<field name="mobile" type="String" />
 		<field name="typeOfDelivery" type="Short" />
 		<field name="status" type="int" />
+		<field name="explain" type="String">
+			<hint name="max-length">2000</hint>
+		</field>
 	</model>
 	<model name="com.arman.csb.modules.model.InvoiceItem">
 		<field name="uuid" type="String" />

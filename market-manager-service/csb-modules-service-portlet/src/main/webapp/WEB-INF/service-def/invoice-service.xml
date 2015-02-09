@@ -22,7 +22,8 @@
         <column name="mobile" type="String" />
         <column name="typeOfDelivery" type="Short" />
         <column name="status" type="int"/>
-        
+        <column name="explain" type="String" />
+
         <finder name="UserId" return-type="Collection">
             <finder-column name="userId"></finder-column>
         </finder>

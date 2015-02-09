@@ -35,7 +35,8 @@ create table CSBModules_Invoice (
 	telephone VARCHAR(75) null,
 	mobile VARCHAR(75) null,
 	typeOfDelivery INTEGER,
-	status INTEGER
+	status INTEGER,
+	explain_ VARCHAR(2000) null
 );
 
 create table CSBModules_InvoiceItem (

@@ -37,6 +37,7 @@ public class InvoiceClp extends BaseModelImpl<Invoice> implements Invoice {
     private String _mobile;
     private Short _typeOfDelivery;
     private int _status;
+    private String _explain;
     private BaseModel<?> _invoiceRemoteModel;
 
     public InvoiceClp() {
@@ -90,6 +91,7 @@ public class InvoiceClp extends BaseModelImpl<Invoice> implements Invoice {
         attributes.put("mobile", getMobile());
         attributes.put("typeOfDelivery", getTypeOfDelivery());
         attributes.put("status", getStatus());
+        attributes.put("explain", getExplain());
 
         return attributes;
     }
@@ -178,6 +180,12 @@ public class InvoiceClp extends BaseModelImpl<Invoice> implements Invoice {
 
         if (status != null) {
             setStatus(status);
+        }
+
+        String explain = (String) attributes.get("explain");
+
+        if (explain != null) {
+            setExplain(explain);
         }
     }
 
@@ -500,6 +508,28 @@ public class InvoiceClp extends BaseModelImpl<Invoice> implements Invoice {
     }
 
     @Override
+    public String getExplain() {
+        return _explain;
+    }
+
+    @Override
+    public void setExplain(String explain) {
+        _explain = explain;
+
+        if (_invoiceRemoteModel != null) {
+            try {
+                Class<?> clazz = _invoiceRemoteModel.getClass();
+
+                Method method = clazz.getMethod("setExplain", String.class);
+
+                method.invoke(_invoiceRemoteModel, explain);
+            } catch (Exception e) {
+                throw new UnsupportedOperationException(e);
+            }
+        }
+    }
+
+    @Override
     public StagedModelType getStagedModelType() {
         return new StagedModelType(PortalUtil.getClassNameId(
                 Invoice.class.getName()));
@@ -586,6 +616,7 @@ public class InvoiceClp extends BaseModelImpl<Invoice> implements Invoice {
         clone.setMobile(getMobile());
         clone.setTypeOfDelivery(getTypeOfDelivery());
         clone.setStatus(getStatus());
+        clone.setExplain(getExplain());
 
         return clone;
     }
@@ -631,7 +662,7 @@ public class InvoiceClp extends BaseModelImpl<Invoice> implements Invoice {
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(29);
+        StringBundler sb = new StringBundler(31);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -661,6 +692,8 @@ public class InvoiceClp extends BaseModelImpl<Invoice> implements Invoice {
         sb.append(getTypeOfDelivery());
         sb.append(", status=");
         sb.append(getStatus());
+        sb.append(", explain=");
+        sb.append(getExplain());
         sb.append("}");
 
         return sb.toString();
@@ -668,7 +701,7 @@ public class InvoiceClp extends BaseModelImpl<Invoice> implements Invoice {
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(46);
+        StringBundler sb = new StringBundler(49);
 
         sb.append("<model><model-name>");
         sb.append("com.arman.csb.modules.model.Invoice");
@@ -729,6 +762,10 @@ public class InvoiceClp extends BaseModelImpl<Invoice> implements Invoice {
         sb.append(
             "<column><column-name>status</column-name><column-value><![CDATA[");
         sb.append(getStatus());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>explain</column-name><column-value><![CDATA[");
+        sb.append(getExplain());
         sb.append("]]></column-value></column>");
 
         sb.append("</model>");

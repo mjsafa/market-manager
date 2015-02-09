@@ -279,6 +279,21 @@ public interface InvoiceModel extends BaseModel<Invoice>, StagedGroupedModel {
      */
     public void setStatus(int status);
 
+    /**
+     * Returns the explain of this invoice.
+     *
+     * @return the explain of this invoice
+     */
+    @AutoEscape
+    public String getExplain();
+
+    /**
+     * Sets the explain of this invoice.
+     *
+     * @param explain the explain of this invoice
+     */
+    public void setExplain(String explain);
+
     @Override
     public boolean isNew();
 

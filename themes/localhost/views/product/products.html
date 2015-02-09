@@ -241,7 +241,7 @@
                             <td>
                                  <span editable-text="product.basePrice" e-name="basePrice" e-form="productForm"
                                        onbeforesave="checkNumeric($data, 'قیمت پایه')">
-                                    {{product.basePrice}}
+                                    {{product.basePrice| noFractionCurrency:""}}
                                  </span>
                                 <br/>
                                 <span class="validation-basePrice validation text-danger"></span>

@@ -184,7 +184,7 @@ public class InvoicePersistenceImpl extends BasePersistenceImpl<Invoice>
                 PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
     private static Log _log = LogFactoryUtil.getLog(InvoicePersistenceImpl.class);
     private static Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-                "uuid", "id"
+                "uuid", "id", "explain"
             });
     private static Invoice _nullInvoice = new InvoiceImpl() {
             @Override
@@ -2718,6 +2718,7 @@ public class InvoicePersistenceImpl extends BasePersistenceImpl<Invoice>
         invoiceImpl.setMobile(invoice.getMobile());
         invoiceImpl.setTypeOfDelivery(invoice.getTypeOfDelivery());
         invoiceImpl.setStatus(invoice.getStatus());
+        invoiceImpl.setExplain(invoice.getExplain());
 
         return invoiceImpl;
     }

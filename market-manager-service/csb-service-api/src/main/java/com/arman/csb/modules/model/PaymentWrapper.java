@@ -529,7 +529,7 @@ public class PaymentWrapper implements Payment, ModelWrapper<Payment> {
     }
 
     @Override
-    public int compareTo(com.arman.csb.modules.model.Payment payment) {
+    public int compareTo(Payment payment) {
         return _payment.compareTo(payment);
     }
 
@@ -539,17 +539,17 @@ public class PaymentWrapper implements Payment, ModelWrapper<Payment> {
     }
 
     @Override
-    public com.liferay.portal.model.CacheModel<com.arman.csb.modules.model.Payment> toCacheModel() {
+    public com.liferay.portal.model.CacheModel<Payment> toCacheModel() {
         return _payment.toCacheModel();
     }
 
     @Override
-    public com.arman.csb.modules.model.Payment toEscapedModel() {
+    public Payment toEscapedModel() {
         return new PaymentWrapper(_payment.toEscapedModel());
     }
 
     @Override
-    public com.arman.csb.modules.model.Payment toUnescapedModel() {
+    public Payment toUnescapedModel() {
         return new PaymentWrapper(_payment.toUnescapedModel());
     }
 

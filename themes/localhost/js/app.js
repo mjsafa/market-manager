@@ -35,7 +35,7 @@ var MetronicApp = angular.module("MetronicApp", [
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
 MetronicApp.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
     $ocLazyLoadProvider.config({
-        cssFilesInsertBefore:'ng_load_plugins_before' // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+        cssFilesInsertBefore: 'ng_load_plugins_before' // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
     });
 }]);
 
@@ -47,13 +47,13 @@ MetronicApp.constant('angularMomentConfig', {
 MetronicApp.factory('settings', ['$rootScope', function ($rootScope) {
     // supported languages
     var settings = {
-        layout:{
-            pageSidebarClosed:false, // sidebar menu state
-            pageBodySolid:false, // solid body color state
-            pageAutoScrollOnLoad:1000 // auto scroll to top on page load
+        layout: {
+            pageSidebarClosed: false, // sidebar menu state
+            pageBodySolid: false, // solid body color state
+            pageAutoScrollOnLoad: 1000 // auto scroll to top on page load
         },
-        layoutImgPath:Metronic.getAssetsPath() + 'admin/layout/img/',
-        layoutCssPath:Metronic.getAssetsPath() + 'admin/layout/css/'
+        layoutImgPath: Metronic.getAssetsPath() + 'admin/layout/img/',
+        layoutCssPath: Metronic.getAssetsPath() + 'admin/layout/css/'
     };
 
     $rootScope.settings = settings;
@@ -146,43 +146,43 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // Dashboard
         .state('dashboard', {
-        url:"/dashboard.html",
-        templateUrl:"/delegate/resource/views/dashboard.html",
-        data:{pageTitle:'Admin Dashboard Template'},
-        controller:"DashboardController",
-        resolve:{
-            deps:['$ocLazyLoad', function ($ocLazyLoad) {
-                return $ocLazyLoad.load({
-                    name:'MetronicApp',
-                    files:[
-                        '/delegate/resource/assets/global/plugins/morris/morris.css',
-                        '/delegate/resource/assets/admin/pages/css/tasks.css',
+            url: "/dashboard.html",
+            templateUrl: "/delegate/resource/views/dashboard.html",
+            data: {pageTitle: 'Admin Dashboard Template'},
+            controller: "DashboardController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        files: [
+                            '/delegate/resource/assets/global/plugins/morris/morris.css',
+                            '/delegate/resource/assets/admin/pages/css/tasks.css',
 
-                        '/delegate/resource/assets/global/plugins/morris/morris.min.js',
-                        '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
-                        '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/morris.min.js',
+                            '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
+                            '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
 
-                        '/delegate/resource/assets/admin/pages/scripts/index3.js',
-                        '/delegate/resource/assets/admin/pages/scripts/tasks.js',
+                            '/delegate/resource/assets/admin/pages/scripts/index3.js',
+                            '/delegate/resource/assets/admin/pages/scripts/tasks.js',
 
-                        '/delegate/resource/js/controllers/DashboardController.js'
-                    ]
-                });
-            }]
-        }
-    })
+                            '/delegate/resource/js/controllers/DashboardController.js'
+                        ]
+                    });
+                }]
+            }
+        })
 
         // customers
         .state('customers', {
-            url:"/customers.html",
-            templateUrl:"/delegate/resource/views/customers.html",
-            data:{pageTitle:'لیست مشتریان'},
-            controller:"CustomersController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/customers.html",
+            templateUrl: "/delegate/resource/views/customers.html",
+            data: {pageTitle: 'لیست مشتریان'},
+            controller: "CustomersController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -208,15 +208,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // customer details
         .state('customerDetail', {
-            url:"/customer/:customerId",
-            templateUrl:"/delegate/resource/views/customerDetail.html",
-            data:{pageTitle:'اطلاعات مشتری'},
-            controller:"CustomerDetailController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/customer/:customerId",
+            templateUrl: "/delegate/resource/views/customerDetail.html",
+            data: {pageTitle: 'اطلاعات مشتری'},
+            controller: "CustomerDetailController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
 
@@ -239,15 +239,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // customer details
         .state('customerDashboard', {
-            url:"/customerDashboard",
-            templateUrl:"/delegate/resource/views/customer/customerDashboard.html",
-            data:{pageTitle:'صفحه اختصاصی مشتری'},
-            controller:"CustomerDetailController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/customerDashboard",
+            templateUrl: "/delegate/resource/views/customer/customerDashboard.html",
+            data: {pageTitle: 'صفحه اختصاصی مشتری'},
+            controller: "CustomerDetailController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
 
@@ -269,15 +269,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // PAYMENTS
         .state('payments', {
-            url:"/payments",
-            templateUrl:"/delegate/resource/views/payment/payments.html",
-            data:{pageTitle:'بخش پرداخت ها'},
-            controller:"PaymentsController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/payments",
+            templateUrl: "/delegate/resource/views/payment/payments.html",
+            data: {pageTitle: 'بخش پرداخت ها'},
+            controller: "PaymentsController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -302,15 +302,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // PAYMENTS
         .state('paymentDownload', {
-            url:"/paymentDownload",
-            templateUrl:"/delegate/resource/views/payment/paymentDownload.html",
-            data:{pageTitle:'بخش پرداخت ها'},
-            controller:"PaymentDownloadController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/paymentDownload",
+            templateUrl: "/delegate/resource/views/payment/paymentDownload.html",
+            data: {pageTitle: 'بخش پرداخت ها'},
+            controller: "PaymentDownloadController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -336,15 +336,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // customer details
         .state('adminDashboard', {
-            url:"/adminDashboard",
-            templateUrl:"/delegate/resource/views/admin/adminDashboard.html",
-            data:{pageTitle:'پنل مدیریت'},
-            controller:"AdminDashboardController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/adminDashboard",
+            templateUrl: "/delegate/resource/views/admin/adminDashboard.html",
+            data: {pageTitle: 'پنل مدیریت'},
+            controller: "AdminDashboardController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
 
@@ -365,15 +365,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // USERS
         .state('users', {
-            url:"/users.html",
-            templateUrl:"/delegate/resource/views/users/users.html",
-            data:{pageTitle:'لیست کاربران'},
-            controller:"UsersController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/users.html",
+            templateUrl: "/delegate/resource/views/users/users.html",
+            data: {pageTitle: 'لیست کاربران'},
+            controller: "UsersController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -396,15 +396,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
         .state('changePassword', {
-            url:"/changePassword",
-            templateUrl:"/delegate/resource/views/users/changePassword.html",
-            data:{pageTitle:'تغییر رمز عبور'},
-            controller:"UserDetailController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/changePassword",
+            templateUrl: "/delegate/resource/views/users/changePassword.html",
+            data: {pageTitle: 'تغییر رمز عبور'},
+            controller: "UserDetailController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -429,15 +429,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         //User Detail
         .state('userDetail', {
-            url:"/userDetail/:userId",
-            templateUrl:"/delegate/resource/views/users/userDetail.html",
-            data:{pageTitle:'جزئیات کاربر'},
-            controller:"UserDetailController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/userDetail/:userId",
+            templateUrl: "/delegate/resource/views/users/userDetail.html",
+            data: {pageTitle: 'جزئیات کاربر'},
+            controller: "UserDetailController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -459,15 +459,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         //User Agreement
         .state('userAgreement', {
-            url:"/userAgreement",
-            templateUrl:"/delegate/resource/views/users/userAgreement.html",
-            data:{pageTitle:'جزئیات کاربر'},
-            controller:"OnlineUserController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/userAgreement",
+            templateUrl: "/delegate/resource/views/users/userAgreement.html",
+            data: {pageTitle: 'جزئیات کاربر'},
+            controller: "OnlineUserController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -490,15 +490,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // customer details
         .state('customerEntry', {
-            url:"/customerEntry",
-            templateUrl:"/delegate/resource/views/customerEntry.html",
-            data:{pageTitle:'ثبت مشتری جدید'},
-            controller:"CustomersController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/customerEntry",
+            templateUrl: "/delegate/resource/views/customerEntry.html",
+            data: {pageTitle: 'ثبت مشتری جدید'},
+            controller: "CustomersController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
 
@@ -517,22 +517,22 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // AngularJS plugins
         .state('fileupload', {
-            url:"/file_upload.html",
-            templateUrl:"/delegate/resource/views/file_upload.html",
-            data:{pageTitle:'AngularJS File Upload'},
-            controller:"GeneralPageController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/file_upload.html",
+            templateUrl: "/delegate/resource/views/file_upload.html",
+            data: {pageTitle: 'AngularJS File Upload'},
+            controller: "GeneralPageController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            name:'angularFileUpload',
-                            files:[
+                            name: 'angularFileUpload',
+                            files: [
                                 '/delegate/resource/js/plugins/angular-file-upload/angular-file-upload.min.js'
                             ]
                         },
                         {
-                            name:'MetronicApp',
-                            files:[
+                            name: 'MetronicApp',
+                            files: [
                                 '/delegate/resource/js/controllers/GeneralPageController.js'
                             ]
                         }
@@ -543,23 +543,23 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // UI Select
         .state('uiselect', {
-            url:"/ui_select.html",
-            templateUrl:"/delegate/resource/views/ui_select.html",
-            data:{pageTitle:'AngularJS Ui Select'},
-            controller:"UISelectController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/ui_select.html",
+            templateUrl: "/delegate/resource/views/ui_select.html",
+            data: {pageTitle: 'AngularJS Ui Select'},
+            controller: "UISelectController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            name:'ui.select',
-                            files:[
+                            name: 'ui.select',
+                            files: [
                                 '/delegate/resource/assets/global/plugins/angular/delegate/resource/js/plugins/ui-select/select.min.css',
                                 '/delegate/resource/assets/global/plugins/angular/delegate/resource/js/plugins/ui-select/select.min.js'
                             ]
                         },
                         {
-                            name:'MetronicApp',
-                            files:[
+                            name: 'MetronicApp',
+                            files: [
                                 '/delegate/resource/js/controllers/UISelectController.js'
                             ]
                         }
@@ -570,16 +570,16 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // UI Bootstrap
         .state('uibootstrap', {
-            url:"/ui_bootstrap.html",
-            templateUrl:"/delegate/resource/views/ui_bootstrap.html",
-            data:{pageTitle:'AngularJS UI Bootstrap'},
-            controller:"GeneralPageController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/ui_bootstrap.html",
+            templateUrl: "/delegate/resource/views/ui_bootstrap.html",
+            data: {pageTitle: 'AngularJS UI Bootstrap'},
+            controller: "GeneralPageController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            name:'MetronicApp',
-                            files:[
+                            name: 'MetronicApp',
+                            files: [
                                 '/delegate/resource/js/controllers/GeneralPageController.js'
                             ]
                         }
@@ -590,16 +590,16 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // Tree View
         .state('tree', {
-            url:"/tree",
-            templateUrl:"/delegate/resource/views/tree.html",
-            data:{pageTitle:'jQuery Tree View'},
-            controller:"GeneralPageController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/tree",
+            templateUrl: "/delegate/resource/views/tree.html",
+            data: {pageTitle: 'jQuery Tree View'},
+            controller: "GeneralPageController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            name:'MetronicApp',
-                            files:[
+                            name: 'MetronicApp',
+                            files: [
                                 '/delegate/resource/assets/global/plugins/jstree/dist/themes/default/style.min.css',
 
                                 '/delegate/resource/assets/global/plugins/jstree/dist/jstree.min.js',
@@ -614,16 +614,16 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // Form Tools
         .state('formtools', {
-            url:"/form-tools",
-            templateUrl:"/delegate/resource/views/form_tools.html",
-            data:{pageTitle:'Form Tools'},
-            controller:"GeneralPageController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/form-tools",
+            templateUrl: "/delegate/resource/views/form_tools.html",
+            data: {pageTitle: 'Form Tools'},
+            controller: "GeneralPageController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            name:'MetronicApp',
-                            files:[
+                            name: 'MetronicApp',
+                            files: [
                                 '/delegate/resource/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
                                 '/delegate/resource/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
                                 '/delegate/resource/assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
@@ -653,16 +653,16 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // Date & Time Pickers
         .state('pickers', {
-            url:"/pickers",
-            templateUrl:"/delegate/resource/views/pickers.html",
-            data:{pageTitle:'Date & Time Pickers'},
-            controller:"GeneralPageController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/pickers",
+            templateUrl: "/delegate/resource/views/pickers.html",
+            data: {pageTitle: 'Date & Time Pickers'},
+            controller: "GeneralPageController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            name:'MetronicApp',
-                            files:[
+                            name: 'MetronicApp',
+                            files: [
                                 '/delegate/resource/assets/global/plugins/clockface/css/clockface.css',
                                 '/delegate/resource/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
                                 '/delegate/resource/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css',
@@ -690,16 +690,16 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // Custom Dropdowns
         .state('dropdowns', {
-            url:"/dropdowns",
-            templateUrl:"/delegate/resource/views/dropdowns.html",
-            data:{pageTitle:'Custom Dropdowns'},
-            controller:"GeneralPageController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/dropdowns",
+            templateUrl: "/delegate/resource/views/dropdowns.html",
+            data: {pageTitle: 'Custom Dropdowns'},
+            controller: "GeneralPageController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            name:'MetronicApp',
-                            files:[
+                            name: 'MetronicApp',
+                            files: [
                                 '/delegate/resource/assets/global/plugins/bootstrap-select/bootstrap-select.min.css',
                                 '/delegate/resource/assets/global/plugins/select2/select2.css',
                                 '/delegate/resource/assets/global/plugins/jquery-multi-select/css/multi-select.css',
@@ -720,15 +720,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // Advanced Datatables
         .state('datatablesAdvanced', {
-            url:"/datatables/advanced.html",
-            templateUrl:"/delegate/resource/views/datatables/advanced.html",
-            data:{pageTitle:'Advanced Datatables'},
-            controller:"GeneralPageController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/datatables/advanced.html",
+            templateUrl: "/delegate/resource/views/datatables/advanced.html",
+            data: {pageTitle: 'Advanced Datatables'},
+            controller: "GeneralPageController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/select2/select2.css',
                             '/delegate/resource/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
                             '/delegate/resource/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css',
@@ -747,15 +747,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // Ajax Datetables
         .state('datatablesAjax', {
-            url:"/datatables/ajax.html",
-            templateUrl:"/delegate/resource/views/datatables/ajax.html",
-            data:{pageTitle:'Ajax Datatables'},
-            controller:"GeneralPageController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/datatables/ajax.html",
+            templateUrl: "/delegate/resource/views/datatables/ajax.html",
+            data: {pageTitle: 'Ajax Datatables'},
+            controller: "GeneralPageController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/select2/select2.css',
                             '/delegate/resource/assets/global/plugins/bootstrap-datepicker/css/datepicker.css',
                             '/delegate/resource/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
@@ -776,15 +776,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // User Profile
         .state("profile", {
-            url:"/profile",
-            templateUrl:"/delegate/resource/views/profile/main.html",
-            data:{pageTitle:'User Profile'},
-            controller:"UserProfileController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/profile",
+            templateUrl: "/delegate/resource/views/profile/main.html",
+            data: {pageTitle: 'User Profile'},
+            controller: "UserProfileController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
                             '/delegate/resource/assets/admin/pages/css/profile.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
@@ -803,36 +803,36 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // User Profile Dashboard
         .state("profile.dashboard", {
-            url:"/dashboard",
-            templateUrl:"/delegate/resource/views/profile/dashboard.html",
-            data:{pageTitle:'User Profile'}
+            url: "/dashboard",
+            templateUrl: "/delegate/resource/views/profile/dashboard.html",
+            data: {pageTitle: 'User Profile'}
         })
 
         // User Profile Account
         .state("profile.account", {
-            url:"/account",
-            templateUrl:"/delegate/resource/views/profile/account.html",
-            data:{pageTitle:'User Account'}
+            url: "/account",
+            templateUrl: "/delegate/resource/views/profile/account.html",
+            data: {pageTitle: 'User Account'}
         })
 
         // User Profile Help
         .state("profile.help", {
-            url:"/help",
-            templateUrl:"/delegate/resource/views/profile/help.html",
-            data:{pageTitle:'User Help'}
+            url: "/help",
+            templateUrl: "/delegate/resource/views/profile/help.html",
+            data: {pageTitle: 'User Help'}
         })
 
         // Todo
         .state('todo', {
-            url:"/todo",
-            templateUrl:"/delegate/resource/views/todo.html",
-            data:{pageTitle:'Todo'},
-            controller:"TodoController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/todo",
+            templateUrl: "/delegate/resource/views/todo.html",
+            data: {pageTitle: 'Todo'},
+            controller: "TodoController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
                             '/delegate/resource/assets/global/plugins/select2/select2.css',
                             '/delegate/resource/assets/admin/pages/css/todo.css',
@@ -851,15 +851,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // invoices
         .state('invoices', {
-            url:"/invoices.html",
-            templateUrl:"/delegate/resource/views/invoice/invoices.html",
-            data:{pageTitle:'لیست فاکتورها'},
-            controller:"InvoicesController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/invoices.html",
+            templateUrl: "/delegate/resource/views/invoice/invoices.html",
+            data: {pageTitle: 'لیست فاکتورها'},
+            controller: "InvoicesController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -884,15 +884,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // invoice details
         .state('invoiceDetail', {
-            url:"/invoice/:invoiceId",
-            templateUrl:"/delegate/resource/views/invoice/invoiceDetail.html",
-            data:{pageTitle:'اطلاعات فاکتور'},
-            controller:"InvoiceDetailController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/invoice/:invoiceId",
+            templateUrl: "/delegate/resource/views/invoice/invoiceDetail.html",
+            data: {pageTitle: 'اطلاعات فاکتور'},
+            controller: "InvoiceDetailController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
 
@@ -916,15 +916,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // user activities
         .state('userActivities', {
-            url:"/user-activities.html",
-            templateUrl:"/delegate/resource/views/user-activity/user-activities.html",
-            data:{pageTitle:'لیست فعالیت ها'},
-            controller:"UserActivitiesController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/user-activities.html",
+            templateUrl: "/delegate/resource/views/user-activity/user-activities.html",
+            data: {pageTitle: 'لیست فعالیت ها'},
+            controller: "UserActivitiesController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -947,15 +947,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
         // products
         .state('products', {
-            url:"/products.html",
-            templateUrl:"/delegate/resource/views/product/products.html",
-            data:{pageTitle:'لیست کالاها'},
-            controller:"ProductsController",
-            resolve:{
-                deps:['$ocLazyLoad', function ($ocLazyLoad) {
+            url: "/products.html",
+            templateUrl: "/delegate/resource/views/product/products.html",
+            data: {pageTitle: 'لیست کالاها'},
+            controller: "ProductsController",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load({
-                        name:'MetronicApp',
-                        files:[
+                        name: 'MetronicApp',
+                        files: [
                             '/delegate/resource/assets/global/plugins/morris/morris.css',
                             '/delegate/resource/assets/admin/pages/css/tasks.css',
                             '/delegate/resource/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js',
@@ -986,8 +986,8 @@ MetronicApp.run(["$rootScope", "settings", "$state", "editableOptions", function
 
 MetronicApp.config(function ($translateProvider) {
     $translateProvider.useStaticFilesLoader({
-        prefix:'/delegate/resource/assets/global/plugins/angularjs/plugins/angular-validation/locales/validation/',
-        suffix:'.json'
+        prefix: '/delegate/resource/assets/global/plugins/angularjs/plugins/angular-validation/locales/validation/',
+        suffix: '.json'
     });
 
     // load English ('en') table on startup
@@ -1002,6 +1002,20 @@ MetronicApp.filter('score', function () {
     };
 })
 
+MetronicApp.filter('noFractionCurrency',
+    [ '$filter', '$locale', function (filter, locale) {
+        var currencyFilter = filter('currency');
+        var formats = locale.NUMBER_FORMATS;
+        return function (amount, currencySymbol) {
+            var value = currencyFilter(amount, currencySymbol);
+            var sep = value.indexOf(formats.DECIMAL_SEP);
+            console.log(amount, value);
+            if (amount >= 0) {
+                return value.substring(0, sep);
+            }
+            return value.substring(0, sep) + ')';
+        };
+    } ]);
 
 MetronicApp.filter('myDate', function ($filter) {
     return function (input, format) {

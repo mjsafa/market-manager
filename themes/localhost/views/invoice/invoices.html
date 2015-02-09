@@ -256,6 +256,16 @@
                                                       rows="3"></textarea>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">توضیحات</label>
+
+                                        <div class="col-md-8">
+                                            <textarea ng-model="newInvoice.explain.invoiceExplain" class="form-control"
+                                                      rows="3"></textarea>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -438,7 +448,7 @@
                             {{invoice.itemNumber}}
                         </td>
                         <td>
-                            {{invoice.totalCost}}
+                            {{invoice.totalCost| noFractionCurrency:""}}
                         </td>
                         <td>
                             {{invoice.totalScore|score}}

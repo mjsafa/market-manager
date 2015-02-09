@@ -162,7 +162,7 @@
                                     <div class="col-md-9">
                                         <p class="form-control-static">
                                             <a href="#" editable-text="invoice.mobile" e-name="mobile" >
-                                                {{invoice.mobile}}
+                                                {{invoice.mobile ? invoice.mobile : '---'}}
                                             </a>
                                         </p>
                                         <br />
@@ -177,7 +177,9 @@
 
                                     <div class="col-md-9">
                                         <p class="form-control-static">
-                                            <a href="#" editable-text="invoice.telephone">{{invoice.telephone}}</a>
+                                            <a href="#" editable-text="invoice.telephone">
+                                                {{invoice.telephone ? invoice.telephone : '---'}}
+                                            </a>
                                         </p>
                                     </div>
                                 </div>
@@ -227,9 +229,25 @@
                                     <div class="col-md-9">
                                         <p class="form-control-static">
                                             <a href="#" editable-textarea="invoice.address" e-rows="7" e-cols="40" >
-                                                {{invoice.address}}
+                                                {{invoice.address ? invoice.address : '---'}}
                                             </a>
                                         </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">توضیحات</label>
+
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">
+                                                <a href="#" editable-textarea="invoice.explain.invoiceExplain" e-rows="7" e-cols="40" >
+                                                    {{invoice.explain.invoiceExplain ? invoice.explain.invoiceExplain : '---'}}
+                                                </a>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -304,7 +322,7 @@
                                     مبلغ کل
                                 </div>
                                 <div class="number">
-                                    {{ showTotalCost() }}
+                                    {{ showTotalCost()| noFractionCurrency:"" }}
                                 </div>
                             </div>
                         </div>
@@ -358,7 +376,7 @@
                                 {{item.product.code}}
                             </td>
                             <td>
-                                {{item.product.basePrice}}
+                                {{item.product.basePrice| noFractionCurrency:""}}
                             </td>
                             <td>
                                 {{item.number}}

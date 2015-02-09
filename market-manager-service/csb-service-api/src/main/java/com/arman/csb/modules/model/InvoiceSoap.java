@@ -28,6 +28,7 @@ public class InvoiceSoap implements Serializable {
     private String _mobile;
     private Short _typeOfDelivery;
     private int _status;
+    private String _explain;
 
     public InvoiceSoap() {
     }
@@ -49,6 +50,7 @@ public class InvoiceSoap implements Serializable {
         soapModel.setMobile(model.getMobile());
         soapModel.setTypeOfDelivery(model.getTypeOfDelivery());
         soapModel.setStatus(model.getStatus());
+        soapModel.setExplain(model.getExplain());
 
         return soapModel;
     }
@@ -207,5 +209,13 @@ public class InvoiceSoap implements Serializable {
 
     public void setStatus(int status) {
         _status = status;
+    }
+
+    public String getExplain() {
+        return _explain;
+    }
+
+    public void setExplain(String explain) {
+        _explain = explain;
     }
 }
