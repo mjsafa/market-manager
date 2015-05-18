@@ -99,6 +99,13 @@ MetronicApp.controller('ProductsController', ['$rootScope', '$scope', 'ProductSe
         }
     }
 
+    $scope.checkFloatingPointNumeric = function (data, name) {
+        var pattern = new RegExp("^[0-9]*\.?[0-9]$");
+        if(!pattern.test(data) || data<0) {
+            return name + " باید یک عدد اعشاری مثبت باشد. ";
+        }
+    }
+
     $scope.updateStatus = function(productId ,newStatus) {
         ProductService.updateProductStatus(productId, newStatus, {scope: $scope});
     }
