@@ -152,7 +152,7 @@
             </activation>-->
             <properties>
                 <liferay.home>
-                    G:\Workspace\Marketing\liferay-portal-6.2.0-ce-rc6
+                    E:/DevTools/marketing/liferay-portal-6.2.0-ce-rc6
                 </liferay.home>
                 <tomcat.version>7.0.42</tomcat.version>
             </properties>
