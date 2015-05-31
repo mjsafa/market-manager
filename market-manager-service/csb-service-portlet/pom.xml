@@ -8,7 +8,6 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.arman.market-manager</groupId>
     <artifactId>csb-service-portlet</artifactId>
     <packaging>war</packaging>
     <name>csb-service Portlet</name>
