@@ -208,3 +208,50 @@ input.ng-valid.ng-dirty, select.ng-valid.ng-dirty, textarea.ng-valid.ng-dirty {
     font-size: 12px;
     line-height: 21px;
 }
+
+
+
+.upload-thumb-container{
+
+}
+
+.upload-thumb{
+    width: auto;
+    position:relative;
+    float:right;
+    border : 1px solid #ccc;
+    background-color: #EEEEEE;
+}
+
+.upload-thumb-container .actions{
+    padding:10px;
+}
+
+
+.upload-thumb-container .icons{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 40px;
+}
+
+
+
+.upload-thumb-container .icons span{
+    color: #00b64f;
+}
+
+.upload-thumb-container .icons i {
+    font-size: 20px ;
+}
+
+
+.date-range-container{
+    display: inline-block;
+}
+
+.date-range{
+    max-width: 350px;
+    z-index: 1000;
+    float: right;
+}

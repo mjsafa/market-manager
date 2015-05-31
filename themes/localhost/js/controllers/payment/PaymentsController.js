@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal' , '$filter', function ($rootScope, $scope, PaymentService, $state, $modal, $filter) {
+MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal' , '$filter' , 'FileUploader', function ($rootScope, $scope, PaymentService, $state, $modal, $filter, FileUploader) {
     $scope.currentCustomerId = onlineUser.customerId;
 
     if (!$scope.initialized) {    //bind listeners only for the first time
@@ -181,5 +181,31 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
         }
     };
 
+
+
+
+/*
+
+    var dummy = new FileUploader.FileItem(uploader, {
+        lastModifiedDate: new Date(),
+        size: 1e6,
+        type: 'image/jpeg',
+        name: 'test_file_name'
+    });
+
+    dummy.progress = 100;
+    dummy.isUploaded = true;
+    dummy.isSuccess = true;
+    uploader.queue.push(dummy);
+
+*/
+
+    var uploader = $scope.uploader = new FileUploader({
+        autoUpload : true,
+        isSingle:true
+    });
+
     $scope.initialized = true;
 }]);
+
+
