@@ -41,12 +41,12 @@ public class InvoiceItemLocalServiceClpInvoker {
     private String[] _methodParameterTypes14;
     private String _methodName15;
     private String[] _methodParameterTypes15;
-    private String _methodName82;
-    private String[] _methodParameterTypes82;
-    private String _methodName83;
-    private String[] _methodParameterTypes83;
     private String _methodName88;
     private String[] _methodParameterTypes88;
+    private String _methodName89;
+    private String[] _methodParameterTypes89;
+    private String _methodName94;
+    private String[] _methodParameterTypes94;
 
     public InvoiceItemLocalServiceClpInvoker() {
         _methodName0 = "addInvoiceItem";
@@ -131,17 +131,17 @@ public class InvoiceItemLocalServiceClpInvoker {
                 "com.arman.csb.modules.model.InvoiceItem"
             };
 
-        _methodName82 = "getBeanIdentifier";
+        _methodName88 = "getBeanIdentifier";
 
-        _methodParameterTypes82 = new String[] {  };
+        _methodParameterTypes88 = new String[] {  };
 
-        _methodName83 = "setBeanIdentifier";
+        _methodName89 = "setBeanIdentifier";
 
-        _methodParameterTypes83 = new String[] { "java.lang.String" };
+        _methodParameterTypes89 = new String[] { "java.lang.String" };
 
-        _methodName88 = "getInvoiceItemsByInvoiceId";
+        _methodName94 = "getInvoiceItemsByInvoiceId";
 
-        _methodParameterTypes88 = new String[] { "long" };
+        _methodParameterTypes94 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -233,20 +233,20 @@ public class InvoiceItemLocalServiceClpInvoker {
             return InvoiceItemLocalServiceUtil.updateInvoiceItem((com.arman.csb.modules.model.InvoiceItem) arguments[0]);
         }
 
-        if (_methodName82.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
+        if (_methodName88.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
             return InvoiceItemLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName83.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
+        if (_methodName89.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes89, parameterTypes)) {
             InvoiceItemLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName88.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
+        if (_methodName94.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
             return InvoiceItemLocalServiceUtil.getInvoiceItemsByInvoiceId(((Long) arguments[0]).longValue());
         }
 

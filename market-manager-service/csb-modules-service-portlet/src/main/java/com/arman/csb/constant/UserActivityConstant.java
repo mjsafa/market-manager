@@ -12,6 +12,7 @@ public class UserActivityConstant {
     public static String ENTITY_SCORE = "Score";
     public static String ENTITY_PAYMENT = "Payment";
     public static String ENTITY_PRODUCT = "Product";
+    public static String ENTITY_INSTANCE = "Instance";
 
     public static Short ACTION_ADD = 1;
     public static Short ACTION_EDIT = 2;

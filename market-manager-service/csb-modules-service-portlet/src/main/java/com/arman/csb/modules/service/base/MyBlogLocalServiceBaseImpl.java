@@ -2,6 +2,7 @@ package com.arman.csb.modules.service.base;
 
 import com.arman.csb.modules.service.MyBlogLocalService;
 import com.arman.csb.modules.service.persistence.CustomerPersistence;
+import com.arman.csb.modules.service.persistence.InstancePersistence;
 import com.arman.csb.modules.service.persistence.InvoiceItemPersistence;
 import com.arman.csb.modules.service.persistence.InvoicePersistence;
 import com.arman.csb.modules.service.persistence.PaymentPersistence;
@@ -42,6 +43,12 @@ public abstract class MyBlogLocalServiceBaseImpl extends BaseLocalServiceImpl
     protected com.arman.csb.modules.service.CustomerService customerService;
     @BeanReference(type = CustomerPersistence.class)
     protected CustomerPersistence customerPersistence;
+    @BeanReference(type = com.arman.csb.modules.service.InstanceLocalService.class)
+    protected com.arman.csb.modules.service.InstanceLocalService instanceLocalService;
+    @BeanReference(type = com.arman.csb.modules.service.InstanceService.class)
+    protected com.arman.csb.modules.service.InstanceService instanceService;
+    @BeanReference(type = InstancePersistence.class)
+    protected InstancePersistence instancePersistence;
     @BeanReference(type = com.arman.csb.modules.service.InvoiceLocalService.class)
     protected com.arman.csb.modules.service.InvoiceLocalService invoiceLocalService;
     @BeanReference(type = com.arman.csb.modules.service.InvoiceService.class)
@@ -170,6 +177,62 @@ public abstract class MyBlogLocalServiceBaseImpl extends BaseLocalServiceImpl
      */
     public void setCustomerPersistence(CustomerPersistence customerPersistence) {
         this.customerPersistence = customerPersistence;
+    }
+
+    /**
+     * Returns the instance local service.
+     *
+     * @return the instance local service
+     */
+    public com.arman.csb.modules.service.InstanceLocalService getInstanceLocalService() {
+        return instanceLocalService;
+    }
+
+    /**
+     * Sets the instance local service.
+     *
+     * @param instanceLocalService the instance local service
+     */
+    public void setInstanceLocalService(
+        com.arman.csb.modules.service.InstanceLocalService instanceLocalService) {
+        this.instanceLocalService = instanceLocalService;
+    }
+
+    /**
+     * Returns the instance remote service.
+     *
+     * @return the instance remote service
+     */
+    public com.arman.csb.modules.service.InstanceService getInstanceService() {
+        return instanceService;
+    }
+
+    /**
+     * Sets the instance remote service.
+     *
+     * @param instanceService the instance remote service
+     */
+    public void setInstanceService(
+        com.arman.csb.modules.service.InstanceService instanceService) {
+        this.instanceService = instanceService;
+    }
+
+    /**
+     * Returns the instance persistence.
+     *
+     * @return the instance persistence
+     */
+    public InstancePersistence getInstancePersistence() {
+        return instancePersistence;
+    }
+
+    /**
+     * Sets the instance persistence.
+     *
+     * @param instancePersistence the instance persistence
+     */
+    public void setInstancePersistence(InstancePersistence instancePersistence) {
+        this.instancePersistence = instancePersistence;
     }
 
     /**

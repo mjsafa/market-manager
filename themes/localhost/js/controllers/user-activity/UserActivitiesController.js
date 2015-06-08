@@ -29,7 +29,8 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
         {value:'Score', text:'امتیاز'},
         {value:'User', text:'کاربران'},
         {value:'Payment', text:'پرداخت'},
-        {value:'Product', text:'کالا'}
+        {value:'Product', text:'کالا'},
+        {value:'Instance', text:'نمایندگی'}
     ];
 
     $scope.actions = [
@@ -105,6 +106,10 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
 
         if (entity == "Product") {
             return "products.html";
+        }
+
+        if (entity == "Instance") {
+            return "instance/" + data.instanceId;
         }
 
     }
@@ -254,6 +259,23 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
                     + " - قیمت پایه: " + data.basePrice
                     + "- میزان امتیاز: " + data.score;
             }
+        }
+
+        if (entity == "Instance") {
+            if(4 == action) {
+                return "تغییر وضیعت نمایدگی با نام "
+                    + "\"" + data.name + "\""
+                    + " از "
+                    + "\"" + $scope.showStatus(data.oldStatus) + "\""
+                    + " به "
+                    + "\"" + $scope.showStatus(data.status) + "\"";
+            } else {
+                return "اطلاعات تا لحظه ثبت"
+                    +" نام نمایندگی: " + data.name
+                    + " آدرس: " + data.url
+                    + " نام مدیر: " + data.superAdmin.firstName + " " + data.superAdmin.lastName;
+            }
+
         }
 
     }

@@ -142,6 +142,9 @@
                 (
                     (? OR invoice.status = ?) AND
                     (? OR invoice.customerId = ?)
+                ) AND
+                (
+                    (invoice.groupId = ?)
                 )
             ORDER BY invoice.createDate DESC
         ]]>
@@ -191,6 +194,9 @@
                     (? OR activity.entity = ?) AND
                     (? OR activity.action = ?) AND
                     (? OR activity.importance = ?)
+                ) AND
+                (
+                    activity.groupId = ?
                 )
 
             ORDER BY activity.createDate DESC
@@ -210,10 +216,29 @@
                 ) AND
                 (
                     (? OR product.status = ?)
+                ) AND
+                (
+                    product.groupId = ?
                 )
             ORDER BY product.createDate DESC
         ]]>
     </sql>
 
+    <sql id="com.arman.csb.modules.service.Instance.search">
+        <![CDATA[
+            SELECT
+                *
+            FROM CSBModules_Instance AS instance
+            WHERE
+                (
+                    (instance.name like '##KEYWORD##') OR
+                    (instance.url like '##KEYWORD##')
+                ) AND
+                (
+                    (? OR instance.status = ?)
+                )
+            ORDER BY instance.createDate DESC
+        ]]>
+    </sql>
 
 </custom-sql>

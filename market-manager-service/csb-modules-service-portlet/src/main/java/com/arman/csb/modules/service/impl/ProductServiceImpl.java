@@ -112,6 +112,8 @@ public class ProductServiceImpl extends ProductServiceBaseImpl {
 
         qPos.add(status);
 
+        qPos.add(serviceContext.getScopeGroupId());
+
         List<Product> products = queryObject.list();
 
         for (Product product : products) {

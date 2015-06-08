@@ -77,6 +77,8 @@ public class UserActivityServiceImpl extends UserActivityServiceBaseImpl {
             qPos.add(Short.valueOf(importance));
         }
 
+        qPos.add(serviceContext.getScopeGroupId());
+
         List<UserActivity> activities = queryObject.list();
 
         for (UserActivity activity : activities) {

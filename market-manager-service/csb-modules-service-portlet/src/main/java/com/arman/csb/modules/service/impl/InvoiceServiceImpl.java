@@ -129,6 +129,7 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
             qPos.add(false);
         }
         qPos.add(customerId);
+        qPos.add(serviceContext.getScopeGroupId());
 
         List<Object[]> objects = queryObject.list();
 

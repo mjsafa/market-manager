@@ -9,54 +9,54 @@ import java.util.Arrays;
  * @generated
  */
 public class MyUserLocalServiceClpInvoker {
-    private String _methodName66;
-    private String[] _methodParameterTypes66;
-    private String _methodName67;
-    private String[] _methodParameterTypes67;
-    private String _methodName70;
-    private String[] _methodParameterTypes70;
-    private String _methodName71;
-    private String[] _methodParameterTypes71;
+    private String _methodName72;
+    private String[] _methodParameterTypes72;
+    private String _methodName73;
+    private String[] _methodParameterTypes73;
+    private String _methodName76;
+    private String[] _methodParameterTypes76;
+    private String _methodName77;
+    private String[] _methodParameterTypes77;
 
     public MyUserLocalServiceClpInvoker() {
-        _methodName66 = "getBeanIdentifier";
+        _methodName72 = "getBeanIdentifier";
 
-        _methodParameterTypes66 = new String[] {  };
+        _methodParameterTypes72 = new String[] {  };
 
-        _methodName67 = "setBeanIdentifier";
+        _methodName73 = "setBeanIdentifier";
 
-        _methodParameterTypes67 = new String[] { "java.lang.String" };
+        _methodParameterTypes73 = new String[] { "java.lang.String" };
 
-        _methodName70 = "updateUserRoles";
+        _methodName76 = "updateUserRoles";
 
-        _methodParameterTypes70 = new String[] {
+        _methodParameterTypes76 = new String[] {
                 "java.lang.Long", "java.util.List",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName71 = "getOperatorRoles";
+        _methodName77 = "getOperatorRoles";
 
-        _methodParameterTypes71 = new String[] {
+        _methodParameterTypes77 = new String[] {
                 "com.liferay.portal.service.ServiceContext"
             };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
         Object[] arguments) throws Throwable {
-        if (_methodName66.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+        if (_methodName72.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
             return MyUserLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName67.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+        if (_methodName73.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
             MyUserLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName70.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+        if (_methodName76.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
             MyUserLocalServiceUtil.updateUserRoles((java.lang.Long) arguments[0],
                 (java.util.List<java.lang.String>) arguments[1],
                 (com.liferay.portal.service.ServiceContext) arguments[2]);
@@ -64,8 +64,8 @@ public class MyUserLocalServiceClpInvoker {
             return null;
         }
 
-        if (_methodName71.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+        if (_methodName77.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
             return MyUserLocalServiceUtil.getOperatorRoles((com.liferay.portal.service.ServiceContext) arguments[0]);
         }
 

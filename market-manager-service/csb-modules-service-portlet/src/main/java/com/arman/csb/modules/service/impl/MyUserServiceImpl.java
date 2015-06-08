@@ -93,14 +93,22 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
         return result;
     }
 
+    public JSONArray findActiveUsers(Map<String, Object> filter, ServiceContext serviceContext) throws PortalException, SystemException {
+        return findUsers(filter, WorkflowConstants.STATUS_APPROVED, serviceContext);
+    }
 
-    public JSONArray findUsers(Map<String, Object> filter, ServiceContext serviceContext) throws PortalException, SystemException {
+    public JSONArray findAnyUsers(Map<String, Object> filter, ServiceContext serviceContext) throws PortalException, SystemException {
+        return  findUsers(filter, WorkflowConstants.STATUS_ANY, serviceContext);
+
+    }
+
+    public JSONArray findUsers(Map<String, Object> filter, int status, ServiceContext serviceContext) throws PortalException, SystemException {
         RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.USER_MANAGER.toString());
         UserGroup operatorGroup = UserGroupLocalServiceUtil.fetchUserGroup(serviceContext.getCompanyId(), PortletProps.get("market-manager.userGroup.operator"));
 
         LinkedHashMap<String, Object> params = new LinkedHashMap<String, java.lang.Object>();
         params.put("usersUserGroups", operatorGroup.getUserGroupId());
-        List<User> users = UserLocalServiceUtil.search(serviceContext.getCompanyId(), (String) filter.get("query"), WorkflowConstants.STATUS_ANY, params, 0, 20, (OrderByComparator) null);
+        List<User> users = UserLocalServiceUtil.search(serviceContext.getCompanyId(), (String) filter.get("query"), status, params, 0, 20, (OrderByComparator) null);
 
         //put users inside JSON Array
         JSONArray result = JSONFactoryUtil.createJSONArray();
@@ -111,6 +119,7 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
             userJsonObject.put("email", user.getEmailAddress());
             userJsonObject.put("id", user.getUserId());
             userJsonObject.put("mobile", user.getMiddleName());
+            userJsonObject.put("fullName", user.getFirstName() + " " + user.getLastName());
 
             if (user.getStatus() == WorkflowConstants.STATUS_APPROVED) {
                 userJsonObject.put("isActive", true);

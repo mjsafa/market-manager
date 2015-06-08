@@ -23,6 +23,21 @@
 		<field name="customerUserId" type="long" />
 		<field name="mentorCustomerId" type="long" />
 	</model>
+	<model name="com.arman.csb.modules.model.Instance">
+		<field name="uuid" type="String" />
+		<field name="id" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String" />
+		<field name="url" type="String" />
+		<field name="superAdminId" type="long" />
+		<field name="logo" type="String" />
+		<field name="status" type="int" />
+	</model>
 	<model name="com.arman.csb.modules.model.Invoice">
 		<field name="uuid" type="String" />
 		<field name="id" type="long" />

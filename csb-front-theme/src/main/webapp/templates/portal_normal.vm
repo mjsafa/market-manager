@@ -35,6 +35,12 @@
         var pageId = '$themeDisplay.getPlid()';
         var onlineUser = $pageContent.user;
         var loginError = '$pageContent.loginError';
+        #if ($themeDisplay.getScopeGroup().getName() == "Guest")
+            var scopeGroupId = '0';
+        #else
+            var scopeGroupId = '$themeDisplay.getScopeGroupId()';
+        #end
+        var groupName = '$themeDisplay.getScopeGroup().getName()';
     </script>
 
 ##    $theme.include($body_top_include)

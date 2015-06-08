@@ -8,5 +8,6 @@
     <service-builder-import file="service-def/payment-service.xml" />
     <service-builder-import file="service-def/user-activity-service.xml" />
     <service-builder-import file="service-def/product-service.xml" />
+    <service-builder-import file="service-def/instance-service.xml" />
                                 
 </service-builder>

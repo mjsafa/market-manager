@@ -3,6 +3,7 @@
 
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="com.arman.csb.modules.model.Customer" />
+	<import class="com.arman.csb.modules.model.Instance" />
 	<import class="com.arman.csb.modules.model.Invoice" />
 	<import class="com.arman.csb.modules.model.InvoiceItem" />
 	<import class="com.arman.csb.modules.model.MyBlog" />
@@ -37,6 +38,24 @@
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="customerUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="mentorCustomerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="com.arman.csb.modules.model.impl.InstanceImpl" table="CSBModules_Instance">
+		<cache usage="read-write" />
+		<id name="id" column="id_" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="url" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="superAdminId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="logo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
 	<class name="com.arman.csb.modules.model.impl.InvoiceImpl" table="CSBModules_Invoice">
 		<cache usage="read-write" />

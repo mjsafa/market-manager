@@ -7,6 +7,12 @@ create index IX_7DEA3C86 on CSBModules_Customer (uuid_);
 create index IX_130ED7E2 on CSBModules_Customer (uuid_, companyId);
 create unique index IX_40CFEEE4 on CSBModules_Customer (uuid_, groupId);
 
+create index IX_638A0864 on CSBModules_Instance (name);
+create index IX_2BA17B9F on CSBModules_Instance (userId);
+create index IX_A1EB85AF on CSBModules_Instance (uuid_);
+create index IX_F8096B19 on CSBModules_Instance (uuid_, companyId);
+create unique index IX_1EF3E3DB on CSBModules_Instance (uuid_, groupId);
+
 create index IX_BE9A9176 on CSBModules_Invoice (customerId);
 create index IX_13D36C63 on CSBModules_Invoice (userId);
 create index IX_5F166C6B on CSBModules_Invoice (uuid_);

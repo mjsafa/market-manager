@@ -54,12 +54,30 @@ public class MyUserServiceWrapper implements MyUserService,
     }
 
     @Override
-    public com.liferay.portal.kernel.json.JSONArray findUsers(
+    public com.liferay.portal.kernel.json.JSONArray findActiveUsers(
         java.util.Map<java.lang.String, java.lang.Object> filter,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
-        return _myUserService.findUsers(filter, serviceContext);
+        return _myUserService.findActiveUsers(filter, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONArray findAnyUsers(
+        java.util.Map<java.lang.String, java.lang.Object> filter,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _myUserService.findAnyUsers(filter, serviceContext);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.json.JSONArray findUsers(
+        java.util.Map<java.lang.String, java.lang.Object> filter, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _myUserService.findUsers(filter, status, serviceContext);
     }
 
     @Override

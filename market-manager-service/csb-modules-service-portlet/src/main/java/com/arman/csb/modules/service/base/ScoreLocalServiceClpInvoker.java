@@ -49,16 +49,16 @@ public class ScoreLocalServiceClpInvoker {
     private String[] _methodParameterTypes18;
     private String _methodName19;
     private String[] _methodParameterTypes19;
-    private String _methodName86;
-    private String[] _methodParameterTypes86;
-    private String _methodName87;
-    private String[] _methodParameterTypes87;
     private String _methodName92;
     private String[] _methodParameterTypes92;
     private String _methodName93;
     private String[] _methodParameterTypes93;
-    private String _methodName94;
-    private String[] _methodParameterTypes94;
+    private String _methodName98;
+    private String[] _methodParameterTypes98;
+    private String _methodName99;
+    private String[] _methodParameterTypes99;
+    private String _methodName100;
+    private String[] _methodParameterTypes100;
 
     public ScoreLocalServiceClpInvoker() {
         _methodName0 = "addScore";
@@ -159,30 +159,30 @@ public class ScoreLocalServiceClpInvoker {
                 "com.arman.csb.modules.model.Score"
             };
 
-        _methodName86 = "getBeanIdentifier";
+        _methodName92 = "getBeanIdentifier";
 
-        _methodParameterTypes86 = new String[] {  };
+        _methodParameterTypes92 = new String[] {  };
 
-        _methodName87 = "setBeanIdentifier";
+        _methodName93 = "setBeanIdentifier";
 
-        _methodParameterTypes87 = new String[] { "java.lang.String" };
+        _methodParameterTypes93 = new String[] { "java.lang.String" };
 
-        _methodName92 = "sumByCustomerAndType";
+        _methodName98 = "sumByCustomerAndType";
 
-        _methodParameterTypes92 = new String[] {
+        _methodParameterTypes98 = new String[] {
                 "java.lang.Long", "java.lang.Integer", "java.util.Date",
                 "java.util.Date"
             };
 
-        _methodName93 = "sumByType";
+        _methodName99 = "sumByType";
 
-        _methodParameterTypes93 = new String[] {
+        _methodParameterTypes99 = new String[] {
                 "java.lang.Integer", "java.util.Date", "java.util.Date"
             };
 
-        _methodName94 = "addScore";
+        _methodName100 = "addScore";
 
-        _methodParameterTypes94 = new String[] {
+        _methodParameterTypes100 = new String[] {
                 "java.lang.Long", "long",
                 "com.liferay.portal.service.ServiceContext"
             };
@@ -301,33 +301,33 @@ public class ScoreLocalServiceClpInvoker {
             return ScoreLocalServiceUtil.updateScore((com.arman.csb.modules.model.Score) arguments[0]);
         }
 
-        if (_methodName86.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes86, parameterTypes)) {
+        if (_methodName92.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
             return ScoreLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName87.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes87, parameterTypes)) {
+        if (_methodName93.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
             ScoreLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName92.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
+        if (_methodName98.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
             return ScoreLocalServiceUtil.sumByCustomerAndType((java.lang.Long) arguments[0],
                 (java.lang.Integer) arguments[1],
                 (java.util.Date) arguments[2], (java.util.Date) arguments[3]);
         }
 
-        if (_methodName93.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
+        if (_methodName99.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
             return ScoreLocalServiceUtil.sumByType((java.lang.Integer) arguments[0],
                 (java.util.Date) arguments[1], (java.util.Date) arguments[2]);
         }
 
-        if (_methodName94.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+        if (_methodName100.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes100, parameterTypes)) {
             return ScoreLocalServiceUtil.addScore((java.lang.Long) arguments[0],
                 ((Long) arguments[1]).longValue(),
                 (com.liferay.portal.service.ServiceContext) arguments[2]);

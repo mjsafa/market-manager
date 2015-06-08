@@ -59,12 +59,28 @@ public class MyUserServiceUtil {
         return getService().newUser(user, serviceContext);
     }
 
-    public static com.liferay.portal.kernel.json.JSONArray findUsers(
+    public static com.liferay.portal.kernel.json.JSONArray findActiveUsers(
         java.util.Map<java.lang.String, java.lang.Object> filter,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
-        return getService().findUsers(filter, serviceContext);
+        return getService().findActiveUsers(filter, serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONArray findAnyUsers(
+        java.util.Map<java.lang.String, java.lang.Object> filter,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().findAnyUsers(filter, serviceContext);
+    }
+
+    public static com.liferay.portal.kernel.json.JSONArray findUsers(
+        java.util.Map<java.lang.String, java.lang.Object> filter, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().findUsers(filter, status, serviceContext);
     }
 
     public static com.liferay.portal.kernel.json.JSONObject updateStatus(

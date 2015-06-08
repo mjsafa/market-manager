@@ -237,8 +237,14 @@ MetronicApp.factory("UserService", function (JsonServer, $rootScope) {
         },
 
         find:function (query, options) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'find-users', {filter:JSON.stringify({query:query}), serviceContext:{}}, {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'find-any-users', {filter:JSON.stringify({query:query}), serviceContext:{}}, {
                 eventName:'UserService.find',
+                scope:options ? options.scope : undefined
+            });
+        },
+        findActiveUsers:function (query, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.myuser', 'find-active-users', {filter:JSON.stringify({query:query}), serviceContext:{}}, {
+                eventName:'UserService.findActiveUsers',
                 scope:options ? options.scope : undefined
             });
         },
