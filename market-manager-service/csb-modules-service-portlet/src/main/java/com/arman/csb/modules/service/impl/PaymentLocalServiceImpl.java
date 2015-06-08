@@ -24,6 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -123,7 +124,34 @@ public class PaymentLocalServiceImpl extends PaymentLocalServiceBaseImpl {
 
         query.addOrder(OrderFactoryUtil.desc("createDate"));
 
-        return dynamicQuery(query);
+        return dynamicQuery(query, first, first + maxResult);
+    }
+
+    public long findCount(Long customerId, Date fromDate, Date toDate, long amountFrom, long amountTo, int status, ServiceContext serviceContext) throws PortalException, SystemException {
+        ClassLoader classLoader = (ClassLoader) PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(), "portletClassLoader");
+        DynamicQuery query = DynamicQueryFactoryUtil.forClass(Payment.class, classLoader);
+        if (null != customerId && customerId > 0) {
+            query.add(PropertyFactoryUtil.forName("customerId").eq(customerId));
+        }
+        if (null != fromDate) {
+            query.add(PropertyFactoryUtil.forName("createDate").ge(fromDate));
+        }
+        if (null != toDate) {
+            query.add(PropertyFactoryUtil.forName("createDate").le(toDate));
+        }
+
+        if (amountFrom > 0) {
+            query.add(PropertyFactoryUtil.forName("amount").ge(amountFrom));
+        }
+        if (amountTo > 0) {
+            query.add(PropertyFactoryUtil.forName("amount").le(amountTo));
+        }
+
+        if (status != WorkflowConstants.STATUS_ANY) {
+            query.add(PropertyFactoryUtil.forName("status").eq(status));
+        }
+
+        return dynamicQueryCount(query);
     }
 
     public long totalPaymentAmount(Long customerId, Date fromDate, Date toDate) throws PortalException, SystemException {

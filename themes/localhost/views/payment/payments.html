@@ -435,8 +435,8 @@
 
 
     <div class="col-md-2 col-sm-12">
-        <date-range from-date="filter.fromDate" to-date="filter.toDate">
-        </date-range>
+        <div date-range from-date="filter.fromDate" to-date="filter.toDate">
+        </div>
     </div>
 
 
@@ -562,6 +562,11 @@
 
             </tr>
         </table>
+
+        <pagination items-per-page="itemsPerPage" total-items="totalPayments" ng-model="filter.currentPage" ng-change="doSearch()"
+                    previous-text="صفحه قبل"
+                    next-text="صفحه بعد"
+                ></pagination>
     </div>
 </div>
 </div>

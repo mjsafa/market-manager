@@ -63,7 +63,7 @@ public class PaymentServiceWrapper implements PaymentService,
     }
 
     @Override
-    public com.liferay.portal.kernel.json.JSONArray search(
+    public com.liferay.portal.kernel.json.JSONObject search(
         java.util.Map<java.lang.String, java.lang.Object> filter, int first,
         int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,

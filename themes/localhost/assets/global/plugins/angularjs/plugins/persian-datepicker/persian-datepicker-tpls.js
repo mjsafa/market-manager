@@ -665,6 +665,14 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
         }
       };
 
+        element.bind('click', function (evt){
+            if (event.target === element[0]) {
+                scope.$apply(function() {
+                    scope.isOpen = true ;
+                });
+            }
+        });
+
       scope.$watch('isOpen', function(value) {
         if (value) {
           scope.$broadcast('datepicker.focus');

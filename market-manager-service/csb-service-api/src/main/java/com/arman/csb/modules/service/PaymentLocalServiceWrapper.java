@@ -364,6 +364,16 @@ public class PaymentLocalServiceWrapper implements PaymentLocalService,
     }
 
     @Override
+    public long findCount(java.lang.Long customerId, java.util.Date fromDate,
+        java.util.Date toDate, long amountFrom, long amountTo, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentLocalService.findCount(customerId, fromDate, toDate,
+            amountFrom, amountTo, status, serviceContext);
+    }
+
+    @Override
     public long totalPaymentAmount(java.lang.Long customerId,
         java.util.Date fromDate, java.util.Date toDate)
         throws com.liferay.portal.kernel.exception.PortalException,

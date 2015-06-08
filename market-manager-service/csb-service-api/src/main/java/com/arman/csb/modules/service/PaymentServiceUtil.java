@@ -67,7 +67,7 @@ public class PaymentServiceUtil {
         return getService().totalPayedAmount(customerId, serviceContext);
     }
 
-    public static com.liferay.portal.kernel.json.JSONArray search(
+    public static com.liferay.portal.kernel.json.JSONObject search(
         java.util.Map<java.lang.String, java.lang.Object> filter, int first,
         int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,

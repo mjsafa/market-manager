@@ -198,7 +198,7 @@ MetronicApp.directive('uploadThumb', function() {
 MetronicApp.directive('dateRange', function() {
     return {
         templateUrl: '/delegate/resource/views/dateRange.html',
-        restrict: 'E',
+        restrict: 'A',
         scope: {
             fromDate: '=fromDate',
             toDate: '=toDate'

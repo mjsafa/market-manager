@@ -1,7 +1,16 @@
 MetronicApp.factory("PaymentService", function (JsonServer) {
     return{
         search:function (filter, options) {
-            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'search', {filter:filter ? filter : {customerId:0}, first:0, maxResult:30, serviceContext:{}}, {
+            var _filter = angular.copy(filter, _filter);
+            if(_filter){
+                if(_filter.fromDate){
+                    _filter.fromDate = _filter.fromDate.getTime();
+                }
+                if(_filter.toDate){
+                    _filter.toDate = _filter.toDate.getTime();
+                }
+            }
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.payment', 'search', {filter:_filter ? _filter : {customerId:0}, first:filter.first, maxResult:filter.maxResults, serviceContext:{}}, {
                 eventName:'PaymentService.search',
                 scope:options ? options.scope : undefined
             });
