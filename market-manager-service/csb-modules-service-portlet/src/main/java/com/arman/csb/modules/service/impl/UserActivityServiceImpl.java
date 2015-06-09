@@ -43,7 +43,9 @@ public class UserActivityServiceImpl extends UserActivityServiceBaseImpl {
         JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
-        toDate = DateUtil.adding24HourToDate(toDate);
+        if(null != toDate) {
+            toDate = DateUtil.adding24HourToDate(toDate);
+        }
 
         SQLQuery searchQuery = createQueryObject(text, entity, action, importance, fromDate, toDate, start, maxResult,
                 "com.arman.csb.modules.service.UserActivity.search", false, serviceContext);
