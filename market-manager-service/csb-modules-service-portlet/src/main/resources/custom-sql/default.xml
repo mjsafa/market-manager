@@ -193,7 +193,9 @@
                 (
                     (? OR activity.entity = ?) AND
                     (? OR activity.action = ?) AND
-                    (? OR activity.importance = ?)
+                    (? OR activity.importance = ?) AND
+                    (? OR activity.createDate >= ?) AND
+                    (? OR activity.createDate <= ?)
                 ) AND
                 (
                     activity.groupId = ?
@@ -202,6 +204,30 @@
             ORDER BY activity.createDate DESC
         ]]>
     </sql>
+
+    <sql id="com.arman.csb.modules.service.UserActivity.count">
+        <![CDATA[
+            SELECT
+                count(activity.id_)
+            FROM CSBModules_UserActivity AS activity
+            WHERE
+                (
+                    (activity.userName like '##KEYWORD##') OR
+                    (activity.data_ like '##KEYWORD##')
+                ) AND
+                (
+                    (? OR activity.entity = ?) AND
+                    (? OR activity.action = ?) AND
+                    (? OR activity.importance = ?) AND
+                    (? OR activity.createDate >= ?) AND
+                    (? OR activity.createDate <= ?)
+                ) AND
+                (
+                    activity.groupId = ?
+                )
+        ]]>
+    </sql>
+
 
     <sql id="com.arman.csb.modules.service.Product.search">
         <![CDATA[

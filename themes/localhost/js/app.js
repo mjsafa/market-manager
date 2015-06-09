@@ -935,6 +935,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/assets/global/plugins/morris/morris.min.js',
                             '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
                             '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+                            '/delegate/resource/js/viewDirectives.js',
                             '/delegate/resource/js/server/server.js',
                             '/delegate/resource/js/server/UserActivityService.js',
                             '/delegate/resource/js/server/CustomerService.js',

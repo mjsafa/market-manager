@@ -50,14 +50,16 @@ import java.rmi.RemoteException;
 public class UserActivityServiceSoap {
     private static Log _log = LogFactoryUtil.getLog(UserActivityServiceSoap.class);
 
-    public static java.lang.String search(java.lang.String filter,
+    public static java.lang.String search(java.lang.String text,
         java.lang.String entity, java.lang.String action,
-        java.lang.String importance, int start, int maxResult,
+        java.lang.String importance, java.util.Date fromDate,
+        java.util.Date toDate, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws RemoteException {
         try {
-            com.liferay.portal.kernel.json.JSONArray returnValue = UserActivityServiceUtil.search(filter,
-                    entity, action, importance, start, maxResult, serviceContext);
+            com.liferay.portal.kernel.json.JSONObject returnValue = UserActivityServiceUtil.search(text,
+                    entity, action, importance, fromDate, toDate, start,
+                    maxResult, serviceContext);
 
             return returnValue.toString();
         } catch (Exception e) {

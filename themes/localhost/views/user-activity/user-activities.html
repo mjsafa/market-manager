@@ -196,12 +196,13 @@
                         <input ng-enter="doSearch()" type="text" ng-model="query"
                                class="form-control input-circle-left" placeholder="جستجو ..."/>
                                 <span class="input-group-btn">
-                                <button ng-click="doSearch()" class="btn btn-circle-right btn-default" type="submit">
+                                <button ng-click="doSearchButton()" class="btn btn-circle-right btn-default" type="submit">
                                     جستجو
                                 </button>
                                 </span>
                     </div>
                 </div>
+                <div date-range from-date="filter.fromDate" to-date="filter.toDate" style="margin-top: 10px"></div>
             </div>
 
         </div>
@@ -273,6 +274,11 @@
                         </td>
                     </tr>
                 </table>
+                <pagination items-per-page="itemsPerPage" total-items="totalPayments" ng-model="filter.currentPage"
+                            ng-change="doSearch()"
+                            previous-text="صفحه قبل"
+                            next-text="صفحه بعد" ></pagination>
+
             </div>
         </div>
     </div>

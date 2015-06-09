@@ -109,4 +109,14 @@ public class DateUtil extends com.liferay.portal.kernel.util.DateUtil {
             return null;
         }
     }
+
+    public static final Date adding24HourToDate(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.HOUR, 23);
+        cal.add(Calendar.MINUTE, 59);
+        cal.add(Calendar.SECOND, 59);
+
+        return cal.getTime();
+    }
 }

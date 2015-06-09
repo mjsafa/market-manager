@@ -30,8 +30,8 @@ public class UserActivityServiceClp implements UserActivityService {
 
         _methodParameterTypes3 = new String[] {
                 "java.lang.String", "java.lang.String", "java.lang.String",
-                "java.lang.String", "int", "int",
-                "com.liferay.portal.service.ServiceContext"
+                "java.lang.String", "java.util.Date", "java.util.Date", "int",
+                "int", "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -82,9 +82,10 @@ public class UserActivityServiceClp implements UserActivityService {
     }
 
     @Override
-    public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, java.lang.String entity,
-        java.lang.String action, java.lang.String importance, int start,
+    public com.liferay.portal.kernel.json.JSONObject search(
+        java.lang.String text, java.lang.String entity,
+        java.lang.String action, java.lang.String importance,
+        java.util.Date fromDate, java.util.Date toDate, int start,
         int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.json.JSONException {
         Object returnObj = null;
@@ -93,13 +94,17 @@ public class UserActivityServiceClp implements UserActivityService {
             returnObj = _invokableService.invokeMethod(_methodName3,
                     _methodParameterTypes3,
                     new Object[] {
-                        ClpSerializer.translateInput(filter),
+                        ClpSerializer.translateInput(text),
                         
                     ClpSerializer.translateInput(entity),
                         
                     ClpSerializer.translateInput(action),
                         
                     ClpSerializer.translateInput(importance),
+                        
+                    ClpSerializer.translateInput(fromDate),
+                        
+                    ClpSerializer.translateInput(toDate),
                         
                     start,
                         
@@ -122,6 +127,6 @@ public class UserActivityServiceClp implements UserActivityService {
             }
         }
 
-        return (com.liferay.portal.kernel.json.JSONArray) ClpSerializer.translateOutput(returnObj);
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
     }
 }

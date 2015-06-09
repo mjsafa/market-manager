@@ -29,8 +29,8 @@ public class UserActivityServiceClpInvoker {
 
         _methodParameterTypes78 = new String[] {
                 "java.lang.String", "java.lang.String", "java.lang.String",
-                "java.lang.String", "int", "int",
-                "com.liferay.portal.service.ServiceContext"
+                "java.lang.String", "java.util.Date", "java.util.Date", "int",
+                "int", "com.liferay.portal.service.ServiceContext"
             };
     }
 
@@ -53,10 +53,11 @@ public class UserActivityServiceClpInvoker {
             return UserActivityServiceUtil.search((java.lang.String) arguments[0],
                 (java.lang.String) arguments[1],
                 (java.lang.String) arguments[2],
-                (java.lang.String) arguments[3],
-                ((Integer) arguments[4]).intValue(),
-                ((Integer) arguments[5]).intValue(),
-                (com.liferay.portal.service.ServiceContext) arguments[6]);
+                (java.lang.String) arguments[3], (java.util.Date) arguments[4],
+                (java.util.Date) arguments[5],
+                ((Integer) arguments[6]).intValue(),
+                ((Integer) arguments[7]).intValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[8]);
         }
 
         throw new UnsupportedOperationException();

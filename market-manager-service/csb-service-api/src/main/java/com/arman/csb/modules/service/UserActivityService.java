@@ -53,9 +53,10 @@ public interface UserActivityService extends BaseService, InvokableService {
         throws java.lang.Throwable;
 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, java.lang.String entity,
-        java.lang.String action, java.lang.String importance, int start,
+    public com.liferay.portal.kernel.json.JSONObject search(
+        java.lang.String text, java.lang.String entity,
+        java.lang.String action, java.lang.String importance,
+        java.util.Date fromDate, java.util.Date toDate, int start,
         int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.json.JSONException;
 }

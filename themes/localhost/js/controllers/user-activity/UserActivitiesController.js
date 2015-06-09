@@ -2,19 +2,31 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
-    UserActivityService.search('', '', '', '', {scope:$scope});
-
     if (!$scope.initialized) {
         $scope.$on('UserActivityService.search', function (event, data) {
-            $scope.activities = data.result;
+            $scope.activities = data.result.result;
+            $scope.totalPayments = data.result.total;
         });
-    }
-    ;
+
+        $scope.filter = $scope.filter || {};
+        $scope.filter.currentPage = 1;
+        $scope.itemsPerPage = 10;
+    };
 
     $scope.doSearch = function () {
-        UserActivityService.search($scope.query || '', $scope.selectedEntity || '',
+        $scope.filter = $scope.filter || {};
+        $scope.filter.first = ($scope.filter.currentPage -1) * $scope.itemsPerPage;
+        $scope.filter.maxResults = $scope.itemsPerPage;
+
+        UserActivityService.search($scope.filter, $scope.query || '', $scope.selectedEntity || '',
             $scope.selectedAction || '', $scope.selectedImportance || '', {scope:$scope});
     };
+    $scope.doSearch();
+
+    $scope.doSearchButton = function () {
+        $scope.filter.currentPage = 1;
+        $scope.doSearch();
+    }
 
     $scope.importances = [
         {value:1, text:'بالا', className:'label-danger'},
