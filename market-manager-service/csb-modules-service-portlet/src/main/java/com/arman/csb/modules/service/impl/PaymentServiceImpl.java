@@ -80,13 +80,18 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
         return result;
     }
 
-    public JSONArray search(Map<String, Object> filter, int first, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
+    public JSONObject search(Map<String, Object> filter, int first, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
         if (!RoleUtil.isSameCustomer(serviceContext.getUserId(), MapUtil.getLong(filter, "customerId")) && !RoleUtil.hasAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString())) {
             throw new PrincipalException();
         }
 
+        JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
         List<Payment> payments = PaymentLocalServiceUtil.find(MapUtil.getLong(filter, "customerId"), MapUtil.getDate(filter, "fromDate"), MapUtil.getDate(filter, "toDate")
                 , MapUtil.getLong(filter, "fromAmount"), MapUtil.getLong(filter, "toAmount"), MapUtil.getInteger(filter, "status", WorkflowConstants.STATUS_ANY), first, maxResult, serviceContext);
+
+        long totalPayments = PaymentLocalServiceUtil.findCount(MapUtil.getLong(filter, "customerId"), MapUtil.getDate(filter, "fromDate"), MapUtil.getDate(filter, "toDate")
+                , MapUtil.getLong(filter, "fromAmount"), MapUtil.getLong(filter, "toAmount"), MapUtil.getInteger(filter, "status", WorkflowConstants.STATUS_ANY),  serviceContext);
 
         JSONArray result = JSONFactoryUtil.createJSONArray();
         for (Payment payment : payments) {
@@ -115,7 +120,11 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
 
             result.put(paymentJson);
         }
-        return result;
+
+        jsonObject.put("result", result);
+        jsonObject.put("total", totalPayments);
+
+        return jsonObject;
     }
 
     public JSONObject getTotalStats(ServiceContext serviceContext) throws PortalException, SystemException {

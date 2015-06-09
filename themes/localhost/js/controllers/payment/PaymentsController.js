@@ -1,12 +1,13 @@
 'use strict';
 
-MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal' , '$filter', function ($rootScope, $scope, PaymentService, $state, $modal, $filter) {
+MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal' , '$filter' , 'FileUploader', function ($rootScope, $scope, PaymentService, $state, $modal, $filter, FileUploader) {
     $scope.currentCustomerId = onlineUser.customerId;
 
     if (!$scope.initialized) {    //bind listeners only for the first time
         //server side events
         $scope.$on('PaymentService.search', function (event, data) {
-            $scope.payments = data.result;
+            $scope.payments = data.result.result;
+                    $scope.totalPayments = data.result.total;
         });
 
         $scope.$on('PaymentService.getStats', function (event, data) {
@@ -59,7 +60,11 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
             $scope.stats = data.result;
         });
 
+
         $scope.filter = $scope.filter || {};
+        $scope.filter.currentPage = 1;
+        $scope.itemsPerPage = 1;
+
         initNewPayment();
     }
 
@@ -82,6 +87,10 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
         if ($scope.currentCustomerId) {
             $scope.filter.customerId = $scope.currentCustomerId;
         }
+
+
+        $scope.filter.first = ($scope.filter.currentPage -1) * $scope.itemsPerPage;
+        $scope.filter.maxResults = $scope.itemsPerPage;
 
         PaymentService.search($scope.filter, {scope:$scope});
         PaymentService.getStats($scope.currentCustomerId, {scope:$scope});
@@ -149,6 +158,7 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
         $scope.doSearch();
     }
 
+
     $scope.openCustomerFilter = function (size) {
         var modalInstance = $modal.open({
             templateUrl:'myModalContent.html',
@@ -181,5 +191,32 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
         }
     };
 
+
+
+
+/*
+
+    var dummy = new FileUploader.FileItem(uploader, {
+        lastModifiedDate: new Date(),
+        size: 1e6,
+        type: 'image/jpeg',
+        name: 'test_file_name'
+    });
+
+    dummy.progress = 100;
+    dummy.isUploaded = true;
+    dummy.isSuccess = true;
+    uploader.queue.push(dummy);
+
+*/
+
+    var uploader = $scope.uploader = new FileUploader({
+        autoUpload : true,
+        isSingle:true
+    });
+
+
     $scope.initialized = true;
 }]);
+
+

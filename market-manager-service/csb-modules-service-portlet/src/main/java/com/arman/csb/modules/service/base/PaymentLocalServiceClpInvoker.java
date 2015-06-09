@@ -49,10 +49,22 @@ public class PaymentLocalServiceClpInvoker {
     private String[] _methodParameterTypes18;
     private String _methodName19;
     private String[] _methodParameterTypes19;
+    private String _methodName86;
+    private String[] _methodParameterTypes86;
+    private String _methodName87;
+    private String[] _methodParameterTypes87;
     private String _methodName92;
     private String[] _methodParameterTypes92;
     private String _methodName93;
     private String[] _methodParameterTypes93;
+    private String _methodName94;
+    private String[] _methodParameterTypes94;
+    private String _methodName95;
+    private String[] _methodParameterTypes95;
+    private String _methodName96;
+    private String[] _methodParameterTypes96;
+    private String _methodName97;
+    private String[] _methodParameterTypes97;
     private String _methodName98;
     private String[] _methodParameterTypes98;
     private String _methodName99;
@@ -69,16 +81,6 @@ public class PaymentLocalServiceClpInvoker {
     private String[] _methodParameterTypes104;
     private String _methodName105;
     private String[] _methodParameterTypes105;
-    private String _methodName106;
-    private String[] _methodParameterTypes106;
-    private String _methodName107;
-    private String[] _methodParameterTypes107;
-    private String _methodName108;
-    private String[] _methodParameterTypes108;
-    private String _methodName109;
-    private String[] _methodParameterTypes109;
-    private String _methodName110;
-    private String[] _methodParameterTypes110;
 
     public PaymentLocalServiceClpInvoker() {
         _methodName0 = "addPayment";
@@ -179,81 +181,88 @@ public class PaymentLocalServiceClpInvoker {
                 "com.arman.csb.modules.model.Payment"
             };
 
-        _methodName92 = "getBeanIdentifier";
+        _methodName86 = "getBeanIdentifier";
 
-        _methodParameterTypes92 = new String[] {  };
+        _methodParameterTypes86 = new String[] {  };
 
-        _methodName93 = "setBeanIdentifier";
+        _methodName87 = "setBeanIdentifier";
 
-        _methodParameterTypes93 = new String[] { "java.lang.String" };
+        _methodParameterTypes87 = new String[] { "java.lang.String" };
 
-        _methodName98 = "addPayment";
+        _methodName92 = "addPayment";
 
-        _methodParameterTypes98 = new String[] {
+        _methodParameterTypes92 = new String[] {
                 "long", "java.lang.Long", "java.util.Date", "int",
                 "java.lang.Long", "java.lang.String",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName99 = "totalPayedAmount";
+        _methodName93 = "totalPayedAmount";
 
-        _methodParameterTypes99 = new String[] { "java.lang.Long" };
+        _methodParameterTypes93 = new String[] { "java.lang.Long" };
 
-        _methodName100 = "find";
+        _methodName94 = "find";
 
-        _methodParameterTypes100 = new String[] {
+        _methodParameterTypes94 = new String[] {
                 "java.lang.Long", "java.util.Date", "java.util.Date", "long",
                 "long", "int", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName101 = "totalPaymentAmount";
+        _methodName95 = "findCount";
 
-        _methodParameterTypes101 = new String[] {
+        _methodParameterTypes95 = new String[] {
+                "java.lang.Long", "java.util.Date", "java.util.Date", "long",
+                "long", "int", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName96 = "totalPaymentAmount";
+
+        _methodParameterTypes96 = new String[] {
                 "java.lang.Long", "java.util.Date", "java.util.Date"
             };
 
-        _methodName102 = "findByStatus";
+        _methodName97 = "findByStatus";
 
-        _methodParameterTypes102 = new String[] { "int" };
+        _methodParameterTypes97 = new String[] { "int" };
 
-        _methodName103 = "updateStatus";
+        _methodName98 = "updateStatus";
 
-        _methodParameterTypes103 = new String[] {
+        _methodParameterTypes98 = new String[] {
                 "com.arman.csb.modules.model.Payment", "int"
             };
 
-        _methodName104 = "deletePayment";
+        _methodName99 = "deletePayment";
 
-        _methodParameterTypes104 = new String[] { "long" };
+        _methodParameterTypes99 = new String[] { "long" };
 
-        _methodName105 = "sumPayedOrPending";
+        _methodName100 = "sumPayedOrPending";
 
-        _methodParameterTypes105 = new String[] { "java.lang.Long" };
+        _methodParameterTypes100 = new String[] { "java.lang.Long" };
 
-        _methodName106 = "getExcelDocument";
+        _methodName101 = "getExcelDocument";
 
-        _methodParameterTypes106 = new String[] { "java.util.List" };
+        _methodParameterTypes101 = new String[] { "java.util.List" };
 
-        _methodName107 = "calculateMoneyInRials";
+        _methodName102 = "calculateMoneyInRials";
 
-        _methodParameterTypes107 = new String[] {
+        _methodParameterTypes102 = new String[] {
                 "com.arman.csb.modules.model.Payment"
             };
 
-        _methodName108 = "calculateMoneyInRials";
+        _methodName103 = "calculateMoneyInRials";
 
-        _methodParameterTypes108 = new String[] { "java.util.List" };
+        _methodParameterTypes103 = new String[] { "java.util.List" };
 
-        _methodName109 = "subtractCommissionScore";
+        _methodName104 = "subtractCommissionScore";
 
-        _methodParameterTypes109 = new String[] {
+        _methodParameterTypes104 = new String[] {
                 "com.arman.csb.modules.model.Payment"
             };
 
-        _methodName110 = "subtractCommissionScore";
+        _methodName105 = "subtractCommissionScore";
 
-        _methodParameterTypes110 = new String[] { "java.util.List" };
+        _methodParameterTypes105 = new String[] { "java.util.List" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -369,20 +378,20 @@ public class PaymentLocalServiceClpInvoker {
             return PaymentLocalServiceUtil.updatePayment((com.arman.csb.modules.model.Payment) arguments[0]);
         }
 
-        if (_methodName92.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
+        if (_methodName86.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes86, parameterTypes)) {
             return PaymentLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName93.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
+        if (_methodName87.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes87, parameterTypes)) {
             PaymentLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName98.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+        if (_methodName92.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
             return PaymentLocalServiceUtil.addPayment(((Long) arguments[0]).longValue(),
                 (java.lang.Long) arguments[1], (java.util.Date) arguments[2],
                 ((Integer) arguments[3]).intValue(),
@@ -390,13 +399,13 @@ public class PaymentLocalServiceClpInvoker {
                 (com.liferay.portal.service.ServiceContext) arguments[6]);
         }
 
-        if (_methodName99.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
+        if (_methodName93.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
             return PaymentLocalServiceUtil.totalPayedAmount((java.lang.Long) arguments[0]);
         }
 
-        if (_methodName100.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes100, parameterTypes)) {
+        if (_methodName94.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
             return PaymentLocalServiceUtil.find((java.lang.Long) arguments[0],
                 (java.util.Date) arguments[1], (java.util.Date) arguments[2],
                 ((Long) arguments[3]).longValue(),
@@ -407,57 +416,67 @@ public class PaymentLocalServiceClpInvoker {
                 (com.liferay.portal.service.ServiceContext) arguments[8]);
         }
 
-        if (_methodName101.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes101, parameterTypes)) {
+        if (_methodName95.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+            return PaymentLocalServiceUtil.findCount((java.lang.Long) arguments[0],
+                (java.util.Date) arguments[1], (java.util.Date) arguments[2],
+                ((Long) arguments[3]).longValue(),
+                ((Long) arguments[4]).longValue(),
+                ((Integer) arguments[5]).intValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[6]);
+        }
+
+        if (_methodName96.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
             return PaymentLocalServiceUtil.totalPaymentAmount((java.lang.Long) arguments[0],
                 (java.util.Date) arguments[1], (java.util.Date) arguments[2]);
         }
 
-        if (_methodName102.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes102, parameterTypes)) {
+        if (_methodName97.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
             return PaymentLocalServiceUtil.findByStatus(((Integer) arguments[0]).intValue());
         }
 
-        if (_methodName103.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes103, parameterTypes)) {
+        if (_methodName98.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
             return PaymentLocalServiceUtil.updateStatus((com.arman.csb.modules.model.Payment) arguments[0],
                 ((Integer) arguments[1]).intValue());
         }
 
-        if (_methodName104.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes104, parameterTypes)) {
+        if (_methodName99.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
             return PaymentLocalServiceUtil.deletePayment(((Long) arguments[0]).longValue());
         }
 
-        if (_methodName105.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes105, parameterTypes)) {
+        if (_methodName100.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes100, parameterTypes)) {
             return PaymentLocalServiceUtil.sumPayedOrPending((java.lang.Long) arguments[0]);
         }
 
-        if (_methodName106.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes106, parameterTypes)) {
+        if (_methodName101.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes101, parameterTypes)) {
             return PaymentLocalServiceUtil.getExcelDocument((java.util.List<com.arman.csb.modules.model.Payment>) arguments[0]);
         }
 
-        if (_methodName107.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes107, parameterTypes)) {
+        if (_methodName102.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes102, parameterTypes)) {
             return PaymentLocalServiceUtil.calculateMoneyInRials((com.arman.csb.modules.model.Payment) arguments[0]);
         }
 
-        if (_methodName108.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes108, parameterTypes)) {
+        if (_methodName103.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes103, parameterTypes)) {
             return PaymentLocalServiceUtil.calculateMoneyInRials((java.util.List<com.arman.csb.modules.model.Payment>) arguments[0]);
         }
 
-        if (_methodName109.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes109, parameterTypes)) {
+        if (_methodName104.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes104, parameterTypes)) {
             PaymentLocalServiceUtil.subtractCommissionScore((com.arman.csb.modules.model.Payment) arguments[0]);
 
             return null;
         }
 
-        if (_methodName110.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes110, parameterTypes)) {
+        if (_methodName105.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes105, parameterTypes)) {
             PaymentLocalServiceUtil.subtractCommissionScore((java.util.List<com.arman.csb.modules.model.Payment>) arguments[0]);
 
             return null;

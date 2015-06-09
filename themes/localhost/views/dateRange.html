@@ -1,0 +1,27 @@
+<div class="date-range-container">
+    <div class="form-group date-range">
+        <label class="control-label col-md-4">از تاریخ</label>
+
+        <div class="input-group col-md-8">
+            <input ng-click="openExpireDate($event)"
+                    readonly type="text" class="form-control selector"
+                    datepicker-popup-persian="dd-MMMM-yyyy"
+                    ng-model="fromDate" is-open="fromDateIsOpen"
+                    datepicker-mode="'day'"/>
+
+        </div>
+    </div>
+
+    <div class="form-group date-range">
+        <label class="control-label col-md-4">تا تاریخ</label>
+
+        <div class="input-group col-md-8">
+            <input
+                    readonly type="text" class="form-control selector"
+                    datepicker-popup-persian="dd-MMMM-yyyy"
+                    ng-model="toDate" is-open="toDateIsOpen"
+                    datepicker-mode="'day'"/>
+
+        </div>
+    </div>
+</div>

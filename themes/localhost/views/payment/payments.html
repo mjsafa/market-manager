@@ -413,7 +413,7 @@
     <div class="col-md-3 col-sm-12">
 
         <div class="form-group">
-            <label class="control-label col-md-5">بازه امتیاز</label>
+            <label class="control-label col-md-5">بازه امتیاز از:</label>
 
             <div class="input-group col-md-7">
 
@@ -422,20 +422,30 @@
             </div>
 
         </div>
-    </div>
-    <div class="col-md-2 col-sm-12">
+
         <div class="form-group">
-            <div class="input-group col-md-12">
+            <label class="control-label col-md-5">تا:</label>
+            <div class="input-group col-md-7">
                 <input score-input ng-enter="doSearch()" ng-model="filter.toAmount" type="text" class="form-control"
                        empty-to-null/>
             </div>
         </div>
     </div>
+
+
+
+    <div class="col-md-2 col-sm-12">
+        <div date-range from-date="filter.fromDate" to-date="filter.toDate">
+        </div>
+    </div>
+
+
     <div class="col-md-2 col-sm-12">
         <button ng-click="doSearch()" class="btn blue btn-lg btn-block">
             جسنجو
         </button>
     </div>
+
 
                 <span style="height: 40px; line-height: 40px;" class="block col-md-12 bg-grey-cararra margin-top-20">
                     نتایج جستجو
@@ -552,13 +562,52 @@
 
             </tr>
         </table>
+
+        <pagination items-per-page="itemsPerPage" total-items="totalPayments" ng-model="filter.currentPage" ng-change="doSearch()"
+                    previous-text="صفحه قبل"
+                    next-text="صفحه بعد"
+                ></pagination>
     </div>
 </div>
 </div>
 <!-- END PORTLET-->
 </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div file-upload is-single="true" uploader="uploader">
+    </div>
+
+
+
+    <div upload-thumb height="200" uploader="uploader" />
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
+
+
+
+
+
 <!-- END MAIN CONTENT -->
 <!-- BEGIN MAIN JS & CSS -->
 <script>

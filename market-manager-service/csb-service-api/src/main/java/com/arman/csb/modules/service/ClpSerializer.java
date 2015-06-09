@@ -1,7 +1,6 @@
 package com.arman.csb.modules.service;
 
 import com.arman.csb.modules.model.CustomerClp;
-import com.arman.csb.modules.model.InstanceClp;
 import com.arman.csb.modules.model.InvoiceClp;
 import com.arman.csb.modules.model.InvoiceItemClp;
 import com.arman.csb.modules.model.PaymentClp;
@@ -99,10 +98,6 @@ public class ClpSerializer {
             return translateInputCustomer(oldModel);
         }
 
-        if (oldModelClassName.equals(InstanceClp.class.getName())) {
-            return translateInputInstance(oldModel);
-        }
-
         if (oldModelClassName.equals(InvoiceClp.class.getName())) {
             return translateInputInvoice(oldModel);
         }
@@ -146,16 +141,6 @@ public class ClpSerializer {
         CustomerClp oldClpModel = (CustomerClp) oldModel;
 
         BaseModel<?> newModel = oldClpModel.getCustomerRemoteModel();
-
-        newModel.setModelAttributes(oldClpModel.getModelAttributes());
-
-        return newModel;
-    }
-
-    public static Object translateInputInstance(BaseModel<?> oldModel) {
-        InstanceClp oldClpModel = (InstanceClp) oldModel;
-
-        BaseModel<?> newModel = oldClpModel.getInstanceRemoteModel();
 
         newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -240,11 +225,6 @@ public class ClpSerializer {
         if (oldModelClassName.equals(
                     "com.arman.csb.modules.model.impl.CustomerImpl")) {
             return translateOutputCustomer(oldModel);
-        }
-
-        if (oldModelClassName.equals(
-                    "com.arman.csb.modules.model.impl.InstanceImpl")) {
-            return translateOutputInstance(oldModel);
         }
 
         if (oldModelClassName.equals(
@@ -357,10 +337,6 @@ public class ClpSerializer {
             return new com.arman.csb.modules.NoSuchCustomerException();
         }
 
-        if (className.equals("com.arman.csb.modules.NoSuchInstanceException")) {
-            return new com.arman.csb.modules.NoSuchInstanceException();
-        }
-
         if (className.equals("com.arman.csb.modules.NoSuchInvoiceException")) {
             return new com.arman.csb.modules.NoSuchInvoiceException();
         }
@@ -395,16 +371,6 @@ public class ClpSerializer {
         newModel.setModelAttributes(oldModel.getModelAttributes());
 
         newModel.setCustomerRemoteModel(oldModel);
-
-        return newModel;
-    }
-
-    public static Object translateOutputInstance(BaseModel<?> oldModel) {
-        InstanceClp newModel = new InstanceClp();
-
-        newModel.setModelAttributes(oldModel.getModelAttributes());
-
-        newModel.setInstanceRemoteModel(oldModel);
 
         return newModel;
     }

@@ -216,8 +216,10 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
 
         Map<String, Object> explain = (Map<String, Object>) invoice.get("explain");
         JSONObject tempObject = JSONFactoryUtil.createJSONObject();
-        tempObject.put("invoiceExplain", String.valueOf(explain.get("invoiceExplain")));
 
+        if(null != explain ) {
+            tempObject.put("invoiceExplain", MapUtil.getString(explain, "invoiceExplain"));
+        }
         invoiceObject.setExplain(tempObject.toString());
 
         return invoiceObject;

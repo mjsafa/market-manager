@@ -29,7 +29,8 @@ var MetronicApp = angular.module("MetronicApp", [
     "angularCharts",
     "ui.bootstrap.persian.datepicker",
     "angularMoment",
-    'pascalprecht.translate', 'ghiscoding.validation'
+    'pascalprecht.translate', 'ghiscoding.validation',
+    'angularFileUpload'
 ]);
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -286,6 +287,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/assets/global/plugins/morris/morris.min.js',
                             '/delegate/resource/assets/global/plugins/morris/raphael-min.js',
                             '/delegate/resource/assets/global/plugins/jquery.sparkline.min.js',
+
                             '/delegate/resource/js/server/server.js',
                             '/delegate/resource/js/server/CustomerService.js',
                             '/delegate/resource/js/server/ScoreService.js',
@@ -1083,3 +1085,68 @@ MetronicApp.filter('myDate', function ($filter) {
 })
 
 
+MetronicApp.value('datepickerConfig', {
+    closeText : 'بستن'
+});
+
+
+MetronicApp.config(['$provide', function($provide) {
+    $provide.decorator('FileUploader', ['$delegate', function(FileUploader) {
+        // $delegate is FileUploader
+
+        // add new method
+        FileUploader.prototype.onSuccessItem  = function(fileItem, response, status, headers) {
+            //fileItem.url = response.link;
+            //this.files = this.files || [];
+
+            if(this.queue[fileItem.index]){
+                //console.log(response.link);
+
+                this.queue[fileItem.index].url = response.link;
+            }
+        };
+
+        FileUploader.prototype.onAfterAddingFile = function(fileItem){
+            //console.log(this.queue[0].uploader);
+            var uploader = this.queue[0].uploader;
+            if(uploader.isSingle ){
+                console.log(uploader.queue);
+
+                var i = 0;
+                for(i = 0; i < uploader.queue.length ; i++ ){
+                    if (uploader.queue.length > 1) {
+                        uploader.queue[0].remove();
+                    }
+                }
+/*
+                angular.forEach(uploader.queue , function(item){
+                    if (uploader.queue.length > 1){
+                        item.remove();
+                    }
+                });
+*/
+            }
+        }
+        //FileUploader.FileUploaderOptions.prototype.url = '/delegate/resource';
+
+        // override default over class ("nv-file-over")
+        //FileUploader.FileOver.prototype.overClass = 'your-class-name';
+
+        return FileUploader;
+    }])
+}]);
+
+MetronicApp.value('fileUploaderOptions', {
+    url: '/delegate/resource',
+    alias: 'file',
+    headers: {},
+    queue: [],
+    progress: 0,
+    autoUpload: false,
+    removeAfterUpload: false,
+    method: 'POST',
+    filters: [],
+    formData: [],
+    queueLimit: Number.MAX_VALUE,
+    withCredentials: false
+});
