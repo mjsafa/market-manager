@@ -56,6 +56,8 @@ public class TemplateLocalServiceClp implements TemplateLocalService {
     private String[] _methodParameterTypes23;
     private String _methodName24;
     private String[] _methodParameterTypes24;
+    private String _methodName25;
+    private String[] _methodParameterTypes25;
 
     public TemplateLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -173,6 +175,10 @@ public class TemplateLocalServiceClp implements TemplateLocalService {
         _methodName24 = "getTemplatesByCompany";
 
         _methodParameterTypes24 = new String[] { "long" };
+
+        _methodName25 = "getTemplateByName";
+
+        _methodParameterTypes25 = new String[] { "java.lang.String" };
     }
 
     @Override
@@ -863,5 +869,38 @@ public class TemplateLocalServiceClp implements TemplateLocalService {
         }
 
         return (java.util.List<com.arman.csb.theme.model.Template>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.arman.csb.theme.model.Template getTemplateByName(
+        java.lang.String name)
+        throws com.arman.csb.theme.NoSuchTemplateException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName25,
+                    _methodParameterTypes25,
+                    new Object[] { ClpSerializer.translateInput(name) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.arman.csb.theme.NoSuchTemplateException) {
+                throw (com.arman.csb.theme.NoSuchTemplateException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.arman.csb.theme.model.Template) ClpSerializer.translateOutput(returnObj);
     }
 }

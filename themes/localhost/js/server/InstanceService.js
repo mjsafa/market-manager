@@ -18,6 +18,12 @@ MetronicApp.factory("InstanceService", function (JsonServer) {
                 scope:options ? options.scope : undefined
             });
         },
+        getInstanceByGroupId:function (groupId, options) {
+            var result = JsonServer.postByUrl('/csb-modules-service-portlet.instance', 'get-instance-by-group-id', {groupId:groupId, serviceContext:{}}, {
+                eventName:'InstanceService.getInstanceByGroupId',
+                scope:options ? options.scope : undefined
+            });
+        },
         updateInstance:function (instance, options) {
             var result = JsonServer.postByUrl('/csb-modules-service-portlet.instance', 'update-instance', {instance:JSON.stringify(instance), serviceContext:{}}, {
                 eventName:'InstanceService.updateInstance',

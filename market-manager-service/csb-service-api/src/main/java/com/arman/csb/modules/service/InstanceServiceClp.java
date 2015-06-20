@@ -22,6 +22,8 @@ public class InstanceServiceClp implements InstanceService {
     private String[] _methodParameterTypes6;
     private String _methodName7;
     private String[] _methodParameterTypes7;
+    private String _methodName8;
+    private String[] _methodParameterTypes8;
 
     public InstanceServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -58,9 +60,15 @@ public class InstanceServiceClp implements InstanceService {
                 "long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName7 = "search";
+        _methodName7 = "getInstanceByGroupId";
 
         _methodParameterTypes7 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName8 = "search";
+
+        _methodParameterTypes8 = new String[] {
                 "java.lang.String", "int", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
@@ -267,6 +275,43 @@ public class InstanceServiceClp implements InstanceService {
     }
 
     @Override
+    public com.liferay.portal.kernel.json.JSONObject getInstanceByGroupId(
+        long groupId, com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName7,
+                    _methodParameterTypes7,
+                    new Object[] {
+                        groupId,
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
     public com.liferay.portal.kernel.json.JSONArray search(
         java.lang.String filter, int status, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)
@@ -275,8 +320,8 @@ public class InstanceServiceClp implements InstanceService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableService.invokeMethod(_methodName7,
-                    _methodParameterTypes7,
+            returnObj = _invokableService.invokeMethod(_methodName8,
+                    _methodParameterTypes8,
                     new Object[] {
                         ClpSerializer.translateInput(filter),
                         

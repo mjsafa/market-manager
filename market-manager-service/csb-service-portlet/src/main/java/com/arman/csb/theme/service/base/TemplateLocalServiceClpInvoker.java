@@ -59,6 +59,8 @@ public class TemplateLocalServiceClpInvoker {
     private String[] _methodParameterTypes55;
     private String _methodName56;
     private String[] _methodParameterTypes56;
+    private String _methodName57;
+    private String[] _methodParameterTypes57;
 
     public TemplateLocalServiceClpInvoker() {
         _methodName0 = "addTemplate";
@@ -180,6 +182,10 @@ public class TemplateLocalServiceClpInvoker {
         _methodName56 = "getTemplatesByCompany";
 
         _methodParameterTypes56 = new String[] { "long" };
+
+        _methodName57 = "getTemplateByName";
+
+        _methodParameterTypes57 = new String[] { "java.lang.String" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -320,6 +326,11 @@ public class TemplateLocalServiceClpInvoker {
         if (_methodName56.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
             return TemplateLocalServiceUtil.getTemplatesByCompany(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName57.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+            return TemplateLocalServiceUtil.getTemplateByName((java.lang.String) arguments[0]);
         }
 
         throw new UnsupportedOperationException();

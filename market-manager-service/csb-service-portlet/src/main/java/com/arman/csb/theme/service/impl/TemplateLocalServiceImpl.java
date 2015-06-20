@@ -1,5 +1,6 @@
 package com.arman.csb.theme.service.impl;
 
+import com.arman.csb.theme.NoSuchTemplateException;
 import com.arman.csb.theme.model.Template;
 import com.arman.csb.theme.service.base.TemplateLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -55,6 +56,10 @@ public class TemplateLocalServiceImpl extends TemplateLocalServiceBaseImpl {
 
     public List<Template> getTemplatesByCompany(long companyId) throws SystemException{
         return templatePersistence.findByCompanyId(companyId);
+    }
+
+    public Template getTemplateByName(String name) throws NoSuchTemplateException, SystemException {
+        return templatePersistence.findByName(name);
     }
 
 }

@@ -5,12 +5,11 @@ import com.arman.csb.modules.model.Customer;
 import com.arman.csb.modules.model.Invoice;
 import com.arman.csb.modules.model.InvoiceItem;
 import com.arman.csb.modules.model.Product;
-import com.arman.csb.modules.model.impl.CustomerImpl;
-import com.arman.csb.modules.model.impl.InvoiceImpl;
 import com.arman.csb.modules.service.*;
 import com.arman.csb.modules.service.base.InvoiceServiceBaseImpl;
 import com.arman.csb.modules.util.RoleEnum;
 import com.arman.csb.modules.util.RoleUtil;
+import com.arman.csb.util.DateUtil;
 import com.arman.csb.util.MapUtil;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -22,9 +21,9 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.impl.UserLocalServiceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -100,38 +99,21 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
         return getJSONObject(updateInvoice);
     }
 
-    public JSONArray search(String filter, String status, long customerId, int start, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
+    public JSONObject search(String text, String status, long customerId,
+                            Date fromDate, Date toDate, int start, int maxResult,
+                            ServiceContext serviceContext) throws PortalException, SystemException {
+
         RoleUtil.checkAnyRolesOrSameCustomer(serviceContext.getUserId(), customerId, RoleEnum.INVOICE_MANAGER.toString());
+
+        JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
-        Session session = invoicePersistence.openSession();
+        SQLQuery searchQuery = createQueryObject(text, status, customerId, fromDate , toDate,
+                "com.arman.csb.modules.service.InvoiceService.search", false, serviceContext);
 
-        String sql = CustomSQLUtil.get("com.arman.csb.modules.service.InvoiceService.search");
-        sql = sql.replaceAll("##KEYWORD##","%" + filter + "%");
-
-        SQLQuery queryObject = session.createSQLQuery(sql);
-        //queryObject.addEntity(InvoiceImpl.TABLE_NAME, InvoiceImpl.class);
-        queryObject.setFirstResult(start);
-        queryObject.setMaxResults(maxResult);
-
-        QueryPos qPos = QueryPos.getInstance(queryObject);
-        if(status.equals("")) {
-            qPos.add(true);
-            qPos.add(1);
-        } else {
-            qPos.add(false);
-            qPos.add(Integer.valueOf(status));
-        }
-
-        if(0 == customerId) {
-            qPos.add(true);
-        } else {
-            qPos.add(false);
-        }
-        qPos.add(customerId);
-        qPos.add(serviceContext.getScopeGroupId());
-
-        List<Object[]> objects = queryObject.list();
+        searchQuery.setFirstResult(start);
+        searchQuery.setMaxResults(maxResult);
+        List<Object[]> objects = searchQuery.list();
 
         for (Object[] data : objects) {
             JSONObject json = JSONFactoryUtil.createJSONObject();
@@ -152,7 +134,16 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
             result.put(json);
         }
 
-        return result;
+        SQLQuery countQuery = createQueryObject(text, status, customerId, fromDate , toDate,
+                "com.arman.csb.modules.service.InvoiceService.count", false, serviceContext);
+        List<BigInteger> temp = countQuery.list();
+        long totalInvoices = 0;
+        totalInvoices = Long.valueOf(String.valueOf(temp.get(0)));
+
+        jsonObject.put("result", result);
+        jsonObject.put("total", totalInvoices);
+
+        return jsonObject;
     }
 
     public JSONObject getById(long invoiceId,ServiceContext serviceContext) throws PortalException, SystemException {
@@ -205,6 +196,58 @@ public class InvoiceServiceImpl extends InvoiceServiceBaseImpl {
                 result.toString(), serviceContext);
 
         return result;
+    }
+
+    private SQLQuery createQueryObject (String text, String status, long customerId,
+                                        Date fromDate, Date toDate,  String queryName,
+                                        boolean isCount, ServiceContext serviceContext) {
+        if(null != toDate) {
+            toDate = DateUtil.adding24HourToDate(toDate);
+        }
+
+        Session session = invoicePersistence.openSession();
+
+        String sql = CustomSQLUtil.get(queryName);
+        sql = sql.replaceAll("##KEYWORD##","%" + text + "%");
+
+        SQLQuery queryObject = session.createSQLQuery(sql);
+        //queryObject.addEntity(InvoiceImpl.TABLE_NAME, InvoiceImpl.class);
+
+        QueryPos qPos = QueryPos.getInstance(queryObject);
+        if(status.equals("")) {
+            qPos.add(true);
+            qPos.add(1);
+        } else {
+            qPos.add(false);
+            qPos.add(Integer.valueOf(status));
+        }
+
+        if(null == fromDate) {
+            qPos.add(true);
+            qPos.add(new Date());
+        } else {
+            qPos.add(false);
+            qPos.add(fromDate);
+        }
+
+        if(null == toDate) {
+            qPos.add(true);
+            qPos.add(new Date());
+        } else {
+            qPos.add(false);
+            qPos.add(toDate);
+        }
+
+        if(0 == customerId) {
+            qPos.add(true);
+        } else {
+            qPos.add(false);
+        }
+
+        qPos.add(customerId);
+        qPos.add(serviceContext.getScopeGroupId());
+
+        return queryObject;
     }
 
     private Invoice getInvoiceData(Invoice invoiceObject, Map<String, Object> invoice, ServiceContext serviceContext) {

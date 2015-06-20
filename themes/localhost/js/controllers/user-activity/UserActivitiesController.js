@@ -5,7 +5,7 @@ MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'Use
     if (!$scope.initialized) {
         $scope.$on('UserActivityService.search', function (event, data) {
             $scope.activities = data.result.result;
-            $scope.totalPayments = data.result.total;
+            $scope.totalActivities = data.result.total;
         });
 
         $scope.filter = $scope.filter || {};

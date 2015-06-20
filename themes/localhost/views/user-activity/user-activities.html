@@ -219,7 +219,7 @@
                                 تعداد کل
                             </div>
                             <div class="number">
-                                {{activities.length}}
+                                {{totalActivities}}
                             </div>
                         </div>
                     </div>
@@ -274,7 +274,7 @@
                         </td>
                     </tr>
                 </table>
-                <pagination items-per-page="itemsPerPage" total-items="totalPayments" ng-model="filter.currentPage"
+                <pagination items-per-page="itemsPerPage" total-items="totalActivities" ng-model="filter.currentPage"
                             ng-change="doSearch()"
                             previous-text="صفحه قبل"
                             next-text="صفحه بعد" ></pagination>

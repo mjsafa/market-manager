@@ -86,9 +86,8 @@ public class InstanceModelImpl extends BaseModelImpl<Instance>
     public static long COMPANYID_COLUMN_BITMASK = 1L;
     public static long GROUPID_COLUMN_BITMASK = 2L;
     public static long NAME_COLUMN_BITMASK = 4L;
-    public static long USERID_COLUMN_BITMASK = 8L;
-    public static long UUID_COLUMN_BITMASK = 16L;
-    public static long ID_COLUMN_BITMASK = 32L;
+    public static long UUID_COLUMN_BITMASK = 8L;
+    public static long ID_COLUMN_BITMASK = 16L;
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
                 "lock.expiration.time.com.arman.csb.modules.model.Instance"));
     private static ClassLoader _classLoader = Instance.class.getClassLoader();
@@ -106,8 +105,6 @@ public class InstanceModelImpl extends BaseModelImpl<Instance>
     private boolean _setOriginalCompanyId;
     private long _userId;
     private String _userUuid;
-    private long _originalUserId;
-    private boolean _setOriginalUserId;
     private String _userName;
     private Date _createDate;
     private Date _modifiedDate;
@@ -393,14 +390,6 @@ public class InstanceModelImpl extends BaseModelImpl<Instance>
 
     @Override
     public void setUserId(long userId) {
-        _columnBitmask |= USERID_COLUMN_BITMASK;
-
-        if (!_setOriginalUserId) {
-            _setOriginalUserId = true;
-
-            _originalUserId = _userId;
-        }
-
         _userId = userId;
     }
 
@@ -412,10 +401,6 @@ public class InstanceModelImpl extends BaseModelImpl<Instance>
     @Override
     public void setUserUuid(String userUuid) {
         _userUuid = userUuid;
-    }
-
-    public long getOriginalUserId() {
-        return _originalUserId;
     }
 
     @JSON
@@ -640,10 +625,6 @@ public class InstanceModelImpl extends BaseModelImpl<Instance>
         instanceModelImpl._originalCompanyId = instanceModelImpl._companyId;
 
         instanceModelImpl._setOriginalCompanyId = false;
-
-        instanceModelImpl._originalUserId = instanceModelImpl._userId;
-
-        instanceModelImpl._setOriginalUserId = false;
 
         instanceModelImpl._originalName = instanceModelImpl._name;
 

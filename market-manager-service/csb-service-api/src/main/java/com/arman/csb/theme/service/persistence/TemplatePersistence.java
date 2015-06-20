@@ -511,6 +511,62 @@ public interface TemplatePersistence extends BasePersistence<Template> {
         throws com.liferay.portal.kernel.exception.SystemException;
 
     /**
+    * Returns the template where name = &#63; or throws a {@link com.arman.csb.theme.NoSuchTemplateException} if it could not be found.
+    *
+    * @param name the name
+    * @return the matching template
+    * @throws com.arman.csb.theme.NoSuchTemplateException if a matching template could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.arman.csb.theme.model.Template findByName(java.lang.String name)
+        throws com.arman.csb.theme.NoSuchTemplateException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the template where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+    *
+    * @param name the name
+    * @return the matching template, or <code>null</code> if a matching template could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.arman.csb.theme.model.Template fetchByName(java.lang.String name)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the template where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+    *
+    * @param name the name
+    * @param retrieveFromCache whether to use the finder cache
+    * @return the matching template, or <code>null</code> if a matching template could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.arman.csb.theme.model.Template fetchByName(
+        java.lang.String name, boolean retrieveFromCache)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Removes the template where name = &#63; from the database.
+    *
+    * @param name the name
+    * @return the template that was removed
+    * @throws SystemException if a system exception occurred
+    */
+    public com.arman.csb.theme.model.Template removeByName(
+        java.lang.String name)
+        throws com.arman.csb.theme.NoSuchTemplateException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the number of templates where name = &#63;.
+    *
+    * @param name the name
+    * @return the number of matching templates
+    * @throws SystemException if a system exception occurred
+    */
+    public int countByName(java.lang.String name)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
     * Caches the template in the entity cache if it is enabled.
     *
     * @param template the template

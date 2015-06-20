@@ -1,4 +1,4 @@
-MetronicApp.controller('InstancesController', ['$rootScope', '$scope', 'InstanceService', '$state', '$modal','$filter', function ($rootScope, $scope, InstanceService, $state, $modal, $filter) {
+MetronicApp.controller('InstancesController', ['$rootScope', '$scope', 'InstanceService', '$state', '$modal','$filter', 'FileUploader', function ($rootScope, $scope, InstanceService, $state, $modal, $filter, FileUploader) {
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 
@@ -20,6 +20,9 @@ MetronicApp.controller('InstancesController', ['$rootScope', '$scope', 'Instance
         $scope.$on('InstanceService.addInstance', function (event, data) {
             $scope.doSearch();
             $scope.initialData();
+
+            $scope.uploader.clearQueue();
+
             $rootScope.$emit('page.alert', {message:'نمایندگی جدید در سامانه ثبت شد.', type:"success"});
         });
 
@@ -49,6 +52,10 @@ MetronicApp.controller('InstancesController', ['$rootScope', '$scope', 'Instance
     }
 
     $scope.submitInstance = function () {
+        if(1 ==  $scope.uploader.queue.length) {
+            $scope.newInstance.logo = $scope.uploader.queue[0].url;
+        }
+
         if($scope.newInstance.superAdmin) {
             $scope.newInstance.superAdminId = $scope.newInstance.superAdmin.id;
         }
@@ -95,6 +102,11 @@ MetronicApp.controller('InstancesController', ['$rootScope', '$scope', 'Instance
     $scope.updateStatus = function(instanceId ,newStatus) {
         InstanceService.updateInstanceStatus(instanceId, newStatus, {scope: $scope});
     }
+
+    $scope.uploader = new FileUploader({
+        autoUpload : true,
+        isSingle:true
+    });
 
     $scope.initialized = true;
 

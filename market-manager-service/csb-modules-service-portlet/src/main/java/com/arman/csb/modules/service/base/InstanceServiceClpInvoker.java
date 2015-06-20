@@ -23,6 +23,8 @@ public class InstanceServiceClpInvoker {
     private String[] _methodParameterTypes81;
     private String _methodName82;
     private String[] _methodParameterTypes82;
+    private String _methodName83;
+    private String[] _methodParameterTypes83;
 
     public InstanceServiceClpInvoker() {
         _methodName72 = "getBeanIdentifier";
@@ -57,9 +59,15 @@ public class InstanceServiceClpInvoker {
                 "long", "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName82 = "search";
+        _methodName82 = "getInstanceByGroupId";
 
         _methodParameterTypes82 = new String[] {
+                "long", "com.liferay.portal.service.ServiceContext"
+            };
+
+        _methodName83 = "search";
+
+        _methodParameterTypes83 = new String[] {
                 "java.lang.String", "int", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
@@ -106,6 +114,12 @@ public class InstanceServiceClpInvoker {
 
         if (_methodName82.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
+            return InstanceServiceUtil.getInstanceByGroupId(((Long) arguments[0]).longValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[1]);
+        }
+
+        if (_methodName83.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
             return InstanceServiceUtil.search((java.lang.String) arguments[0],
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue(),

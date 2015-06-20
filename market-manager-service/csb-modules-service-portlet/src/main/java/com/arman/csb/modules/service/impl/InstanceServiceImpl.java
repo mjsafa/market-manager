@@ -9,6 +9,8 @@ import com.arman.csb.modules.service.MyUserServiceUtil;
 import com.arman.csb.modules.service.UserActivityLocalServiceUtil;
 import com.arman.csb.modules.service.base.InstanceServiceBaseImpl;
 import com.arman.csb.modules.util.RoleUtil;
+import com.arman.csb.theme.model.Template;
+import com.arman.csb.theme.service.TemplateLocalServiceUtil;
 import com.arman.csb.util.MapUtil;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -70,7 +72,7 @@ public class InstanceServiceImpl extends InstanceServiceBaseImpl {
         newInstance = getInstanceData(newInstance, instance);
 
         Group group = GroupLocalServiceUtil.addGroup(onlineUser.getUserId(), 0, Group.class.getName(), 0, 0,
-                newInstance.getName(), "", 1, true, 0, "/"+newInstance.getName(), true, true, serviceContext);
+                newInstance.getName(), "", 1, true, 0, "/"+newInstance.getUrl(), true, true, serviceContext);
         group.setClassPK(group.getGroupId());
         GroupLocalServiceUtil.updateGroup(group);
 
@@ -92,10 +94,10 @@ public class InstanceServiceImpl extends InstanceServiceBaseImpl {
         LayoutLocalServiceUtil.updateLookAndFeel(group.getGroupId(), false, adminLayout.getLayoutId(),
                 "csbfront_WAR_csbfronttheme", "01", "", false);
 
-        long templateId = 1;
+        Template template = TemplateLocalServiceUtil.getTemplateByName("admin");
         ExpandoValueLocalServiceUtil.addValue(serviceContext.getCompanyId(), Layout.class.getName(),
                 ExpandoTableConstants.DEFAULT_TABLE_NAME, "templateId",
-                adminLayout.getPlid(), templateId);
+                adminLayout.getPlid(), template.getId());
 
 
         ///// Adding Login Layout /////
@@ -106,10 +108,10 @@ public class InstanceServiceImpl extends InstanceServiceBaseImpl {
         LayoutLocalServiceUtil.updateLookAndFeel(group.getGroupId(), false, loginLayout.getLayoutId(),
                 "csbfront_WAR_csbfronttheme", "01", "", false);
 
-        templateId = 101;
+        template = TemplateLocalServiceUtil.getTemplateByName("login");
         ExpandoValueLocalServiceUtil.addValue(serviceContext.getCompanyId(), Layout.class.getName(),
                 ExpandoTableConstants.DEFAULT_TABLE_NAME, "templateId",
-                loginLayout.getPlid(), templateId);
+                loginLayout.getPlid(), template.getId());
 
 
         InstanceLocalServiceUtil.addInstance(newInstance);
@@ -182,6 +184,14 @@ public class InstanceServiceImpl extends InstanceServiceBaseImpl {
         RoleUtil.checkAnyRoles(serviceContext.getUserId());
 
         Instance instance = InstanceLocalServiceUtil.getInstance(instanceId);
+
+        return getJSONObject(instance, serviceContext);
+    }
+
+    public JSONObject getInstanceByGroupId(long groupId, ServiceContext serviceContext) throws PortalException, SystemException {
+        RoleUtil.checkAnyRoles(serviceContext.getUserId());
+
+        Instance instance = instancePersistence.findByGroupId(groupId);
 
         return getJSONObject(instance, serviceContext);
     }

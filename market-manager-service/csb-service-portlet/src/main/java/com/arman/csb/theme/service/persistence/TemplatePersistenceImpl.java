@@ -153,6 +153,18 @@ public class TemplatePersistenceImpl extends BasePersistenceImpl<Template>
             FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
             new String[] { Long.class.getName() });
     private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "template.companyId = ?";
+    public static final FinderPath FINDER_PATH_FETCH_BY_NAME = new FinderPath(TemplateModelImpl.ENTITY_CACHE_ENABLED,
+            TemplateModelImpl.FINDER_CACHE_ENABLED, TemplateImpl.class,
+            FINDER_CLASS_NAME_ENTITY, "fetchByName",
+            new String[] { String.class.getName() },
+            TemplateModelImpl.NAME_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_NAME = new FinderPath(TemplateModelImpl.ENTITY_CACHE_ENABLED,
+            TemplateModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByName",
+            new String[] { String.class.getName() });
+    private static final String _FINDER_COLUMN_NAME_NAME_1 = "template.name IS NULL";
+    private static final String _FINDER_COLUMN_NAME_NAME_2 = "template.name = ?";
+    private static final String _FINDER_COLUMN_NAME_NAME_3 = "(template.name IS NULL OR template.name = '')";
     private static final String _SQL_SELECT_TEMPLATE = "SELECT template FROM Template template";
     private static final String _SQL_SELECT_TEMPLATE_WHERE = "SELECT template FROM Template template WHERE ";
     private static final String _SQL_COUNT_TEMPLATE = "SELECT COUNT(template) FROM Template template";
@@ -1880,6 +1892,231 @@ public class TemplatePersistenceImpl extends BasePersistenceImpl<Template>
     }
 
     /**
+     * Returns the template where name = &#63; or throws a {@link com.arman.csb.theme.NoSuchTemplateException} if it could not be found.
+     *
+     * @param name the name
+     * @return the matching template
+     * @throws com.arman.csb.theme.NoSuchTemplateException if a matching template could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Template findByName(String name)
+        throws NoSuchTemplateException, SystemException {
+        Template template = fetchByName(name);
+
+        if (template == null) {
+            StringBundler msg = new StringBundler(4);
+
+            msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+            msg.append("name=");
+            msg.append(name);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchTemplateException(msg.toString());
+        }
+
+        return template;
+    }
+
+    /**
+     * Returns the template where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+     *
+     * @param name the name
+     * @return the matching template, or <code>null</code> if a matching template could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Template fetchByName(String name) throws SystemException {
+        return fetchByName(name, true);
+    }
+
+    /**
+     * Returns the template where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+     *
+     * @param name the name
+     * @param retrieveFromCache whether to use the finder cache
+     * @return the matching template, or <code>null</code> if a matching template could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Template fetchByName(String name, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { name };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_NAME,
+                    finderArgs, this);
+        }
+
+        if (result instanceof Template) {
+            Template template = (Template) result;
+
+            if (!Validator.equals(name, template.getName())) {
+                result = null;
+            }
+        }
+
+        if (result == null) {
+            StringBundler query = new StringBundler(3);
+
+            query.append(_SQL_SELECT_TEMPLATE_WHERE);
+
+            boolean bindName = false;
+
+            if (name == null) {
+                query.append(_FINDER_COLUMN_NAME_NAME_1);
+            } else if (name.equals(StringPool.BLANK)) {
+                query.append(_FINDER_COLUMN_NAME_NAME_3);
+            } else {
+                bindName = true;
+
+                query.append(_FINDER_COLUMN_NAME_NAME_2);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (bindName) {
+                    qPos.add(name);
+                }
+
+                List<Template> list = q.list();
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_NAME,
+                        finderArgs, list);
+                } else {
+                    if ((list.size() > 1) && _log.isWarnEnabled()) {
+                        _log.warn(
+                            "TemplatePersistenceImpl.fetchByName(String, boolean) with parameters (" +
+                            StringUtil.merge(finderArgs) +
+                            ") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+                    }
+
+                    Template template = list.get(0);
+
+                    result = template;
+
+                    cacheResult(template);
+
+                    if ((template.getName() == null) ||
+                            !template.getName().equals(name)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_NAME,
+                            finderArgs, template);
+                    }
+                }
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_NAME,
+                    finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        if (result instanceof List<?>) {
+            return null;
+        } else {
+            return (Template) result;
+        }
+    }
+
+    /**
+     * Removes the template where name = &#63; from the database.
+     *
+     * @param name the name
+     * @return the template that was removed
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Template removeByName(String name)
+        throws NoSuchTemplateException, SystemException {
+        Template template = findByName(name);
+
+        return remove(template);
+    }
+
+    /**
+     * Returns the number of templates where name = &#63;.
+     *
+     * @param name the name
+     * @return the number of matching templates
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countByName(String name) throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_NAME;
+
+        Object[] finderArgs = new Object[] { name };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(2);
+
+            query.append(_SQL_COUNT_TEMPLATE_WHERE);
+
+            boolean bindName = false;
+
+            if (name == null) {
+                query.append(_FINDER_COLUMN_NAME_NAME_1);
+            } else if (name.equals(StringPool.BLANK)) {
+                query.append(_FINDER_COLUMN_NAME_NAME_3);
+            } else {
+                bindName = true;
+
+                query.append(_FINDER_COLUMN_NAME_NAME_2);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (bindName) {
+                    qPos.add(name);
+                }
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
      * Caches the template in the entity cache if it is enabled.
      *
      * @param template the template
@@ -1891,6 +2128,9 @@ public class TemplatePersistenceImpl extends BasePersistenceImpl<Template>
 
         FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
             new Object[] { template.getUuid(), template.getGroupId() }, template);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_NAME,
+            new Object[] { template.getName() }, template);
 
         template.resetOriginalValues();
     }
@@ -1974,6 +2214,12 @@ public class TemplatePersistenceImpl extends BasePersistenceImpl<Template>
                 Long.valueOf(1));
             FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
                 template);
+
+            args = new Object[] { template.getName() };
+
+            FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_NAME, args,
+                Long.valueOf(1));
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_NAME, args, template);
         } else {
             TemplateModelImpl templateModelImpl = (TemplateModelImpl) template;
 
@@ -1986,6 +2232,16 @@ public class TemplatePersistenceImpl extends BasePersistenceImpl<Template>
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
                     Long.valueOf(1));
                 FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
+                    template);
+            }
+
+            if ((templateModelImpl.getColumnBitmask() &
+                    FINDER_PATH_FETCH_BY_NAME.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] { template.getName() };
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_NAME, args,
+                    Long.valueOf(1));
+                FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_NAME, args,
                     template);
             }
         }
@@ -2008,6 +2264,19 @@ public class TemplatePersistenceImpl extends BasePersistenceImpl<Template>
 
             FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
             FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+        }
+
+        args = new Object[] { template.getName() };
+
+        FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_NAME, args);
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_NAME, args);
+
+        if ((templateModelImpl.getColumnBitmask() &
+                FINDER_PATH_FETCH_BY_NAME.getColumnBitmask()) != 0) {
+            args = new Object[] { templateModelImpl.getOriginalName() };
+
+            FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_NAME, args);
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_NAME, args);
         }
     }
 

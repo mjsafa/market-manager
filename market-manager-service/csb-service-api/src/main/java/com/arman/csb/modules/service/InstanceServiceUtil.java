@@ -84,6 +84,13 @@ public class InstanceServiceUtil {
         return getService().getInstanceById(instanceId, serviceContext);
     }
 
+    public static com.liferay.portal.kernel.json.JSONObject getInstanceByGroupId(
+        long groupId, com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().getInstanceByGroupId(groupId, serviceContext);
+    }
+
     public static com.liferay.portal.kernel.json.JSONArray search(
         java.lang.String filter, int status, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)

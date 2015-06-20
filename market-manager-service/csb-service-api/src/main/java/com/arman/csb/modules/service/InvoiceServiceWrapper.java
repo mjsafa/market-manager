@@ -63,14 +63,14 @@ public class InvoiceServiceWrapper implements InvoiceService,
     }
 
     @Override
-    public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, java.lang.String status, long customerId,
-        int start, int maxResult,
-        com.liferay.portal.service.ServiceContext serviceContext)
+    public com.liferay.portal.kernel.json.JSONObject search(
+        java.lang.String text, java.lang.String status, long customerId,
+        java.util.Date fromDate, java.util.Date toDate, int start,
+        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
-        return _invoiceService.search(filter, status, customerId, start,
-            maxResult, serviceContext);
+        return _invoiceService.search(text, status, customerId, fromDate,
+            toDate, start, maxResult, serviceContext);
     }
 
     @Override

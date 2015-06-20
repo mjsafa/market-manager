@@ -92,11 +92,12 @@
                     <div class="col-md-6 col-sm-12">
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">توضیحات</label>
+                            <label class="control-label col-md-3">لوگوی نمایندگی</label>
 
                             <div class="col-md-8">
-                                <textarea ng-model="newInvoice.explain.invoiceExplain" class="form-control"
-                                          rows="3"></textarea>
+                                <div file-upload is-single="true" uploader="uploader">
+                                </div>
+                                <div upload-thumb height="200" uploader="uploader" />
                             </div>
                         </div>
 

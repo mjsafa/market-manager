@@ -350,6 +350,14 @@ public class TemplateLocalServiceWrapper implements TemplateLocalService,
         return _templateLocalService.getTemplatesByCompany(companyId);
     }
 
+    @Override
+    public com.arman.csb.theme.model.Template getTemplateByName(
+        java.lang.String name)
+        throws com.arman.csb.theme.NoSuchTemplateException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _templateLocalService.getTemplateByName(name);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

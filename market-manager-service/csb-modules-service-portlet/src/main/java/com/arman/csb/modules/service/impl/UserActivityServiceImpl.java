@@ -43,11 +43,7 @@ public class UserActivityServiceImpl extends UserActivityServiceBaseImpl {
         JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
         JSONArray result = JSONFactoryUtil.createJSONArray();
 
-        if(null != toDate) {
-            toDate = DateUtil.adding24HourToDate(toDate);
-        }
-
-        SQLQuery searchQuery = createQueryObject(text, entity, action, importance, fromDate, toDate, start, maxResult,
+        SQLQuery searchQuery = createQueryObject(text, entity, action, importance, fromDate, toDate,
                 "com.arman.csb.modules.service.UserActivity.search", false, serviceContext);
 
         searchQuery.setFirstResult(start);
@@ -58,21 +54,26 @@ public class UserActivityServiceImpl extends UserActivityServiceBaseImpl {
             result.put(getJSONObject(activity));
         }
 
-        SQLQuery countQuery = createQueryObject(text, entity, action, importance, fromDate, toDate, start, maxResult,
+        SQLQuery countQuery = createQueryObject(text, entity, action, importance, fromDate, toDate,
                 "com.arman.csb.modules.service.UserActivity.count", true, serviceContext);
         List<BigInteger> temp = countQuery.list();
-        long totalPayments = 0;
-        totalPayments = Long.valueOf(String.valueOf(temp.get(0)));
+        long totalActivities = 0;
+        totalActivities = Long.valueOf(String.valueOf(temp.get(0)));
 
         jsonObject.put("result", result);
-        jsonObject.put("total", totalPayments);
+        jsonObject.put("total", totalActivities);
 
         return jsonObject;
     }
 
     private SQLQuery createQueryObject (String text, String entity, String action, String importance,
-                                    Date fromDate, Date toDate, int start, int maxResult, String queryName,
+                                    Date fromDate, Date toDate, String queryName,
                                     boolean isCount, ServiceContext serviceContext) {
+
+        if(null != toDate) {
+            toDate = DateUtil.adding24HourToDate(toDate);
+        }
+
         Session session = invoicePersistence.openSession();
 
         String sql = CustomSQLUtil.get(queryName);
