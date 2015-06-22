@@ -288,11 +288,20 @@ MetronicApp.factory("JsonServer", function ($http, $rootScope) {
             var _url = baseUrl + url;
             var urlParams = '';
 
+            if(params && !params.serviceContext){
+                params.serviceContext = {};
+            }
+
+            if(params && params.serviceContext && !params.serviceContext.scopeGroupId){
+                params.serviceContext.scopeGroupId = scopeGroupId;
+            }
+            
             var data = {
                 "method":method,
                 "params":params,
                 "jsonrpc":"2.0"
             };
+
 
             var dataStr = JSON.stringify(data);
 

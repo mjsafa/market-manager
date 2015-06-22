@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('UserSelectController', ['$rootScope', '$scope', 'UserService', '$state', '$modal', '$modalInstance', function ($rootScope, $scope, UserService, $state, $modal, $modalInstance, users) {
+angular.module('MetronicApp').controller('UserSelectController', ['$rootScope', '$scope', 'UserService', '$state', '$modal', '$modalInstance', function ($rootScope, $scope, UserService, $state, $modal, $modalInstance, users) {
 
     if (!$scope.initialized) {
         $scope.$on('UserService.findActiveUsers', function (event, data) {

@@ -81,6 +81,8 @@ public class PaymentLocalServiceClpInvoker {
     private String[] _methodParameterTypes110;
     private String _methodName111;
     private String[] _methodParameterTypes111;
+    private String _methodName112;
+    private String[] _methodParameterTypes112;
 
     public PaymentLocalServiceClpInvoker() {
         _methodName0 = "addPayment";
@@ -226,43 +228,47 @@ public class PaymentLocalServiceClpInvoker {
 
         _methodParameterTypes103 = new String[] { "int" };
 
-        _methodName104 = "updateStatus";
+        _methodName104 = "findByGroupAndStatus";
 
-        _methodParameterTypes104 = new String[] {
+        _methodParameterTypes104 = new String[] { "long", "int" };
+
+        _methodName105 = "updateStatus";
+
+        _methodParameterTypes105 = new String[] {
                 "com.arman.csb.modules.model.Payment", "int"
             };
 
-        _methodName105 = "deletePayment";
+        _methodName106 = "deletePayment";
 
-        _methodParameterTypes105 = new String[] { "long" };
+        _methodParameterTypes106 = new String[] { "long" };
 
-        _methodName106 = "sumPayedOrPending";
+        _methodName107 = "sumPayedOrPending";
 
-        _methodParameterTypes106 = new String[] { "java.lang.Long" };
+        _methodParameterTypes107 = new String[] { "java.lang.Long" };
 
-        _methodName107 = "getExcelDocument";
+        _methodName108 = "getExcelDocument";
 
-        _methodParameterTypes107 = new String[] { "java.util.List" };
-
-        _methodName108 = "calculateMoneyInRials";
-
-        _methodParameterTypes108 = new String[] {
-                "com.arman.csb.modules.model.Payment"
-            };
+        _methodParameterTypes108 = new String[] { "java.util.List" };
 
         _methodName109 = "calculateMoneyInRials";
 
-        _methodParameterTypes109 = new String[] { "java.util.List" };
-
-        _methodName110 = "subtractCommissionScore";
-
-        _methodParameterTypes110 = new String[] {
+        _methodParameterTypes109 = new String[] {
                 "com.arman.csb.modules.model.Payment"
             };
 
+        _methodName110 = "calculateMoneyInRials";
+
+        _methodParameterTypes110 = new String[] { "java.util.List" };
+
         _methodName111 = "subtractCommissionScore";
 
-        _methodParameterTypes111 = new String[] { "java.util.List" };
+        _methodParameterTypes111 = new String[] {
+                "com.arman.csb.modules.model.Payment"
+            };
+
+        _methodName112 = "subtractCommissionScore";
+
+        _methodParameterTypes112 = new String[] { "java.util.List" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -439,44 +445,50 @@ public class PaymentLocalServiceClpInvoker {
 
         if (_methodName104.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes104, parameterTypes)) {
-            return PaymentLocalServiceUtil.updateStatus((com.arman.csb.modules.model.Payment) arguments[0],
+            return PaymentLocalServiceUtil.findByGroupAndStatus(((Long) arguments[0]).longValue(),
                 ((Integer) arguments[1]).intValue());
         }
 
         if (_methodName105.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes105, parameterTypes)) {
-            return PaymentLocalServiceUtil.deletePayment(((Long) arguments[0]).longValue());
+            return PaymentLocalServiceUtil.updateStatus((com.arman.csb.modules.model.Payment) arguments[0],
+                ((Integer) arguments[1]).intValue());
         }
 
         if (_methodName106.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes106, parameterTypes)) {
-            return PaymentLocalServiceUtil.sumPayedOrPending((java.lang.Long) arguments[0]);
+            return PaymentLocalServiceUtil.deletePayment(((Long) arguments[0]).longValue());
         }
 
         if (_methodName107.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes107, parameterTypes)) {
-            return PaymentLocalServiceUtil.getExcelDocument((java.util.List<com.arman.csb.modules.model.Payment>) arguments[0]);
+            return PaymentLocalServiceUtil.sumPayedOrPending((java.lang.Long) arguments[0]);
         }
 
         if (_methodName108.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes108, parameterTypes)) {
-            return PaymentLocalServiceUtil.calculateMoneyInRials((com.arman.csb.modules.model.Payment) arguments[0]);
+            return PaymentLocalServiceUtil.getExcelDocument((java.util.List<com.arman.csb.modules.model.Payment>) arguments[0]);
         }
 
         if (_methodName109.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes109, parameterTypes)) {
-            return PaymentLocalServiceUtil.calculateMoneyInRials((java.util.List<com.arman.csb.modules.model.Payment>) arguments[0]);
+            return PaymentLocalServiceUtil.calculateMoneyInRials((com.arman.csb.modules.model.Payment) arguments[0]);
         }
 
         if (_methodName110.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes110, parameterTypes)) {
+            return PaymentLocalServiceUtil.calculateMoneyInRials((java.util.List<com.arman.csb.modules.model.Payment>) arguments[0]);
+        }
+
+        if (_methodName111.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes111, parameterTypes)) {
             PaymentLocalServiceUtil.subtractCommissionScore((com.arman.csb.modules.model.Payment) arguments[0]);
 
             return null;
         }
 
-        if (_methodName111.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes111, parameterTypes)) {
+        if (_methodName112.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes112, parameterTypes)) {
             PaymentLocalServiceUtil.subtractCommissionScore((java.util.List<com.arman.csb.modules.model.Payment>) arguments[0]);
 
             return null;

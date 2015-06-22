@@ -351,6 +351,12 @@
                             </td>
                         </tr>
                     </table>
+
+                    <pagination items-per-page="itemsPerPage" total-items="totalPayments" ng-model="filter.currentPage" ng-change="doSearch()"
+                                previous-text="صفحه قبل"
+                                next-text="صفحه بعد"
+                            ></pagination>
+
                 </div>
             </div>
         </div>

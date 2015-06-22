@@ -354,10 +354,11 @@ public class CustomerLocalServiceUtil {
         return getService().countByMentorCustomerId(customerId);
     }
 
-    public static long count(java.util.Date fromDate, java.util.Date toDate)
+    public static long count(java.util.Date fromDate, java.util.Date toDate,
+        java.lang.Long scopeGroupId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
-        return getService().count(fromDate, toDate);
+        return getService().count(fromDate, toDate, scopeGroupId);
     }
 
     public static com.arman.csb.modules.model.Customer updateCustomer(

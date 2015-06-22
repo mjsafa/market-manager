@@ -80,6 +80,8 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
         qPos.add(mentorCustomerId <= 0 ?  null : mentorCustomerId);
         qPos.add(mentorCustomerId);
 
+        qPos.add(serviceContext.getScopeGroupId());
+
         queryObject.setFirstResult(start);
         queryObject.setMaxResults(maxResult);
 
@@ -211,8 +213,8 @@ public class CustomerServiceImpl extends CustomerServiceBaseImpl {
         JSONObject result = JSONFactoryUtil.createJSONObject();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -7);
-        result.put("totalCustomers", CustomerLocalServiceUtil.count(null, null));
-        result.put("lastWeekCustomers", CustomerLocalServiceUtil.count(calendar.getTime(), new Date()));
+        result.put("totalCustomers", CustomerLocalServiceUtil.count(null, null, serviceContext.getScopeGroupId()));
+        result.put("lastWeekCustomers", CustomerLocalServiceUtil.count(calendar.getTime(), new Date(), serviceContext.getScopeGroupId()));
         return result;
     }
 

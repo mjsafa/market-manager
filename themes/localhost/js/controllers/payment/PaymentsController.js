@@ -1,13 +1,13 @@
 'use strict';
 
-MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal' , '$filter' , 'FileUploader', function ($rootScope, $scope, PaymentService, $state, $modal, $filter, FileUploader) {
+angular.module('MetronicApp').controller('PaymentsController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal' , '$filter' , 'FileUploader', function ($rootScope, $scope, PaymentService, $state, $modal, $filter, FileUploader) {
     $scope.currentCustomerId = onlineUser.customerId;
 
     if (!$scope.initialized) {    //bind listeners only for the first time
         //server side events
         $scope.$on('PaymentService.search', function (event, data) {
             $scope.payments = data.result.result;
-                    $scope.totalPayments = data.result.total;
+            $scope.totalPayments = data.result.total;
         });
 
         $scope.$on('PaymentService.getStats', function (event, data) {
@@ -63,7 +63,7 @@ MetronicApp.controller('PaymentsController', ['$rootScope', '$scope', 'PaymentSe
 
         $scope.filter = $scope.filter || {};
         $scope.filter.currentPage = 1;
-        $scope.itemsPerPage = 1;
+        $scope.itemsPerPage = 10;
 
         initNewPayment();
     }

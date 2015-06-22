@@ -377,10 +377,11 @@ public class CustomerLocalServiceWrapper implements CustomerLocalService,
     }
 
     @Override
-    public long count(java.util.Date fromDate, java.util.Date toDate)
+    public long count(java.util.Date fromDate, java.util.Date toDate,
+        java.lang.Long scopeGroupId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
-        return _customerLocalService.count(fromDate, toDate);
+        return _customerLocalService.count(fromDate, toDate, scopeGroupId);
     }
 
     @Override

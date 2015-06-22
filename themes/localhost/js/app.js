@@ -36,7 +36,8 @@ var MetronicApp = angular.module("MetronicApp", [
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
 MetronicApp.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
     $ocLazyLoadProvider.config({
-        cssFilesInsertBefore: 'ng_load_plugins_before' // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+        cssFilesInsertBefore: 'ng_load_plugins_before' //,// load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
+        //loadedModules: ['MetronicApp']
     });
 }]);
 
@@ -1151,3 +1152,7 @@ MetronicApp.value('fileUploaderOptions', {
     queueLimit: Number.MAX_VALUE,
     withCredentials: false
 });
+
+
+
+

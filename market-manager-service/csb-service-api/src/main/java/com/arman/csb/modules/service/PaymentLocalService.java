@@ -323,6 +323,11 @@ public interface PaymentLocalService extends BaseLocalService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
+    public java.util.List<com.arman.csb.modules.model.Payment> findByGroupAndStatus(
+        long groupId, int status)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
     public com.arman.csb.modules.model.Payment updateStatus(
         com.arman.csb.modules.model.Payment payment, int status)
         throws com.liferay.portal.kernel.exception.PortalException,

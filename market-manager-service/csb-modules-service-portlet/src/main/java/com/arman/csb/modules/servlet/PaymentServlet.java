@@ -52,7 +52,9 @@ public class PaymentServlet extends HttpServlet {
             response.setHeader("Content-Transfer-Encoding", "binary");
             response.setHeader("Content-Disposition", "attachment; filename=\"" + "payments-workbook.xlsx\"");
 
-            List<Payment> payments = PaymentLocalServiceUtil.findByStatus(WorkflowConstants.STATUS_DOWNLOADED);
+            Long groupId = Long.valueOf(request.getParameter("groupId"));
+
+            List<Payment> payments = PaymentLocalServiceUtil.findByGroupAndStatus(groupId, WorkflowConstants.STATUS_DOWNLOADED);
             PaymentLocalServiceUtil.subtractCommissionScore(payments);
 
             JSONObject result = JSONFactoryUtil.createJSONObject();

@@ -1,11 +1,12 @@
 'use strict';
 
-MetronicApp.controller('PaymentDownloadController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal', function ($rootScope, $scope, PaymentService, $state, $modal) {
+angular.module('MetronicApp').controller('PaymentDownloadController', ['$rootScope', '$scope', 'PaymentService', '$state', '$modal', function ($rootScope, $scope, PaymentService, $state, $modal) {
 
     if (!$scope.initialized) {    //bind listeners only for the first time
         //server side events
         $scope.$on('PaymentService.search', function (event, data) {
-            $scope.payments = data.result;
+            $scope.payments = data.result.result;
+            $scope.totalPayments = data.result.total;
         });
 
         $scope.$on('PaymentService.isDownloaded', function (event, data) {
@@ -15,7 +16,7 @@ MetronicApp.controller('PaymentDownloadController', ['$rootScope', '$scope', 'Pa
         $scope.$on('PaymentService.downloadPayments', function (event, data) {
             $scope.checkIsDownload();
             $scope.doSearch();
-            window.location = "/delegate/payment";
+            window.location = "/delegate/payment?groupId=" + scopeGroupId;
         });
         $scope.$on('PaymentService.acceptPayments', function (event, data) {
             $rootScope.$emit('page.alert', {message:'تایید پرداخت ها با موفقیت انجام شد', type:"success"});
@@ -40,6 +41,10 @@ MetronicApp.controller('PaymentDownloadController', ['$rootScope', '$scope', 'Pa
         });
 
         $scope.filter = $scope.filter || {};
+
+        $scope.filter.currentPage = 1;
+        $scope.itemsPerPage = 10;
+
         initNewPayment();
     }
 
@@ -72,6 +77,10 @@ MetronicApp.controller('PaymentDownloadController', ['$rootScope', '$scope', 'Pa
         } else if ($scope.isDownloaded == 2) {
             $scope.filter.status = 1;
         }
+
+        $scope.filter.first = ($scope.filter.currentPage -1) * $scope.itemsPerPage;
+        $scope.filter.maxResults = $scope.itemsPerPage;
+
         PaymentService.search($scope.filter, {scope:$scope});
     }
 

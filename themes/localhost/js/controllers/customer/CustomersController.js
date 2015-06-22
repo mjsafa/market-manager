@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('CustomersController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$state', '$modal', function ($rootScope, $scope, CustomerService, ScoreService, $state, $modal) {
+angular.module('MetronicApp').controller('CustomersController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$state', '$modal', function ($rootScope, $scope, CustomerService, ScoreService, $state, $modal) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();

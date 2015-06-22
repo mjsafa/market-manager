@@ -14,6 +14,7 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Role;
@@ -83,7 +84,7 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
         User savedUser = UserLocalServiceUtil.addUser(serviceContext.getUserId(), serviceContext.getCompanyId(),
                 false, (String) user.get("password1"), (String) user.get("password2"), false,
                 screenName, (String) user.get("email"), 0L, null, Locale.US, (String) user.get("firstName"), (String) user.get("mobile"), (String) user.get("lastName"),
-                0, 0, true, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR), (String) user.get("jobTitle"), new long[0], new long[0], ArrayUtil.toLongArray(roles),
+                0, 0, true, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR), (String) user.get("jobTitle"), new long[]{serviceContext.getScopeGroupId()}, new long[0], ArrayUtil.toLongArray(roles),
                 new long[]{operatorGroup.getUserGroupId()}, true, serviceContext);
 
         UserActivityLocalServiceUtil.addUserActivity(UserActivityConstant.ENTITY_USER, UserActivityConstant.ACTION_ADD,
@@ -108,7 +109,18 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
 
         LinkedHashMap<String, Object> params = new LinkedHashMap<String, java.lang.Object>();
         params.put("usersUserGroups", operatorGroup.getUserGroupId());
-        List<User> users = UserLocalServiceUtil.search(serviceContext.getCompanyId(), (String) filter.get("query"), status, params, 0, 20, (OrderByComparator) null);
+        List<User> allUsers = UserLocalServiceUtil.search(serviceContext.getCompanyId(), (String) filter.get("query"), status, params, 0, 20, (OrderByComparator) null);
+
+        //pass only users inside current instance
+        List<User> users = new ArrayList<User>();
+        for (User user : allUsers) {
+            for (long id : user.getGroupIds()) {
+                if(id == serviceContext.getScopeGroupId()){
+                    users.add(user);
+                    break;
+                }
+            }
+        }
 
         //put users inside JSON Array
         JSONArray result = JSONFactoryUtil.createJSONArray();

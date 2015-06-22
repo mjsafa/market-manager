@@ -201,7 +201,7 @@ public class CustomerLocalServiceClp implements CustomerLocalService {
         _methodName28 = "count";
 
         _methodParameterTypes28 = new String[] {
-                "java.util.Date", "java.util.Date"
+                "java.util.Date", "java.util.Date", "java.lang.Long"
             };
 
         _methodName29 = "updateCustomer";
@@ -1015,7 +1015,8 @@ public class CustomerLocalServiceClp implements CustomerLocalService {
     }
 
     @Override
-    public long count(java.util.Date fromDate, java.util.Date toDate)
+    public long count(java.util.Date fromDate, java.util.Date toDate,
+        java.lang.Long scopeGroupId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
@@ -1026,7 +1027,9 @@ public class CustomerLocalServiceClp implements CustomerLocalService {
                     new Object[] {
                         ClpSerializer.translateInput(fromDate),
                         
-                    ClpSerializer.translateInput(toDate)
+                    ClpSerializer.translateInput(toDate),
+                        
+                    ClpSerializer.translateInput(scopeGroupId)
                     });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);

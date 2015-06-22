@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('AdminDashboardController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', 'UserService', '$state', '$modal', function ($rootScope, $scope, CustomerService, ScoreService, UserService, $state, $modal) {
+angular.module('MetronicApp').controller('AdminDashboardController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', 'UserService', '$state', '$modal', function ($rootScope, $scope, CustomerService, ScoreService, UserService, $state, $modal) {
     if (!$scope.initialized) {
         $scope.timePeriod = 'month';
         $scope.stats = $scope.stats || {};

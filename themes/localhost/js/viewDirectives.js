@@ -166,26 +166,30 @@ MetronicApp.directive('ngThumb', ['$window', function($window) {
 
 
 
-MetronicApp.directive('fileUpload', function() {
+MetronicApp.directive('mysFileUpload', function() {
     return {
-        templateUrl: '/delegate/resource/views/my-file-upload.html',
-        restrict: 'A',
+        require:'uploader',
+        templateUrl: '/delegate/resource/views/temp.html',
+        restrict: 'E',
         scope: {
             uploader: '=uploader',
             isSingle: '@isSingle'
         },
         link: function(scope, element, attrs) {
                 element.find('.my-drop-zone').bind ('click', function(){
-                element.find('input[type=file]').click();
-            });
+                    element.find('input[type=file]').click();
+                });
         }
-    };
+    }
 });
+
+
+
 
 MetronicApp.directive('uploadThumb', function() {
     return {
         templateUrl: '/delegate/resource/views/upload-thumb.html',
-        restrict: 'A',
+        restrict: 'E',
         scope: {
             uploader: '=uploader',
             thumbHeight: '@height',
@@ -198,7 +202,7 @@ MetronicApp.directive('uploadThumb', function() {
 MetronicApp.directive('dateRange', function() {
     return {
         templateUrl: '/delegate/resource/views/dateRange.html',
-        restrict: 'A',
+        restrict: 'E',
         scope: {
             fromDate: '=fromDate',
             toDate: '=toDate'

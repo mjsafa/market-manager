@@ -155,7 +155,7 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
     public JSONObject isDownloaded(ServiceContext serviceContext) throws PortalException, SystemException {
         RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
         JSONObject result = JSONFactoryUtil.createJSONObject();
-        int totalDownloadStatus = paymentPersistence.countByStatus(com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
+        int totalDownloadStatus = paymentPersistence.countByStatusAndGroup(serviceContext.getScopeGroupId(),com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
         result.put("isDownloaded", totalDownloadStatus <= 0 ? false : true);
         return result;
     }
@@ -163,7 +163,7 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
     public JSONObject downloadPayments(ServiceContext serviceContext) throws PortalException, SystemException {
         RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
         JSONObject result = JSONFactoryUtil.createJSONObject();
-        List<Payment> payments = paymentLocalService.findByStatus(WorkflowConstants.STATUS_PENDING);
+        List<Payment> payments = paymentLocalService.findByGroupAndStatus(serviceContext.getScopeGroupId(), WorkflowConstants.STATUS_PENDING);
         for (Payment payment : payments) {
             PaymentLocalServiceUtil.updateStatus(payment, com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
         }
@@ -182,7 +182,7 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
     public JSONObject acceptPayments(ServiceContext serviceContext) throws PortalException, SystemException {
         RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
         JSONObject result = JSONFactoryUtil.createJSONObject();
-        List<Payment> payments = paymentLocalService.findByStatus(com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
+        List<Payment> payments = paymentLocalService.findByGroupAndStatus(serviceContext.getScopeGroupId(), com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
         for (Payment payment : payments) {
             PaymentLocalServiceUtil.updateStatus(payment, com.arman.csb.constants.WorkflowConstants.STATUS_APPROVED);
         }
@@ -201,7 +201,7 @@ public class PaymentServiceImpl extends PaymentServiceBaseImpl {
     public JSONObject cancelDownloadPayments(ServiceContext serviceContext) throws PortalException, SystemException {
         RoleUtil.checkAnyRoles(serviceContext.getUserId(), RoleEnum.PAYMENT_MANAGER.toString());
         JSONObject result = JSONFactoryUtil.createJSONObject();
-        List<Payment> payments = paymentLocalService.findByStatus(com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
+        List<Payment> payments = paymentLocalService.findByGroupAndStatus(serviceContext.getScopeGroupId(), com.arman.csb.constants.WorkflowConstants.STATUS_DOWNLOADED);
         for (Payment payment : payments) {
             PaymentLocalServiceUtil.updateStatus(payment, com.arman.csb.constants.WorkflowConstants.STATUS_PENDING);
         }

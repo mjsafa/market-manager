@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('UsersController', ['$rootScope', '$scope', 'UserService', '$state', '$modal', function ($rootScope, $scope, UserService, $state, $modal) {
+angular.module('MetronicApp').controller('UsersController', ['$rootScope', '$scope', 'UserService', '$state', '$modal', function ($rootScope, $scope, UserService, $state, $modal) {
 
     if (!$scope.initialized) {    //bind listeners only for the first time
         //server side events

@@ -200,7 +200,7 @@ public class CustomerLocalServiceClpInvoker {
         _methodName103 = "count";
 
         _methodParameterTypes103 = new String[] {
-                "java.util.Date", "java.util.Date"
+                "java.util.Date", "java.util.Date", "java.lang.Long"
             };
 
         _methodName104 = "updateCustomer";
@@ -365,7 +365,7 @@ public class CustomerLocalServiceClpInvoker {
         if (_methodName103.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes103, parameterTypes)) {
             return CustomerLocalServiceUtil.count((java.util.Date) arguments[0],
-                (java.util.Date) arguments[1]);
+                (java.util.Date) arguments[1], (java.lang.Long) arguments[2]);
         }
 
         if (_methodName104.equals(name) &&

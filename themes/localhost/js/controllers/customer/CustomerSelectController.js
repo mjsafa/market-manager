@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('CustomerSelectController', ['$rootScope', '$scope', 'CustomerService', '$state', '$modal', '$modalInstance', function ($rootScope, $scope, CustomerService, $state, $modal, $modalInstance, customers) {
+angular.module('MetronicApp').controller('CustomerSelectController', ['$rootScope', '$scope', 'CustomerService', '$state', '$modal', '$modalInstance', function ($rootScope, $scope, CustomerService, $state, $modal, $modalInstance, customers) {
     if (!$scope.initialized) {
         $scope.$on('CustomerService.search', function (event, data) {
             $scope.customers = data.result;

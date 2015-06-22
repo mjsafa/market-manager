@@ -1,4 +1,6 @@
-<div data-ng-include="'/delegate/resource/views/customer/customerSelectPopup.html'">
+
+
+<div data-ng-include="'/delegate/resource/views/customer/customerSelectPopup.html'" xmlns="http://www.w3.org/1999/html">
 </div>
 
 
@@ -267,7 +269,9 @@
                                                 <input style="direction: ltr;" ng-model="newPayment.amountInput"
                                                        name="amount" validation="numeric_float:3|min_num:2|required"
                                                        typing-limit="500" type="text" step="0.001"
-                                                       class="form-control"/>
+                                                       class="form-control">
+
+                                                </input>
                                             </div>
                                         </div>
 
@@ -280,7 +284,8 @@
                                                 <input validation="required" typing-limit="10" name="customer"
                                                        ng-click="open()" type="text" readonly
                                                        class="form-control selector"
-                                                       ng-model="newPayment.customer.name"/>
+                                                       ng-model="newPayment.customer.name">
+                                                </input>
                                                 <span class="input-group-btn">
                                                     <button ng-click="open()"
                                                             class="btn green-turquoise"
@@ -300,7 +305,8 @@
                                                 </span>
                                                 <textarea rows="4" ng-model="newPayment.description"
                                                           style="direction: rtl;" type="text"
-                                                          class="form-control"/>
+                                                          class="form-control">
+                                                </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -418,7 +424,8 @@
             <div class="input-group col-md-7">
 
                 <input score-input ng-enter="doSearch()" ng-model="filter.fromAmount" type="text"
-                       class="form-control" empty-to-null/>
+                       class="form-control" empty-to-null>
+                </input>
             </div>
 
         </div>
@@ -427,7 +434,8 @@
             <label class="control-label col-md-5">تا:</label>
             <div class="input-group col-md-7">
                 <input score-input ng-enter="doSearch()" ng-model="filter.toAmount" type="text" class="form-control"
-                       empty-to-null/>
+                       empty-to-null>
+                </input>
             </div>
         </div>
     </div>
@@ -435,8 +443,17 @@
 
 
     <div class="col-md-2 col-sm-12">
-        <div date-range from-date="filter.fromDate" to-date="filter.toDate">
-        </div>
+        <date-range from-date="filter.fromDate" to-date="filter.toDate">
+        </date-range>
+
+
+        <!--<my-file-upload is-single="true" uploader="uploader">-->
+        <!--</my-file-upload>-->
+
+        <!--<div upload-thumbs height="200" uploader="uploader">-->
+
+        <!--</div>-->
+
     </div>
 
 
@@ -547,7 +564,7 @@
                        ng-confirm-action="deletePayment(payment)"
                        class="popovers"
                        ng-confirm-message="آیا از حذف درخواست پرداخت به میزان {{payment.amount |score}}  امتیاز اطمینان دارید؟">
-                        <i class="fa fa-close font-red"/>
+                        <i class="fa fa-close font-red"></i>
                     </a>
                     <button class="btn btn-lg btn-circle font-red grey-cararra"
                             ng-if="payment.status != 4 && checkAnyRoles(['ADMINISTRATOR_USER', 'PAYMENT_MANAGER'])"
@@ -555,7 +572,7 @@
                             popover="در صورت عدم پذیرش پرداخت، میزان امتیاز آن به حساب کاربر مرجوع خواهد شد."
                             popover-trigger="hover" popover-placement="right"
                             ng-confirm-message="آیا از عدم پذیرش درخواست پرداخت به میزان {{payment.amount |score}}  امتیاز و کد {{payment.id }} برای مشتری با نام  '{{payment.customer.name}}' اطمینان دارید؟">
-                        <i class="fa fa-trash-o font-red"/>
+                        <i class="fa fa-trash-o font-red"></i>
                         عدم پذیرش
                     </button>
                 </td>
@@ -582,14 +599,6 @@
 
 
 
-
-
-    <div file-upload is-single="true" uploader="uploader">
-    </div>
-
-
-
-    <div upload-thumb height="200" uploader="uploader" />
 
 
 

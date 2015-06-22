@@ -129,7 +129,7 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
     }
 
 
-    public long count(Date fromDate, Date toDate) throws SystemException, PortalException {
+    public long count(Date fromDate, Date toDate, Long scopeGroupId) throws SystemException, PortalException {
         ClassLoader classLoader = (ClassLoader) PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(), "portletClassLoader");
 
         DynamicQuery query = DynamicQueryFactoryUtil.forClass(Customer.class, classLoader);
@@ -139,6 +139,8 @@ public class CustomerLocalServiceImpl extends CustomerLocalServiceBaseImpl {
         if (null != toDate) {
             query.add(PropertyFactoryUtil.forName("createDate").le(toDate));
         }
+
+        query.add(PropertyFactoryUtil.forName("groupId").eq(scopeGroupId));
 
         return dynamicQueryCount(query);
     }

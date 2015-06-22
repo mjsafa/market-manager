@@ -26,6 +26,7 @@ create index IX_36E94CF2 on CSBModules_MyBlog ();
 
 create index IX_E5E5108F on CSBModules_Payment (customerId);
 create index IX_A5249A80 on CSBModules_Payment (factorId);
+create index IX_F1DAFC0E on CSBModules_Payment (groupId, status);
 create index IX_D06446A8 on CSBModules_Payment (status);
 create index IX_59DD21B2 on CSBModules_Payment (uuid_);
 create index IX_E7533F36 on CSBModules_Payment (uuid_, companyId);

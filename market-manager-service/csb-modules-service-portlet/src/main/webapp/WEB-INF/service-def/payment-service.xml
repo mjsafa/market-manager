@@ -39,6 +39,12 @@
             <finder-column name="status"/>
         </finder>
 
+        <finder name="StatusAndGroup" return-type="Collection">
+            <finder-column name="groupId"/>
+            <finder-column name="status"/>
+        </finder>
+
+
     </entity>
 
 </service-builder>

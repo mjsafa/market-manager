@@ -314,7 +314,8 @@ public interface CustomerLocalService extends BaseLocalService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
-    public long count(java.util.Date fromDate, java.util.Date toDate)
+    public long count(java.util.Date fromDate, java.util.Date toDate,
+        java.lang.Long scopeGroupId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 

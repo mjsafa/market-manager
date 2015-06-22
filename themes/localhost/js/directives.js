@@ -116,3 +116,18 @@ MetronicApp.directive('emptyToNull', function () {
 });
 
 
+MetronicApp.directive('myFileUpload', function () {
+    return {
+        templateUrl: '/delegate/resource/views/my-file-upload.html',
+        restrict: 'E',
+        scope: {
+            uploader: '=uploader',
+            isSingle: '@isSingle'
+        },
+        link: function(scope, element, attrs) {
+            element.find('.my-drop-zone').bind ('click', function(){
+                element.find('input[type=file]').click();
+            });
+        }
+    }
+});

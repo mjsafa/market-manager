@@ -99,58 +99,15 @@ public class PaymentLocalServiceImpl extends PaymentLocalServiceBaseImpl {
 
 
     public List<Payment> find(Long customerId, Date fromDate, Date toDate, long amountFrom, long amountTo, int status, int first, int maxResult, ServiceContext serviceContext) throws PortalException, SystemException {
-        ClassLoader classLoader = (ClassLoader) PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(), "portletClassLoader");
-        DynamicQuery query = DynamicQueryFactoryUtil.forClass(Payment.class, classLoader);
-        if (null != customerId && customerId > 0) {
-            query.add(PropertyFactoryUtil.forName("customerId").eq(customerId));
-        }
-        if (null != fromDate) {
-            query.add(PropertyFactoryUtil.forName("createDate").ge(fromDate));
-        }
-        if (null != toDate) {
-            query.add(PropertyFactoryUtil.forName("createDate").le(toDate));
-        }
-
-        if (amountFrom > 0) {
-            query.add(PropertyFactoryUtil.forName("amount").ge(amountFrom));
-        }
-        if (amountTo > 0) {
-            query.add(PropertyFactoryUtil.forName("amount").le(amountTo));
-        }
-
-        if (status != WorkflowConstants.STATUS_ANY) {
-            query.add(PropertyFactoryUtil.forName("status").eq(status));
-        }
-
+        DynamicQuery query = getDynamicQuery(customerId, fromDate, toDate, amountFrom, amountTo, status, serviceContext);
         query.addOrder(OrderFactoryUtil.desc("createDate"));
-
         return dynamicQuery(query, first, first + maxResult);
     }
 
+
+
     public long findCount(Long customerId, Date fromDate, Date toDate, long amountFrom, long amountTo, int status, ServiceContext serviceContext) throws PortalException, SystemException {
-        ClassLoader classLoader = (ClassLoader) PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(), "portletClassLoader");
-        DynamicQuery query = DynamicQueryFactoryUtil.forClass(Payment.class, classLoader);
-        if (null != customerId && customerId > 0) {
-            query.add(PropertyFactoryUtil.forName("customerId").eq(customerId));
-        }
-        if (null != fromDate) {
-            query.add(PropertyFactoryUtil.forName("createDate").ge(fromDate));
-        }
-        if (null != toDate) {
-            query.add(PropertyFactoryUtil.forName("createDate").le(toDate));
-        }
-
-        if (amountFrom > 0) {
-            query.add(PropertyFactoryUtil.forName("amount").ge(amountFrom));
-        }
-        if (amountTo > 0) {
-            query.add(PropertyFactoryUtil.forName("amount").le(amountTo));
-        }
-
-        if (status != WorkflowConstants.STATUS_ANY) {
-            query.add(PropertyFactoryUtil.forName("status").eq(status));
-        }
-
+        DynamicQuery query = getDynamicQuery(customerId, fromDate, toDate, amountFrom, amountTo, status, serviceContext);
         return dynamicQueryCount(query);
     }
 
@@ -181,6 +138,11 @@ public class PaymentLocalServiceImpl extends PaymentLocalServiceBaseImpl {
 
     public List<Payment> findByStatus(int status) throws PortalException, SystemException {
         return paymentPersistence.findByStatus(status);
+    }
+
+
+    public List<Payment> findByGroupAndStatus(long groupId,int status) throws PortalException, SystemException {
+        return paymentPersistence.findByStatusAndGroup(groupId, status);
     }
 
     public Payment updateStatus(Payment payment, int status) throws PortalException, SystemException {
@@ -281,4 +243,33 @@ public class PaymentLocalServiceImpl extends PaymentLocalServiceBaseImpl {
         }
     }
 
+
+    private DynamicQuery getDynamicQuery(Long customerId, Date fromDate, Date toDate, long amountFrom, long amountTo, int status, ServiceContext serviceContext) {
+        ClassLoader classLoader = (ClassLoader) PortletBeanLocatorUtil.locate(ClpSerializer.getServletContextName(), "portletClassLoader");
+        DynamicQuery query = DynamicQueryFactoryUtil.forClass(Payment.class, classLoader);
+        if (null != customerId && customerId > 0) {
+            query.add(PropertyFactoryUtil.forName("customerId").eq(customerId));
+        }
+        if (null != fromDate) {
+            query.add(PropertyFactoryUtil.forName("createDate").ge(fromDate));
+        }
+        if (null != toDate) {
+            query.add(PropertyFactoryUtil.forName("createDate").le(toDate));
+        }
+
+        if (amountFrom > 0) {
+            query.add(PropertyFactoryUtil.forName("amount").ge(amountFrom));
+        }
+        if (amountTo > 0) {
+            query.add(PropertyFactoryUtil.forName("amount").le(amountTo));
+        }
+
+        if (status != WorkflowConstants.STATUS_ANY) {
+            query.add(PropertyFactoryUtil.forName("status").eq(status));
+        }
+
+        query.add(PropertyFactoryUtil.forName("groupId").eq(serviceContext.getScopeGroupId()));
+
+        return query;
+    }
 }

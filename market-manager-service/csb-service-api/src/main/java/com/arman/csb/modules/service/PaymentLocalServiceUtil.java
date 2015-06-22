@@ -373,6 +373,13 @@ public class PaymentLocalServiceUtil {
         return getService().findByStatus(status);
     }
 
+    public static java.util.List<com.arman.csb.modules.model.Payment> findByGroupAndStatus(
+        long groupId, int status)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByGroupAndStatus(groupId, status);
+    }
+
     public static com.arman.csb.modules.model.Payment updateStatus(
         com.arman.csb.modules.model.Payment payment, int status)
         throws com.liferay.portal.kernel.exception.PortalException,

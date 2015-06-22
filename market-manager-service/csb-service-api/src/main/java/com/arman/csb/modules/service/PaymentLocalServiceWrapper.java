@@ -391,6 +391,14 @@ public class PaymentLocalServiceWrapper implements PaymentLocalService,
     }
 
     @Override
+    public java.util.List<com.arman.csb.modules.model.Payment> findByGroupAndStatus(
+        long groupId, int status)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _paymentLocalService.findByGroupAndStatus(groupId, status);
+    }
+
+    @Override
     public com.arman.csb.modules.model.Payment updateStatus(
         com.arman.csb.modules.model.Payment payment, int status)
         throws com.liferay.portal.kernel.exception.PortalException,

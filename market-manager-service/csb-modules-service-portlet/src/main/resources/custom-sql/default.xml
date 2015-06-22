@@ -47,6 +47,7 @@
 
             WHERE
                 (? IS NULL OR Customer.mentorCustomerId = ?) AND
+                (? = Customer.groupId) AND
                 ((Customer.name like '##KEYWORD##') OR
                     (Customer.nationalCode like '##KEYWORD##') OR
                     (Customer.mobile like '##KEYWORD##') OR
