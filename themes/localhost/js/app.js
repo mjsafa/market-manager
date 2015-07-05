@@ -123,12 +123,13 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
 
 
     if (onlineUser.userGroups && onlineUser.userGroups.customer_group) {
-        if (!onlineUser.agreed) {
+        /*if (!onlineUser.agreed) {
             $urlRouterProvider.otherwise("/userAgreement");
         } else {
-            $urlRouterProvider.otherwise("/customerDashboard");
+            //$urlRouterProvider.otherwise("/customerDashboard");
         }
-
+        */
+        $urlRouterProvider.otherwise("/customerDashboard");
     } else if (onlineUser.userGroups && onlineUser.userGroups.operator_group) {
         if (onlineUser.roles && onlineUser.roles.ADMINISTRATOR_USER) {
             $urlRouterProvider.otherwise("/adminDashboard");
@@ -1040,7 +1041,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         })
 
 
-}]);
+}]);,,
 
 /* Init global settings and run the app */
 MetronicApp.run(["$rootScope", "settings", "$state", "editableOptions", function ($rootScope, settings, $state, editableOptions) {

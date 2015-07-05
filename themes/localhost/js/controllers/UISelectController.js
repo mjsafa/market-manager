@@ -7,7 +7,7 @@
  * We want to perform a OR.
  */
 
-MetronicApp.filter('propsFilter', function() {
+angular.module('MetronicApp').filter('propsFilter', function() {
     return function(items, props) {
         var out = [];
 

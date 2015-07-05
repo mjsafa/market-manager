@@ -109,9 +109,16 @@
                    </a>
                </li>
         <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER'])">
-            <a href="#/user-activities.html">
+        <a href="#/user-activities.html">
+            <i class="icon-list"></i>
+            <span class="title">فعالیت کاربران</span>
+        </a>
+    </li>
+
+        <li class="start" ng-if="checkAnyRoles(['ADMINISTRATOR_USER'])">
+            <a href="#/instances.html">
                 <i class="icon-list"></i>
-                <span class="title">فعالیت کاربران</span>
+                <span class="title">نمایندگی ها</span>
             </a>
         </li>
 

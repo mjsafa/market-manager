@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal', 'UserService', 'PaymentService', '$filter',
+angular.module('MetronicApp').controller('CustomerDetailController', ['$rootScope', '$scope', 'CustomerService', 'ScoreService', '$stateParams', '$state', '$modal', 'UserService', 'PaymentService', '$filter',
     function ($rootScope, $scope, CustomerService, ScoreService, $stateParams, $state, $modal, UserService, PaymentService, $filter) {
 
         if (!$scope.initialized) {    //bind listeners only for the first time

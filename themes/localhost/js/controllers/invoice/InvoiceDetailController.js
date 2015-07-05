@@ -1,4 +1,4 @@
-MetronicApp.controller('InvoiceDetailController', ['$rootScope', '$scope', 'InvoiceService', 'CustomerService', '$stateParams', '$state', '$modal', function ($rootScope, $scope, InvoiceService, CustomerService, $stateParams, $state, $modal, $filter) {
+angular.module('MetronicApp').controller('InvoiceDetailController', ['$rootScope', '$scope', 'InvoiceService', 'CustomerService', '$stateParams', '$state', '$modal', function ($rootScope, $scope, InvoiceService, CustomerService, $stateParams, $state, $modal, $filter) {
     $scope.newItem = {};
 
     $scope.invoiceId = $stateParams.invoiceId;

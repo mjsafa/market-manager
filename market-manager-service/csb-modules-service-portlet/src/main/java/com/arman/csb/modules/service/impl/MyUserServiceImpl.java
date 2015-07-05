@@ -115,7 +115,7 @@ public class MyUserServiceImpl extends MyUserServiceBaseImpl {
         List<User> users = new ArrayList<User>();
         for (User user : allUsers) {
             for (long id : user.getGroupIds()) {
-                if(id == serviceContext.getScopeGroupId()){
+                if(id == serviceContext.getScopeGroupId() || serviceContext.getScopeGroupId() == 0){
                     users.add(user);
                     break;
                 }

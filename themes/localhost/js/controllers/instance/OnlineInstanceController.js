@@ -1,4 +1,4 @@
-MetronicApp.controller('OnlineInstanceController', ['$rootScope', '$scope', 'InstanceService', '$state', '$modal', function ($rootScope, $scope, InstanceService, $state, $modal) {
+angular.module('MetronicApp').controller('OnlineInstanceController', ['$rootScope', '$scope', 'InstanceService', '$state', '$modal', function ($rootScope, $scope, InstanceService, $state, $modal) {
 
     if (!$scope.initialized) {
         $rootScope.$on('InstanceService.getInstanceByGroupId', function (event, data) {

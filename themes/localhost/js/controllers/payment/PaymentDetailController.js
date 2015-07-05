@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('UserDetailController', ['$rootScope', '$scope', 'UserService', 'ScoreService', '$stateParams', '$state', '$modal',
+angular.module('MetronicApp').controller('UserDetailController', ['$rootScope', '$scope', 'UserService', 'ScoreService', '$stateParams', '$state', '$modal',
     function ($rootScope, $scope, UserService, ScoreService, $stateParams, $state, $modal) {
         $scope.userService = UserService;
         $scope.userId = $stateParams.userId;

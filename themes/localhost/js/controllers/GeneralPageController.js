@@ -1,5 +1,5 @@
 /* Setup general page controller */
-MetronicApp.controller('GeneralPageController', ['$rootScope', '$scope', 'settings', '$rootScope', '$state', '$window', '$location', '$timeout', function ($rootScope, $scope, settings, $rootScope, $state, $window, $location , $timeout) {
+angular.module('MetronicApp').controller('GeneralPageController', ['$rootScope', '$scope', 'settings', '$rootScope', '$state', '$window', '$location', '$timeout', function ($rootScope, $scope, settings, $rootScope, $state, $window, $location , $timeout) {
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
         Metronic.initAjax();

@@ -1,4 +1,4 @@
-MetronicApp.controller('ProductsController', ['$rootScope', '$scope', 'ProductService', '$state', '$modal','$filter', function ($rootScope, $scope, ProductService, $state, $modal,$filter) {
+angular.module('MetronicApp').controller('ProductsController', ['$rootScope', '$scope', 'ProductService', '$state', '$modal','$filter', function ($rootScope, $scope, ProductService, $state, $modal,$filter) {
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 

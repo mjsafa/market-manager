@@ -116,10 +116,10 @@ MetronicApp.directive('emptyToNull', function () {
 });
 
 
-MetronicApp.directive('myFileUpload', function () {
+MetronicApp.directive('fileUpload', function () {
     return {
         templateUrl: '/delegate/resource/views/my-file-upload.html',
-        restrict: 'E',
+        restrict: 'A',
         scope: {
             uploader: '=uploader',
             isSingle: '@isSingle'

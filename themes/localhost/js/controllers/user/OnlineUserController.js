@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('OnlineUserController', ['$rootScope', '$scope', 'UserService', '$state', '$modal', function ($rootScope, $scope, UserService, $state, $modal) {
+angular.module('MetronicApp').controller('OnlineUserController', ['$rootScope', '$scope', 'UserService', '$state', '$modal', function ($rootScope, $scope, UserService, $state, $modal) {
 
     if (!$scope.initialized) {    //bind listeners only for the first time
         $rootScope.$on('UserService.setAgreed', function (event, data) {

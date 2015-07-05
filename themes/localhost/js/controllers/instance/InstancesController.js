@@ -1,4 +1,4 @@
-MetronicApp.controller('InstancesController', ['$rootScope', '$scope', 'InstanceService', '$state', '$modal','$filter', 'FileUploader', function ($rootScope, $scope, InstanceService, $state, $modal, $filter, FileUploader) {
+angular.module('MetronicApp').controller('InstancesController', ['$rootScope', '$scope', 'InstanceService', '$state', '$modal','$filter', 'FileUploader', function ($rootScope, $scope, InstanceService, $state, $modal, $filter, FileUploader) {
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 

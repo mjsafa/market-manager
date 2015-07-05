@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('CustomerDetailController',['$rootScope', '$scope', 'CustomerService','$stateParams',
+angular.module('MetronicApp').controller('CustomerDetailController',['$rootScope', '$scope', 'CustomerService','$stateParams',
     function($rootScope, $scope, CustomerService, $stateParams) {
         $scope.customerId = $stateParams.customerId;
 

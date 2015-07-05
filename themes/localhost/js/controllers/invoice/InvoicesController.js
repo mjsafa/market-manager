@@ -1,4 +1,4 @@
-MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceService', 'CustomerService', '$state', '$modal', function ($rootScope, $scope, InvoiceService, CustomerService, $state, $modal) {
+angular.module('MetronicApp').controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceService', 'CustomerService', '$state', '$modal', function ($rootScope, $scope, InvoiceService, CustomerService, $state, $modal) {
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 

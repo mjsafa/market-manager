@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('CustomerScoreController', ['$rootScope', '$scope', 'CustomerService', '$state', '$modal', '$modalInstance','customer', function ($rootScope, $scope, CustomerService, $state, $modal, $modalInstance, customer) {
+angular.module('MetronicApp').controller('CustomerScoreController', ['$rootScope', '$scope', 'CustomerService', '$state', '$modal', '$modalInstance','customer', function ($rootScope, $scope, CustomerService, $state, $modal, $modalInstance, customer) {
 
     $scope.newScore = {value: 0};
     $scope.customer = customer;

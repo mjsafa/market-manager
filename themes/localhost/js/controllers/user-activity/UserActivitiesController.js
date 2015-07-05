@@ -1,4 +1,4 @@
-MetronicApp.controller('UserActivitiesController', ['$rootScope', '$scope', 'UserActivityService', '$state', '$modal', '$filter', function ($rootScope, $scope, UserActivityService, $state, $modal, $filter) {
+angular.module('MetronicApp').controller('UserActivitiesController', ['$rootScope', '$scope', 'UserActivityService', '$state', '$modal', '$filter', function ($rootScope, $scope, UserActivityService, $state, $modal, $filter) {
     $rootScope.settings.layout.pageBodySolid = true;
     $rootScope.settings.layout.pageSidebarClosed = false;
 

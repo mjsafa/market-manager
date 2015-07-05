@@ -189,7 +189,7 @@ MetronicApp.directive('mysFileUpload', function() {
 MetronicApp.directive('uploadThumb', function() {
     return {
         templateUrl: '/delegate/resource/views/upload-thumb.html',
-        restrict: 'E',
+        restrict: 'A',
         scope: {
             uploader: '=uploader',
             thumbHeight: '@height',
@@ -202,7 +202,7 @@ MetronicApp.directive('uploadThumb', function() {
 MetronicApp.directive('dateRange', function() {
     return {
         templateUrl: '/delegate/resource/views/dateRange.html',
-        restrict: 'E',
+        restrict: 'A',
         scope: {
             fromDate: '=fromDate',
             toDate: '=toDate'
