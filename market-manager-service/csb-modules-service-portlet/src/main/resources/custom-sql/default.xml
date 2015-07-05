@@ -142,6 +142,8 @@
                 ) AND
                 (
                     (? OR invoice.status = ?) AND
+                    (? OR invoice.createDate >= ?) AND
+                    (? OR invoice.createDate <= ?) AND
                     (? OR invoice.customerId = ?)
                 ) AND
                 (
@@ -151,6 +153,38 @@
         ]]>
     </sql>
 
+    <sql id="com.arman.csb.modules.service.InvoiceService.count">
+        <![CDATA[
+            SELECT
+                count(invoice.id_)
+            FROM CSBModules_Invoice AS invoice
+            INNER JOIN
+                CSBModules_Customer as customer
+            ON invoice.customerid = customer.id_
+            LEFT OUTER JOIN
+                (SELECT item.invoiceId, COUNT(item.id_) AS numberOfItem, SUM(item.number_ * product.basePrice) AS totalCost,
+                    SUM(item.number_ * product.score) AS totalScore
+                FROM CSBModules_InvoiceItem AS item
+                INNER JOIN CSBModules_Product as product ON product.id_ = item.productId
+                GROUP BY item.invoiceId)
+            AS itemData ON itemData.invoiceId = invoice.id_
+            WHERE
+                (
+                    (invoice.address like '##KEYWORD##') OR
+                    (invoice.telephone like '##KEYWORD##') OR
+                    (invoice.mobile like '##KEYWORD##')
+                ) AND
+                (
+                    (? OR invoice.status = ?) AND
+                    (? OR invoice.createDate >= ?) AND
+                    (? OR invoice.createDate <= ?) AND
+                    (? OR invoice.customerId = ?)
+                ) AND
+                (
+                    (invoice.groupId = ?)
+                )
+        ]]>
+    </sql>
 
     <sql id="com.arman.csb.modules.service.PaymentService.paymentsByDate">
         <![CDATA[

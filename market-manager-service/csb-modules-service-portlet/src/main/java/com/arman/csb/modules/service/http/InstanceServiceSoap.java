@@ -80,6 +80,21 @@ public class InstanceServiceSoap {
         }
     }
 
+    public static java.lang.String getInstanceByGroupId(long groupId,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.portal.kernel.json.JSONObject returnValue = InstanceServiceUtil.getInstanceByGroupId(groupId,
+                    serviceContext);
+
+            return returnValue.toString();
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
     public static java.lang.String search(java.lang.String filter, int status,
         int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)

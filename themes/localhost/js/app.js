@@ -1031,7 +1031,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             '/delegate/resource/js/server/server.js',
                             '/delegate/resource/js/server/InstanceService.js',
                             '/delegate/resource/js/controllers/instance/InstanceDetailController.js',
-                            '/delegate/resource/js/controllers/user/UserSelectController.js'
+                            '/delegate/resource/js/controllers/user/UserSelectController.js',
+                            '/delegate/resource/js/viewDirectives.js'
                         ]
                     });
                 }]
@@ -1101,11 +1102,12 @@ MetronicApp.config(['$provide', function($provide) {
             //fileItem.url = response.link;
             //this.files = this.files || [];
 
-            if(this.queue[fileItem.index]){
+            fileItem.url = response.link;
+            /*if(this.queue[fileItem.index]){
                 //console.log(response.link);
 
                 this.queue[fileItem.index].url = response.link;
-            }
+            }*/
         };
 
         FileUploader.prototype.onAfterAddingFile = function(fileItem){

@@ -49,7 +49,8 @@ public class InvoiceServiceClp implements InvoiceService {
         _methodName5 = "search";
 
         _methodParameterTypes5 = new String[] {
-                "java.lang.String", "java.lang.String", "long", "int", "int",
+                "java.lang.String", "java.lang.String", "long", "java.util.Date",
+                "java.util.Date", "int", "int",
                 "com.liferay.portal.service.ServiceContext"
             };
 
@@ -189,10 +190,10 @@ public class InvoiceServiceClp implements InvoiceService {
     }
 
     @Override
-    public com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, java.lang.String status, long customerId,
-        int start, int maxResult,
-        com.liferay.portal.service.ServiceContext serviceContext)
+    public com.liferay.portal.kernel.json.JSONObject search(
+        java.lang.String text, java.lang.String status, long customerId,
+        java.util.Date fromDate, java.util.Date toDate, int start,
+        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
@@ -201,11 +202,15 @@ public class InvoiceServiceClp implements InvoiceService {
             returnObj = _invokableService.invokeMethod(_methodName5,
                     _methodParameterTypes5,
                     new Object[] {
-                        ClpSerializer.translateInput(filter),
+                        ClpSerializer.translateInput(text),
                         
                     ClpSerializer.translateInput(status),
                         
                     customerId,
+                        
+                    ClpSerializer.translateInput(fromDate),
+                        
+                    ClpSerializer.translateInput(toDate),
                         
                     start,
                         
@@ -232,7 +237,7 @@ public class InvoiceServiceClp implements InvoiceService {
             }
         }
 
-        return (com.liferay.portal.kernel.json.JSONArray) ClpSerializer.translateOutput(returnObj);
+        return (com.liferay.portal.kernel.json.JSONObject) ClpSerializer.translateOutput(returnObj);
     }
 
     @Override

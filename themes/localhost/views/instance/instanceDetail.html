@@ -171,6 +171,30 @@
 
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">لوگوی فعلی</label>
+
+                                <div class="col-md-8">
+                                    <img src="{{instance.logo}}" style="max-width: 150px">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">لوگوی جدید</label>
+
+                                <div class="col-md-8">
+                                    <div file-upload is-single="true" uploader="uploader">
+                                    </div>
+                                    <div upload-thumb height="200" uploader="uploader" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-6">

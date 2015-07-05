@@ -23,11 +23,15 @@
         <column name="status" type="int"/>
 
         <finder name="UserId" return-type="Collection">
-            <finder-column name="userId"></finder-column>
+            <finder-column name="groupId"></finder-column>
         </finder>
 
         <finder name="Name" return-type="Collection">
             <finder-column name="name"></finder-column>
+        </finder>
+
+        <finder name="GroupId" return-type="Instance">
+            <finder-column name="groupId"/>
         </finder>
 
     </entity>

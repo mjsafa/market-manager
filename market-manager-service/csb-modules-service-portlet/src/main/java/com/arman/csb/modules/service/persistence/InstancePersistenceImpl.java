@@ -146,12 +146,12 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
             InstanceModelImpl.FINDER_CACHE_ENABLED, InstanceImpl.class,
             FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUserId",
             new String[] { Long.class.getName() },
-            InstanceModelImpl.USERID_COLUMN_BITMASK);
+            InstanceModelImpl.GROUPID_COLUMN_BITMASK);
     public static final FinderPath FINDER_PATH_COUNT_BY_USERID = new FinderPath(InstanceModelImpl.ENTITY_CACHE_ENABLED,
             InstanceModelImpl.FINDER_CACHE_ENABLED, Long.class,
             FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserId",
             new String[] { Long.class.getName() });
-    private static final String _FINDER_COLUMN_USERID_USERID_2 = "instance.userId = ?";
+    private static final String _FINDER_COLUMN_USERID_GROUPID_2 = "instance.groupId = ?";
     public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_NAME = new FinderPath(InstanceModelImpl.ENTITY_CACHE_ENABLED,
             InstanceModelImpl.FINDER_CACHE_ENABLED, InstanceImpl.class,
             FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByName",
@@ -173,6 +173,16 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     private static final String _FINDER_COLUMN_NAME_NAME_1 = "instance.name IS NULL";
     private static final String _FINDER_COLUMN_NAME_NAME_2 = "instance.name = ?";
     private static final String _FINDER_COLUMN_NAME_NAME_3 = "(instance.name IS NULL OR instance.name = '')";
+    public static final FinderPath FINDER_PATH_FETCH_BY_GROUPID = new FinderPath(InstanceModelImpl.ENTITY_CACHE_ENABLED,
+            InstanceModelImpl.FINDER_CACHE_ENABLED, InstanceImpl.class,
+            FINDER_CLASS_NAME_ENTITY, "fetchByGroupId",
+            new String[] { Long.class.getName() },
+            InstanceModelImpl.GROUPID_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_GROUPID = new FinderPath(InstanceModelImpl.ENTITY_CACHE_ENABLED,
+            InstanceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
+            new String[] { Long.class.getName() });
+    private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "instance.groupId = ?";
     private static final String _SQL_SELECT_INSTANCE = "SELECT instance FROM Instance instance";
     private static final String _SQL_SELECT_INSTANCE_WHERE = "SELECT instance FROM Instance instance WHERE ";
     private static final String _SQL_COUNT_INSTANCE = "SELECT COUNT(instance) FROM Instance instance";
@@ -1452,44 +1462,44 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     }
 
     /**
-     * Returns all the instances where userId = &#63;.
+     * Returns all the instances where groupId = &#63;.
      *
-     * @param userId the user ID
+     * @param groupId the group ID
      * @return the matching instances
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public List<Instance> findByUserId(long userId) throws SystemException {
-        return findByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+    public List<Instance> findByUserId(long groupId) throws SystemException {
+        return findByUserId(groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
     }
 
     /**
-     * Returns a range of all the instances where userId = &#63;.
+     * Returns a range of all the instances where groupId = &#63;.
      *
      * <p>
      * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.InstanceModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
      * </p>
      *
-     * @param userId the user ID
+     * @param groupId the group ID
      * @param start the lower bound of the range of instances
      * @param end the upper bound of the range of instances (not inclusive)
      * @return the range of matching instances
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public List<Instance> findByUserId(long userId, int start, int end)
+    public List<Instance> findByUserId(long groupId, int start, int end)
         throws SystemException {
-        return findByUserId(userId, start, end, null);
+        return findByUserId(groupId, start, end, null);
     }
 
     /**
-     * Returns an ordered range of all the instances where userId = &#63;.
+     * Returns an ordered range of all the instances where groupId = &#63;.
      *
      * <p>
      * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.InstanceModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
      * </p>
      *
-     * @param userId the user ID
+     * @param groupId the group ID
      * @param start the lower bound of the range of instances
      * @param end the upper bound of the range of instances (not inclusive)
      * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -1497,7 +1507,7 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public List<Instance> findByUserId(long userId, int start, int end,
+    public List<Instance> findByUserId(long groupId, int start, int end,
         OrderByComparator orderByComparator) throws SystemException {
         boolean pagination = true;
         FinderPath finderPath = null;
@@ -1507,10 +1517,10 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
                 (orderByComparator == null)) {
             pagination = false;
             finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID;
-            finderArgs = new Object[] { userId };
+            finderArgs = new Object[] { groupId };
         } else {
             finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_USERID;
-            finderArgs = new Object[] { userId, start, end, orderByComparator };
+            finderArgs = new Object[] { groupId, start, end, orderByComparator };
         }
 
         List<Instance> list = (List<Instance>) FinderCacheUtil.getResult(finderPath,
@@ -1518,7 +1528,7 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
         if ((list != null) && !list.isEmpty()) {
             for (Instance instance : list) {
-                if ((userId != instance.getUserId())) {
+                if ((groupId != instance.getGroupId())) {
                     list = null;
 
                     break;
@@ -1538,7 +1548,7 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
             query.append(_SQL_SELECT_INSTANCE_WHERE);
 
-            query.append(_FINDER_COLUMN_USERID_USERID_2);
+            query.append(_FINDER_COLUMN_USERID_GROUPID_2);
 
             if (orderByComparator != null) {
                 appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -1559,7 +1569,7 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                qPos.add(userId);
+                qPos.add(groupId);
 
                 if (!pagination) {
                     list = (List<Instance>) QueryUtil.list(q, getDialect(),
@@ -1589,19 +1599,19 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     }
 
     /**
-     * Returns the first instance in the ordered set where userId = &#63;.
+     * Returns the first instance in the ordered set where groupId = &#63;.
      *
-     * @param userId the user ID
+     * @param groupId the group ID
      * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
      * @return the first matching instance
      * @throws com.arman.csb.modules.NoSuchInstanceException if a matching instance could not be found
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Instance findByUserId_First(long userId,
+    public Instance findByUserId_First(long groupId,
         OrderByComparator orderByComparator)
         throws NoSuchInstanceException, SystemException {
-        Instance instance = fetchByUserId_First(userId, orderByComparator);
+        Instance instance = fetchByUserId_First(groupId, orderByComparator);
 
         if (instance != null) {
             return instance;
@@ -1611,8 +1621,8 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
         msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-        msg.append("userId=");
-        msg.append(userId);
+        msg.append("groupId=");
+        msg.append(groupId);
 
         msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1620,17 +1630,17 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     }
 
     /**
-     * Returns the first instance in the ordered set where userId = &#63;.
+     * Returns the first instance in the ordered set where groupId = &#63;.
      *
-     * @param userId the user ID
+     * @param groupId the group ID
      * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
      * @return the first matching instance, or <code>null</code> if a matching instance could not be found
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Instance fetchByUserId_First(long userId,
+    public Instance fetchByUserId_First(long groupId,
         OrderByComparator orderByComparator) throws SystemException {
-        List<Instance> list = findByUserId(userId, 0, 1, orderByComparator);
+        List<Instance> list = findByUserId(groupId, 0, 1, orderByComparator);
 
         if (!list.isEmpty()) {
             return list.get(0);
@@ -1640,19 +1650,19 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     }
 
     /**
-     * Returns the last instance in the ordered set where userId = &#63;.
+     * Returns the last instance in the ordered set where groupId = &#63;.
      *
-     * @param userId the user ID
+     * @param groupId the group ID
      * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
      * @return the last matching instance
      * @throws com.arman.csb.modules.NoSuchInstanceException if a matching instance could not be found
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Instance findByUserId_Last(long userId,
+    public Instance findByUserId_Last(long groupId,
         OrderByComparator orderByComparator)
         throws NoSuchInstanceException, SystemException {
-        Instance instance = fetchByUserId_Last(userId, orderByComparator);
+        Instance instance = fetchByUserId_Last(groupId, orderByComparator);
 
         if (instance != null) {
             return instance;
@@ -1662,8 +1672,8 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
         msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-        msg.append("userId=");
-        msg.append(userId);
+        msg.append("groupId=");
+        msg.append(groupId);
 
         msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1671,23 +1681,23 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     }
 
     /**
-     * Returns the last instance in the ordered set where userId = &#63;.
+     * Returns the last instance in the ordered set where groupId = &#63;.
      *
-     * @param userId the user ID
+     * @param groupId the group ID
      * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
      * @return the last matching instance, or <code>null</code> if a matching instance could not be found
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Instance fetchByUserId_Last(long userId,
+    public Instance fetchByUserId_Last(long groupId,
         OrderByComparator orderByComparator) throws SystemException {
-        int count = countByUserId(userId);
+        int count = countByUserId(groupId);
 
         if (count == 0) {
             return null;
         }
 
-        List<Instance> list = findByUserId(userId, count - 1, count,
+        List<Instance> list = findByUserId(groupId, count - 1, count,
                 orderByComparator);
 
         if (!list.isEmpty()) {
@@ -1698,17 +1708,17 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     }
 
     /**
-     * Returns the instances before and after the current instance in the ordered set where userId = &#63;.
+     * Returns the instances before and after the current instance in the ordered set where groupId = &#63;.
      *
      * @param id the primary key of the current instance
-     * @param userId the user ID
+     * @param groupId the group ID
      * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
      * @return the previous, current, and next instance
      * @throws com.arman.csb.modules.NoSuchInstanceException if a instance with the primary key could not be found
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Instance[] findByUserId_PrevAndNext(long id, long userId,
+    public Instance[] findByUserId_PrevAndNext(long id, long groupId,
         OrderByComparator orderByComparator)
         throws NoSuchInstanceException, SystemException {
         Instance instance = findByPrimaryKey(id);
@@ -1720,12 +1730,12 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
             Instance[] array = new InstanceImpl[3];
 
-            array[0] = getByUserId_PrevAndNext(session, instance, userId,
+            array[0] = getByUserId_PrevAndNext(session, instance, groupId,
                     orderByComparator, true);
 
             array[1] = instance;
 
-            array[2] = getByUserId_PrevAndNext(session, instance, userId,
+            array[2] = getByUserId_PrevAndNext(session, instance, groupId,
                     orderByComparator, false);
 
             return array;
@@ -1737,7 +1747,7 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     }
 
     protected Instance getByUserId_PrevAndNext(Session session,
-        Instance instance, long userId, OrderByComparator orderByComparator,
+        Instance instance, long groupId, OrderByComparator orderByComparator,
         boolean previous) {
         StringBundler query = null;
 
@@ -1750,7 +1760,7 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
         query.append(_SQL_SELECT_INSTANCE_WHERE);
 
-        query.append(_FINDER_COLUMN_USERID_USERID_2);
+        query.append(_FINDER_COLUMN_USERID_GROUPID_2);
 
         if (orderByComparator != null) {
             String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
@@ -1813,7 +1823,7 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
         QueryPos qPos = QueryPos.getInstance(q);
 
-        qPos.add(userId);
+        qPos.add(groupId);
 
         if (orderByComparator != null) {
             Object[] values = orderByComparator.getOrderByConditionValues(instance);
@@ -1833,31 +1843,31 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     }
 
     /**
-     * Removes all the instances where userId = &#63; from the database.
+     * Removes all the instances where groupId = &#63; from the database.
      *
-     * @param userId the user ID
+     * @param groupId the group ID
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public void removeByUserId(long userId) throws SystemException {
-        for (Instance instance : findByUserId(userId, QueryUtil.ALL_POS,
+    public void removeByUserId(long groupId) throws SystemException {
+        for (Instance instance : findByUserId(groupId, QueryUtil.ALL_POS,
                 QueryUtil.ALL_POS, null)) {
             remove(instance);
         }
     }
 
     /**
-     * Returns the number of instances where userId = &#63;.
+     * Returns the number of instances where groupId = &#63;.
      *
-     * @param userId the user ID
+     * @param groupId the group ID
      * @return the number of matching instances
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public int countByUserId(long userId) throws SystemException {
+    public int countByUserId(long groupId) throws SystemException {
         FinderPath finderPath = FINDER_PATH_COUNT_BY_USERID;
 
-        Object[] finderArgs = new Object[] { userId };
+        Object[] finderArgs = new Object[] { groupId };
 
         Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
                 this);
@@ -1867,7 +1877,7 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
             query.append(_SQL_COUNT_INSTANCE_WHERE);
 
-            query.append(_FINDER_COLUMN_USERID_USERID_2);
+            query.append(_FINDER_COLUMN_USERID_GROUPID_2);
 
             String sql = query.toString();
 
@@ -1880,7 +1890,7 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
                 QueryPos qPos = QueryPos.getInstance(q);
 
-                qPos.add(userId);
+                qPos.add(groupId);
 
                 count = (Long) q.uniqueResult();
 
@@ -2380,6 +2390,206 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
     }
 
     /**
+     * Returns the instance where groupId = &#63; or throws a {@link com.arman.csb.modules.NoSuchInstanceException} if it could not be found.
+     *
+     * @param groupId the group ID
+     * @return the matching instance
+     * @throws com.arman.csb.modules.NoSuchInstanceException if a matching instance could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Instance findByGroupId(long groupId)
+        throws NoSuchInstanceException, SystemException {
+        Instance instance = fetchByGroupId(groupId);
+
+        if (instance == null) {
+            StringBundler msg = new StringBundler(4);
+
+            msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+            msg.append("groupId=");
+            msg.append(groupId);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchInstanceException(msg.toString());
+        }
+
+        return instance;
+    }
+
+    /**
+     * Returns the instance where groupId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+     *
+     * @param groupId the group ID
+     * @return the matching instance, or <code>null</code> if a matching instance could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Instance fetchByGroupId(long groupId) throws SystemException {
+        return fetchByGroupId(groupId, true);
+    }
+
+    /**
+     * Returns the instance where groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+     *
+     * @param groupId the group ID
+     * @param retrieveFromCache whether to use the finder cache
+     * @return the matching instance, or <code>null</code> if a matching instance could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Instance fetchByGroupId(long groupId, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { groupId };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_GROUPID,
+                    finderArgs, this);
+        }
+
+        if (result instanceof Instance) {
+            Instance instance = (Instance) result;
+
+            if ((groupId != instance.getGroupId())) {
+                result = null;
+            }
+        }
+
+        if (result == null) {
+            StringBundler query = new StringBundler(3);
+
+            query.append(_SQL_SELECT_INSTANCE_WHERE);
+
+            query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(groupId);
+
+                List<Instance> list = q.list();
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_GROUPID,
+                        finderArgs, list);
+                } else {
+                    if ((list.size() > 1) && _log.isWarnEnabled()) {
+                        _log.warn(
+                            "InstancePersistenceImpl.fetchByGroupId(long, boolean) with parameters (" +
+                            StringUtil.merge(finderArgs) +
+                            ") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+                    }
+
+                    Instance instance = list.get(0);
+
+                    result = instance;
+
+                    cacheResult(instance);
+
+                    if ((instance.getGroupId() != groupId)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_GROUPID,
+                            finderArgs, instance);
+                    }
+                }
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_GROUPID,
+                    finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        if (result instanceof List<?>) {
+            return null;
+        } else {
+            return (Instance) result;
+        }
+    }
+
+    /**
+     * Removes the instance where groupId = &#63; from the database.
+     *
+     * @param groupId the group ID
+     * @return the instance that was removed
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Instance removeByGroupId(long groupId)
+        throws NoSuchInstanceException, SystemException {
+        Instance instance = findByGroupId(groupId);
+
+        return remove(instance);
+    }
+
+    /**
+     * Returns the number of instances where groupId = &#63;.
+     *
+     * @param groupId the group ID
+     * @return the number of matching instances
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countByGroupId(long groupId) throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_GROUPID;
+
+        Object[] finderArgs = new Object[] { groupId };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(2);
+
+            query.append(_SQL_COUNT_INSTANCE_WHERE);
+
+            query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(groupId);
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
      * Caches the instance in the entity cache if it is enabled.
      *
      * @param instance the instance
@@ -2391,6 +2601,9 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
         FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
             new Object[] { instance.getUuid(), instance.getGroupId() }, instance);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_GROUPID,
+            new Object[] { instance.getGroupId() }, instance);
 
         instance.resetOriginalValues();
     }
@@ -2474,6 +2687,13 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
                 Long.valueOf(1));
             FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
                 instance);
+
+            args = new Object[] { instance.getGroupId() };
+
+            FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_GROUPID, args,
+                Long.valueOf(1));
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_GROUPID, args,
+                instance);
         } else {
             InstanceModelImpl instanceModelImpl = (InstanceModelImpl) instance;
 
@@ -2486,6 +2706,16 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
                 FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
                     Long.valueOf(1));
                 FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
+                    instance);
+            }
+
+            if ((instanceModelImpl.getColumnBitmask() &
+                    FINDER_PATH_FETCH_BY_GROUPID.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] { instance.getGroupId() };
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_GROUPID, args,
+                    Long.valueOf(1));
+                FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_GROUPID, args,
                     instance);
             }
         }
@@ -2508,6 +2738,19 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
 
             FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
             FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+        }
+
+        args = new Object[] { instance.getGroupId() };
+
+        FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_GROUPID, args);
+
+        if ((instanceModelImpl.getColumnBitmask() &
+                FINDER_PATH_FETCH_BY_GROUPID.getColumnBitmask()) != 0) {
+            args = new Object[] { instanceModelImpl.getOriginalGroupId() };
+
+            FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_GROUPID, args);
         }
     }
 
@@ -2691,14 +2934,14 @@ public class InstancePersistenceImpl extends BasePersistenceImpl<Instance>
             if ((instanceModelImpl.getColumnBitmask() &
                     FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID.getColumnBitmask()) != 0) {
                 Object[] args = new Object[] {
-                        instanceModelImpl.getOriginalUserId()
+                        instanceModelImpl.getOriginalGroupId()
                     };
 
                 FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
                 FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
                     args);
 
-                args = new Object[] { instanceModelImpl.getUserId() };
+                args = new Object[] { instanceModelImpl.getGroupId() };
 
                 FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
                 FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,

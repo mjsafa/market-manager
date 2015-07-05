@@ -331,6 +331,13 @@ public class TemplateLocalServiceUtil {
         return getService().getTemplatesByCompany(companyId);
     }
 
+    public static com.arman.csb.theme.model.Template getTemplateByName(
+        java.lang.String name)
+        throws com.arman.csb.theme.NoSuchTemplateException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().getTemplateByName(name);
+    }
+
     public static void clearService() {
         _service = null;
     }

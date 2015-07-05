@@ -1,7 +1,25 @@
 MetronicApp.factory("InvoiceService", function (JsonServer) {
    return {
-       search:function (filter, status, customerId, options) {
-           var result = JsonServer.postByUrl('/csb-modules-service-portlet.invoice', 'search', {filter:filter, status:status, customerId:customerId, start:0, maxResult:30, serviceContext:{scopeGroupId:scopeGroupId}}, {
+       search:function (filter, text, status, customerId, options) {
+           var _filter = angular.copy(filter, _filter);
+           if(_filter){
+               if(_filter.fromDate){
+                   _filter.fromDate = _filter.fromDate.getTime();
+               } else {
+                   _filter.fromDate = null;
+               }
+
+               if(_filter.toDate){
+                   _filter.toDate = _filter.toDate.getTime();
+               } else {
+                   _filter.toDate = null;
+               }
+           }
+
+           var result = JsonServer.postByUrl('/csb-modules-service-portlet.invoice', 'search', {
+               text:text, status:status, customerId:customerId,
+               fromDate:_filter.fromDate, toDate:_filter.toDate, start:_filter.first, maxResult:_filter.maxResults,
+               serviceContext:{scopeGroupId:scopeGroupId}}, {
                eventName:'InvoiceService.search',
                scope:options ? options.scope : undefined
            });

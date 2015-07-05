@@ -296,4 +296,10 @@ public interface TemplateLocalService extends BaseLocalService,
     public java.util.List<com.arman.csb.theme.model.Template> getTemplatesByCompany(
         long companyId)
         throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.arman.csb.theme.model.Template getTemplateByName(
+        java.lang.String name)
+        throws com.arman.csb.theme.NoSuchTemplateException,
+            com.liferay.portal.kernel.exception.SystemException;
 }

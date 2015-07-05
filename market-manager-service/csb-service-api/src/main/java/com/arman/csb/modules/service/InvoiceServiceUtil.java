@@ -67,15 +67,15 @@ public class InvoiceServiceUtil {
         return getService().updateInvoice(invoice, serviceContext);
     }
 
-    public static com.liferay.portal.kernel.json.JSONArray search(
-        java.lang.String filter, java.lang.String status, long customerId,
-        int start, int maxResult,
-        com.liferay.portal.service.ServiceContext serviceContext)
+    public static com.liferay.portal.kernel.json.JSONObject search(
+        java.lang.String text, java.lang.String status, long customerId,
+        java.util.Date fromDate, java.util.Date toDate, int start,
+        int maxResult, com.liferay.portal.service.ServiceContext serviceContext)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException {
         return getService()
-                   .search(filter, status, customerId, start, maxResult,
-            serviceContext);
+                   .search(text, status, customerId, fromDate, toDate, start,
+            maxResult, serviceContext);
     }
 
     public static com.liferay.portal.kernel.json.JSONObject getById(

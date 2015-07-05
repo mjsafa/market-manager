@@ -505,44 +505,45 @@ public class InstanceUtil {
     }
 
     /**
-    * Returns all the instances where userId = &#63;.
+    * Returns all the instances where groupId = &#63;.
     *
-    * @param userId the user ID
+    * @param groupId the group ID
     * @return the matching instances
     * @throws SystemException if a system exception occurred
     */
     public static java.util.List<com.arman.csb.modules.model.Instance> findByUserId(
-        long userId) throws com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().findByUserId(userId);
+        long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findByUserId(groupId);
     }
 
     /**
-    * Returns a range of all the instances where userId = &#63;.
+    * Returns a range of all the instances where groupId = &#63;.
     *
     * <p>
     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.InstanceModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
     * </p>
     *
-    * @param userId the user ID
+    * @param groupId the group ID
     * @param start the lower bound of the range of instances
     * @param end the upper bound of the range of instances (not inclusive)
     * @return the range of matching instances
     * @throws SystemException if a system exception occurred
     */
     public static java.util.List<com.arman.csb.modules.model.Instance> findByUserId(
-        long userId, int start, int end)
+        long groupId, int start, int end)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().findByUserId(userId, start, end);
+        return getPersistence().findByUserId(groupId, start, end);
     }
 
     /**
-    * Returns an ordered range of all the instances where userId = &#63;.
+    * Returns an ordered range of all the instances where groupId = &#63;.
     *
     * <p>
     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.arman.csb.modules.model.impl.InstanceModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
     * </p>
     *
-    * @param userId the user ID
+    * @param groupId the group ID
     * @param start the lower bound of the range of instances
     * @param end the upper bound of the range of instances (not inclusive)
     * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -550,117 +551,117 @@ public class InstanceUtil {
     * @throws SystemException if a system exception occurred
     */
     public static java.util.List<com.arman.csb.modules.model.Instance> findByUserId(
-        long userId, int start, int end,
+        long groupId, int start, int end,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getPersistence()
-                   .findByUserId(userId, start, end, orderByComparator);
+                   .findByUserId(groupId, start, end, orderByComparator);
     }
 
     /**
-    * Returns the first instance in the ordered set where userId = &#63;.
+    * Returns the first instance in the ordered set where groupId = &#63;.
     *
-    * @param userId the user ID
+    * @param groupId the group ID
     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
     * @return the first matching instance
     * @throws com.arman.csb.modules.NoSuchInstanceException if a matching instance could not be found
     * @throws SystemException if a system exception occurred
     */
     public static com.arman.csb.modules.model.Instance findByUserId_First(
-        long userId,
+        long groupId,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.arman.csb.modules.NoSuchInstanceException,
             com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().findByUserId_First(userId, orderByComparator);
+        return getPersistence().findByUserId_First(groupId, orderByComparator);
     }
 
     /**
-    * Returns the first instance in the ordered set where userId = &#63;.
+    * Returns the first instance in the ordered set where groupId = &#63;.
     *
-    * @param userId the user ID
+    * @param groupId the group ID
     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
     * @return the first matching instance, or <code>null</code> if a matching instance could not be found
     * @throws SystemException if a system exception occurred
     */
     public static com.arman.csb.modules.model.Instance fetchByUserId_First(
-        long userId,
+        long groupId,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().fetchByUserId_First(userId, orderByComparator);
+        return getPersistence().fetchByUserId_First(groupId, orderByComparator);
     }
 
     /**
-    * Returns the last instance in the ordered set where userId = &#63;.
+    * Returns the last instance in the ordered set where groupId = &#63;.
     *
-    * @param userId the user ID
+    * @param groupId the group ID
     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
     * @return the last matching instance
     * @throws com.arman.csb.modules.NoSuchInstanceException if a matching instance could not be found
     * @throws SystemException if a system exception occurred
     */
     public static com.arman.csb.modules.model.Instance findByUserId_Last(
-        long userId,
+        long groupId,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.arman.csb.modules.NoSuchInstanceException,
             com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().findByUserId_Last(userId, orderByComparator);
+        return getPersistence().findByUserId_Last(groupId, orderByComparator);
     }
 
     /**
-    * Returns the last instance in the ordered set where userId = &#63;.
+    * Returns the last instance in the ordered set where groupId = &#63;.
     *
-    * @param userId the user ID
+    * @param groupId the group ID
     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
     * @return the last matching instance, or <code>null</code> if a matching instance could not be found
     * @throws SystemException if a system exception occurred
     */
     public static com.arman.csb.modules.model.Instance fetchByUserId_Last(
-        long userId,
+        long groupId,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().fetchByUserId_Last(userId, orderByComparator);
+        return getPersistence().fetchByUserId_Last(groupId, orderByComparator);
     }
 
     /**
-    * Returns the instances before and after the current instance in the ordered set where userId = &#63;.
+    * Returns the instances before and after the current instance in the ordered set where groupId = &#63;.
     *
     * @param id the primary key of the current instance
-    * @param userId the user ID
+    * @param groupId the group ID
     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
     * @return the previous, current, and next instance
     * @throws com.arman.csb.modules.NoSuchInstanceException if a instance with the primary key could not be found
     * @throws SystemException if a system exception occurred
     */
     public static com.arman.csb.modules.model.Instance[] findByUserId_PrevAndNext(
-        long id, long userId,
+        long id, long groupId,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.arman.csb.modules.NoSuchInstanceException,
             com.liferay.portal.kernel.exception.SystemException {
         return getPersistence()
-                   .findByUserId_PrevAndNext(id, userId, orderByComparator);
+                   .findByUserId_PrevAndNext(id, groupId, orderByComparator);
     }
 
     /**
-    * Removes all the instances where userId = &#63; from the database.
+    * Removes all the instances where groupId = &#63; from the database.
     *
-    * @param userId the user ID
+    * @param groupId the group ID
     * @throws SystemException if a system exception occurred
     */
-    public static void removeByUserId(long userId)
+    public static void removeByUserId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
-        getPersistence().removeByUserId(userId);
+        getPersistence().removeByUserId(groupId);
     }
 
     /**
-    * Returns the number of instances where userId = &#63;.
+    * Returns the number of instances where groupId = &#63;.
     *
-    * @param userId the user ID
+    * @param groupId the group ID
     * @return the number of matching instances
     * @throws SystemException if a system exception occurred
     */
-    public static int countByUserId(long userId)
+    public static int countByUserId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().countByUserId(userId);
+        return getPersistence().countByUserId(groupId);
     }
 
     /**
@@ -820,6 +821,74 @@ public class InstanceUtil {
     public static int countByName(java.lang.String name)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getPersistence().countByName(name);
+    }
+
+    /**
+    * Returns the instance where groupId = &#63; or throws a {@link com.arman.csb.modules.NoSuchInstanceException} if it could not be found.
+    *
+    * @param groupId the group ID
+    * @return the matching instance
+    * @throws com.arman.csb.modules.NoSuchInstanceException if a matching instance could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static com.arman.csb.modules.model.Instance findByGroupId(
+        long groupId)
+        throws com.arman.csb.modules.NoSuchInstanceException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findByGroupId(groupId);
+    }
+
+    /**
+    * Returns the instance where groupId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+    *
+    * @param groupId the group ID
+    * @return the matching instance, or <code>null</code> if a matching instance could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static com.arman.csb.modules.model.Instance fetchByGroupId(
+        long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchByGroupId(groupId);
+    }
+
+    /**
+    * Returns the instance where groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+    *
+    * @param groupId the group ID
+    * @param retrieveFromCache whether to use the finder cache
+    * @return the matching instance, or <code>null</code> if a matching instance could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static com.arman.csb.modules.model.Instance fetchByGroupId(
+        long groupId, boolean retrieveFromCache)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchByGroupId(groupId, retrieveFromCache);
+    }
+
+    /**
+    * Removes the instance where groupId = &#63; from the database.
+    *
+    * @param groupId the group ID
+    * @return the instance that was removed
+    * @throws SystemException if a system exception occurred
+    */
+    public static com.arman.csb.modules.model.Instance removeByGroupId(
+        long groupId)
+        throws com.arman.csb.modules.NoSuchInstanceException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().removeByGroupId(groupId);
+    }
+
+    /**
+    * Returns the number of instances where groupId = &#63;.
+    *
+    * @param groupId the group ID
+    * @return the number of matching instances
+    * @throws SystemException if a system exception occurred
+    */
+    public static int countByGroupId(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().countByGroupId(groupId);
     }
 
     /**

@@ -84,8 +84,9 @@ public class TemplateModelImpl extends BaseModelImpl<Template>
             true);
     public static long COMPANYID_COLUMN_BITMASK = 1L;
     public static long GROUPID_COLUMN_BITMASK = 2L;
-    public static long UUID_COLUMN_BITMASK = 4L;
-    public static long ID_COLUMN_BITMASK = 8L;
+    public static long NAME_COLUMN_BITMASK = 4L;
+    public static long UUID_COLUMN_BITMASK = 8L;
+    public static long ID_COLUMN_BITMASK = 16L;
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
                 "lock.expiration.time.com.arman.csb.theme.model.Template"));
     private static ClassLoader _classLoader = Template.class.getClassLoader();
@@ -107,6 +108,7 @@ public class TemplateModelImpl extends BaseModelImpl<Template>
     private Date _createDate;
     private Date _modifiedDate;
     private String _name;
+    private String _originalName;
     private String _head;
     private String _bottom;
     private String _htmlContent;
@@ -440,7 +442,17 @@ public class TemplateModelImpl extends BaseModelImpl<Template>
 
     @Override
     public void setName(String name) {
+        _columnBitmask |= NAME_COLUMN_BITMASK;
+
+        if (_originalName == null) {
+            _originalName = _name;
+        }
+
         _name = name;
+    }
+
+    public String getOriginalName() {
+        return GetterUtil.getString(_originalName);
     }
 
     @JSON
@@ -595,6 +607,8 @@ public class TemplateModelImpl extends BaseModelImpl<Template>
         templateModelImpl._originalCompanyId = templateModelImpl._companyId;
 
         templateModelImpl._setOriginalCompanyId = false;
+
+        templateModelImpl._originalName = templateModelImpl._name;
 
         templateModelImpl._columnBitmask = 0;
     }

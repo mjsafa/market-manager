@@ -50,13 +50,15 @@ import java.rmi.RemoteException;
 public class InvoiceServiceSoap {
     private static Log _log = LogFactoryUtil.getLog(InvoiceServiceSoap.class);
 
-    public static java.lang.String search(java.lang.String filter,
-        java.lang.String status, long customerId, int start, int maxResult,
+    public static java.lang.String search(java.lang.String text,
+        java.lang.String status, long customerId, java.util.Date fromDate,
+        java.util.Date toDate, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)
         throws RemoteException {
         try {
-            com.liferay.portal.kernel.json.JSONArray returnValue = InvoiceServiceUtil.search(filter,
-                    status, customerId, start, maxResult, serviceContext);
+            com.liferay.portal.kernel.json.JSONObject returnValue = InvoiceServiceUtil.search(text,
+                    status, customerId, fromDate, toDate, start, maxResult,
+                    serviceContext);
 
             return returnValue.toString();
         } catch (Exception e) {

@@ -82,6 +82,14 @@ public class InstanceServiceWrapper implements InstanceService,
     }
 
     @Override
+    public com.liferay.portal.kernel.json.JSONObject getInstanceByGroupId(
+        long groupId, com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _instanceService.getInstanceByGroupId(groupId, serviceContext);
+    }
+
+    @Override
     public com.liferay.portal.kernel.json.JSONArray search(
         java.lang.String filter, int status, int start, int maxResult,
         com.liferay.portal.service.ServiceContext serviceContext)

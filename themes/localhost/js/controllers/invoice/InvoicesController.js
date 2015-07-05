@@ -5,7 +5,6 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
     $scope.invoiceService = InvoiceService;
     $scope.currentCustomerId = onlineUser.customerId;
     $scope.searchCustomerId = $scope.currentCustomerId ? $scope.currentCustomerId:0;
-    $scope.invoiceService.search('', '', $scope.searchCustomerId, {scope: $scope});
 
     $scope.$on('$viewContentLoaded', function () {
         // initialize core components
@@ -21,7 +20,8 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
         });
 
         $scope.$on('InvoiceService.search', function (event, data) {
-            $scope.invoices = data.result;
+            $scope.invoices = data.result.result;
+            $scope.totalInvoices = data.result.total;
 
             if($scope.currentCustomerId) {
                 CustomerService.getById($scope.currentCustomerId);
@@ -37,6 +37,10 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
             $scope.currentCustomer = data.result;
             $scope.newInvoice.mobile = $scope.currentCustomer.mobile;
         });
+
+        $scope.filter = $scope.filter || {};
+        $scope.filter.currentPage = 1;
+        $scope.itemsPerPage = 10;
     }
 
     $scope.initialData = function () {
@@ -154,7 +158,18 @@ MetronicApp.controller('InvoicesController', ['$rootScope', '$scope', 'InvoiceSe
     };
 
     $scope.doSearch = function () {
-        $scope.invoiceService.search($scope.query || '', $scope.selectedStatus || '', $scope.searchCustomerId, {scope: $scope});
+        $scope.filter = $scope.filter || {};
+        $scope.filter.first = ($scope.filter.currentPage -1) * $scope.itemsPerPage;
+        $scope.filter.maxResults = $scope.itemsPerPage;
+
+        $scope.invoiceService.search($scope.filter, $scope.query || '', $scope.selectedStatus || '',
+            $scope.searchCustomerId, {scope: $scope});
+    }
+    $scope.doSearch();
+
+    $scope.doSearchButton = function () {
+        $scope.filter.currentPage = 1;
+        $scope.doSearch();
     }
 
     $scope.updateStatus = function(invoiceId ,newStatus) {

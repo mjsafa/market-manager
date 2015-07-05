@@ -380,9 +380,11 @@
                     </div>
                 </div>
 
+                <div date-range from-date="filter.fromDate" to-date="filter.toDate" style="float: right"></div>
+
                 <div class="portlet-input input-inline input-medium">
                     <div class="input-group">
-                        <input ng-enter="doSearch()" type="text" ng-model="query"
+                        <input ng-enter="doSearchButton()" type="text" ng-model="query"
                                class="form-control input-circle-left" placeholder="جستجو ..."/>
                                 <span class="input-group-btn">
                                 <button ng-click="doSearch()" class="btn btn-circle-right btn-default" type="submit">
@@ -391,6 +393,7 @@
                                 </span>
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -407,7 +410,7 @@
                                 تعداد کل
                             </div>
                             <div class="number">
-                                {{invoices.length}}
+                                {{totalInvoices}}
                             </div>
                         </div>
                     </div>
@@ -487,6 +490,10 @@
                         </td>
                     </tr>
                 </table>
+                <pagination items-per-page="itemsPerPage" total-items="totalInvoices" ng-model="filter.currentPage"
+                            ng-change="doSearch()"
+                            previous-text="صفحه قبل"
+                            next-text="صفحه بعد" ></pagination>
             </div>
         </div>
     </div>
